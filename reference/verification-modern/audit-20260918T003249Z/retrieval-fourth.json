@@ -1,0 +1,729 @@
+[
+  {
+    "key": "1_api_full",
+    "url": "https://api.elsevier.com/content/article/pii/S0031320320304775?httpAccept=text/xml&view=FULL",
+    "checked_at": "2026-09-18T00:34:25.424741+00:00",
+    "error": "HTTP Error 401: Unauthorized",
+    "status": 401
+  },
+  {
+    "key": "5_api_full",
+    "url": "https://api.elsevier.com/content/article/pii/S0950705124004787?httpAccept=text/xml&view=FULL",
+    "checked_at": "2026-09-18T00:34:25.425327+00:00",
+    "error": "HTTP Error 401: Unauthorized",
+    "status": 401
+  },
+  {
+    "key": "6_api_full",
+    "url": "https://api.elsevier.com/content/article/pii/S0031320320305264?httpAccept=text/xml&view=FULL",
+    "checked_at": "2026-09-18T00:34:25.425679+00:00",
+    "error": "HTTP Error 401: Unauthorized",
+    "status": 401
+  },
+  {
+    "key": "8_api_full",
+    "url": "https://api.elsevier.com/content/article/pii/S0031320325008428?httpAccept=text/xml&view=FULL",
+    "checked_at": "2026-09-18T00:34:25.425992+00:00",
+    "error": "HTTP Error 401: Unauthorized",
+    "status": 401
+  },
+  {
+    "key": "1_openalex",
+    "url": "https://api.openalex.org/works/https://doi.org/10.1016/j.patcog.2020.107674",
+    "checked_at": "2026-09-18T00:34:25.426357+00:00",
+    "status": 200,
+    "final_url": "https://api.openalex.org/works/https://doi.org/10.1016/j.patcog.2020.107674",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\1_openalex.json",
+    "bytes": 14478,
+    "locations": [
+      {
+        "id": "doi:10.1016/j.patcog.2020.107674",
+        "is_oa": false,
+        "landing_page_url": "https://doi.org/10.1016/j.patcog.2020.107674",
+        "pdf_url": null,
+        "source": {
+          "id": "https://openalex.org/S414566",
+          "display_name": "Pattern Recognition",
+          "issn_l": "0031-3203",
+          "issn": [
+            "0031-3203",
+            "1873-5142"
+          ],
+          "is_oa": false,
+          "is_in_doaj": false,
+          "is_core": true,
+          "host_organization": "https://openalex.org/P4310320990",
+          "host_organization_name": "Elsevier BV",
+          "host_organization_lineage": [
+            "https://openalex.org/P4310320990"
+          ],
+          "host_organization_lineage_names": [
+            "Elsevier BV"
+          ],
+          "type": "journal"
+        },
+        "license": null,
+        "license_id": null,
+        "version": "publishedVersion",
+        "is_accepted": true,
+        "is_published": true,
+        "raw_source_name": "Pattern Recognition",
+        "raw_type": "journal-article"
+      }
+    ],
+    "publication_date": "2020-09-25",
+    "abstract_inverted_index": null
+  },
+  {
+    "key": "3_openalex",
+    "url": "https://api.openalex.org/works/https://doi.org/10.1109/TKDE.2022.3177634",
+    "checked_at": "2026-09-18T00:34:25.426687+00:00",
+    "status": 200,
+    "final_url": "https://api.openalex.org/works/https://doi.org/10.1109/TKDE.2022.3177634",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\3_openalex.json",
+    "bytes": 16280,
+    "locations": [
+      {
+        "id": "doi:10.1109/tkde.2022.3177634",
+        "is_oa": false,
+        "landing_page_url": "https://doi.org/10.1109/tkde.2022.3177634",
+        "pdf_url": null,
+        "source": {
+          "id": "https://openalex.org/S30698027",
+          "display_name": "IEEE Transactions on Knowledge and Data Engineering",
+          "issn_l": "1041-4347",
+          "issn": [
+            "1041-4347",
+            "1558-2191",
+            "2326-3865"
+          ],
+          "is_oa": false,
+          "is_in_doaj": false,
+          "is_core": true,
+          "host_organization": "https://openalex.org/P4310320439",
+          "host_organization_name": "IEEE Computer Society",
+          "host_organization_lineage": [
+            "https://openalex.org/P4310320439",
+            "https://openalex.org/P4310319808"
+          ],
+          "host_organization_lineage_names": [
+            "IEEE Computer Society",
+            "Institute of Electrical and Electronics Engineers"
+          ],
+          "type": "journal"
+        },
+        "license": null,
+        "license_id": null,
+        "version": "publishedVersion",
+        "is_accepted": true,
+        "is_published": true,
+        "raw_source_name": "IEEE Transactions on Knowledge and Data Engineering",
+        "raw_type": "journal-article"
+      }
+    ],
+    "publication_date": "2022-01-01",
+    "abstract_inverted_index": {
+      "Naive": [
+        0
+      ],
+      "Bayes": [
+        1,
+        84
+      ],
+      "(NB)": [
+        2
+      ],
+      "continues": [
+        3
+      ],
+      "to": [
+        4,
+        15,
+        26,
+        47,
+        108,
+        122,
+        128,
+        163
+      ],
+      "be": [
+        5
+      ],
+      "one": [
+        6
+      ],
+      "of": [
+        7,
+        35,
+        106,
+        136
+      ],
+      "the": [
+        8,
+        40,
+        50,
+        71,
+        134,
+        145,
+        154,
+        165,
+        182
+      ],
+      "top": [
+        9
+      ],
+      "10": [
+        10
+      ],
+      "data": [
+        11,
+        51,
+        58
+      ],
+      "mining": [
+        12
+      ],
+      "algorithms": [
+        13
+      ],
+      "due": [
+        14
+      ],
+      "its": [
+        16,
+        28
+      ],
+      "simplicity,": [
+        17
+      ],
+      "efficiency": [
+        18
+      ],
+      "and": [
+        19,
+        74,
+        115,
+        180
+      ],
+      "efficacy.": [
+        20
+      ],
+      "Numerous": [
+        21
+      ],
+      "enhancements": [
+        22
+      ],
+      "have": [
+        23
+      ],
+      "been": [
+        24
+      ],
+      "proposed": [
+        25
+      ],
+      "weaken": [
+        27
+      ],
+      "attribute": [
+        29,
+        42,
+        81,
+        130,
+        138
+      ],
+      "conditional": [
+        30,
+        147
+      ],
+      "independence": [
+        31
+      ],
+      "assumption.": [
+        32
+      ],
+      "However,": [
+        33
+      ],
+      "all": [
+        34,
+        49,
+        117,
+        181
+      ],
+      "them": [
+        36,
+        107
+      ],
+      "only": [
+        37
+      ],
+      "focus": [
+        38
+      ],
+      "on": [
+        39
+      ],
+      "raw": [
+        41,
+        72
+      ],
+      "view,": [
+        43
+      ],
+      "which": [
+        44
+      ],
+      "is": [
+        45
+      ],
+      "hard": [
+        46
+      ],
+      "reflect": [
+        48
+      ],
+      "characteristics": [
+        52,
+        59
+      ],
+      "in": [
+        53,
+        62,
+        113,
+        150
+      ],
+      "real-world": [
+        54
+      ],
+      "applications.": [
+        55
+      ],
+      "To": [
+        56
+      ],
+      "portray": [
+        57
+      ],
+      "more": [
+        60
+      ],
+      "comprehensively,": [
+        61
+      ],
+      "this": [
+        63
+      ],
+      "study,": [
+        64
+      ],
+      "we": [
+        65,
+        88,
+        103,
+        132
+      ],
+      "construct": [
+        66,
+        123
+      ],
+      "two": [
+        67,
+        124
+      ],
+      "label": [
+        68,
+        125,
+        167
+      ],
+      "views": [
+        69,
+        160
+      ],
+      "from": [
+        70
+      ],
+      "attributes": [
+        73
+      ],
+      "propose": [
+        75
+      ],
+      "a": [
+        76
+      ],
+      "novel": [
+        77
+      ],
+      "model": [
+        78
+      ],
+      "called": [
+        79
+      ],
+      "multi-view": [
+        80
+      ],
+      "weighted": [
+        82
+      ],
+      "naive": [
+        83
+      ],
+      "(MAWNB).": [
+        85
+      ],
+      "In": [
+        86
+      ],
+      "MAWNB,": [
+        87
+      ],
+      "first": [
+        89
+      ],
+      "build": [
+        90
+      ],
+      "multiple": [
+        91
+      ],
+      "super-parent": [
+        92
+      ],
+      "one-dependence": [
+        93
+      ],
+      "estimators": [
+        94
+      ],
+      "(SPODEs)": [
+        95
+      ],
+      "as": [
+        96,
+        98
+      ],
+      "well": [
+        97
+      ],
+      "random": [
+        99
+      ],
+      "trees": [
+        100
+      ],
+      "(RTs),": [
+        101
+      ],
+      "then": [
+        102
+      ],
+      "utilize": [
+        104
+      ],
+      "each": [
+        105,
+        110,
+        137,
+        141,
+        151,
+        169
+      ],
+      "classify": [
+        109
+      ],
+      "training": [
+        111
+      ],
+      "instance": [
+        112
+      ],
+      "turn": [
+        114
+      ],
+      "use": [
+        116
+      ],
+      "their": [
+        118
+      ],
+      "predicted": [
+        119
+      ],
+      "class": [
+        120,
+        142,
+        166
+      ],
+      "labels": [
+        121
+      ],
+      "views.": [
+        126
+      ],
+      "Next,": [
+        127
+      ],
+      "avoid": [
+        129
+      ],
+      "redundancy,": [
+        131
+      ],
+      "optimize": [
+        133
+      ],
+      "weight": [
+        135
+      ],
+      "value": [
+        139
+      ],
+      "for": [
+        140,
+        168
+      ],
+      "by": [
+        143,
+        158
+      ],
+      "minimizing": [
+        144
+      ],
+      "negative": [
+        146
+      ],
+      "log-likelihood": [
+        148
+      ],
+      "(CLL)": [
+        149
+      ],
+      "view.": [
+        152
+      ],
+      "Finally,": [
+        153
+      ],
+      "estimated": [
+        155
+      ],
+      "class-membership": [
+        156
+      ],
+      "probabilities": [
+        157
+      ],
+      "three": [
+        159
+      ],
+      "are": [
+        161
+      ],
+      "fused": [
+        162
+      ],
+      "predict": [
+        164
+      ],
+      "test": [
+        170
+      ],
+      "instance.": [
+        171
+      ],
+      "Extensive": [
+        172
+      ],
+      "experiments": [
+        173
+      ],
+      "show": [
+        174
+      ],
+      "that": [
+        175
+      ],
+      "MAWNB": [
+        176
+      ],
+      "significantly": [
+        177
+      ],
+      "outperforms": [
+        178
+      ],
+      "NB": [
+        179
+      ],
+      "other": [
+        183
+      ],
+      "existing": [
+        184
+      ],
+      "state-of-the-art": [
+        185
+      ],
+      "competitors.": [
+        186
+      ]
+    }
+  },
+  {
+    "key": "5_openalex",
+    "url": "https://api.openalex.org/works/https://doi.org/10.1016/j.knosys.2024.111844",
+    "checked_at": "2026-09-18T00:34:25.530652+00:00",
+    "status": 200,
+    "final_url": "https://api.openalex.org/works/https://doi.org/10.1016/j.knosys.2024.111844",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\5_openalex.json",
+    "bytes": 13043,
+    "locations": [
+      {
+        "id": "doi:10.1016/j.knosys.2024.111844",
+        "is_oa": false,
+        "landing_page_url": "https://doi.org/10.1016/j.knosys.2024.111844",
+        "pdf_url": null,
+        "source": {
+          "id": "https://openalex.org/S10169007",
+          "display_name": "Knowledge-Based Systems",
+          "issn_l": "0950-7051",
+          "issn": [
+            "0950-7051",
+            "1872-7409"
+          ],
+          "is_oa": false,
+          "is_in_doaj": false,
+          "is_core": true,
+          "host_organization": "https://openalex.org/P4310320990",
+          "host_organization_name": "Elsevier BV",
+          "host_organization_lineage": [
+            "https://openalex.org/P4310320990"
+          ],
+          "host_organization_lineage_names": [
+            "Elsevier BV"
+          ],
+          "type": "journal"
+        },
+        "license": null,
+        "license_id": null,
+        "version": "publishedVersion",
+        "is_accepted": true,
+        "is_published": true,
+        "raw_source_name": "Knowledge-Based Systems",
+        "raw_type": "journal-article"
+      }
+    ],
+    "publication_date": "2024-05-02",
+    "abstract_inverted_index": null
+  },
+  {
+    "key": "6_openalex",
+    "url": "https://api.openalex.org/works/https://doi.org/10.1016/j.patcog.2020.107723",
+    "checked_at": "2026-09-18T00:34:25.539464+00:00",
+    "status": 200,
+    "final_url": "https://api.openalex.org/works/https://doi.org/10.1016/j.patcog.2020.107723",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\6_openalex.json",
+    "bytes": 15859,
+    "locations": [
+      {
+        "id": "doi:10.1016/j.patcog.2020.107723",
+        "is_oa": true,
+        "landing_page_url": "https://doi.org/10.1016/j.patcog.2020.107723",
+        "pdf_url": "https://www.sciencedirect.com/science/article/pii/S0031320320305264",
+        "source": {
+          "id": "https://openalex.org/S414566",
+          "display_name": "Pattern Recognition",
+          "issn_l": "0031-3203",
+          "issn": [
+            "0031-3203",
+            "1873-5142"
+          ],
+          "is_oa": false,
+          "is_in_doaj": false,
+          "is_core": true,
+          "host_organization": "https://openalex.org/P4310320990",
+          "host_organization_name": "Elsevier BV",
+          "host_organization_lineage": [
+            "https://openalex.org/P4310320990"
+          ],
+          "host_organization_lineage_names": [
+            "Elsevier BV"
+          ],
+          "type": "journal"
+        },
+        "license": null,
+        "license_id": null,
+        "version": "publishedVersion",
+        "is_accepted": true,
+        "is_published": true,
+        "raw_source_name": "Pattern Recognition",
+        "raw_type": "journal-article"
+      },
+      {
+        "id": "pmh:oai:helvia.uco.es:10396/26740",
+        "is_oa": true,
+        "landing_page_url": "http://hdl.handle.net/10396/26740",
+        "pdf_url": "http://helvia.uco.es/xmlui/bitstream/10396/26740/3/si_fs.pdf",
+        "source": {
+          "id": "https://openalex.org/S4306401816",
+          "display_name": "Universidad de C\u00f3rdoba Insitutional Repository (Universidad de C\u00f3rdoba)",
+          "issn_l": null,
+          "issn": null,
+          "is_oa": false,
+          "is_in_doaj": false,
+          "is_core": false,
+          "host_organization": "https://openalex.org/I4210163269",
+          "host_organization_name": "Universidad Paccioli de C\u00f3rdoba",
+          "host_organization_lineage": [
+            "https://openalex.org/I4210163269"
+          ],
+          "host_organization_lineage_names": [],
+          "type": "repository"
+        },
+        "license": "cc-by-nc-nd",
+        "license_id": "https://openalex.org/licenses/cc-by-nc-nd",
+        "version": "submittedVersion",
+        "is_accepted": false,
+        "is_published": false,
+        "raw_source_name": "Garc\u00eda-Pedrajas, N., Romero Del Castillo, J. A., &amp; Garc\u00eda, G. C. (2021). SI(FS)2: fast simultaneous instance and feature selection for datasets with many features. Pattern Recognition, 111, 107723. https://doi.org/10.1016/j.patcog.2020.107723",
+        "raw_type": "info:eu-repo/semantics/article"
+      }
+    ],
+    "publication_date": "2020-10-23",
+    "abstract_inverted_index": null
+  },
+  {
+    "key": "3_ieeeabs",
+    "url": "https://ieeexplore.ieee.org/abstract/document/9787796",
+    "checked_at": "2026-09-18T00:34:25.540182+00:00",
+    "error": "HTTP Error 418: Unknown Code",
+    "status": 418
+  },
+  {
+    "key": "3_dblp_alias",
+    "url": "https://dblp.uni-trier.de/rec/journals/tkde/ZhangJZL23.xml",
+    "checked_at": "2026-09-18T00:34:25.540435+00:00",
+    "status": 200,
+    "final_url": "https://dblp.uni-trier.de/rec/journals/tkde/ZhangJZL23.xml",
+    "content_type": "text/html; charset=utf-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\3_dblp_alias.html",
+    "bytes": 7440
+  },
+  {
+    "key": "7_supp",
+    "url": "https://ojs.aaai.org/index.php/AAAI/article/download/29183/30239",
+    "checked_at": "2026-09-18T00:34:25.540779+00:00",
+    "status": 200,
+    "final_url": "https://underline.io/lecture/91702-which-is-more-effective-in-label-noise-cleaning-correction-or-filteringquestion",
+    "content_type": "text/html; charset=utf-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\7_supp.html",
+    "bytes": 290798
+  }
+]

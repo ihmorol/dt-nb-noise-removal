@@ -1,0 +1,101 @@
+dataset,arm,final,accuracy,accuracy_std,macro_f1,instances_removed_pct,attributes_kept_pct,seeds,n_splits,ccp_alpha,nb_likelihood,support
+breast-cancer,baseline,NB,58.0131,16.5958,53.4592,0.00,100.00,3,10,0.01,gaussian,True
+breast-cancer,baseline,DT,64.6839,7.4113,57.3828,0.00,100.00,3,10,0.01,gaussian,True
+breast-cancer,Alg1,NB,65.0328,8.8238,58.5351,36.49,100.00,3,10,0.01,gaussian,True
+breast-cancer,Alg1,DT,57.5534,15.4599,52.4512,36.49,100.00,3,10,0.01,gaussian,True
+breast-cancer,Alg2,NB,66.2767,9.3191,52.5038,0.00,50.08,3,10,0.01,gaussian,True
+breast-cancer,Alg2,DT,69.5690,8.5351,60.6762,0.00,50.08,3,10,0.01,gaussian,True
+breast-cancer,C1 N->A,NB,56.8514,18.0604,51.7193,36.49,26.34,3,10,0.01,gaussian,True
+breast-cancer,C1 N->A,DT,57.9023,15.6716,52.9884,36.49,26.34,3,10,0.01,gaussian,True
+breast-cancer,C2 A->N,NB,64.5320,11.3629,57.5643,30.35,50.08,3,10,0.01,gaussian,True
+breast-cancer,C2 A->N,DT,66.8596,9.1842,53.3126,30.35,50.08,3,10,0.01,gaussian,True
+contact-lenses,baseline,NB,85.0000,20.3443,79.1852,0.00,100.00,3,10,0.01,gaussian,True
+contact-lenses,baseline,DT,82.7778,23.7593,76.4074,0.00,100.00,3,10,0.01,gaussian,True
+contact-lenses,Alg1,NB,85.0000,20.3443,79.1852,11.71,100.00,3,10,0.01,gaussian,True
+contact-lenses,Alg1,DT,85.0000,20.3443,79.1852,11.71,100.00,3,10,0.01,gaussian,True
+contact-lenses,Alg2,NB,85.0000,20.3443,79.1852,0.00,100.00,3,10,0.01,gaussian,True
+contact-lenses,Alg2,DT,82.7778,23.7593,76.4074,0.00,100.00,3,10,0.01,gaussian,True
+contact-lenses,C1 N->A,NB,85.0000,20.3443,79.1852,11.71,52.50,3,10,0.01,gaussian,True
+contact-lenses,C1 N->A,DT,85.0000,20.3443,79.1852,11.71,52.50,3,10,0.01,gaussian,True
+contact-lenses,C2 A->N,NB,85.0000,20.3443,79.1852,11.71,100.00,3,10,0.01,gaussian,True
+contact-lenses,C2 A->N,DT,85.0000,20.3443,79.1852,11.71,100.00,3,10,0.01,gaussian,True
+diabetes,baseline,NB,75.5195,4.4258,72.3576,0.00,100.00,3,10,0.01,gaussian,True
+diabetes,baseline,DT,69.5272,4.6061,66.5811,0.00,100.00,3,10,0.01,gaussian,True
+diabetes,Alg1,NB,74.2607,4.8537,71.2779,23.63,100.00,3,10,0.01,gaussian,True
+diabetes,Alg1,DT,74.2151,5.4819,70.2624,23.63,100.00,3,10,0.01,gaussian,True
+diabetes,Alg2,NB,76.3847,4.9805,72.1460,0.00,66.25,3,10,0.01,gaussian,True
+diabetes,Alg2,DT,69.5699,5.8493,66.5268,0.00,66.25,3,10,0.01,gaussian,True
+diabetes,C1 N->A,NB,75.4739,5.0423,71.7897,23.63,83.33,3,10,0.01,gaussian,True
+diabetes,C1 N->A,DT,74.5187,5.1451,70.5873,23.63,83.33,3,10,0.01,gaussian,True
+diabetes,C2 A->N,NB,75.6499,4.6650,70.9812,23.06,66.25,3,10,0.01,gaussian,True
+diabetes,C2 A->N,DT,75.5172,4.5141,70.8968,23.06,66.25,3,10,0.01,gaussian,True
+glass,baseline,NB,46.6017,10.3538,46.7481,0.00,100.00,3,10,0.01,gaussian,True
+glass,baseline,DT,68.3838,8.4074,65.5984,0.00,100.00,3,10,0.01,gaussian,True
+glass,Alg1,NB,36.0173,10.8425,40.0443,47.10,100.00,3,10,0.01,gaussian,True
+glass,Alg1,DT,49.8918,10.9658,47.3583,47.10,100.00,3,10,0.01,gaussian,True
+glass,Alg2,NB,47.4098,9.0353,42.5720,0.00,99.63,3,10,0.01,gaussian,True
+glass,Alg2,DT,68.3838,8.4074,65.5984,0.00,99.63,3,10,0.01,gaussian,True
+glass,C1 N->A,NB,35.2381,8.8997,39.9451,47.10,81.85,3,10,0.01,gaussian,True
+glass,C1 N->A,DT,49.5671,10.7027,46.6108,47.10,81.85,3,10,0.01,gaussian,True
+glass,C2 A->N,NB,44.1198,9.3504,41.5050,46.15,99.63,3,10,0.01,gaussian,True
+glass,C2 A->N,DT,52.3882,7.9514,47.8571,46.15,99.63,3,10,0.01,gaussian,True
+iris,baseline,NB,95.5556,4.6614,95.4731,0.00,100.00,3,10,0.01,gaussian,True
+iris,baseline,DT,94.6667,5.5511,94.5441,0.00,100.00,3,10,0.01,gaussian,True
+iris,Alg1,NB,95.5556,4.6614,95.4731,4.07,100.00,3,10,0.01,gaussian,True
+iris,Alg1,DT,95.3333,4.6027,95.2301,4.07,100.00,3,10,0.01,gaussian,True
+iris,Alg2,NB,95.7778,4.3829,95.6930,0.00,76.67,3,10,0.01,gaussian,True
+iris,Alg2,DT,94.2222,5.6394,94.0811,0.00,76.67,3,10,0.01,gaussian,True
+iris,C1 N->A,NB,95.1111,4.8483,94.9916,4.07,47.50,3,10,0.01,gaussian,True
+iris,C1 N->A,DT,95.3333,4.6027,95.2301,4.07,47.50,3,10,0.01,gaussian,True
+iris,C2 A->N,NB,95.7778,4.3829,95.6930,4.12,76.67,3,10,0.01,gaussian,True
+iris,C2 A->N,DT,95.5556,5.2587,95.4094,4.12,76.67,3,10,0.01,gaussian,True
+soybean,baseline,NB,94.3862,2.6291,96.8469,0.00,100.00,3,10,0.01,gaussian,True
+soybean,baseline,DT,92.2400,3.3332,94.8193,0.00,100.00,3,10,0.01,gaussian,True
+soybean,Alg1,NB,94.0942,2.4698,96.6982,5.00,100.00,3,10,0.01,gaussian,True
+soybean,Alg1,DT,92.9724,3.3578,95.3785,5.00,100.00,3,10,0.01,gaussian,True
+soybean,Alg2,NB,93.1188,3.1724,95.9221,0.00,24.56,3,10,0.01,gaussian,True
+soybean,Alg2,DT,92.9241,3.3489,95.0843,0.00,24.56,3,10,0.01,gaussian,True
+soybean,C1 N->A,NB,93.8008,2.6206,96.2341,5.00,21.68,3,10,0.01,gaussian,True
+soybean,C1 N->A,DT,92.8232,3.3839,95.0547,5.00,21.68,3,10,0.01,gaussian,True
+soybean,C2 A->N,NB,93.0712,3.2334,95.8942,5.94,24.56,3,10,0.01,gaussian,True
+soybean,C2 A->N,DT,92.6819,3.3825,95.2044,5.94,24.56,3,10,0.01,gaussian,True
+vote,baseline,NB,94.5525,3.1119,94.2333,0.00,100.00,3,10,0.01,gaussian,True
+vote,baseline,DT,94.1684,2.9736,93.8532,0.00,100.00,3,10,0.01,gaussian,True
+vote,Alg1,NB,93.8636,3.3717,93.4901,5.10,100.00,3,10,0.01,gaussian,True
+vote,Alg1,DT,95.3206,2.8808,95.0827,5.10,100.00,3,10,0.01,gaussian,True
+vote,Alg2,NB,95.0123,2.9278,94.7944,0.00,15.35,3,10,0.01,gaussian,True
+vote,Alg2,DT,93.7033,3.2723,93.3517,0.00,15.35,3,10,0.01,gaussian,True
+vote,C1 N->A,NB,95.3259,2.9305,95.1072,5.10,4.24,3,10,0.01,gaussian,True
+vote,C1 N->A,DT,94.4767,2.7596,94.1663,5.10,4.24,3,10,0.01,gaussian,True
+vote,C2 A->N,NB,95.0881,3.1418,94.8907,4.50,15.35,3,10,0.01,gaussian,True
+vote,C2 A->N,DT,95.2431,3.0342,95.0408,4.50,15.35,3,10,0.01,gaussian,True
+image-segmentation,baseline,NB,79.6681,1.8212,77.6554,0.00,100.00,3,10,0.01,gaussian,True
+image-segmentation,baseline,DT,96.8398,1.3326,96.8327,0.00,100.00,3,10,0.01,gaussian,True
+image-segmentation,Alg1,NB,75.0649,2.5108,74.6502,19.85,100.00,3,10,0.01,gaussian,True
+image-segmentation,Alg1,DT,89.5382,1.5889,89.3469,19.85,100.00,3,10,0.01,gaussian,True
+image-segmentation,Alg2,NB,84.3579,3.3880,84.3770,0.00,43.86,3,10,0.01,gaussian,True
+image-segmentation,Alg2,DT,96.6811,1.3335,96.6845,0.00,43.86,3,10,0.01,gaussian,True
+image-segmentation,C1 N->A,NB,72.4964,2.4912,71.3094,19.85,35.61,3,10,0.01,gaussian,True
+image-segmentation,C1 N->A,DT,89.6970,1.8850,89.5180,19.85,35.61,3,10,0.01,gaussian,True
+image-segmentation,C2 A->N,NB,80.6205,3.3358,80.7084,15.04,43.86,3,10,0.01,gaussian,True
+image-segmentation,C2 A->N,DT,90.4762,2.2130,90.5113,15.04,43.86,3,10,0.01,gaussian,True
+tic-tac-toe,baseline,NB,66.9448,4.3437,62.5056,0.00,100.00,3,10,0.01,gaussian,True
+tic-tac-toe,baseline,DT,93.5614,3.0397,92.8550,0.00,100.00,3,10,0.01,gaussian,True
+tic-tac-toe,Alg1,NB,67.5033,3.3938,63.3757,31.63,100.00,3,10,0.01,gaussian,True
+tic-tac-toe,Alg1,DT,73.9430,5.8448,70.2421,31.63,100.00,3,10,0.01,gaussian,True
+tic-tac-toe,Alg2,NB,68.4401,3.9230,62.0355,0.00,58.64,3,10,0.01,gaussian,True
+tic-tac-toe,Alg2,DT,95.6871,1.8767,95.1918,0.00,58.64,3,10,0.01,gaussian,True
+tic-tac-toe,C1 N->A,NB,69.9408,4.4042,66.9312,31.63,37.90,3,10,0.01,gaussian,True
+tic-tac-toe,C1 N->A,DT,72.7971,5.2998,68.8438,31.63,37.90,3,10,0.01,gaussian,True
+tic-tac-toe,C2 A->N,NB,68.9996,3.7845,65.6304,30.78,58.64,3,10,0.01,gaussian,True
+tic-tac-toe,C2 A->N,DT,73.4561,4.0292,66.9147,30.78,58.64,3,10,0.01,gaussian,True
+nsl-kdd,baseline,NB,48.4333,5.9129,27.1639,0.00,100.00,3,10,0.01,gaussian,True
+nsl-kdd,baseline,DT,99.5514,0.1243,81.7998,0.00,100.00,3,10,0.01,gaussian,True
+nsl-kdd,Alg1,NB,49.4692,8.5249,22.9524,51.44,100.00,3,10,0.01,gaussian,True
+nsl-kdd,Alg1,DT,85.1950,2.0124,43.6701,51.44,100.00,3,10,0.01,gaussian,True
+nsl-kdd,Alg2,NB,43.0599,2.9892,15.4155,0.00,11.33,3,10,0.01,gaussian,True
+nsl-kdd,Alg2,DT,99.4429,0.1153,83.9857,0.00,11.33,3,10,0.01,gaussian,True
+nsl-kdd,C1 N->A,NB,43.4156,9.2339,18.3501,51.44,6.21,3,10,0.01,gaussian,True
+nsl-kdd,C1 N->A,DT,84.5849,3.4782,43.1326,51.44,6.21,3,10,0.01,gaussian,True
+nsl-kdd,C2 A->N,NB,45.5908,14.3547,13.1514,56.95,11.33,3,10,0.01,gaussian,True
+nsl-kdd,C2 A->N,DT,64.7769,10.5178,24.8855,56.95,11.33,3,10,0.01,gaussian,True

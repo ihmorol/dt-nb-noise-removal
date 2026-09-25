@@ -1,0 +1,1470 @@
+
+--- PAGE 1 ---
+Which Is More Effective in Label Noise Cleaning, Correction or Filtering?
+Gaoxia Jiang1, Jia Zhang1, Xuefei Bai1, Wenjian Wang1*, Deyu Meng2
+1School of Computer and Information Technology, Shanxi University, Taiyuan 030006, China
+2School of Mathematics and Statistics and Ministry of Education Key Lab of Intelligent Networks and Network Security,
+Xi’an Jiaotong University, Xi’an 710049, China
+jianggaoxia@sxu.edu.cn, 774924867@qq.com, {baixuefei, wjwang}@sxu.edu.cn, dymeng@mail.xjtu.edu.cn
+Abstract
+Most noise cleaning methods adopt one of the correction and
+ﬁltering modes to build robust models. However, their ef-
+fectiveness, applicability, and hyper-parameter insensitivity
+have not been carefully studied. We compare the two clean-
+ing modes via a rebuilt error bound in noisy environments. At
+the dataset level, Theorem 5 implies that correction is more
+effective than ﬁltering when the cleaned datasets have close
+noise rates. At the sample level, Theorem 6 indicates that con-
+ﬁdent label noises (large noise probabilities) are more suit-
+able to be corrected, and unconﬁdent noises (medium noise
+probabilities) should be ﬁltered. Besides, an imperfect hyper-
+parameter may have fewer negative impacts on ﬁltering than
+correction. Unlike existing methods with a single cleaning
+mode, the proposed Fusion cleaning framework of Correc-
+tion and Filtering (FCF) combines the advantages of different
+modes to deal with diverse suspicious labels. Experimental
+results demonstrate that our FCF method can achieve state-
+of-the-art performance on benchmark datasets.
+Introduction
+Large-scale datasets with sufﬁcient and accurate labels make
+supervised learning models, especially for deep neural net-
+works, possible to update their parameters and achieve ex-
+cellent performances. However, these labels may be noisy
+due to insufﬁcient information or inexperienced labeling
+workers (Han et al. 2019; Jiang et al. 2021). The label noise
+usually misguides the model training and raises the gener-
+alization risk (Frenay and Verleysen 2014). Cleaning noisy
+data and learning with label noise are critical and challeng-
+ing in supervised learning and complicated real applica-
+tions (Wu et al. 2020; Shu, Yuan, and Meng 2023).
+Noise-robust modeling and noisy data cleaning are the
+main directions in dealing with label noise. Compared with
+noise-robust modeling, noisy data cleaning is more generic
+and ﬂexible. It has been considered the most competitive
+noisy-label learning strategy (Kim et al. 2021; Li, Socher,
+and Hoi 2020). The noisy labels can be cleaned by correc-
+tion or ﬁltering. The former aims to change the corrupted
+labels to the true ones (Zheng et al. 2020; Wu et al. 2021;
+Li and Sun 2022; Li et al. 2023). And noise ﬁltering refers
+*Corresponding author.
+Copyright © 2024, Association for the Advancement of Artiﬁcial
+Intelligence (www.aaai.org). All rights reserved.
+to removing suspicious noisy samples (Song, Kim, and Lee
+2019; Wu et al. 2020; Kim et al. 2021; Wei et al. 2022).
+It has been veriﬁed that both correction and ﬁltering are
+effective in dealing with label noises, but they still have re-
+spective drawbacks, such as wrong corrections and over-
+cleaning. Speciﬁcally, empirical results show that there are
+still about 15% wrong labels after correction on CIFAR-100
+with 40% uniform noise (Wu et al. 2021). Although the label
+purity (correct rate) of the ﬁltered dataset approaches 100%,
+at least 10% of correctly labeled samples are removed in ﬁl-
+tering on CIFAR-100 with 30% pair ﬂip noise (Wu et al.
+2020). Most noise cleaning methods adopt one of the cor-
+rection and ﬁltering modes to generate robust models. How
+to select a proper cleaning mode is a fundamental problem
+in label noise cleaning.
+To the best of our knowledge, correction and ﬁltering have
+not been systematically compared and integrated from the
+error-bound perspective. We investigate three key properties:
+(1) Effectiveness. Which could yield a lower generalization
+error (bound)? (2) Applicability. What kind of noise is the
+cleaning mode suitable for handling? (3) Hyper-parameter
+insensitivity. Which is less sensitive to an imperfect hyper-
+parameter? The motivation is to guide the selection of clean-
+ing modes for designing effective algorithms.
+Error bound is a remarkable theoretical tool in machine
+learning. However, existing bounds are mainly deduced in
+noise-free conditions. We rebuild the error bound in learning
+with uniform label noise to compare correction and ﬁltering.
+Based on this, we develop the ﬁrst fusion cleaning frame-
+work of correction and ﬁltering (FCF) to deal with different
+types of suspicious labels. The main contributions are:
+• Rebuilt error bound for label noise. We rebuild the er-
+ror bound for uniform label noise (Theorem 1) which
+can be viewed as a generalized form of the conventional
+bound. It provides a powerful tool to analyze the perfor-
+mance in learning with label noise.
+• Cleaning mode comparison and selection. Correction
+and ﬁltering are compared in effectiveness, applicability,
+and hyper-parameter insensitivity. It tells us what kind of
+noise is suitable for correction/ﬁltering.
+• Fusion of correction and ﬁltering. We develop a feasi-
+ble fusion cleaning framework as shown in Figure 1 by
+combining the advantages of correction and ﬁltering.
+The Thirty-Eighth AAAI Conference on Artiﬁcial Intelligence (AAAI-24)
+12866
+
+
+--- PAGE 2 ---
+Classifier 
+Label confidence
+Label noise probability
+Warm-up
+1st round of cleaning
+Optimal 
+cleaning size 
+Correction
+2nd round of cleaning
+Filtering
+Bound of 
+correction 
+Bound of 
+filtering
+Optimal 
+cleaning size
+Training Part
+Cleaning Part
+Original 
+dataset
+ Cleaned 
+dataset
+Figure 1: The proposed FCF cleaning framework. In the
+early stage, the classiﬁer is trained on the original dataset
+to produce label conﬁdence and estimate noise probabil-
+ity. Then a certain amount (k1) of large-noise-probability
+(low-conﬁdence) labels are corrected in the ﬁrst round of
+cleaning. The corrected labels usually have median or small
+noise probabilities. In the second round of cleaning, a cer-
+tain amount (k2) of samples with unconﬁdent labels (maybe
+wrongly corrected) will be removed from the corrected
+dataset. The data (cleaning part) and model (training part)
+can be interactively improved in the FCF framework.
+Related Works
+Noise-robust modeling.
+Noise-robust models are usually
+built through robust loss functions, regularization, sample
+weighting, robust architecture, or ensemble methods (Zhang
+et al. 2017; Song et al. 2020; Xia et al. 2020; Shu et al.
+2019; Song et al. 2022), but their performance is far from
+state-of-the-art when the datasets suffer from severe label
+noises (Han et al. 2018; Kim et al. 2021).
+Label noise correction.
+Many label correctors have been
+proposed to identify and correct noisy labels based on model
+predictions or feature representations. (Huang, Zhang, and
+Zhang 2020) predicted the correct label by tracking all his-
+torical model predictions using an exponential moving aver-
+age scheme. (Zheng et al. 2020) identiﬁed a clean label ac-
+cording to the likelihood ratio, which was deﬁned based on
+the noisy label prediction and best label prediction. (Sharma
+et al. 2020) detected and corrected noisy labels by utiliz-
+ing the cluster relationships between all noisy samples. (Wu
+et al. 2020) used the geometry and topology of instance rep-
+resentations to aggressively collect clean samples. (Wu et al.
+2021) proposed a meta-learning model, aiming at training
+an automatic scheme that can estimate soft labels under the
+guidance of a small amount of noise-free metadata. (Li and
+Sun 2022) designed a label correction method simultane-
+ously updating model parameters and correcting noisy la-
+bels. Although the label quality is improved by replacing
+the noisy labels with the underlying true ones, some of these
+methods require prior knowledge about the noise rate, or
+they tend to be sensitive to hyper-parameters like the con-
+ﬁdence threshold.
+Label noise ﬁltering.
+Label noise ﬁltering is also known
+as the high-quality sample/instance selection. Conventional
+ﬁlters mainly contain ensemble-based and nearest-neighbor-
+based methods. Multiple model predictions are considered
+in the ensemble-based ﬁlter to obtain more accurate noise
+recognition (Garcia et al. 2016). These predictions can be
+generated by various classiﬁers or prediction schemes such
+as cross-validation (S´aez et al. 2016; Northcutt, Athalye,
+and Mueller 2021). (Northcutt, Jiang, and Chuang 2021)
+utilized conﬁdence learning to detect noisy labels on some
+commonly used datasets. Noisy labels are ﬁltered based on
+their eigenvectors to provide a high-quality splitting of clean
+and corrupted examples (Kim et al. 2021). By leveraging the
+high-order topological information, most clean data are col-
+lected by a topological ﬁlter (Wu et al. 2020). (Wei et al.
+2022) proposed a selection strategy, self-ﬁltering (SFT), to
+ﬁlter noisy examples by utilizing their ﬂuctuations. Never-
+theless, these ﬁlters suffer from the overcleaning issue that
+overly removes even the true-labeled samples.
+Although it has been veriﬁed that both correction and
+ﬁltering are effective in dealing with label noises, how to
+choose the cleaning mode (correction or ﬁltering) is still an
+unresolved critical problem. It involves their effectiveness,
+applicability, hyper-parameter sensitivity, etc.
+Theoretical Results
+In this section, we consider the random label noise problem
+in binary classiﬁcation. The following analysis is based on
+the known noise probability and noise rate.
+Notations
+Suppose a classiﬁcation dataset D = {(xi, yi)}N
+i=1 with
+label noise is drawn according to distribution D. ˜D =
+{(xi, ˜yi)}N
+i=1 denotes the corresponding noise-free dataset,
+where ˜yi is the ground-truth label. Let N, NA, NB be the
+sample sizes of datasets D, DA, DB from D, respectively.
+Deﬁnition 1 (Label noise). There exists label noise for the
+i-th sample if yi is unequal to the ground-truth label ˜yi.
+Dataset D is noisy if there is at least one label noise in D.
+Deﬁnition 2 (Noise probability). The label noise probability
+pi = Pr(yi ̸= ˜yi).
+(1)
+Deﬁnition 3 (Noise rate). The label noise rate of dataset D
+η = 1
+N
+N
+X
+i=1
+I(yi ̸= ˜yi),
+(2)
+where I(·) denotes the indicator function.
+Let η, ηA, ηB be the noise rates of D, DA, DB, respectively.
+Deﬁnition 4 (Empirical error). The real empirical error of
+hypothesis h(·) on D is
+ˆRE(h; D) = 1
+N
+N
+X
+i=1
+I(h(xi) ̸= yi).
+(3)
+The Thirty-Eighth AAAI Conference on Artiﬁcial Intelligence (AAAI-24)
+12867
+
+
+--- PAGE 3 ---
+The true empirical error of hypothesis h(·) on D is
+RE(h; D) = 1
+N
+N
+X
+i=1
+I(h(xi) ̸= ˜yi).
+(4)
+It holds on a clean dataset that RE(h, D) = ˆRE(h, D).
+Noisy labels can be cleaned by correction and ﬁltering at
+the data level. Noise correction refers to changing the wrong
+labels to the true labels. And noise ﬁltering aims to exclude
+the samples with noisy labels.
+Deﬁnition 5 (Cleaning size). The cleaning size (k) is the
+number of samples to be corrected or ﬁltered. It refers to the
+number of corrected labels in noisy label correction and the
+number of removed samples in noise ﬁltering.
+Deﬁnition 6 (Cleaned dataset). Let {(x(i), y(i))}N
+i=1 be a
+dataset in which samples are ranked by a noise-related in-
+dicator, such as the noise probability (in descending order).
+The corrected dataset with cleaning size k is denoted by
+Dc = {(x(i), yc
+(i))}k
+i=1 ∪{(x(i), y(i))}N
+i=k+1.
+(5)
+The ﬁltered dataset with cleaning size k is denoted by
+Df = {(x(i), y(i))}N
+i=k+1.
+(6)
+The dataset with a single sample correction is
+Dc
+i = {(x(j), yc
+(j))}j=i ∪{(x(j), y(j))}j̸=i.
+(7)
+The dataset with a single sample ﬁltering is
+Df
+i = D\(x(i), y(i)).
+(8)
+Their noise rates are denoted by ηc, ηf, ηc
+i , ηf
+i , respectively.
+Error Bound in Learning with Label Noise
+Deﬁnition 7 (Effectiveness). Let DA, DB be any two
+cleaned (corrected/ﬁltered) sets of D. DA is more effective
+than DB, denoted by DA ≻DB or DB ≺DA, if a given
+hypothesis/model trained on DA has a lower error bound.
+Theorem 1 (Generalization error bound in learning with
+label noise). Let H be a family of functions with VC-
+dimension d. D denotes the distribution over the input space
+X. Then, for any δ > 0, with probability at least 1 −δ over
+dataset D of size N with random label noise, the expected
+risk R(h; D) has the following upper bound for any h ∈H:
+R(h; D) ≤ˆRE(h; D) + [1 −2 ˆRE(h; D)] · η + ϵ(D, H, δ),
+(9)
+where η denotes the noise rate of D, and
+ϵ(D, H, δ) =
+p
+[8d log(2eN/d) + 8 log(4/δ)]/N.
+(10)
+The error bound increases with the noise rate and it be-
+comes a conventional bound at η = 0. Hence it can be taken
+as a generalization of the classical bound. In addition, the
+error bound will be underestimated once the label noise is
+ignored. ϵ(D) is short for ϵ(D, H, δ). By Theorem 1, the
+error bounds of label correction and ﬁltering with cleaning
+size k are
+Bc
+k = ˆRE(h; D) + [1 −2 ˆRE(h; D)] · ηc + ϵ(Dc),
+(11)
+Bf
+k = ˆRE(h; D) + [1 −2 ˆRE(h; D)] · ηf + ϵ(Df), (12)
+where ηc, ηf denote the noise rates of corrected dataset Dc
+and ﬁltered dataset Df, respectively.
+Theorem 2 (Effectiveness comparison). For any model,
+NA > NB, ηA < ηB ⇒DA ≻DB,
+(13)
+NA = NB, ηA < ηB ⇒DA ≻DB,
+(14)
+NA > NB, ηA = ηB ⇒DA ≻DB,
+(15)
+where NA = |DA|, NB = |DB|. ηA, ηB are noise rates.
+It means that a larger sample size and/or a lower noise
+rate yield a lower error bound. When the cleaning size is
+given, it can be concluded from the second case of Theo-
+rem 2 that samples with larger noise probabilities should be
+cleaned ﬁrst both for correction and ﬁltering. The reason is
+that this choice is more likely to reduce the noise rate and the
+error bound as much as possible for a ﬁxed cleaning size.
+Effectiveness of Correction and Filtering
+Theorem 3 (Effectiveness of label correction).
+ηc < η ⇔Dc ≻D.
+(16)
+It indicates that the noise rate is required to be lower than
+before for an effective label correction.
+Theorem 4 (Effectiveness of ﬁltering).
+ηf < η −ϵ(Df) −ϵ(D)
+1 −2 ˆRE(h; D)
+⇔Df ≻D.
+(17)
+It implies that the noise rate of the ﬁltered dataset should
+be signiﬁcantly reduced to compensate for sample removal.
+Cleaning size (k)
+0
+300
+600
+Noise rate
+0.1
+0.3
+0.5
+2c
+2f
+2
+Figure 2: Noise rates of correction and ﬁltering. 1000 noise
+probability values are directly generated from a beta mix-
+ture distribution, and they do not depend on any dataset or
+classiﬁer in simulations. Pseudo-random numbers from two
+sub-distributions correspond to noisy and clean samples, re-
+spectively. The cleaning sequence is set partially by noise
+probability pi descendingly. Initial noise rate η = 0.3, sam-
+ple size N = 1000. The vertical dashed line represents the
+size of noises ηN = 300. Results are averaged on 100 trails.
+Figure 2 simulates the noise rates of correction and ﬁl-
+tering. The noise rate of correction ηc decreases with the
+cleaning size on the left of the vertical dashed line, and it
+starts growing on the other side due to wrong corrections.
+The noise rate of ﬁltering ηf decreases with the cleaning
+The Thirty-Eighth AAAI Conference on Artiﬁcial Intelligence (AAAI-24)
+12868
+
+
+--- PAGE 4 ---
+size. It tends to be a small positive value owing to an imper-
+fect noise probability estimate in the real situation.
+Figure 3 shows the error bounds of correction and ﬁl-
+tering. The bound of correction Bc
+k is slightly lower than
+that of ﬁltering Bf
+k when the cleaning size is smaller than
+the size of noises (ηN). While the ﬁltering is clearly more
+effective than the correction (Bf
+k < Bc
+k) when the clean-
+ing size exceeds the size of noises, i.e. over-cleaning. The
+effective cleaning interval refers to the range of k such
+that the bound of correction/ﬁltering is lower than the ini-
+tial bound.The effective ﬁltering interval is obviously wider
+than that of correction. It implies an imperfect cleaning size
+may have fewer negative effects on the bound of ﬁltering
+than correction. In other words, ﬁltering outperforms correc-
+tion in hyper-parameter insensitivity. Besides, both opti-
+mal cleaning sizes (arg mink Bc
+k and arg mink Bf
+k) are very
+close to the true size of noises. It means error bounds in (11),
+(12) could guide cleaners to avoid over-cleaning.
+0
+300
+600
+900
+Cleaning size (k)
+0.4
+0.6
+Error bound
+Bk
+c
+Bk
+f
+Figure 3: Error bounds of correction and ﬁltering. These
+bounds are calculated by (11) and (12) based on pseudo-
+random numbers of noise probability. The sample size N =
+1000, initial noise rate η = 0.3, and ˆRE(h; D) = 0.1. Func-
+tion ϵ(·) is calculated by (10), where VC-dimension d = 10,
+δ = 0.05. Both bounds are averaged on 100 repetitions.
+Comparison of Correction and Filtering
+Correction and ﬁltering are compared at the same cleaning
+size, i.e., the number of corrected labels is equal to that of
+removed samples.
+Theorem 5 (Effectiveness comparison at the dataset level).
+
+
+
+ηc < ηf + ϵ(Df )−ϵ(Dc)
+1−2 ˆ
+RE(h;D) ⇔Dc ≻Df,
+ηf < ηc −ϵ(Df )−ϵ(Dc)
+1−2 ˆ
+RE(h;D) ⇔Dc ≺Df.
+(18)
+The choice of cleaning mode (correction/ﬁltering) de-
+pends on the noise rate, cleaning size, and the (real) empiri-
+cal error. From Theorem 5, we know ηc = ηf ⇒Dc ≻Df.
+It means the correction is superior to ﬁltering in terms of
+effectiveness when the noise rate of the cleaned dataset is
+ﬁxed. This is because the corrected dataset has more sam-
+ples than the ﬁltered dataset. It is consistent with the third
+case of Theorem 2. In Figure 2, it holds for the cleaning
+size k = 108 that ηc = ηf. And the bound of correction at
+k = 108 is lower than that of ﬁltering in Figure 3.
+Theorem 6 (Effectiveness comparison at the sample level).
+(
+pi > pT ⇔Dc
+i ≻Df
+i ,
+pi < pT ⇔Dc
+i ≺Df
+i ,
+(19)
+where
+pT = N −ηN −1
+N −2
+−N(N −1)
+N −2
+· ϵ(Df
+i ) −ϵ(Dc
+i )
+1 −2 ˆRE(h; D)
+. (20)
+Theorem 6 indicates the following applicability of clean-
+ing modes. Compared to ﬁltering, the correction is more ef-
+fective in processing the label with a large noise probability
+(pi > pT ) at the sample level. Filtering is suitable for han-
+dling samples with unconﬁdent median noise probabilities
+(0.5 < pi < pT ). Samples with low probabilities are conﬁ-
+dent and should be retained without any modiﬁcation.
+Suppose the samples have been ranked by the noise prob-
+ability in descending order. We get the following criteria for
+cleaning mode selection from Theorems 5 and 6.
+• In the early stage of noise cleaning, most noise prob-
+abilities of corrupted labels are large enough, and they
+could be easily corrected to reduce the noise rate and er-
+ror bound without losing samples.
+• In the later stage, it is so difﬁcult to identify a true label
+noise that wrong corrections may raise the noise rate. As
+a conservative cleaning mode, ﬁltering could produce a
+signiﬁcantly lower noise rate than correction. Hence ﬁl-
+tering is employed to avoid wrong corrections and alle-
+viate the negative impact of over-cleaning.
+The Proposed Fusion Cleaning Method
+Noise Probability Estimation
+The noise probability is estimated based on label conﬁdence
+which can be produced by various classiﬁers (Wu et al.
+2021). Assume the low label conﬁdences are generated by
+a noise distribution and high conﬁdences are mainly from
+another clean distribution. Then all label conﬁdences can be
+ﬁtted by a two-component (T = 2 in (21)) beta mixture
+model (BMM) but not a Gaussian mixture as the former bet-
+ter ﬁts the skew toward zero conﬁdence from noisy samples.
+The probability density function (PDF) of BMM
+ρ(c) =
+T
+X
+t=1
+λtρ(c|t),
+(21)
+where λt is the coefﬁcient of the sub-distribution with PDF
+ρ(c|t) = Γ(αt + βt)
+Γ(αt)Γ(βt)cαt−1(1 −c)βt−1,
+(22)
+Γ(·) is the Gamma function, and αt, βt are parameters of
+a beta distribution that can be determined by the expecta-
+tion maximization (EM) method. Speciﬁcally, latent variable
+γt(c) is deﬁned to be the posterior probability of the conﬁ-
+dence c being generated by the t-th sub-distribution. In the
+E-step, parameters λt, αt, βt are ﬁxed, and the latent vari-
+able is updated by the Bayes formula
+γt(ci) =
+λtρ(ci|t)
+P2
+j=1 λjρ(ci|j)
+.
+(23)
+The Thirty-Eighth AAAI Conference on Artiﬁcial Intelligence (AAAI-24)
+12869
+
+
+--- PAGE 5 ---
+In the M-step, for ﬁxed γt(ci), parameters αt, βt are esti-
+mated by the method of moments (1st and 2nd moments):
+ˆαt = ¯c2
+t(1 −¯ct)
+s2
+t −¯c2
+t
+−¯ct, ˆβt = ˆαt(1 −¯ct)
+¯ct
+,
+(24)
+where the weighted sample moments
+¯ct =
+PN
+i=1 γt(ci) · ci
+PN
+i=1 γt(ci)
+, s2
+t =
+PN
+i=1 γt(ci) · c2
+i
+PN
+i=1 γt(ci)
+.
+(25)
+Coefﬁcient λt is updated by
+λt = 1
+N
+N
+X
+i=1
+γt(ci).
+(26)
+The E-step and M-step are iterated until convergence or
+reach a maximum number of iterations. Finally, the label
+noise probability is estimated by
+ˆpi = λ1ρ(ci|t = 1)
+P2
+t=1 λtρ(ci|t)
+,
+(27)
+where ρ(ci|t = 1) denotes the PDF of noise sub-distribution
+with a smaller conﬁdence mean.
+The label conﬁdences in both binary and multi-class clas-
+siﬁcations usually have a double-peak distribution. The main
+difference lies in the locations of peaks, e.g., the conﬁdence
+of a clean label in binary classiﬁcation is generally larger
+than that in a multi-class task. That means its distributions
+with different class numbers have no essential difference.
+Besides, the noise probability can be taken as a soft mea-
+surement of a binary determination (clean/noisy) problem,
+and it has been normalized by the EM estimate. Hence the
+above noise probability estimate is applicable to noise clean-
+ing in multi-class classiﬁcation.
+Fusion of Label Correction and Filtering
+Based on the comparison of correction and ﬁltering, it is
+proper to correct high-probability noisy labels and remove
+unconﬁdent samples. Then a fusion cleaning algorithm,
+called the Fusion of Correction and Filtering (FCF), is pro-
+posed in Algorithm 1. Labels with larger noise probabilities
+are corrected in the ﬁrst round (steps 2-7) with cleaning size
+k1 = arg min
+k Bc
+k = arg min
+k ηc
+k.
+(28)
+Samples with unconﬁdent labels in the corrected set are re-
+moved in the second round (steps 8-13) with cleaning size
+k2 = arg min
+k Bf
+k.
+(29)
+Note that the cleaning size is in a ﬁnite range of integers,
+the optimal solution can be found easily. The cleaned dataset
+and classiﬁer are updated simultaneously. Then the conﬁ-
+dence and noise probability would be generated more accu-
+rately as the training and cleaning go on. Besides, the noise
+probability estimation, label correction, and classiﬁer may
+be implemented in various ways. Thus it can be taken as a
+general framework for data cleaning and robust modeling.
+Algorithm 1: A Fusion cleaning of Correction and Filtering
+Input: Noisy dataset D = {(xi, yi)}N
+i=1
+Output: Cleaned dataset Df, the ﬁnal classiﬁer
+1: Train the classiﬁer with D in the ﬁrst Ep0 epochs;
+2: for epoch=Ep0+1 to Ep0+Ep1 do
+3:
+Generate/Updata the original label conﬁdence ci;
+4:
+Compute the label noise probability via EM estimate;
+5:
+Compute the error bound of correction Bc
+k by (11),
+and ﬁnd the optimal cleaning size k1 by (28);
+6:
+The k1 labels with larger pi in D are corrected and
+the classiﬁer is trained on the cleaned dataset Dc.
+7: end for
+8: for epoch=Ep0+Ep1+1 to Ep0+Ep1+Ep2 do
+9:
+Generate/Updata the corrected label conﬁdence ci;
+10:
+Compute the noise probability pi via EM estimate;
+11:
+Compute the error bound of ﬁltering on the corrected
+dataset Bf
+k by (12), and ﬁnd k2 by (29);
+12:
+The k2 samples with larger pi in Dc are removed, and
+the classiﬁer is trained on the cleaned dataset Df.
+13: end for
+Multiclass Implement
+Theorem 2 suggests that we should focus on samples with
+larger noise probabilities in label cleaning. In binary clas-
+siﬁcation, a large-noise-probability label is changed to the
+other class in correction. However, the puriﬁed label may
+be uncertain in the multiclass task. As a result, the correc-
+tion on the label with the largest noise probability may not
+produce the most reduction of noise rate. To address this is-
+sue, the key indicator in correction becomes the noise prob-
+ability reduction in the multiclass task. It means we need to
+calculate the noise probability sets before and after correc-
+tion, denoted by {p0
+i }N
+i=1 and {pc
+i}N
+i=1. Both sets are sorted
+descendingly by the reduction (∆pc
+i = p0
+i −pc
+i), then we
+obtain the ordered sets {p0
+(i)}N
+i=1 and {pc
+(i)}N
+i=1. The noise
+rate of corrected dataset with cleaning size k
+ˆηc
+k = 1
+N
+ k
+X
+i=1
+pc
+(i) +
+N
+X
+i=k+1
+p0
+(i)
+!
+.
+(30)
+The noise rate of ﬁltered dataset with cleaning size k
+ˆηf
+k =
+1
+N −k
+N
+X
+i=k+1
+p(i),
+(31)
+where p(i) is the ordered noise probability before ﬁltering.
+A good property of the above noise rate estimates is both
+optimal cleaning sizes in (28) and (29) are insensitive to the
+bias of noise probability estimation. Suppose that all proba-
+bilities have a constant bias. Then p′
+(i) = p(i) + ε ⇒ˆηf ′
+k =
+ˆηf
+k + ε. By (12), we know Bf ′
+k = Bf
+k + [1 −2 ˆRE(h; D)] · ε.
+Thus the optimal cleaning size k′
+1 = k1.
+Experiments
+In this section, we empirically evaluate our proposed method
+on datasets with label noise.
+The Thirty-Eighth AAAI Conference on Artiﬁcial Intelligence (AAAI-24)
+12870
+
+
+--- PAGE 6 ---
+Dataset
+Method
+Symmetric Noise
+Asymmetric Noise
+20%
+40%
+60%
+80%
+20%
+30%
+40%
+Standard
+85.7±0.5
+81.8±0.6
+73.7±1.1
+42.0±2.8
+88.0±0.3
+86.4±0.4
+84.9±0.7
+Bootstrap
+86.4±0.6
+82.5±0.1
+75.2±0.8
+42.1±3.3
+88.8±0.5
+87.5±0.5
+85.1±0.3
+Joint-Opt
+89.8±0.8
+88.6±0.8
+85.6±0.5
+65.9±0.3
+92.1±0.6
+91.3±0.5
+90.2±0.6
+Co-teaching
+89.2±0.3
+86.4±0.4
+79.0±0.2
+22.9±3.5
+90.0±0.2
+88.2±0.1
+78.4±0.7
+MW-Net
+90.1±0.7
+86.4±0.5
+81.6±0.2
+64.8±0.6
+92.0±0.7
+91.3±0.5
+90.9±0.4
+SELFIE
+90.2±0.3
+86.3±0.3
+81.2±0.3
+63.5±0.4
+89.3±0.2
+88.4±0.5
+85.7±0.3
+CIFAR-10
+AdaCorr
+91.0±0.3
+88.7±0.5
+81.2±0.4
+49.2±2.4
+92.2±0.1
+91.3±0.3
+89.2±0.4
+TopoFilter
+90.2±0.2
+87.2±0.4
+80.5±0.4
+45.7±1.0
+90.5±0.2
+89.7±0.3
+87.9±0.2
+MSLC
+93.4±0.1
+91.2±0.2
+87.3±0.1
+68.9±0.5
+94.1±0.2
+93.6±0.3
+92.5±0.3
+FINE
+90.8±0.2
+87.6±0.2
+81.0±0.4
+69.4±1.2
+92.2±0.1
+91.6±0.2
+89.5±0.2
+SFT
+92.6±0.3
+89.5±0.3
+87.1±0.2
+66.2±0.8
+91.5±0.3
+90.4±0.5
+89.9±0.5
+CTO
+88.1±0.3
+85.1±0.2
+80.3±0.1
+67.2±2.4
+85.3±0.2
+82.3±0.5
+80.3±0.8
+FCF(ours)
+93.7±0.3
+91.8±0.4
+87.6±0.3
+76.3±2.8
+94.4±0.3
+94.1±0.4
+93.6±0.6
+Standard
+56.5±0.7
+50.4±0.8
+38.7±1.0
+18.4±0.5
+57.3±0.7
+52.2±0.4
+42.3±0.7
+Bootstrap
+56.2±0.5
+50.8±0.6
+37.7±0.8
+19.0±0.6
+57.1±0.9
+53.0±0.9
+43.0±1.0
+Joint-Opt
+60.1±0.9
+56.8±0.7
+47.7±0.4
+17.4±0.5
+66.7±0.3
+63.4±0.6
+59.3±0.6
+Co-teaching
+64.8±0.2
+60.3±0.4
+46.8±0.7
+13.3±2.8
+63.6±0.4
+58.3±1.1
+48.9±0.8
+MW-Net
+68.4±0.7
+64.8±0.3
+55.0±0.3
+19.2±0.2
+66.7±0.4
+63.2±0.5
+59.5±0.4
+SELFIE
+67.2±0.3
+61.3±0.4
+53.1±0.6
+20.4±0.4
+65.2±0.2
+62.8±0.4
+58.7±0.5
+CIFAR-100
+AdaCorr
+67.8±0.1
+60.2±0.8
+46.5±1.2
+24.6±1.1
+68.3±0.2
+61.1±0.5
+49.8±0.7
+TopoFilter
+65.6±0.3
+62.0±0.6
+47.7±0.5
+20.7±1.2
+68.0±0.3
+66.7±0.6
+62.4±0.2
+MSLC
+72.0±0.3
+68.7±0.2
+60.3±0.3
+20.5±1.8
+70.2±1.2
+69.7±0.8
+69.2±0.6
+FINE
+69.1±0.2
+64.7±0.5
+62.3±0.4
+25.6±1.3
+68.5±0.3
+64.9±0.7
+61.7±1.0
+SFT
+72.0±0.3
+69.7±0.3
+60.4±0.4
+25.2±1.7
+71.2±0.3
+70.1±0.3
+69.3±0.4
+CTO
+68.2±0.3
+61.7±0.4
+51.8±0.2
+20.6±2.5
+62.8±0.3
+56.4±0.5
+44.6±1.2
+FCF(ours)
+74.3±0.4
+69.8±0.7
+63.0±0.6
+26.7±2.3
+76.3±0.3
+74.8±0.8
+73.4±1.5
+Table 1: Test accuracy (%) comparison. Best results are marked in bold. All results are averaged on three independent trials.
+Datasets and label noises.
+We implement experiments on
+CIFAR-10 and CIFAR-100 under different types and lev-
+els of noise. Both datasets consist of 50k training images
+and 10k test images of size 32×32. Following the previous
+setups (Kim et al. 2021), we manually generate two types
+of noisy labels: symmetric and asymmetric. Symmetric: a
+given proportion of labels are changed to one of the other
+class labels uniformly. Asymmetric: a label is corrupted
+only to a speciﬁc similar class, e.g., truck→automobile,
+bird→airplane, deer→horse, cat↔dog for CIFAR-10. For
+CIFAR-100, the label ﬂip only happens in each super-class.
+Baselines.
+Our method is compared to diverse baselines.
+Standard trains the deep network with cross-entropy. Boot-
+strap (Reed et al. 2014) and MW-Net (Shu et al. 2019)
+aim to generate robust classiﬁers by modiﬁed loss func-
+tion and sample weighting. Joint-Opt (Tanaka et al. 2018),
+AdaCorr (Zheng et al. 2020), MSLC (Wu et al. 2021),
+CTO (Li and Sun 2022) are representative label correctors.
+Co-teaching (Han et al. 2018), SELFIE (Song, Kim, and Lee
+2019), TopoFilter (Wu et al. 2020), FINE (Kim et al. 2021),
+SFT (Wei et al. 2022) belong to sample selection/ﬁltering
+methods. For a fair comparison, we compare them without
+mixup augmentation and semi-supervised learning methods.
+Experimental setup.
+We use ResNet-34 as the backbone,
+and train the network for 180 epochs (80 in warm-up, 40
+in correction, 60 in ﬁltering) on CIFAR-10/100 for our pro-
+posed FCF. We use an SGD optimizer with a momentum of
+0.9, a weight decay of 0.0005, and a batch size of 100. The
+initial learning rate is set as 0.1 with decaying by a factor of
+0.1 in epochs 80, 100, and 150, respectively. The experimen-
+tal results are listed in Table 1. It can be observed that FCF
+outperforms other methods across all the label noise settings
+on CIFAR-10 and CIFAR-100.
+Label purity of cleaned dataset.
+From Figure 4, both test
+accuracy and label purity have positive jumps at the begin-
+ning of correction and ﬁltering stages. This veriﬁes their
+effectiveness in improving label quality and generalization
+performance. Besides, the correction size (k1) is close to the
+true noise level.
+0
+40
+80
+120
+160
+Epoch
+0.2
+0.4
+0.6
+0.8
+Accuracy / Purity
+Warm-up
+Stage
+Correction
+Stage
+k1
+Filtering
+Stage
+k2
+Accuracy
+Purity
+Cleaning size
+0
+10000
+20000
+30000
+40000
+Cleaning Size
+Figure 4: Accuracy and label purity of FCF on CIFAR-100
+with 40% symmetric noise. Label purity denotes the correct-
+ness of all labels in the cleaned dataset.
+The Thirty-Eighth AAAI Conference on Artiﬁcial Intelligence (AAAI-24)
+12871
+
+
+--- PAGE 7 ---
+Ablation Study.
+Table 2 lists the average accuracies with
+different cleaning modes. Both correction and ﬁltering could
+improve the test accuracy and the former is more effective.
+Our fusion cleaning mode (FCF) has the best performance
+in different noise environments.
+Cleaning mode
+Symmetric noise
+Asymmetric noise
+20%
+40%
+20%
+40%
+Without cleaning
+47.6
+45.3
+51.9
+37.7
+Correction
+72.1
+68.7
+72.7
+69.3
+Filtering
+69.4
+65.1
+70.1
+65.5
+Corr. & Filt.(FCF)
+74.3
+69.8
+76.3
+73.4
+Table 2: Accuracy on CIFAR-100.
+Figure 5 shows the increment of confusion matrix in FCF
+noise cleaning. All diagonal values are positive and the oth-
+ers are nonpositive. It means correction and ﬁltering in FCF
+improve the label purity twice. The ﬁltering effect is rela-
+tively more signiﬁcant in dealing with confusable classes,
+such as dog and cat (5↔3), bird and airplane (2→0).
+Data cleaning on real CIFAR-10 test set.
+Our proposed
+algorithm is validated on original CIFAR-10 test set (10k).
+Some images with label issues are displayed in Figure 6.
+These low-conﬁdence labels of top images are changed to
+the correct ones. While it is difﬁcult to categorize the bot-
+tom images with median conﬁdence due to the low quality.
+It is better to remove samples than to change the label to
+an unconvincing one. Besides, both average cleaning sizes
+(k1=15, k2=214) on the test set are far less than those un-
+der artiﬁcial noise as displayed in Figure 4. It veriﬁes the
+adaptability of our theories and method to some extent.
+Conclusion
+In this paper, we rebuild the error bound under label noise
+which can be viewed as a generalized form of the con-
+ventional bound. The correction and ﬁltering techniques
+are compared in terms of effectiveness, applicability, and
+hyper-parameter insensitivity from an error-bound perspec-
+tive. Then we summarize the criteria for selecting the clean-
+ing modes. Unlike existing methods with a single cleaning
+mode, the proposed FCF combines the advantages of correc-
+tion and ﬁltering to deal with different types of suspicious
+labels. And FCF is a general cleaning framework that can be
+integrated with other noise probability estimates and label
+correctors. Experimental results show that FCF signiﬁcantly
+improves the label quality and achieves state-of-the-art per-
+formance. As an error-bound-guided cleaning method, FCF
+expands the applicability of statistical learning theory in de-
+signing practical and effective algorithms.
+Acknowledgments
+This work was partially supported by the National Natural
+Science Foundation of China (Nos. 62276161, U21A20513,
+12226004, 62076154, 61906113, 61721002) and the Key
+R&D program of Shanxi Province (No. 202202020101003).
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Cleaned Label
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+True Label
+35 -4
+-4
+-4
+-4
+-4
+-4
+-4
+-3
+-4
+-4 38 -4
+-4
+-4
+-4
+-4
+-4
+-4
+-3
+-2
+-4 32 -3
+-3
+-4
+-3
+-4
+-4
+-4
+-4
+-4
+-3 30 -3
+-1
+-3
+-4
+-4
+-4
+-4
+-4
+-4
+-3 35 -3
+-4
+-4
+-4
+-4
+-4
+-4
+-3
+0
+-3 31 -4
+-3
+-4
+-4
+-4
+-4
+-4
+-3
+-4
+-4 36 -4
+-4
+-4
+-4
+-4
+-4
+-4
+-4
+-4
+-4 37 -4
+-4
+-3
+-4
+-4
+-4
+-4
+-4
+-4
+-4 38 -4
+-4
+-3
+-4
+-4
+-4
+-4
+-4
+-4
+-4 37
+1st round of Cleaning
+40
+20
+0
+20
+40
+(a) Correction
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+Cleaned Label
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+True Label
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+-1
+0
+2
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+2
+0
+-1
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+-1
+0
+3
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+-1
+0
+0
+0
+0
+0
+0
+0
+1
+2nd round of Cleaning
+3
+2
+1
+0
+1
+2
+3
+(b) Filtering
+Figure 5: Confusion matrix increment MA −MB (%) on
+CIFAR-10 under 40% symmetric noise, where MB, MA are
+confusion matrices before and after cleaning, respectively.
+Corrected Labels
+Filtered Samples
+ID: 2405
+Initial: cat
+Corrected: frog
+Conf.: 0.172
+ID: 5881
+Initial: cat
+Corrected: dog
+Conf.: 0.188
+ID: 3150
+Initial: automobile
+Corrected: truck
+Conf.: 0.214
+ID: 6877
+Initial: airplane
+Corrected: ship
+Conf.: 0.218
+ID: 2937
+Initial: cat
+Corrected: dog
+Conf.: 0.407
+ID: 5141
+Initial: frog
+Corrected: cat
+Conf.: 0.408
+ID: 9497
+Initial: cat
+Corrected: deer
+Conf.: 0.409
+ID: 4740
+Initial: dog
+Corrected: cat
+Conf.: 0.413
+Figure 6: Cleaned examples in CIFAR-10 test set. Top image
+labels are corrected and bottom images are ﬁltered by FCF.
+Labels before and after correction are listed below images.
+The Thirty-Eighth AAAI Conference on Artiﬁcial Intelligence (AAAI-24)
+12872
+
+
+--- PAGE 8 ---
+References
+Frenay, B.; and Verleysen, M. 2014. Classiﬁcation in the
+presence of label noise: A survey. IEEE Transactions on
+Neural Networks and Learning Systems, 25(5): 845–869.
+Garcia, L. P. F.; Lorena, A. C.; Matwin, S.; and de Car-
+valho, A. 2016. Ensembles of label noise ﬁlters: A ranking
+approach. Data Mining and Knowledge Discovery, 30(5):
+1192–1216.
+Han, B.; Tsang, I.; Chen, L.; Zhou, J.; and Yu, C. 2019.
+Beyond majority voting: A coarse-to-ﬁne label ﬁltration for
+heavily noisy labels. IEEE Transactions on Neural Networks
+and Learning Systems, 30(12): 3774–3787.
+Han, B.; Yao, Q.; Yu, X.; Niu, G.; Xu, M.; Hu, W.; Tsang,
+I.; and Sugiyama, M. 2018. Co-teaching: Robust training
+of deep neural networks with extremely noisy labels.
+In
+Advances in Neural Information Processing Systems, vol-
+ume 31, 8527–8537.
+Huang, L.; Zhang, C.; and Zhang, H. 2020. Self-adaptive
+training: Beyond empirical risk minimization. In Advances
+in Neural Information Processing Systems, volume 33,
+19365–19376.
+Jiang, G.; Wang, W.; Qian, Y.; and Liang, J. 2021. A uni-
+ﬁed sample selection framework for output noise ﬁltering:
+An error-bound perspective. Journal of Machine Learning
+Research, 22(18): 1–66.
+Kim, T.; Ko, J.; Cho, S.; Choi, J.; and Yun, S. 2021. FINE
+samples for learning with noisy labels.
+In Advances in
+Neural Information Processing Systems, volume 34, 24137–
+24149.
+Li, J.; Socher, R.; and Hoi, S. 2020. DivideMix: Learning
+with noisy labels as semi-supervised learning. In Interna-
+tional Conference on Learning Representations.
+Li, J.; and Sun, H. 2022. Correct twice at once: Learning to
+correct noisy labels for robust deep learning. In Proceedings
+of the 30th ACM International Conference on Multimedia,
+5142–5151.
+Li, Y.; Han, H.; Shan, S.; and Chen, X. 2023. DISC: Learn-
+ing from noisy labels via dynamic instance-speciﬁc selection
+and correction. In Proceedings of the IEEE/CVF Conference
+on Computer Vision and Pattern Recognition, 24070–24079.
+Northcutt, C.; Athalye, A.; and Mueller, J. 2021. Pervasive
+label errors in test sets destabilize machine learning bench-
+marks. In Proceedings of the Neural Information Processing
+Systems Track on Datasets and Benchmarks, volume 34.
+Northcutt, C.; Jiang, L.; and Chuang, I. 2021.
+Conﬁdent
+learning: Estimating uncertainty in dataset labels. Journal
+of Artiﬁcial Intelligence Research, 70: 1373–1411.
+Reed, S.; Lee, H.; Anguelov, D.; Szegedy, C.; Erhan, D.;
+and Rabinovich, A. 2014.
+Training deep neural net-
+works on noisy labels with bootstrapping. arXiv preprint
+arXiv:1412.6596.
+S´aez, J. A.; Galar, M.; Luengo, J.; and Herrera, F. 2016.
+INFFC: An iterative class noise ﬁlter based on the fusion
+of classiﬁers with noise sensitivity control. Information Fu-
+sion, 27: 19–32.
+Sharma, K.; Donmez, P.; Luo, E.; Liu, Y.; and Yalniz, I. Z.
+2020. Noiserank: Unsupervised label noise reduction with
+dependence models. In European Conference on Computer
+Vision, 737–753.
+Shu, J.; Xie, Q.; Yi, L.; Zhao, Q.; Zhou, S.; Xu, Z.; and
+Meng, D. 2019. Meta-weight-net: Learning an explicit map-
+ping for sample weighting. In Advances in Neural Informa-
+tion Processing Systems, 1919–1930.
+Shu, J.; Yuan, X.; and Meng, D. 2023. CMW-net: An adap-
+tive robust algorithm for sample selection and label correc-
+tion. National Science Review, 10(6): nwad084.
+Song, H.; Dai, R.; Raskutti, G.; and Barber, R. F. 2020. Con-
+vex and non-convex approaches for statistical inference with
+class-conditional noisy labels. Journal of Machine Learning
+Research, 21(168): 1–58.
+Song, H.; Kim, M.; and Lee, J.-G. 2019. SELFIE: Refur-
+bishing unclean samples for robust deep learning. In Inter-
+national Conference on Machine Learning, 5907–5915.
+Song, H.; Kim, M.; Park, D.; Shin, Y.; and Lee, J. 2022.
+Learning from noisy labels with deep neural networks: A
+survey. IEEE Transactions on Neural Networks and Learn-
+ing Systems, DOI: 10.1109/TNNLS.2022.3152527.
+Tanaka, D.; Ikami, D.; Yamasaki, T.; and Aizawa, K. 2018.
+Joint optimization framework for learning with noisy labels.
+In Proceedings of the IEEE conference on computer vision
+and pattern recognition, 5552–5560.
+Wei, Q.; Sun, H.; Lu, X.; and Yin, Y. 2022. Self-ﬁltering: A
+noise-aware sample selection for label noise with conﬁdence
+penalization. In European Conference on Computer Vision,
+516–532.
+Wu, P.; Zheng, S.; Goswami, M.; Metaxas, D.; and Chen,
+C. 2020. A topological ﬁlter for learning with label noise.
+In Advances in Neural Information Processing Systems,
+21382–21393.
+Wu, Y.; Shu, J.; Xie, Q.; Zhao, Q.; and Meng, D. 2021.
+Learning to purify noisy labels via meta soft label correc-
+tor.
+In Proceedings of the AAAI Conference on Artiﬁcial
+Intelligence, 10388–10396.
+Xia, X.; Liu, T.; Han, B.; Wang, N.; Gong, M.; Liu, H.;
+Niu, G.; Tao, D.; and Sugiyama, M. 2020. Part-dependent
+label noise: Towards instance-dependent label noise.
+In
+Advances in Neural Information Processing Systems, vol-
+ume 33, 7597–7610.
+Zhang, H.; Cisse, M.; Dauphin, Y. N.; and Lopez-Paz, D.
+2017. Mixup: Beyond empirical risk minimization. arXiv
+preprint arXiv:1710.09412.
+Zheng, S.; Wu, P.; Goswami, A.; Goswami, M.; Metaxas,
+D.; and Chen, C. 2020. Error-bounded correction of noisy
+labels. In International Conference on Machine Learning,
+11447–11457.
+The Thirty-Eighth AAAI Conference on Artiﬁcial Intelligence (AAAI-24)
+12873

@@ -1,0 +1,159 @@
+Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes
+							| Journal of Artificial Intelligence and Technology
+Home
+About
+Aims and Scope
+Editorial Board
+Abstracted & Indexed
+Open Access Policy
+Privacy Statement
+Browse
+Early Access
+All Issues
+For Authors
+Author Guidelines
+Article Processing Charge
+Peer Review Process
+Copyright & License
+Special Issues
+Published Special Issues
+Submitting a Proposal
+Call for Papers
+Publication Ethics
+Contact Us
+Search
+English
+Register
+Login
+Home
+About
+Aims and Scope
+Editorial Board
+Abstracted & Indexed
+Open Access Policy
+Privacy Statement
+Browse
+Early Access
+All Issues
+For Authors
+Author Guidelines
+Article Processing Charge
+Peer Review Process
+Copyright & License
+Special Issues
+Published Special Issues
+Submitting a Proposal
+Call for Papers
+Publication Ethics
+Contact Us
+Search
+Language
+English
+Search
+Register
+Login
+Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes
+Home
+/
+Archives
+/
+Vol. 5 (2025)
+/
+Research Articles
+Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes
+Authors
+Anastasya Latubessy
+Doctoral Program Department of Computer Science and Electronics, Faculty of Mathematics and Natural Science, Universitas Gadjah Mada
+https://orcid.org/0000-0002-8380-3866
+Edi Winarko
+Department of Computer Science and Electronics, Faculty of Mathematics and Natural Science, Universitas Gadjah Mada
+https://orcid.org/0000-0001-6057-5082
+Aina Musdholifah
+Department of Computer Science and Electronics, Faculty of Mathematics and Natural Science, Universitas Gadjah Mada
+Sri Kusrohmaniah
+Department of Psychology, Faculty of Psychology, Universitas Gadjah Mada
+DOI:
+https://doi.org/10.37965/jait.2025.0734
+Keywords:
+attribute-weighted, 											 feature management, 											fine-tune, 											gaming disorder, 											 modified partial instance reduction, 											 Naïve Bayes
+Abstract
+The dynamic nature of the social environment can influence symptom patterns in mental illnesses, thereby affecting their classification. Gaming disorder (GD), recently recognized in ICD-11 by the World Health Organization, is currently identified based on 44 symptoms derived from expert assessments. However, these symptoms may shift as social behaviors evolve, necessitating classification models that remain robust despite changes in dataset attributes. This study proposes a robust model—fine-tuned attribute-weighted Naïve Bayes (FTAWNB) with modified partial instance reduction (mPIR)—to address this issue. Two test scenarios were conducted: the addition of one new attribute and the removal of four attributes from the GD dataset, applied to both the original and updated datasets. The results indicate that FTAWNB with modified PIR enhances classification performance. On the original dataset, accuracy increased by 1.28% (Scenario 1) and 1.4% (Scenario 2). On the updated dataset, the model maintained 99.74% accuracy (Scenario 1) and improved by 1.4% (Scenario 2). These findings demonstrate that the integration of modified PIR improves model stability in dynamic feature environments, thereby contributing to more reliable mental health classification systems.
+Downloads
+PDF
+HTML
+Published
+2025-07-30
+How to Cite
+Latubessy, A., Winarko, E., Musdholifah, A., & Kusrohmaniah, S. (2025). Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes.
+Journal of Artificial Intelligence and Technology
+,
+5
+, 278–288. https://doi.org/10.37965/jait.2025.0734
+More Citation Formats
+ACM
+ACS
+APA
+ABNT
+Chicago
+Harvard
+IEEE
+MLA
+Turabian
+Vancouver
+Download Citation
+Endnote/Zotero/Mendeley (RIS)
+BibTeX
+Issue
+Vol. 5 (2025)
+Section
+Research Articles
+License
+Copyright (c) 2025 Authors
+This work is licensed under a
+Creative Commons Attribution 4.0 International License
+.
+Loading...
+Announcements
+JAIT is now Indexed in EI Compendex
+2026-05-20
+The
+Journal of Artificial Intelligence and Technology
+(
+JAIT, EISSN: 27668649
+) has been officially indexed in the
+EI Compendex
+database.
+Second CiteScore Released: 11.0
+2025-06-05
+We are thrilled to announce that the CiteScore 2024 for the
+Journal of Artificial Intelligence and Technology
+is 11.0, which ranks 62 out of 450 journals in the Artificial Intelligence category.
+First CiteScore Released: 8.7
+2024-06-16
+We are delighted to announce that the CiteScore 2023 for the
+Journal of Artificial Intelligence and Technology
+is 8.7, which ranks it 77 out of 350 journals in the Artificial Intelligence category.
+JAIT is now indexed in Scopus
+2023-01-29
+The Journal of Artificial Intelligence and Technology has been accepted for inclusion in Scopus, the world’s largest abstract and citation database of peer reviewed literature. The acceptance for inclusion by Scopus underlines the journal’s consistent high quality.
+JAIT is now indexed in IET Inspec
+2022-05-12
+We are pleased to announce that the
+Journal of Artificial Intelligence and Technology
+is now indexed in
+IET Inspec,
+the definitive engineering, physics, and computer science research database.
+ORCID has been integrated into submission system
+2021-07-14
+We are delighted to announce that ORCID has been integrated into submission system. It's encouraged that authors can authorize our journal's submission system to obtain your ORCID ID.  We would send e-mail to request ORCID authorization from contributor before publication.
+SJR
+All site content, except where otherwise noted, is licensed under a
+Creative Commons Attribution 4.0 International License
+.
+ISSN: 2766-8649 | Published by
+INTELLIGENCE SCIENCE AND TECHNOLOGY PRESS INC.
+Member of
+© Platform & Workflow by:
+Open Journal Systems
+Designed by
+Material Theme

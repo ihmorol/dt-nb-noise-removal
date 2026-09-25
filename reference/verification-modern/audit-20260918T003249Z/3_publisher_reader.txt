@@ -1,0 +1,41 @@
+Title: Multi-View Attribute Weighted Naive Bayes
+
+URL Source: https://ieeexplore.ieee.org/document/9787796/
+
+Markdown Content:
+*   [Download PDF](https://ieeexplore.ieee.org/document/ "You do not have access to this PDF")
+*    Download References 
+*   [Request Permissions](https://ieeexplore.ieee.org/document/ "Request permission for reuse.")
+*   [Save to](https://ieeexplore.ieee.org/document/)
+*   [Alerts](https://ieeexplore.ieee.org/document/)
+
+## Abstract:
+
+Naive Bayes (NB) continues to be one of the top 10 data mining algorithms due to its simplicity, efficiency and efficacy. Numerous enhancements have been proposed to weak...[Show More](https://ieeexplore.ieee.org/document/)
+
+## Metadata
+
+## Abstract:
+
+Naive Bayes (NB) continues to be one of the top 10 data mining algorithms due to its simplicity, efficiency and efficacy. Numerous enhancements have been proposed to weaken its attribute conditional independence assumption. However, all of them only focus on the raw attribute view, which is hard to reflect all the data characteristics in real-world applications. To portray data characteristics more comprehensively, in this study, we construct two label views from the raw attributes and propose a novel model called multi-view attribute weighted naive Bayes (MAWNB). In MAWNB, we first build multiple super-parent one-dependence estimators (SPODEs) as well as random trees (RTs), then we utilize each of them to classify each training instance in turn and use all their predicted class labels to construct two label views. Next, to avoid attribute redundancy, we optimize the weight of each attribute value for each class by minimizing the negative conditional log-likelihood (CLL) in each view. Finally, the estimated class-membership probabilities by three views are fused to predict the class label for each test instance. Extensive experiments show that MAWNB significantly outperforms NB and all the other existing state-of-the-art competitors.
+
+**Page(s):** 7291 - 7302
+
+**Date of Publication:** 03 June 2022
+
+[](http://ieeexplore.ieee.org/Xplorehelp/Help_Pubdates.html)
+
+## Funding Agency:
+
+* * *
+
+### 1 Introduction
+
+In recent decades, Bayesian network classifiers (BNC) [1], [2] continue to receive much attention due to their obvious advantages such as the explicit model interpretability and the powerful model expression ability [3], [4]. Among numerous BNC, naive Bayes (NB) is the simplest but rather effective classifier, which assumes that all attributes are fully independent given the class. Given a test instance \mathbf {x}x represented by an attribute value vector < a_{1}, a_{2},{\ldots }, a_{m} ><a 1,a 2,…,a m>, NB uses Eqs. (1) and (2) to predict its class label. \begin{align*} P(c | \mathbf {x}) &=\frac{P(c) \prod \limits _{j=1}^{m} P(a_{j} | c)}{\sum \limits _{c \in C} P(c) \prod \limits _{j=1}^{m} P(a_{j} | c)}, \tag{1}\\ c(\mathbf {x}) &=\arg \mathop{\max} _{c \in C}P(c | \mathbf {x}), \tag{2} \end{align*}
+
+P(c|x)c(x)=P(c)∏j=1 m P(a j|c)∑c∈C P(c)∏j=1 m P(a j|c),=arg max c∈C P(c|x),(1)(2)
+
+ P(c|x)=P(c)∏j=1mP(aj|c)∑c∈CP(c)∏j=1mP(aj|c),((1))c(x)=argmaxc∈CP(c|x),((2)) where m m is the number of attributes, a_{j}a j is the j j th attribute value of \mathbf {x}x, C C is the collection of all possible class labels c c, c(\mathbf {x})c(x) is the predicted class label of \mathbf {x}x, P(c)P(c) is the prior probability of the class c c and P(a_{j} | c)P(a j|c) is the conditional probability of a_{j}a j given the class c c, which can be estimated by: \begin{align*} P(c) &=\frac{\sum \limits _{i=1}^{n} \delta (c_{i},c)+1}{n+q}, \tag{3}\\ P(a_{j} | c) &=\frac{\sum \limits _{i=1}^{n} \delta (a_{ij},a_{j}) \delta (c_{i},c)+1}{\sum \limits _{i=1}^{n} \delta (c_{i},c)+n_{j}}, \tag{4} \end{align*}
+P(c)P(a j|c)=∑i=1 n δ(c i,c)+1 n+q,=∑i=1 n δ(a i j,a j)δ(c i,c)+1∑i=1 n δ(c i,c)+n j,(3)(4)
+
+ P(c)=∑i=1nδ(ci,c)+1n+q,((3))P(aj|c)=∑i=1nδ(aij,aj)δ(ci,c)+1∑i=1nδ(ci,c)+nj,((4)) where n n is the number of training instances, q q is the number of classes, n_{j}n j is the number of values for the j j th attribute A_{j}A j, c_{i}c i is the class label of the i i th training instance, a_{ij}a i j is the j j th attribute value of the i i th training instance, and the indicator function \delta (x,y)δ(x,y) is one if x=y x=y and zero otherwise.

@@ -1,0 +1,41 @@
+dataset,path,step,algorithm,removed,removed_pct,detail
+breast-cancer,path1__Alg1_then_Alg2,1,Alg1,80,27.97,rows 286->206
+breast-cancer,path1__Alg1_then_Alg2,2,Alg2,34,82.93,"removed: 6, 1_20-29, 1_30-39, 1_40-49, 1_60-69, 1_70-79, 2_ge40, 2_lt40, 3_0-4, 3_10-14, 3_15-19, 3_25-29, 3_30-34, 3_35-39, 3_40-44, 3_45-49, 3_5-9, 3_50-54, 4_12-14, 4_15-17, 4_24-26, 4_3-5, 4_6-8, 4_9-11, 5_?, 5_yes, 7_right, 8_?, 8_central, 8_left_low, 8_left_up, 8_right_low, 8_right_up, 9_no"
+breast-cancer,path2__Alg2_then_Alg1,1,Alg2,9,21.95,"removed: 1_70-79, 2_ge40, 2_lt40, 4_12-14, 4_15-17, 4_24-26, 4_9-11, 7_right, 9_yes"
+breast-cancer,path2__Alg2_then_Alg1,2,Alg1,73,25.52,rows 286->213
+contact-lenses,path1__Alg1_then_Alg2,1,Alg1,3,12.50,rows 24->21
+contact-lenses,path1__Alg1_then_Alg2,2,Alg2,2,50.00,"removed: 1, 2"
+contact-lenses,path2__Alg2_then_Alg1,1,Alg2,0,0.00,removed: none
+contact-lenses,path2__Alg2_then_Alg1,2,Alg1,3,12.50,rows 24->21
+diabetes,path1__Alg1_then_Alg2,1,Alg1,182,23.70,rows 768->586
+diabetes,path1__Alg1_then_Alg2,2,Alg2,1,12.50,removed: 3
+diabetes,path2__Alg2_then_Alg1,1,Alg2,0,0.00,removed: none
+diabetes,path2__Alg2_then_Alg1,2,Alg1,179,23.31,rows 768->589
+glass,path1__Alg1_then_Alg2,1,Alg1,96,44.86,rows 214->118
+glass,path1__Alg1_then_Alg2,2,Alg2,2,22.22,"removed: 5, 9"
+glass,path2__Alg2_then_Alg1,1,Alg2,0,0.00,removed: none
+glass,path2__Alg2_then_Alg1,2,Alg1,96,44.86,rows 214->118
+iris,path1__Alg1_then_Alg2,1,Alg1,6,4.00,rows 150->144
+iris,path1__Alg1_then_Alg2,2,Alg2,2,50.00,"removed: sepal length (cm), sepal width (cm)"
+iris,path2__Alg2_then_Alg1,1,Alg2,1,25.00,removed: sepal length (cm)
+iris,path2__Alg2_then_Alg1,2,Alg1,6,4.00,rows 150->144
+soybean,path1__Alg1_then_Alg2,1,Alg1,66,9.66,rows 683->617
+soybean,path1__Alg1_then_Alg2,2,Alg2,97,72.93,"removed: date_?, date_april, date_july, date_june, date_may, plant-stand_?, plant-stand_normal, precip_?, precip_lt-norm, precip_norm, temp_?, temp_lt-norm, hail_?, hail_yes, crop-hist_?, crop-hist_same-lst-sev-yrs, crop-hist_same-lst-two-yrs, crop-hist_same-lst-yr, area-damaged_?, area-damaged_upper-areas, area-damaged_whole-field, severity_?, severity_pot-severe, severity_severe, seed-tmt_?, seed-tmt_none, germination_80-89, germination_90-100, germination_?, germination_lt-80, plant-growth_?, plant-growth_norm, leaves_abnorm, leaves_norm, leafspots-halo_?, leafspots-halo_absent, leafspots-halo_no-yellow-halos, leafspots-halo_yellow-halos, leafspots-marg_?, leafspots-marg_dna, leafspots-marg_no-w-s-marg, leafspot-size_dna, leafspot-size_lt-1/8, leaf-shread_absent, leaf-shread_present, leaf-malf_?, leaf-mild_?, leaf-mild_absent, stem_?, stem_abnorm, stem_norm, lodging_yes, stem-cankers_?, stem-cankers_above-sec-nde, stem-cankers_above-soil, stem-cankers_below-soil, canker-lesion_?, canker-lesion_brown, canker-lesion_dna, fruiting-bodies_?, fruiting-bodies_present, external-decay_?, external-decay_absent, external-decay_firm-and-dry, external-decay_watery, mycelium_?, mycelium_absent, mycelium_present, int-discolor_?, int-discolor_black, int-discolor_brown, sclerotia_?, sclerotia_present, fruit-pods_?, fruit-pods_dna, fruit-pods_few-present, fruit-pods_norm, fruit-spots_?, fruit-spots_brown-w/blk-specks, fruit-spots_colored, seed_?, seed_abnorm, seed_norm, mold-growth_?, mold-growth_absent, mold-growth_present, seed-discolor_?, seed-discolor_absent, seed-size_?, seed-size_norm, shriveling_?, shriveling_absent, shriveling_present, roots_?, roots_galls-cysts, roots_norm, roots_rotted"
+soybean,path2__Alg2_then_Alg1,1,Alg2,82,61.65,"removed: date_?, date_april, plant-stand_normal, precip_?, precip_lt-norm, precip_norm, temp_?, temp_norm, hail_?, hail_yes, crop-hist_?, crop-hist_same-lst-two-yrs, area-damaged_?, severity_?, severity_pot-severe, severity_severe, seed-tmt_?, seed-tmt_other, germination_?, germination_lt-80, plant-growth_?, plant-growth_norm, leaves_abnorm, leafspots-halo_?, leafspots-halo_absent, leafspots-halo_no-yellow-halos, leafspots-halo_yellow-halos, leafspots-marg_?, leafspots-marg_dna, leafspots-marg_no-w-s-marg, leafspot-size_?, leafspot-size_dna, leafspot-size_lt-1/8, leaf-shread_?, leaf-mild_?, leaf-mild_lower-surf, leaf-mild_upper-surf, stem_?, stem_abnorm, lodging_?, lodging_no, lodging_yes, stem-cankers_?, stem-cankers_above-sec-nde, stem-cankers_above-soil, stem-cankers_below-soil, canker-lesion_?, canker-lesion_brown, canker-lesion_tan, fruiting-bodies_?, fruiting-bodies_present, external-decay_?, external-decay_absent, external-decay_watery, mycelium_?, mycelium_present, int-discolor_?, int-discolor_black, int-discolor_brown, sclerotia_?, sclerotia_present, fruit-pods_?, fruit-pods_dna, fruit-pods_few-present, fruit-pods_norm, fruit-spots_?, fruit-spots_brown-w/blk-specks, fruit-spots_colored, seed_?, seed_abnorm, seed_norm, mold-growth_?, mold-growth_absent, mold-growth_present, seed-discolor_?, seed-size_norm, shriveling_?, shriveling_absent, shriveling_present, roots_?, roots_galls-cysts, roots_norm"
+soybean,path2__Alg2_then_Alg1,2,Alg1,51,7.47,rows 683->632
+vote,path1__Alg1_then_Alg2,1,Alg1,41,9.43,rows 435->394
+vote,path1__Alg1_then_Alg2,2,Alg2,43,89.58,"removed: 1_?, 1_n, 1_y, 2_?, 2_n, 2_y, 3_?, 3_y, 4_?, 4_n, 5_?, 5_y, 6_?, 6_n, 6_y, 7_?, 7_n, 7_y, 8_n, 8_y, 9_?, 9_n, 9_y, 10_?, 10_n, 10_y, 11_?, 11_n, 11_y, 12_n, 12_y, 13_?, 13_n, 13_y, 14_?, 14_n, 14_y, 15_?, 15_n, 15_y, 16_?, 16_n, 16_y"
+vote,path2__Alg2_then_Alg1,1,Alg2,27,56.25,"removed: 1_?, 1_y, 2_?, 2_n, 3_?, 4_n, 5_?, 5_n, 5_y, 6_?, 6_y, 7_?, 7_n, 8_?, 8_n, 8_y, 9_?, 10_?, 11_?, 12_y, 13_?, 13_n, 14_?, 14_n, 14_y, 15_?, 16_n"
+vote,path2__Alg2_then_Alg1,2,Alg1,30,6.90,rows 435->405
+image-segmentation,path1__Alg1_then_Alg2,1,Alg1,461,19.96,rows 2310->1849
+image-segmentation,path1__Alg1_then_Alg2,2,Alg2,10,52.63,"removed: 1, 3, 4, 6, 7, 13, 14, 15, 17, 18"
+image-segmentation,path2__Alg2_then_Alg1,1,Alg2,5,26.32,"removed: 3, 4, 5, 6, 15"
+image-segmentation,path2__Alg2_then_Alg1,2,Alg1,457,19.78,rows 2310->1853
+tic-tac-toe,path1__Alg1_then_Alg2,1,Alg1,297,31.00,rows 958->661
+tic-tac-toe,path1__Alg1_then_Alg2,2,Alg2,11,40.74,"removed: 0_b, 1_b, 1_o, 3_b, 3_o, 4_x, 5_o, 5_x, 6_b, 7_o, 8_b"
+tic-tac-toe,path2__Alg2_then_Alg1,1,Alg2,5,18.52,"removed: 0_b, 1_b, 2_b, 4_b, 4_x"
+tic-tac-toe,path2__Alg2_then_Alg1,2,Alg1,282,29.44,rows 958->676
+nsl-kdd,path1__Alg1_then_Alg2,1,Alg1,6120,24.29,rows 25192->19072
+nsl-kdd,path1__Alg1_then_Alg2,2,Alg2,100,84.75,"removed: 6, 7, 8, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 24, 25, 28, 29, 30, 33, 36, 37, 38, 39, 1_tcp, 1_udp, 2_IRC, 2_X11, 2_Z39_50, 2_auth, 2_bgp, 2_courier, 2_csnet_ns, 2_ctf, 2_daytime, 2_discard, 2_domain, 2_domain_u, 2_echo, 2_eco_i, 2_efs, 2_exec, 2_finger, 2_ftp, 2_gopher, 2_hostnames, 2_http, 2_http_443, 2_http_8001, 2_iso_tsap, 2_klogin, 2_kshell, 2_ldap, 2_link, 2_login, 2_mtp, 2_name, 2_netbios_dgm, 2_netbios_ns, 2_netbios_ssn, 2_netstat, 2_nnsp, 2_nntp, 2_ntp_u, 2_other, 2_pm_dump, 2_pop_2, 2_pop_3, 2_printer, 2_private, 2_red_i, 2_remote_job, 2_rje, 2_shell, 2_smtp, 2_sql_net, 2_ssh, 2_sunrpc, 2_supdup, 2_systat, 2_telnet, 2_tim_i, 2_time, 2_urh_i, 2_urp_i, 2_uucp, 2_uucp_path, 2_vmnet, 2_whois, 3_OTH, 3_REJ, 3_RSTO, 3_RSTOS0, 3_RSTR, 3_S0, 3_S1, 3_S2, 3_S3, 3_SF, 3_SH"
+nsl-kdd,path2__Alg2_then_Alg1,1,Alg2,74,62.71,"removed: 6, 10, 12, 13, 14, 17, 19, 20, 28, 40, 2_IRC, 2_X11, 2_Z39_50, 2_auth, 2_bgp, 2_courier, 2_csnet_ns, 2_ctf, 2_daytime, 2_discard, 2_domain, 2_domain_u, 2_echo, 2_efs, 2_exec, 2_ftp, 2_gopher, 2_hostnames, 2_http, 2_http_443, 2_http_8001, 2_iso_tsap, 2_klogin, 2_kshell, 2_ldap, 2_link, 2_login, 2_mtp, 2_name, 2_netbios_dgm, 2_netbios_ns, 2_netbios_ssn, 2_netstat, 2_nnsp, 2_nntp, 2_ntp_u, 2_other, 2_pm_dump, 2_pop_2, 2_pop_3, 2_printer, 2_red_i, 2_remote_job, 2_rje, 2_shell, 2_smtp, 2_sql_net, 2_ssh, 2_sunrpc, 2_systat, 2_telnet, 2_time, 2_urh_i, 2_uucp, 2_uucp_path, 2_vmnet, 2_whois, 3_OTH, 3_RSTO, 3_RSTOS0, 3_RSTR, 3_S1, 3_S2, 3_S3"
+nsl-kdd,path2__Alg2_then_Alg1,2,Alg1,9116,36.19,rows 25192->16076

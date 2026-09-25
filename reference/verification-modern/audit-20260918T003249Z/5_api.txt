@@ -1,0 +1,14 @@
+https://api.elsevier.com/content/article/pii/S0950705124004787
+doi:10.1016/j.knosys.2024.111844
+1-s2.0-S0950705124004787
+10.1016/j.knosys.2024.111844
+S0950-7051(24)00478-7
+New data reduction algorithms based on the fusion of instance and feature selection
+Knowledge-Based Systems
+Journal
+09507051
+2024-07-19
+19 July 2024
+0
+false
+false

@@ -1,0 +1,14 @@
+https://api.elsevier.com/content/article/pii/S0031320320304775
+doi:10.1016/j.patcog.2020.107674
+1-s2.0-S0031320320304775
+10.1016/j.patcog.2020.107674
+S0031-3203(20)30477-5
+Attribute and instance weighted naive Bayes
+Pattern Recognition
+Journal
+00313203
+2021-03-31
+March 2021
+0
+false
+false

@@ -1,0 +1,868 @@
+[
+  {
+    "key": "1_crossref",
+    "url": "https://api.crossref.org/works/10.1016/j.patcog.2020.107725",
+    "checked_at": "2026-09-18T00:32:49.201886+00:00",
+    "error": "HTTP Error 404: Not Found",
+    "status": 404,
+    "final_url": "https://api.crossref.org/works/10.1016/j.patcog.2020.107725",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\1_crossref_error.html"
+  },
+  {
+    "key": "2_crossref",
+    "url": "https://api.crossref.org/works/10.37965/jait.2025.0734",
+    "checked_at": "2026-09-18T00:32:49.203382+00:00",
+    "status": 200,
+    "final_url": "https://api.crossref.org/works/10.37965/jait.2025.0734",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\2_crossref.json",
+    "bytes": 4032,
+    "summary": {
+      "DOI": "10.37965/jait.2025.0734",
+      "title": [
+        "Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes"
+      ],
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-8380-3866",
+          "authenticated-orcid": false,
+          "given": "Anastasya",
+          "family": "Latubessy",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-6057-5082",
+          "authenticated-orcid": false,
+          "given": "Edi",
+          "family": "Winarko",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Aina",
+          "family": "Musdholifah",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Sri",
+          "family": "Kusrohmaniah",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "published-print": null,
+      "published-online": {
+        "date-parts": [
+          [
+            2025,
+            7,
+            22
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2025,
+            7,
+            22
+          ]
+        ]
+      },
+      "container-title": [
+        "Journal of Artificial Intelligence and Technology"
+      ],
+      "URL": "https://doi.org/10.37965/jait.2025.0734",
+      "link": [
+        {
+          "URL": "https://ojs.istp-press.com/jait/article/download/734/624",
+          "content-type": "application/pdf",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://ojs.istp-press.com/jait/article/download/734/624",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "abstract": "<jats:p>The dynamic nature of the social environment can influence symptom patterns in mental illnesses, thereby affecting their classification. Gaming disorder (GD), recently recognized in ICD-11 by the World Health Organization, is currently identified based on 44 symptoms derived from expert assessments. However, these symptoms may shift as social behaviors evolve, necessitating classification models that remain robust despite changes in dataset attributes. This study proposes a robust model—fine-tuned attribute-weighted Naïve Bayes (FTAWNB) with modified partial instance reduction (mPIR)—to address this issue. Two test scenarios were conducted: the addition of one new attribute and the removal of four attributes from the GD dataset, applied to both the original and updated datasets. The results indicate that FTAWNB with modified PIR enhances classification performance. On the original dataset, accuracy increased by 1.28% (Scenario 1) and 1.4% (Scenario 2). On the updated dataset, the model maintained 99.74% accuracy (Scenario 1) and improved by 1.4% (Scenario 2). These findings demonstrate that the integration of modified PIR improves model stability in dynamic feature environments, thereby contributing to more reliable mental health classification systems.</jats:p>"
+    }
+  },
+  {
+    "key": "3_crossref",
+    "url": "https://api.crossref.org/works/10.1109/TKDE.2022.3177634",
+    "checked_at": "2026-09-18T00:32:49.203784+00:00",
+    "status": 200,
+    "final_url": "https://api.crossref.org/works/10.1109/TKDE.2022.3177634",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\3_crossref.json",
+    "bytes": 7688,
+    "summary": {
+      "DOI": "10.1109/tkde.2022.3177634",
+      "title": [
+        "Multi-view Attribute Weighted Naive Bayes"
+      ],
+      "author": [
+        {
+          "given": "Huan",
+          "family": "Zhang",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "School of Computer Science, China University of Geosciences, 12564 Wuhan, Hubei, China"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Liangxiao",
+          "family": "Jiang",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "School of Computer Science, China University of Geosciences, 12564 Wuhan, Hubei, China"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Wenjun",
+          "family": "Zhang",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "School of Computer Science, China University of Geosciences, 12564 Wuhan, Hubei, China"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Chaoqun",
+          "family": "Li",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "School of Mathematics and Physics, China University of Geosciences, 12564 Wuhan, Hubei, China"
+            }
+          ],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "published-print": {
+        "date-parts": [
+          [
+            2022
+          ]
+        ]
+      },
+      "published-online": null,
+      "issued": {
+        "date-parts": [
+          [
+            2022
+          ]
+        ]
+      },
+      "container-title": [
+        "IEEE Transactions on Knowledge and Data Engineering"
+      ],
+      "URL": "https://doi.org/10.1109/tkde.2022.3177634",
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx7/69/4358933/09787796.pdf?arnumber=9787796",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "abstract": null
+    }
+  },
+  {
+    "key": "4_crossref",
+    "url": "https://api.crossref.org/works/10.3390/app14188459",
+    "checked_at": "2026-09-18T00:32:49.204157+00:00",
+    "status": 200,
+    "final_url": "https://api.crossref.org/works/10.3390/app14188459",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\4_crossref.json",
+    "bytes": 14215,
+    "summary": {
+      "DOI": "10.3390/app14188459",
+      "title": [
+        "Simultaneous Instance and Attribute Selection for Noise Filtering"
+      ],
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0001-9889-3924",
+          "authenticated-orcid": false,
+          "given": "Yenny",
+          "family": "Villuendas-Rey",
+          "sequence": "first",
+          "affiliation": [
+            {
+              "name": "Instituto Politécnico Nacional, Centro de Innovación y Desarrollo Tecnológico en Cómputo, Juan de Dios Bátiz s/n, Mexico City 07700, Mexico"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "given": "Claudia C.",
+          "family": "Tusell-Rey",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Instituto Politécnico Nacional, Centro de Investigación en Computación, Juan de Dios Bátiz s/n, Mexico City 07738, Mexico"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-1142-5277",
+          "authenticated-orcid": false,
+          "given": "Oscar",
+          "family": "Camacho-Nieto",
+          "sequence": "additional",
+          "affiliation": [
+            {
+              "name": "Instituto Politécnico Nacional, Centro de Innovación y Desarrollo Tecnológico en Cómputo, Juan de Dios Bátiz s/n, Mexico City 07700, Mexico"
+            }
+          ],
+          "role": [
+            {
+              "role": "author",
+              "vocabulary": "crossref"
+            }
+          ]
+        }
+      ],
+      "published-print": null,
+      "published-online": {
+        "date-parts": [
+          [
+            2024,
+            9,
+            19
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            9,
+            19
+          ]
+        ]
+      },
+      "container-title": [
+        "Applied Sciences"
+      ],
+      "URL": "https://doi.org/10.3390/app14188459",
+      "link": [
+        {
+          "URL": "https://www.mdpi.com/2076-3417/14/18/8459/pdf",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "abstract": "<jats:p>The existence of noise is inherent to most real data that are collected. Removing or reducing noise can help classification algorithms focus on relevant patterns, preventing them from being affected by irrelevant or incorrect information. This can result in more accurate and reliable models, improving their ability to generalize and make accurate predictions on new data. For example, among the main disadvantages of the nearest neighbor classifier are its noise sensitivity and its high computational cost (for classification and storage). Thus, noise filtering is essential to ensure data quality and the effectiveness of supervised classification models. The simultaneous selection of attributes and instances for supervised classifiers was introduced in the last decade. However, the proposed solutions present several drawbacks because some are either stochastic or do not handle noisy domains, and the neighborhood selection of some algorithms allows very dissimilar objects to be considered as neighbors. In addition, the design of some methods is just for specific classifiers without generalization possibilities. This article introduces an instance and attribute selection model, which seeks to detect and eliminate existing noise while reducing the feature space. In addition, the proposal is deterministic and does not predefine any supervised classifier. The experiments allow us to establish the viability of the proposal and its effectiveness in eliminating noise.</jats:p>"
+    }
+  },
+  {
+    "key": "5_crossref",
+    "url": "https://api.crossref.org/works/10.1016/j.knosys.2024.111844",
+    "checked_at": "2026-09-18T00:32:49.204492+00:00",
+    "status": 200,
+    "final_url": "https://api.crossref.org/works/10.1016/j.knosys.2024.111844",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\5_crossref.json",
+    "bytes": 17629,
+    "summary": {
+      "DOI": "10.1016/j.knosys.2024.111844",
+      "title": [
+        "New data reduction algorithms based on the fusion of instance and feature selection"
+      ],
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0001-5419-1111",
+          "authenticated-orcid": false,
+          "given": "Maciej",
+          "family": "Kusy",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Roman",
+          "family": "Zajdel",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "published-print": {
+        "date-parts": [
+          [
+            2024,
+            7
+          ]
+        ]
+      },
+      "published-online": null,
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            7
+          ]
+        ]
+      },
+      "container-title": [
+        "Knowledge-Based Systems"
+      ],
+      "URL": "https://doi.org/10.1016/j.knosys.2024.111844",
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0950705124004787?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0950705124004787?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        }
+      ],
+      "abstract": null
+    }
+  },
+  {
+    "key": "6_crossref",
+    "url": "https://api.crossref.org/works/10.1016/j.patcog.2020.107723",
+    "checked_at": "2026-09-18T00:32:49.204844+00:00",
+    "status": 200,
+    "final_url": "https://api.crossref.org/works/10.1016/j.patcog.2020.107723",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\6_crossref.json",
+    "bytes": 14761,
+    "summary": {
+      "DOI": "10.1016/j.patcog.2020.107723",
+      "title": [
+        "SI(FS)<mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\" altimg=\"si8.svg\"><mml:msup><mml:mrow/><mml:mn>2</mml:mn></mml:msup></mml:math>: Fast simultaneous instance and feature selection for datasets with many features"
+      ],
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-4488-6849",
+          "authenticated-orcid": false,
+          "given": "Nicolás",
+          "family": "García-Pedrajas",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Juan A. Romero",
+          "family": "del Castillo",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Gonzalo",
+          "family": "Cerruela-García",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "published-print": {
+        "date-parts": [
+          [
+            2021,
+            3
+          ]
+        ]
+      },
+      "published-online": null,
+      "issued": {
+        "date-parts": [
+          [
+            2021,
+            3
+          ]
+        ]
+      },
+      "container-title": [
+        "Pattern Recognition"
+      ],
+      "URL": "https://doi.org/10.1016/j.patcog.2020.107723",
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0031320320305264?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0031320320305264?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        }
+      ],
+      "abstract": null
+    }
+  },
+  {
+    "key": "7_crossref",
+    "url": "https://api.crossref.org/works/10.1609/aaai.v38i11.29183",
+    "checked_at": "2026-09-18T00:32:49.205124+00:00",
+    "status": 200,
+    "final_url": "https://api.crossref.org/works/10.1609/aaai.v38i11.29183",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\7_crossref.json",
+    "bytes": 3825,
+    "summary": {
+      "DOI": "10.1609/aaai.v38i11.29183",
+      "title": [
+        "Which Is More Effective in Label Noise Cleaning, Correction or Filtering?"
+      ],
+      "author": [
+        {
+          "given": "Gaoxia",
+          "family": "Jiang",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Jia",
+          "family": "Zhang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Xuefei",
+          "family": "Bai",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Wenjian",
+          "family": "Wang",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Deyu",
+          "family": "Meng",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "published-print": null,
+      "published-online": {
+        "date-parts": [
+          [
+            2024,
+            3,
+            24
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            3,
+            24
+          ]
+        ]
+      },
+      "container-title": [
+        "Proceedings of the AAAI Conference on Artificial Intelligence"
+      ],
+      "URL": "https://doi.org/10.1609/aaai.v38i11.29183",
+      "link": [
+        {
+          "URL": "https://ojs.aaai.org/index.php/AAAI/article/download/29183/30238",
+          "content-type": "application/pdf",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://ojs.aaai.org/index.php/AAAI/article/download/29183/30239",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://ojs.aaai.org/index.php/AAAI/article/download/29183/30238",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "abstract": "<jats:p>Most noise cleaning methods adopt one of the correction and filtering modes to build robust models. However, their effectiveness, applicability, and hyper-parameter insensitivity have not been carefully studied. We compare the two cleaning modes via a rebuilt error bound in noisy environments. At the dataset level, Theorem 5 implies that correction is more effective than filtering when the cleaned datasets have close noise rates. At the sample level, Theorem 6 indicates that confident label noises (large noise probabilities) are more suitable to be corrected, and unconfident noises (medium noise probabilities) should be filtered. Besides, an imperfect hyper-parameter may have fewer negative impacts on filtering than correction. Unlike existing methods with a single cleaning mode, the proposed Fusion cleaning framework of Correction and Filtering (FCF) combines the advantages of different modes to deal with diverse suspicious labels. Experimental results demonstrate that our FCF method can achieve state-of-the-art performance on benchmark datasets.</jats:p>"
+    }
+  },
+  {
+    "key": "8_crossref",
+    "url": "https://api.crossref.org/works/10.1016/j.patcog.2025.112181",
+    "checked_at": "2026-09-18T00:32:49.205381+00:00",
+    "status": 200,
+    "final_url": "https://api.crossref.org/works/10.1016/j.patcog.2025.112181",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\8_crossref.json",
+    "bytes": 16505,
+    "summary": {
+      "DOI": "10.1016/j.patcog.2025.112181",
+      "title": [
+        "A general dual-view framework for instance weighted naive Bayes"
+      ],
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0002-9914-6602",
+          "authenticated-orcid": false,
+          "given": "Huan",
+          "family": "Zhang",
+          "sequence": "first",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Kexin",
+          "family": "Meng",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Pei",
+          "family": "Lv",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Shuo",
+          "family": "He",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        },
+        {
+          "given": "Mingliang",
+          "family": "Xu",
+          "sequence": "additional",
+          "affiliation": [],
+          "role": [
+            {
+              "vocabulary": "crossref",
+              "role": "author"
+            }
+          ]
+        }
+      ],
+      "published-print": {
+        "date-parts": [
+          [
+            2026,
+            3
+          ]
+        ]
+      },
+      "published-online": null,
+      "issued": {
+        "date-parts": [
+          [
+            2026,
+            3
+          ]
+        ]
+      },
+      "container-title": [
+        "Pattern Recognition"
+      ],
+      "URL": "https://doi.org/10.1016/j.patcog.2025.112181",
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0031320325008428?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0031320325008428?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor",
+          "intended-application": "text-mining"
+        }
+      ],
+      "abstract": null
+    }
+  },
+  {
+    "key": "1_doi",
+    "url": "https://doi.org/10.1016/j.patcog.2020.107725",
+    "checked_at": "2026-09-18T00:32:49.205708+00:00",
+    "error": "HTTP Error 404: Not Found",
+    "status": 404,
+    "final_url": "https://doi.org/10.1016/j.patcog.2020.107725",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\1_doi_error.html"
+  },
+  {
+    "key": "2_doi",
+    "url": "https://doi.org/10.37965/jait.2025.0734",
+    "checked_at": "2026-09-18T00:32:49.206010+00:00",
+    "status": 200,
+    "final_url": "https://ojs.istp-press.com/jait/article/view/734",
+    "content_type": "text/html; charset=utf-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\2_doi.html",
+    "bytes": 51291
+  },
+  {
+    "key": "3_doi",
+    "url": "https://doi.org/10.1109/TKDE.2022.3177634",
+    "checked_at": "2026-09-18T00:32:49.206395+00:00",
+    "status": 202,
+    "final_url": "https://ieeexplore.ieee.org/document/9787796/",
+    "content_type": "text/html; charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\3_doi.html",
+    "bytes": 0
+  },
+  {
+    "key": "4_doi",
+    "url": "https://doi.org/10.3390/app14188459",
+    "checked_at": "2026-09-18T00:32:49.206816+00:00",
+    "error": "HTTP Error 403: Forbidden",
+    "status": 403,
+    "final_url": "https://www.mdpi.com/2076-3417/14/18/8459",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\4_doi_error.html"
+  },
+  {
+    "key": "5_doi",
+    "url": "https://doi.org/10.1016/j.knosys.2024.111844",
+    "checked_at": "2026-09-18T00:32:50.048410+00:00",
+    "status": 200,
+    "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S0950705124004787",
+    "content_type": "text/html;charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\5_doi.html",
+    "bytes": 2699
+  },
+  {
+    "key": "6_doi",
+    "url": "https://doi.org/10.1016/j.patcog.2020.107723",
+    "checked_at": "2026-09-18T00:32:50.131364+00:00",
+    "status": 200,
+    "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S0031320320305264",
+    "content_type": "text/html;charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\6_doi.html",
+    "bytes": 2704
+  },
+  {
+    "key": "7_doi",
+    "url": "https://doi.org/10.1609/aaai.v38i11.29183",
+    "checked_at": "2026-09-18T00:32:50.282308+00:00",
+    "status": 200,
+    "final_url": "https://ojs.aaai.org/index.php/AAAI/article/view/29183",
+    "content_type": "text/html; charset=utf-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\7_doi.html",
+    "bytes": 4694
+  },
+  {
+    "key": "8_doi",
+    "url": "https://doi.org/10.1016/j.patcog.2025.112181",
+    "checked_at": "2026-09-18T00:32:50.400574+00:00",
+    "status": 200,
+    "final_url": "https://linkinghub.elsevier.com/retrieve/pii/S0031320325008428",
+    "content_type": "text/html;charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\8_doi.html",
+    "bytes": 2679
+  },
+  {
+    "key": "2_publisher",
+    "url": "https://ojs.istp-press.com/jait/article/view/734",
+    "checked_at": "2026-09-18T00:32:50.454664+00:00",
+    "status": 200,
+    "final_url": "https://ojs.istp-press.com/jait/article/view/734",
+    "content_type": "text/html; charset=utf-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\2_publisher.html",
+    "bytes": 51291
+  },
+  {
+    "key": "4_publisher",
+    "url": "https://www.mdpi.com/2076-3417/14/18/8459",
+    "checked_at": "2026-09-18T00:32:50.533702+00:00",
+    "error": "HTTP Error 403: Forbidden",
+    "status": 403,
+    "final_url": "https://www.mdpi.com/2076-3417/14/18/8459",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\4_publisher_error.html"
+  },
+  {
+    "key": "7_pdf",
+    "url": "https://ojs.aaai.org/index.php/AAAI/article/view/29183/30238",
+    "checked_at": "2026-09-18T00:32:50.545813+00:00",
+    "status": 200,
+    "final_url": "https://ojs.aaai.org/index.php/AAAI/article/download/29183/30238",
+    "content_type": "application/pdf",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\7_pdf.pdf",
+    "bytes": 428147
+  },
+  {
+    "key": "9_exact",
+    "url": "https://proceedings.mlr.press/v337/wu26b.html",
+    "checked_at": "2026-09-18T00:32:50.636878+00:00",
+    "status": 200,
+    "final_url": "https://proceedings.mlr.press/v337/wu26b.html",
+    "content_type": "text/html; charset=utf-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\9_exact.html",
+    "bytes": 17043
+  },
+  {
+    "key": "10_exact",
+    "url": "https://arxiv.org/abs/2604.04199",
+    "checked_at": "2026-09-18T00:32:50.691967+00:00",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/2604.04199",
+    "content_type": "text/html; charset=utf-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\10_exact.html",
+    "bytes": 41021
+  }
+]

@@ -1,0 +1,79 @@
+==============================================================================
+CHECK 1 - attribute-removal (A): how many attributes does the tree test?
+==============================================================================
+iris           n_attr=  4 | default:   3/4 tested | ccp=0.001:   3/4 | ccp=0.005:   3/4 | ccp=0.01:   3/4 | ccp=0.02:   2/4
+wine           n_attr= 13 | default:   6/13 tested | ccp=0.001:   6/13 | ccp=0.005:   6/13 | ccp=0.01:   6/13 | ccp=0.02:   5/13
+breast_cancer  n_attr= 30 | default:  12/30 tested | ccp=0.001:  12/30 | ccp=0.005:  11/30 | ccp=0.01:   9/30 | ccp=0.02:   5/30
+digits         n_attr= 64 | default:  43/64 tested | ccp=0.001:  43/64 | ccp=0.005:  36/64 | ccp=0.01:  28/64 | ccp=0.02:  20/64
+
+==============================================================================
+CHECK 2 - noise-removal (N): in-fold NB removal rate (resubstitution)
+==============================================================================
+iris           removal per fold: mean   4.1%  (min 3.0%, max 5.2%)
+wine           removal per fold: mean   1.4%  (min 0.6%, max 1.9%)
+breast_cancer  removal per fold: mean   5.9%  (min 5.3%, max 6.4%)
+digits         removal per fold: mean  14.1%  (min 10.4%, max 15.4%)
+
+==============================================================================
+CHECK 3 - preliminary accuracy signs, 10-fold x 3 seeds (accuracy %)
+==============================================================================
+-- iris --
+   NB        95.56
+   DT        94.67
+   A->NB     96.22
+   N->NB     95.56
+   AA->NB    96.22
+   AN->NB    95.78
+   NA->NB    95.11
+   NN->NB    95.56
+   A->DT     94.22
+   N->DT     95.33
+   AA->DT    94.22
+   AN->DT    95.78
+   NA->DT    95.33
+   NN->DT    95.56
+-- wine --
+   NB        97.58
+   DT        93.63
+   A->NB     95.71
+   N->NB     97.21
+   AA->NB    95.52
+   AN->NB    95.89
+   NA->NB    95.92
+   NN->NB    97.21
+   A->DT     94.01
+   N->DT     92.14
+   AA->DT    92.52
+   AN->DT    91.96
+   NA->DT    92.33
+   NN->DT    92.14
+-- breast_cancer --
+   NB        93.85
+   DT        93.56
+   A->NB     94.90
+   N->NB     93.14
+   AA->NB    95.31
+   AN->NB    94.61
+   NA->NB    93.44
+   NN->NB    93.09
+   A->DT     93.73
+   N->DT     93.26
+   AA->DT    93.97
+   AN->DT    94.26
+   NA->DT    93.26
+   NN->DT    92.67
+-- digits --
+   NB        83.92
+   DT        87.31
+   A->NB     87.28
+   N->NB     84.36
+   AA->NB    87.42
+   AN->NB    84.01
+   NA->NB    82.90
+   NN->NB    84.36
+   A->DT     86.83
+   N->DT     85.38
+   AA->DT    86.79
+   AN->DT    85.25
+   NA->DT    85.35
+   NN->DT    85.27

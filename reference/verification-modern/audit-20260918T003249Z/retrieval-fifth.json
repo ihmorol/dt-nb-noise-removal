@@ -1,0 +1,90 @@
+[
+  {
+    "key": "1_api_abstract",
+    "url": "https://api.elsevier.com/content/article/pii/S0031320320304775?httpAccept=text/xml&view=META_ABS",
+    "checked_at": "2026-09-18T00:35:05.498671+00:00",
+    "error": "HTTP Error 401: Unauthorized",
+    "status": 401
+  },
+  {
+    "key": "5_api_abstract",
+    "url": "https://api.elsevier.com/content/article/pii/S0950705124004787?httpAccept=text/xml&view=META_ABS",
+    "checked_at": "2026-09-18T00:35:05.499407+00:00",
+    "error": "HTTP Error 401: Unauthorized",
+    "status": 401
+  },
+  {
+    "key": "6_api_abstract",
+    "url": "https://api.elsevier.com/content/article/pii/S0031320320305264?httpAccept=text/xml&view=META_ABS",
+    "checked_at": "2026-09-18T00:35:05.499874+00:00",
+    "error": "HTTP Error 401: Unauthorized",
+    "status": 401
+  },
+  {
+    "key": "8_api_abstract",
+    "url": "https://api.elsevier.com/content/article/pii/S0031320325008428?httpAccept=text/xml&view=META_ABS",
+    "checked_at": "2026-09-18T00:35:05.500225+00:00",
+    "error": "HTTP Error 401: Unauthorized",
+    "status": 401
+  },
+  {
+    "key": "6_repository_pdf",
+    "url": "https://helvia.uco.es/xmlui/bitstream/10396/26740/3/si_fs.pdf",
+    "checked_at": "2026-09-18T00:35:05.500529+00:00",
+    "status": 200,
+    "final_url": "https://helvia.uco.es/xmlui/bitstream/10396/26740/3/si_fs.pdf",
+    "content_type": "text/html",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\6_repository_pdf.html",
+    "bytes": 175,
+    "links": [],
+    "excerpt": ""
+  },
+  {
+    "key": "1_discovery",
+    "url": "https://www.google.com/search?q=%22Attribute%20and%20instance%20weighted%20naive%20Bayes%22",
+    "checked_at": "2026-09-18T00:35:05.500937+00:00",
+    "status": 200,
+    "final_url": "https://www.google.com/search?q=%22Attribute%20and%20instance%20weighted%20naive%20Bayes%22",
+    "content_type": "text/html; charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\1_discovery.html",
+    "bytes": 91442,
+    "links": [
+      "/httpservice/retry/enablejs?sei=O4esapv5GaWrhvcPncmm2Qs",
+      "/search?q=%22Attribute+and+instance+weighted+naive+Bayes%22&sca_esv=1a1cf151c48bf507&sxsrf=APpeQnsB0_lpFzUBECnEEaBiDNH285bXoQ:1789691707430&emsg=SG_REL&sei=O4esapv5GaWrhvcPncmm2Qs",
+      "https://support.google.com/websearch"
+    ],
+    "excerpt": "Google Search\n\u09af\u09a6\u09bf \u0995\u09df\u09c7\u0995 \u09b8\u09c7\u0995\u09c7\u09a8\u09cd\u09a1\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u0986\u09aa\u09a8\u09bf \u0985\u09a8\u09cd\u09af \u09b8\u09be\u0987\u099f\u09c7 \u09a8\u09be \u09af\u09be\u09a8 \u09a4\u09be\u09b9\u09b2\u09c7\n\u098f\u0996\u09be\u09a8\u09c7\n\u0995\u09cd\u09b2\u09bf\u0995 \u0995\u09b0\u09c1\u09a8\nGoogle Search \u0985\u09cd\u09af\u09be\u0995\u09cd\u09b8\u09c7\u09b8 \u0995\u09b0\u09a4\u09c7 \u09b8\u09ae\u09b8\u09cd\u09af\u09be \u09b9\u09b2\u09c7,\n\u098f\u0996\u09be\u09a8\u09c7 \u0995\u09cd\u09b2\u09bf\u0995 \u0995\u09b0\u09c1\u09a8\n\u0985\u09a5\u09ac\u09be\n\u09ae\u09a4\u09be\u09ae\u09a4\n\u09aa\u09be\u09a0\u09be\u09a8\u0964"
+  },
+  {
+    "key": "3_discovery",
+    "url": "https://www.google.com/search?q=%22Multi-view%20Attribute%20Weighted%20Naive%20Bayes%22",
+    "checked_at": "2026-09-18T00:35:05.523471+00:00",
+    "status": 200,
+    "final_url": "https://www.google.com/search?q=%22Multi-view%20Attribute%20Weighted%20Naive%20Bayes%22",
+    "content_type": "text/html; charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\3_discovery.html",
+    "bytes": 91641,
+    "links": [
+      "/httpservice/retry/enablejs?sei=O4esapDbGtGMseMPkMC8mAc",
+      "/search?q=%22Multi-view+Attribute+Weighted+Naive+Bayes%22&sca_esv=1a1cf151c48bf507&emsg=SG_REL&sei=O4esapDbGtGMseMPkMC8mAc",
+      "https://support.google.com/websearch"
+    ],
+    "excerpt": "Google Search\n\u09af\u09a6\u09bf \u0995\u09df\u09c7\u0995 \u09b8\u09c7\u0995\u09c7\u09a8\u09cd\u09a1\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u0986\u09aa\u09a8\u09bf \u0985\u09a8\u09cd\u09af \u09b8\u09be\u0987\u099f\u09c7 \u09a8\u09be \u09af\u09be\u09a8 \u09a4\u09be\u09b9\u09b2\u09c7\n\u098f\u0996\u09be\u09a8\u09c7\n\u0995\u09cd\u09b2\u09bf\u0995 \u0995\u09b0\u09c1\u09a8\nGoogle Search \u0985\u09cd\u09af\u09be\u0995\u09cd\u09b8\u09c7\u09b8 \u0995\u09b0\u09a4\u09c7 \u09b8\u09ae\u09b8\u09cd\u09af\u09be \u09b9\u09b2\u09c7,\n\u098f\u0996\u09be\u09a8\u09c7 \u0995\u09cd\u09b2\u09bf\u0995 \u0995\u09b0\u09c1\u09a8\n\u0985\u09a5\u09ac\u09be\n\u09ae\u09a4\u09be\u09ae\u09a4\n\u09aa\u09be\u09a0\u09be\u09a8\u0964"
+  },
+  {
+    "key": "5_discovery",
+    "url": "https://www.google.com/search?q=%22New%20data%20reduction%20algorithms%20based%20on%20the%20fusion%20of%20instance%20and%20feature%20selection%22",
+    "checked_at": "2026-09-18T00:35:05.607658+00:00",
+    "status": 200,
+    "final_url": "https://www.google.com/search?q=%22New%20data%20reduction%20algorithms%20based%20on%20the%20fusion%20of%20instance%20and%20feature%20selection%22",
+    "content_type": "text/html; charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\5_discovery.html",
+    "bytes": 91711,
+    "links": [
+      "/httpservice/retry/enablejs?sei=O4esauX1GbedhvcPv4WAqQ4",
+      "/search?q=%22New+data+reduction+algorithms+based+on+the+fusion+of+instance+and+feature+selection%22&sca_esv=1a1cf151c48bf507&emsg=SG_REL&sei=O4esauX1GbedhvcPv4WAqQ4",
+      "https://support.google.com/websearch"
+    ],
+    "excerpt": "Google Search\n\u09af\u09a6\u09bf \u0995\u09df\u09c7\u0995 \u09b8\u09c7\u0995\u09c7\u09a8\u09cd\u09a1\u09c7\u09b0 \u09ae\u09a7\u09cd\u09af\u09c7 \u0986\u09aa\u09a8\u09bf \u0985\u09a8\u09cd\u09af \u09b8\u09be\u0987\u099f\u09c7 \u09a8\u09be \u09af\u09be\u09a8 \u09a4\u09be\u09b9\u09b2\u09c7\n\u098f\u0996\u09be\u09a8\u09c7\n\u0995\u09cd\u09b2\u09bf\u0995 \u0995\u09b0\u09c1\u09a8\nGoogle Search \u0985\u09cd\u09af\u09be\u0995\u09cd\u09b8\u09c7\u09b8 \u0995\u09b0\u09a4\u09c7 \u09b8\u09ae\u09b8\u09cd\u09af\u09be \u09b9\u09b2\u09c7,\n\u098f\u0996\u09be\u09a8\u09c7 \u0995\u09cd\u09b2\u09bf\u0995 \u0995\u09b0\u09c1\u09a8\n\u0985\u09a5\u09ac\u09be\n\u09ae\u09a4\u09be\u09ae\u09a4\n\u09aa\u09be\u09a0\u09be\u09a8\u0964"
+  }
+]

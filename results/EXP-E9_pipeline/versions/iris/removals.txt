@@ -1,0 +1,23 @@
+dataset: iris
+main data: 150 rows x 4 attributes -> main.csv
+(one pass over the whole dataset, no cross-validation)
+
+=== path1__Alg1_then_Alg2 ===
+  step 1  Alg 1 -- NB noise filter (judge: plain NB)
+           rows 150 -> 144, removed 6 (4.0%)
+           removed per class: 0: 0.0%, 1: 6.0%, 2: 6.0%
+           removed row ids: 52, 70, 77, 106, 119, 133
+  step 2  Alg 2 -- tree attribute selection (ccp_alpha=0.0)
+           attributes 4 -> 2, removed 2 (50.0%)
+           removed attributes: sepal length (cm), sepal width (cm)
+  new data: 144 rows x 2 attributes -> path1__Alg1_then_Alg2.csv
+
+=== path2__Alg2_then_Alg1 ===
+  step 1  Alg 2 -- tree attribute selection (ccp_alpha=0.0)
+           attributes 4 -> 3, removed 1 (25.0%)
+           removed attributes: sepal length (cm)
+  step 2  Alg 1 -- NB noise filter (judge: weighted NB (Alg 2 weights))
+           rows 150 -> 144, removed 6 (4.0%)
+           removed per class: 0: 0.0%, 1: 4.0%, 2: 8.0%
+           removed row ids: 70, 77, 106, 119, 133, 134
+  new data: 144 rows x 3 attributes -> path2__Alg2_then_Alg1.csv

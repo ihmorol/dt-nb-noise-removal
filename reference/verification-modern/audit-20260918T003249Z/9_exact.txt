@@ -1,0 +1,75 @@
+Learning Representations from Perturbation: A Novel Matrix-View Weighting Framework for Naive Bayes
+Proceedings of Machine Learning Research
+Volume 337
+JMLR
+DMLR
+TMLR
+MLOSS
+FAQ
+Submission Format
+[
+edit
+]
+Learning Representations from Perturbation: A Novel Matrix-View Weighting Framework for Naive Bayes
+Siyao Wu, Huan Zhang, Kexin Meng, Zhipeng Ding, Pei Lv
+Proceedings of the 42nd Conference on Uncertainty in Artificial Intelligence
+, PMLR 337:7416-7432, 2026.
+Abstract
+Numerous attribute weighting methods have recently been proposed to alleviate the attribute conditional independence assumption in naive {Bayes}. Among them, multi-view attribute weighting framework has achieved state-of-the-art performance by constructing additional latent views beyond the raw attribute view, thereby capturing more comprehensive data characteristics. However, these latent views are usually derived from base classifiers trained on a fixed input distribution, which greatly limits the diversity of generated attributes. Additionally, in most cases, the latent views consist solely of hard labels, disregarding the predicted posterior probability of the base classifiers, resulting in incomplete utilization of discriminative evidence. To address these issues, we propose a novel framework called Perturbation-driven Matrix-view Weighted Naive {Bayes} (PMWNB). In PMWNB, diverse input perturbations are first applied to the raw attribute view to generate multiple base views. Subsequently, each base view independently trains multiple heterogeneous base classifiers, whose hard label and soft probability outputs are jointly leveraged to construct four latent views. Finally, class-specific attribute value weights in each view are respectively optimized by minimizing the negative conditional log-likelihood. Extensive experiments conducted on a collection of 59 benchmark datasets demonstrate the superiority of PMWNB. The source code and datasets are available at https://github.com/zhanghuan1994/PMWNB.
+Cite this Paper
+BibTeX
+@InProceedings{pmlr-v337-wu26b,
+  title = 	 {Learning Representations from Perturbation: A Novel Matrix-View Weighting Framework for Naive {Bayes}},
+  author =       {Wu, Siyao and Zhang, Huan and Meng, Kexin and Ding, Zhipeng and Lv, Pei},
+  booktitle = 	 {Proceedings of the 42nd Conference on Uncertainty in Artificial Intelligence},
+  pages = 	 {7416--7432},
+  year = 	 {2026},
+  editor = 	 {Perković, Emilija and Malinsky, Daniel},
+  volume = 	 {337},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {17--21 Aug},
+  publisher =    {PMLR},
+  pdf = 	 {https://raw.githubusercontent.com/mlresearch/v337/main/assets/wu26b/wu26b.pdf},
+  url = 	 {https://proceedings.mlr.press/v337/wu26b.html},
+  abstract = 	 {Numerous attribute weighting methods have recently been proposed to alleviate the attribute conditional independence assumption in naive {Bayes}. Among them, multi-view attribute weighting framework has achieved state-of-the-art performance by constructing additional latent views beyond the raw attribute view, thereby capturing more comprehensive data characteristics. However, these latent views are usually derived from base classifiers trained on a fixed input distribution, which greatly limits the diversity of generated attributes. Additionally, in most cases, the latent views consist solely of hard labels, disregarding the predicted posterior probability of the base classifiers, resulting in incomplete utilization of discriminative evidence. To address these issues, we propose a novel framework called Perturbation-driven Matrix-view Weighted Naive {Bayes} (PMWNB). In PMWNB, diverse input perturbations are first applied to the raw attribute view to generate multiple base views. Subsequently, each base view independently trains multiple heterogeneous base classifiers, whose hard label and soft probability outputs are jointly leveraged to construct four latent views. Finally, class-specific attribute value weights in each view are respectively optimized by minimizing the negative conditional log-likelihood. Extensive experiments conducted on a collection of 59 benchmark datasets demonstrate the superiority of PMWNB. The source code and datasets are available at https://github.com/zhanghuan1994/PMWNB.}
+}
+Copy to Clipboard
+Download
+Endnote
+%0 Conference Paper
+%T Learning Representations from Perturbation: A Novel Matrix-View Weighting Framework for Naive Bayes
+%A Siyao Wu
+%A Huan Zhang
+%A Kexin Meng
+%A Zhipeng Ding
+%A Pei Lv
+%B Proceedings of the 42nd Conference on Uncertainty in Artificial Intelligence
+%C Proceedings of Machine Learning Research
+%D 2026
+%E Emilija Perković
+%E Daniel Malinsky	
+%F pmlr-v337-wu26b
+%I PMLR
+%P 7416--7432
+%U https://proceedings.mlr.press/v337/wu26b.html
+%V 337
+%X Numerous attribute weighting methods have recently been proposed to alleviate the attribute conditional independence assumption in naive {Bayes}. Among them, multi-view attribute weighting framework has achieved state-of-the-art performance by constructing additional latent views beyond the raw attribute view, thereby capturing more comprehensive data characteristics. However, these latent views are usually derived from base classifiers trained on a fixed input distribution, which greatly limits the diversity of generated attributes. Additionally, in most cases, the latent views consist solely of hard labels, disregarding the predicted posterior probability of the base classifiers, resulting in incomplete utilization of discriminative evidence. To address these issues, we propose a novel framework called Perturbation-driven Matrix-view Weighted Naive {Bayes} (PMWNB). In PMWNB, diverse input perturbations are first applied to the raw attribute view to generate multiple base views. Subsequently, each base view independently trains multiple heterogeneous base classifiers, whose hard label and soft probability outputs are jointly leveraged to construct four latent views. Finally, class-specific attribute value weights in each view are respectively optimized by minimizing the negative conditional log-likelihood. Extensive experiments conducted on a collection of 59 benchmark datasets demonstrate the superiority of PMWNB. The source code and datasets are available at https://github.com/zhanghuan1994/PMWNB.
+Copy to Clipboard
+Download
+APA
+Wu, S., Zhang, H., Meng, K., Ding, Z. & Lv, P.. (2026). Learning Representations from Perturbation: A Novel Matrix-View Weighting Framework for Naive Bayes.
+Proceedings of the 42nd Conference on Uncertainty in Artificial Intelligence
+, in
+Proceedings of Machine Learning Research
+337:7416-7432 Available from https://proceedings.mlr.press/v337/wu26b.html.
+Copy to Clipboard
+Download
+Related Material
+Download PDF
+OpenReview
+This site last compiled Sun, 16 Aug 2026 14:25:08 +0000
+Github Account
+Copyright ©
+The authors and PMLR
+2026.
+MLResearchPress

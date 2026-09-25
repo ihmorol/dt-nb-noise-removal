@@ -1,0 +1,107 @@
+[
+  {
+    "key": "1_title_crossref",
+    "url": "https://api.crossref.org/works?query.title=Attribute%20and%20instance%20weighted%20naive%20Bayes&rows=3",
+    "checked_at": "2026-09-18T00:33:24.920393+00:00",
+    "status": 200,
+    "final_url": "https://api.crossref.org/works?query.title=Attribute%20and%20instance%20weighted%20naive%20Bayes&rows=3",
+    "content_type": "application/json",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\1_title_crossref.json",
+    "bytes": 32985
+  },
+  {
+    "key": "2_pdf",
+    "url": "https://ojs.istp-press.com/jait/article/download/734/624",
+    "checked_at": "2026-09-18T00:33:24.921003+00:00",
+    "error": "HTTP Error 404: Not Found",
+    "status": 404
+  },
+  {
+    "key": "3_publisher",
+    "url": "https://ieeexplore.ieee.org/document/9787796",
+    "checked_at": "2026-09-18T00:33:24.921382+00:00",
+    "status": 202,
+    "final_url": "https://ieeexplore.ieee.org/document/9787796",
+    "content_type": "text/html; charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\3_publisher.html",
+    "bytes": 0
+  },
+  {
+    "key": "3_computer",
+    "url": "https://www.computer.org/csdl/journal/tk/2023/07/09787796/1DyDaXwHKhq",
+    "checked_at": "2026-09-18T00:33:24.921733+00:00",
+    "status": 200,
+    "final_url": "https://www.computer.org/csdl/journal/tk/2023/07/09787796/1DyDaXwHKhq",
+    "content_type": "text/html",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\3_computer.html",
+    "bytes": 8211
+  },
+  {
+    "key": "4_pdf",
+    "url": "https://mdpi-res.com/d_attachment/applsci/applsci-14-08459/article_deploy/applsci-14-08459.pdf",
+    "checked_at": "2026-09-18T00:33:24.922061+00:00",
+    "status": 200,
+    "final_url": "https://mdpi-res.com/d_attachment/applsci/applsci-14-08459/article_deploy/applsci-14-08459.pdf",
+    "content_type": "application/pdf",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\4_pdf.pdf",
+    "bytes": 1120290
+  },
+  {
+    "key": "4_html",
+    "url": "https://www.mdpi.com/2076-3417/14/18/8459/xml",
+    "checked_at": "2026-09-18T00:33:25.029626+00:00",
+    "error": "HTTP Error 403: Forbidden",
+    "status": 403
+  },
+  {
+    "key": "5_publisher",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0950705124004787",
+    "checked_at": "2026-09-18T00:33:25.063606+00:00",
+    "error": "HTTP Error 403: Forbidden",
+    "status": 403
+  },
+  {
+    "key": "6_publisher",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0031320320305264",
+    "checked_at": "2026-09-18T00:33:25.064691+00:00",
+    "error": "HTTP Error 403: Forbidden",
+    "status": 403
+  },
+  {
+    "key": "8_publisher",
+    "url": "https://www.sciencedirect.com/science/article/pii/S0031320325008428",
+    "checked_at": "2026-09-18T00:33:25.065114+00:00",
+    "error": "HTTP Error 403: Forbidden",
+    "status": 403
+  },
+  {
+    "key": "5_api",
+    "url": "https://api.elsevier.com/content/article/pii/S0950705124004787?httpAccept=text/xml",
+    "checked_at": "2026-09-18T00:33:25.066443+00:00",
+    "status": 200,
+    "final_url": "https://api.elsevier.com/content/article/pii/S0950705124004787?httpAccept=text/xml",
+    "content_type": "text/xml;charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\5_api.html",
+    "bytes": 1834
+  },
+  {
+    "key": "6_api",
+    "url": "https://api.elsevier.com/content/article/pii/S0031320320305264?httpAccept=text/xml",
+    "checked_at": "2026-09-18T00:33:25.066738+00:00",
+    "status": 200,
+    "final_url": "https://api.elsevier.com/content/article/pii/S0031320320305264?httpAccept=text/xml",
+    "content_type": "text/xml;charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\6_api.html",
+    "bytes": 1932
+  },
+  {
+    "key": "8_api",
+    "url": "https://api.elsevier.com/content/article/pii/S0031320325008428?httpAccept=text/xml",
+    "checked_at": "2026-09-18T00:33:25.066991+00:00",
+    "status": 200,
+    "final_url": "https://api.elsevier.com/content/article/pii/S0031320325008428?httpAccept=text/xml",
+    "content_type": "text/xml;charset=UTF-8",
+    "path": "E:\\University\\dt-nb-project-big-data\\reference\\verification-modern\\audit-20260918T003249Z\\8_api.html",
+    "bytes": 1808
+  }
+]

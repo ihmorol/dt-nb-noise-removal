@@ -1,0 +1,123 @@
+====================================================================================================
+E9 smoke test — C1/C2 with Farid semantics — 10-fold CV x 5 seeds (accuracy / macro-F1)
+====================================================================================================
+
+--- iris: 150 rows x 4 attrs, 3 classes ---
+system                 acc_mean  acc_std   macroF1   N_removed%  A_kept%
+baseline      NB        95.47     0.27     95.40        nan         nan
+baseline      DT        94.53     0.78     94.43        nan         nan
+single        A->NB     96.27     0.33     96.22        nan       77.00
+single        A->DT     94.00     0.73     93.88        nan       77.00
+single        N->NB     95.60     0.33     95.54       4.13         nan
+single        N->DT     95.33     0.42     95.27       4.13         nan
+C1 N->A      ->NB       95.33     0.42     95.25       4.13       48.00
+C1 N->A      ->DT       95.33     0.42     95.27       4.13       48.00
+C2 A->N      ->NB       95.73     0.33     95.68       3.93       77.00
+C2 A->N      ->DT       96.13     1.15     96.05       3.93       77.00
+
+--- wine: 178 rows x 13 attrs, 3 classes ---
+system                 acc_mean  acc_std   macroF1   N_removed%  A_kept%
+baseline      NB        97.09     0.66     97.18        nan         nan
+baseline      DT        93.60     1.77     93.49        nan         nan
+single        A->NB     95.64     0.66     95.79        nan       43.38
+single        A->DT     93.94     1.76     93.86        nan       43.38
+single        N->NB     97.20     0.36     97.26       1.41         nan
+single        N->DT     91.59     1.57     91.52       1.41         nan
+C1 N->A      ->NB       95.76     1.35     95.91       1.41       41.08
+C1 N->A      ->DT       91.93     2.00     91.84       1.41       41.08
+C2 A->N      ->NB       95.76     0.46     95.90       3.13       43.38
+C2 A->N      ->DT       91.93     1.18     91.91       3.13       43.38
+
+--- breast_cancer_569: 569 rows x 30 attrs, 2 classes ---
+system                 acc_mean  acc_std   macroF1   N_removed%  A_kept%
+baseline      NB        93.92     0.14     93.36        nan         nan
+baseline      DT        93.67     0.52     93.25        nan         nan
+single        A->NB     95.15     0.43     94.72        nan       29.73
+single        A->DT     93.96     0.66     93.52        nan       29.73
+single        N->NB     93.22     0.14     92.64       5.85         nan
+single        N->DT     93.39     0.48     92.79       5.85         nan
+C1 N->A      ->NB       93.85     0.64     93.30       5.85       18.07
+C1 N->A      ->DT       93.28     0.61     92.67       5.85       18.07
+C2 A->N      ->NB       94.97     0.53     94.53       4.78       29.73
+C2 A->N      ->DT       93.85     0.91     93.29       4.78       29.73
+
+--- digits: 1797 rows x 64 attrs, 10 classes ---
+system                 acc_mean  acc_std   macroF1   N_removed%  A_kept%
+baseline      NB        84.04     0.26     84.07        nan         nan
+baseline      DT        87.37     0.45     87.33        nan         nan
+single        A->NB     87.82     0.84     87.79        nan       45.41
+single        A->DT     86.85     0.77     86.79        nan       45.41
+single        N->NB     84.45     0.18     84.47      14.11         nan
+single        N->DT     85.22     0.60     85.17      14.11         nan
+C1 N->A      ->NB       83.25     0.57     83.18      14.11       42.62
+C1 N->A      ->DT       85.40     0.13     85.34      14.11       42.62
+C2 A->N      ->NB       84.70     0.91     84.63      11.51       45.41
+C2 A->N      ->DT       85.48     0.60     85.35      11.51       45.41
+
+--- lenses_24: 24 rows x 9 attrs, 3 classes ---
+system                 acc_mean  acc_std   macroF1   N_removed%  A_kept%
+baseline      NB        73.33     2.36     61.54        nan         nan
+baseline      DT        76.00     4.90     67.28        nan         nan
+single        A->NB     76.67     2.36     67.54        nan       58.89
+single        A->DT     74.00     2.71     64.61        nan       58.89
+single        N->NB     73.33     2.36     61.54      10.34         nan
+single        N->DT     73.33     2.36     61.54      10.34         nan
+C1 N->A      ->NB       73.33     2.36     61.54      10.34       26.44
+C1 N->A      ->DT       73.33     2.36     61.54      10.34       26.44
+C2 A->N      ->NB       76.67     2.36     67.54      10.81       58.89
+C2 A->N      ->DT       76.67     2.36     67.54      10.81       58.89
+
+--- breast_cancer_286: 286 rows x 43 attrs, 2 classes ---
+system                 acc_mean  acc_std   macroF1   N_removed%  A_kept%
+baseline      NB        57.29     2.42     52.70        nan         nan
+baseline      DT        66.09     2.46     58.66        nan         nan
+single        A->NB     66.10     2.82     50.36        nan       49.81
+single        A->DT     68.85     2.19     60.64        nan       49.81
+single        N->NB     65.08     2.11     59.28      36.53         nan
+single        N->DT     57.77     1.66     52.91      36.53         nan
+C1 N->A      ->NB       55.96     2.43     49.61      36.53       28.19
+C1 N->A      ->DT       57.56     1.83     52.61      36.53       28.19
+C2 A->N      ->NB       62.65     4.22     53.52      30.24       49.81
+C2 A->N      ->DT       66.45     3.03     50.51      30.24       49.81
+   per-class NB removal rate (fold-avg): no-recurrence-events: 40.8%, recurrence-events: 27.8%
+
+--- tic_tac_toe_958: 958 rows x 27 attrs, 2 classes ---
+system                 acc_mean  acc_std   macroF1   N_removed%  A_kept%
+baseline      NB        67.18     0.59     62.74        nan         nan
+baseline      DT        93.99     0.55     93.33        nan         nan
+single        A->NB     67.45     0.53     62.33        nan       59.19
+single        A->DT     95.76     0.36     95.29        nan       59.19
+single        N->NB     67.75     0.53     63.69      31.58         nan
+single        N->DT     73.68     0.53     69.91      31.58         nan
+C1 N->A      ->NB       69.34     0.37     66.08      31.58       37.26
+C1 N->A      ->DT       72.18     0.80     68.19      31.58       37.26
+C2 A->N      ->NB       67.18     0.47     60.80      32.10       59.19
+C2 A->N      ->DT       78.83     0.38     75.33      32.10       59.19
+   per-class NB removal rate (fold-avg): negative: 50.5%, positive: 21.5%
+
+====================================================================================================
+HEADLINES
+====================================================================================================
+iris               NB  95.47 | DT  94.53 | C1:  95.33/ 95.33 | C2:  95.73/ 96.13 | best: single        A->NB 96.27
+wine               NB  97.09 | DT  93.60 | C1:  95.76/ 91.93 | C2:  95.76/ 91.93 | best: single        N->NB 97.20
+breast_cancer_569  NB  93.92 | DT  93.67 | C1:  93.85/ 93.28 | C2:  94.97/ 93.85 | best: single        A->NB 95.15
+digits             NB  84.04 | DT  87.37 | C1:  83.25/ 85.40 | C2:  84.70/ 85.48 | best: single        A->NB 87.82
+lenses_24          NB  73.33 | DT  76.00 | C1:  73.33/ 73.33 | C2:  76.67/ 76.67 | best: single        A->NB 76.67
+breast_cancer_286  NB  57.29 | DT  66.09 | C1:  55.96/ 57.56 | C2:  62.65/ 66.45 | best: single        A->DT 68.85
+tic_tac_toe_958    NB  67.18 | DT  93.99 | C1:  69.34/ 72.18 | C2:  67.18/ 78.83 | best: single        A->DT 95.76
+
+C1-vs-C2 (same final): positive = C2 better
+   iris               NB:  +0.40
+   iris               DT:  +0.80
+   wine               NB:  -0.01
+   wine               DT:  -0.01
+   breast_cancer_569  NB:  +1.12
+   breast_cancer_569  DT:  +0.56
+   digits             NB:  +1.45
+   digits             DT:  +0.08
+   lenses_24          NB:  +3.33
+   lenses_24          DT:  +3.33
+   breast_cancer_286  NB:  +6.69
+   breast_cancer_286  DT:  +8.89
+   tic_tac_toe_958    NB:  -2.16
+   tic_tac_toe_958    DT:  +6.65

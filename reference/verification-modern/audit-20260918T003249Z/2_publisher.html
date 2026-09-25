@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en-US" xml:lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>
+		Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes
+							| Journal of Artificial Intelligence and Technology
+			</title>
+
+	
+<link rel="icon" href="https://ojs.istp-press.com/public/journals/1/favicon_en_US.png">
+<meta name="generator" content="Open Journal Systems 3.3.0.14">
+<meta name="gs_meta_revision" content="1.1"/>
+<meta name="citation_journal_title" content="Journal of Artificial Intelligence and Technology"/>
+<meta name="citation_journal_abbrev" content="JAIT"/>
+<meta name="citation_issn" content="2766-8649"/> 
+<meta name="citation_author" content="Anastasya Latubessy"/>
+<meta name="citation_author_institution" content="Doctoral Program Department of Computer Science and Electronics, Faculty of Mathematics and Natural Science, Universitas Gadjah Mada"/>
+<meta name="citation_author" content="Edi Winarko"/>
+<meta name="citation_author_institution" content="Department of Computer Science and Electronics, Faculty of Mathematics and Natural Science, Universitas Gadjah Mada"/>
+<meta name="citation_author" content="Aina Musdholifah"/>
+<meta name="citation_author_institution" content="Department of Computer Science and Electronics, Faculty of Mathematics and Natural Science, Universitas Gadjah Mada"/>
+<meta name="citation_author" content="Sri Kusrohmaniah"/>
+<meta name="citation_author_institution" content="Department of Psychology, Faculty of Psychology, Universitas Gadjah Mada"/>
+<meta name="citation_title" content="Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes"/>
+<meta name="citation_language" content="en"/>
+<meta name="citation_date" content="2025/07/30"/>
+<meta name="citation_volume" content="5"/>
+<meta name="citation_firstpage" content="278"/>
+<meta name="citation_lastpage" content="288"/>
+<meta name="citation_doi" content="10.37965/jait.2025.0734"/>
+<meta name="citation_abstract_html_url" content="https://ojs.istp-press.com/jait/article/view/734"/>
+<meta name="citation_keywords" xml:lang="en" content="attribute-weighted"/>
+<meta name="citation_keywords" xml:lang="en" content=" feature management"/>
+<meta name="citation_keywords" xml:lang="en" content="fine-tune"/>
+<meta name="citation_keywords" xml:lang="en" content="gaming disorder"/>
+<meta name="citation_keywords" xml:lang="en" content=" modified partial instance reduction"/>
+<meta name="citation_keywords" xml:lang="en" content=" Naïve Bayes"/>
+<meta name="citation_pdf_url" content="https://ojs.istp-press.com/jait/article/download/734/631"/>
+<meta name="citation_fulltext_html_url" content="https://ojs.istp-press.com/jait/article/view/734/637"/>
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+<meta name="DC.Creator.PersonalName" content="Anastasya Latubessy"/>
+<meta name="DC.Creator.PersonalName" content="Edi Winarko"/>
+<meta name="DC.Creator.PersonalName" content="Aina Musdholifah"/>
+<meta name="DC.Creator.PersonalName" content="Sri Kusrohmaniah"/>
+<meta name="DC.Date.created" scheme="ISO8601" content="2025-07-30"/>
+<meta name="DC.Date.dateSubmitted" scheme="ISO8601" content="2025-01-15"/>
+<meta name="DC.Date.issued" scheme="ISO8601" content="2025-12-20"/>
+<meta name="DC.Date.modified" scheme="ISO8601" content="2025-08-26"/>
+<meta name="DC.Description" xml:lang="en" content="The dynamic nature of the social environment can influence symptom patterns in mental illnesses, thereby affecting their classification. Gaming disorder (GD), recently recognized in ICD-11 by the World Health Organization, is currently identified based on 44 symptoms derived from expert assessments. However, these symptoms may shift as social behaviors evolve, necessitating classification models that remain robust despite changes in dataset attributes. This study proposes a robust model—fine-tuned attribute-weighted Naïve Bayes (FTAWNB) with modified partial instance reduction (mPIR)—to address this issue. Two test scenarios were conducted: the addition of one new attribute and the removal of four attributes from the GD dataset, applied to both the original and updated datasets. The results indicate that FTAWNB with modified PIR enhances classification performance. On the original dataset, accuracy increased by 1.28% (Scenario 1) and 1.4% (Scenario 2). On the updated dataset, the model maintained 99.74% accuracy (Scenario 1) and improved by 1.4% (Scenario 2). These findings demonstrate that the integration of modified PIR improves model stability in dynamic feature environments, thereby contributing to more reliable mental health classification systems."/>
+<meta name="DC.Format" scheme="IMT" content="application/pdf"/>
+<meta name="DC.Format" scheme="IMT" content="text/html"/>
+<meta name="DC.Identifier" content="734"/>
+<meta name="DC.Identifier.pageNumber" content="278-288"/>
+<meta name="DC.Identifier.DOI" content="10.37965/jait.2025.0734"/>
+<meta name="DC.Identifier.URI" content="https://ojs.istp-press.com/jait/article/view/734"/>
+<meta name="DC.Language" scheme="ISO639-1" content="en"/>
+<meta name="DC.Rights" content="Copyright (c) 2025 Authors"/>
+<meta name="DC.Rights" content="https://creativecommons.org/licenses/by/4.0/"/>
+<meta name="DC.Source" content="Journal of Artificial Intelligence and Technology"/>
+<meta name="DC.Source.ISSN" content="2766-8649"/>
+<meta name="DC.Source.Volume" content="5"/>
+<meta name="DC.Source.URI" content="https://ojs.istp-press.com/jait"/>
+<meta name="DC.Subject" xml:lang="en" content="attribute-weighted"/>
+<meta name="DC.Subject" xml:lang="en" content=" feature management"/>
+<meta name="DC.Subject" xml:lang="en" content="fine-tune"/>
+<meta name="DC.Subject" xml:lang="en" content="gaming disorder"/>
+<meta name="DC.Subject" xml:lang="en" content=" modified partial instance reduction"/>
+<meta name="DC.Subject" xml:lang="en" content=" Naïve Bayes"/>
+<meta name="DC.Title" content="Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes"/>
+<meta name="DC.Type" content="Text.Serial.Journal"/>
+<meta name="DC.Type.articleType" content="Research Articles"/>
+
+	<link rel="stylesheet" href="https://ojs.istp-press.com/jait/$$$call$$$/page/page/css?name=stylesheet" type="text/css" /><link rel="stylesheet" href="https://ojs.istp-press.com/lib/pkp/styles/fontawesome/fontawesome.css?v=3.3.0.14" type="text/css" /><link rel="stylesheet" href="https://ojs.istp-press.com\plugins/themes/material\vendor/fontawesome/css/all.min.css?v=3.3.0.14" type="text/css" /><link rel="stylesheet" href="https://ojs.istp-press.com\plugins/themes/material\vendor/mdb/css/mdb.min.css?v=3.3.0.14" type="text/css" /><link rel="stylesheet" href="https://ojs.istp-press.com\plugins/themes/material\vendor/aos/aos.css?v=3.3.0.14" type="text/css" /><link rel="stylesheet" href="https://ojs.istp-press.com\plugins/themes/material\vendor/swiper/swiper-bundle.min.css?v=3.3.0.14" type="text/css" /><style type="text/css">.pkp_structure_head { background: center / cover no-repeat url("https://ojs.istp-press.com/public/journals/1/homepageImage_en_US.jpg");}</style><link rel="stylesheet" href="https://ojs.istp-press.com/plugins/generic/citations/css/citations.css?v=3.3.0.14" type="text/css" /><link rel="stylesheet" href="https://ojs.istp-press.com/plugins/generic/paperbuzz/paperbuzzviz/assets/css/paperbuzzviz.css?v=3.3.0.14" type="text/css" /><link rel="stylesheet" href="https://ojs.istp-press.com/plugins/generic/orcidProfile/css/orcidProfile.css?v=3.3.0.14" type="text/css" /><link rel="stylesheet" href="https://ojs.istp-press.com/plugins/generic/publons\styles\publons.css?v=3.3.0.14" type="text/css" />
+
+</head>
+
+<body class="pkp_page_article pkp_op_view" dir="ltr">
+
+
+	<!-- ======= Header ======= -->
+	<header id="header" class="fixed-top d-flex align-items-center">
+  		    <div class="container d-flex justify-content-between align-items-center">
+    	<div class="logo">
+    						<!--a class="navbar-brand text-white" href="#">
+					<strong>OJS App</strong>
+				</a-->
+					</div>
+
+		<nav id="navbar" class="navbar navbar-dark flex-row shadow-0">
+			
+											<ul id="_navigationPrimary" class="_pkp_navigation_primary navbar-nav ml-auto">
+
+								<li class=" nav-item">
+														<a href="http://ojs.istp-press.com/jait/index" class="nav-link">
+						Home
+					</a>
+							</li>
+								<li class=" nav-item">
+									<div class="dropdown">
+						<a
+							href="https://ojs.istp-press.com/jait/about"
+							class="dropdown-toggle nav-link"
+							type="button"
+							id="_navigationPrimary"
+							data-mdb-toggle="dropdown"
+							aria-expanded="false" >
+							About
+						</a>
+						<ul
+							class="dropdown-menu dropdown-menu-xxl-end dropdown-menu-light"
+							aria-labelledby="_navigationPrimary">
+																								<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/aimsandscope"
+											class="dropdown-item">
+											Aims and Scope
+										</a>
+									</li>
+																																<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/editorialboard"
+											class="dropdown-item">
+											Editorial Board
+										</a>
+									</li>
+																																<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/abstracted_and_indexed"
+											class="dropdown-item">
+											Abstracted & Indexed
+										</a>
+									</li>
+																																<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/oa_policy"
+											class="dropdown-item">
+											Open Access Policy
+										</a>
+									</li>
+																																<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/about/privacy"
+											class="dropdown-item">
+											Privacy Statement
+										</a>
+									</li>
+																					</ul>
+					</div>
+							</li>
+								<li class=" nav-item">
+									<div class="dropdown">
+						<a
+							href="https://ojs.istp-press.com/jait/issue/archive"
+							class="dropdown-toggle nav-link"
+							type="button"
+							id="_navigationPrimary"
+							data-mdb-toggle="dropdown"
+							aria-expanded="false" >
+							Browse
+						</a>
+						<ul
+							class="dropdown-menu dropdown-menu-xxl-end dropdown-menu-light"
+							aria-labelledby="_navigationPrimary">
+																								<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/issue/view/20"
+											class="dropdown-item">
+											Early Access
+										</a>
+									</li>
+																																<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/issue/archive"
+											class="dropdown-item">
+											All Issues
+										</a>
+									</li>
+																					</ul>
+					</div>
+							</li>
+								<li class=" nav-item">
+									<div class="dropdown">
+						<a
+							href="https://ojs.istp-press.com/jait/forauthors"
+							class="dropdown-toggle nav-link"
+							type="button"
+							id="_navigationPrimary"
+							data-mdb-toggle="dropdown"
+							aria-expanded="false" >
+							For Authors
+						</a>
+						<ul
+							class="dropdown-menu dropdown-menu-xxl-end dropdown-menu-light"
+							aria-labelledby="_navigationPrimary">
+																								<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/ag"
+											class="dropdown-item">
+											Author Guidelines
+										</a>
+									</li>
+																																<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/apc"
+											class="dropdown-item">
+											Article Processing Charge
+										</a>
+									</li>
+																																<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/peer_review_process"
+											class="dropdown-item">
+											Peer Review Process
+										</a>
+									</li>
+																																<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/copyright_license"
+											class="dropdown-item">
+											Copyright & License
+										</a>
+									</li>
+																					</ul>
+					</div>
+							</li>
+								<li class=" nav-item">
+									<div class="dropdown">
+						<a
+							href="https://ojs.istp-press.com/jait/SI"
+							class="dropdown-toggle nav-link"
+							type="button"
+							id="_navigationPrimary"
+							data-mdb-toggle="dropdown"
+							aria-expanded="false" >
+							Special Issues
+						</a>
+						<ul
+							class="dropdown-menu dropdown-menu-xxl-end dropdown-menu-light"
+							aria-labelledby="_navigationPrimary">
+																								<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/published_SI"
+											class="dropdown-item">
+											Published Special Issues
+										</a>
+									</li>
+																																<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/SI_proposal"
+											class="dropdown-item">
+											Submitting a Proposal
+										</a>
+									</li>
+																																<li class="">
+										<a
+											href="https://ojs.istp-press.com/jait/CFP"
+											class="dropdown-item">
+											Call for Papers
+										</a>
+									</li>
+																					</ul>
+					</div>
+							</li>
+								<li class=" nav-item">
+														<a href="https://ojs.istp-press.com/jait/publication_ethics" class="nav-link">
+						Publication Ethics
+					</a>
+							</li>
+								<li class=" nav-item">
+														<a href="https://ojs.istp-press.com/jait/contact_us" class="nav-link">
+						Contact Us
+					</a>
+							</li>
+								<li class=" nav-item">
+														<a href="https://ojs.istp-press.com/jait/search/search" class="nav-link">
+						Search
+					</a>
+							</li>
+			</ul>
+
+			
+      	</nav><!-- .navbar -->
+
+      	<nav class="navbar navbar-expand-lg navbar-dark scrolling-navbar d-flex flex-column shadow-0">
+			<div class="container">
+				<div class="navbar-collapse d-flex justify-content-end">
+					
+<ul class="navbar-nav mr-auto flex-row ">
+		<li class="nav-item ">
+		<div class="dropdown">
+							<a href="#" class="nav-link" type="button" id="dropdownSidebar" data-mdb-toggle="dropdown" aria-expanded="false">
+					<i class="fas fa-globe"></i>
+				</a>
+						<ul class="dropdown-menu dropdown-menu-xxl-end dropdown-menu-light" aria-labelledby="dropdownSidebar">
+									<li class="locale_en_US current" lang="en-US">
+						<a href="https://ojs.istp-press.com/jait/user/setLocale/en_US?source=%2Fjait%2Farticle%2Fview%2F734" class="dropdown-item">
+							English
+						</a>
+					</li>
+							</ul>
+		</div>
+	</li>
+
+		<li class=" nav-item">
+					<a href="https://ojs.istp-press.com/jait/search" class="nav-link mx-1">
+				<i class="fas fa-search"></i>
+			</a>
+			</li>
+</ul>											<ul id="_navigationUser" class="_pkp_navigation_user flex-row justify-content-end navbar-nav ml-auto">
+
+								<li class="profile px-2 px-md-0 nav-item">
+														<a href="https://ojs.istp-press.com/jait/user/register" class="nav-link">
+						Register
+					</a>
+							</li>
+								<li class="profile px-2 px-md-0 nav-item">
+														<a href="https://ojs.istp-press.com/jait/login" class="nav-link">
+						Login
+					</a>
+							</li>
+										</ul>
+
+				</div>
+			</div>
+		</nav>
+      	<button
+    type="button"
+    class="navbar-toggler text-white d-lg-none"
+    data-mdb-toggle="modal"
+    data-mdb-target="#exampleModal">
+	<i class="fas fa-bars"></i>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel"></h5>
+				<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+	      		<div>
+		      		
+																	<ul id="_navigationPrimary" class="_pkp_navigation_primary d-block navbar-nav ml-auto">
+
+								<li class="text-dark nav-item">
+														<a href="http://ojs.istp-press.com/jait/index" class="nav-link">
+						Home
+					</a>
+							</li>
+								<li class="text-dark nav-item">
+									<div class="dropdown">
+						<a
+							href="https://ojs.istp-press.com/jait/about"
+							class="dropdown-toggle nav-link"
+							type="button"
+							id="_navigationPrimary"
+							data-mdb-toggle="dropdown"
+							aria-expanded="false" >
+							About
+						</a>
+						<ul
+							class="dropdown-menu dropdown-menu-xxl-end dropdown-menu-light"
+							aria-labelledby="_navigationPrimary">
+																								<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/aimsandscope"
+											class="dropdown-item">
+											Aims and Scope
+										</a>
+									</li>
+																																<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/editorialboard"
+											class="dropdown-item">
+											Editorial Board
+										</a>
+									</li>
+																																<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/abstracted_and_indexed"
+											class="dropdown-item">
+											Abstracted & Indexed
+										</a>
+									</li>
+																																<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/oa_policy"
+											class="dropdown-item">
+											Open Access Policy
+										</a>
+									</li>
+																																<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/about/privacy"
+											class="dropdown-item">
+											Privacy Statement
+										</a>
+									</li>
+																					</ul>
+					</div>
+							</li>
+								<li class="text-dark nav-item">
+									<div class="dropdown">
+						<a
+							href="https://ojs.istp-press.com/jait/issue/archive"
+							class="dropdown-toggle nav-link"
+							type="button"
+							id="_navigationPrimary"
+							data-mdb-toggle="dropdown"
+							aria-expanded="false" >
+							Browse
+						</a>
+						<ul
+							class="dropdown-menu dropdown-menu-xxl-end dropdown-menu-light"
+							aria-labelledby="_navigationPrimary">
+																								<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/issue/view/20"
+											class="dropdown-item">
+											Early Access
+										</a>
+									</li>
+																																<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/issue/archive"
+											class="dropdown-item">
+											All Issues
+										</a>
+									</li>
+																					</ul>
+					</div>
+							</li>
+								<li class="text-dark nav-item">
+									<div class="dropdown">
+						<a
+							href="https://ojs.istp-press.com/jait/forauthors"
+							class="dropdown-toggle nav-link"
+							type="button"
+							id="_navigationPrimary"
+							data-mdb-toggle="dropdown"
+							aria-expanded="false" >
+							For Authors
+						</a>
+						<ul
+							class="dropdown-menu dropdown-menu-xxl-end dropdown-menu-light"
+							aria-labelledby="_navigationPrimary">
+																								<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/ag"
+											class="dropdown-item">
+											Author Guidelines
+										</a>
+									</li>
+																																<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/apc"
+											class="dropdown-item">
+											Article Processing Charge
+										</a>
+									</li>
+																																<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/peer_review_process"
+											class="dropdown-item">
+											Peer Review Process
+										</a>
+									</li>
+																																<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/copyright_license"
+											class="dropdown-item">
+											Copyright & License
+										</a>
+									</li>
+																					</ul>
+					</div>
+							</li>
+								<li class="text-dark nav-item">
+									<div class="dropdown">
+						<a
+							href="https://ojs.istp-press.com/jait/SI"
+							class="dropdown-toggle nav-link"
+							type="button"
+							id="_navigationPrimary"
+							data-mdb-toggle="dropdown"
+							aria-expanded="false" >
+							Special Issues
+						</a>
+						<ul
+							class="dropdown-menu dropdown-menu-xxl-end dropdown-menu-light"
+							aria-labelledby="_navigationPrimary">
+																								<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/published_SI"
+											class="dropdown-item">
+											Published Special Issues
+										</a>
+									</li>
+																																<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/SI_proposal"
+											class="dropdown-item">
+											Submitting a Proposal
+										</a>
+									</li>
+																																<li class="text-dark">
+										<a
+											href="https://ojs.istp-press.com/jait/CFP"
+											class="dropdown-item">
+											Call for Papers
+										</a>
+									</li>
+																					</ul>
+					</div>
+							</li>
+								<li class="text-dark nav-item">
+														<a href="https://ojs.istp-press.com/jait/publication_ethics" class="nav-link">
+						Publication Ethics
+					</a>
+							</li>
+								<li class="text-dark nav-item">
+														<a href="https://ojs.istp-press.com/jait/contact_us" class="nav-link">
+						Contact Us
+					</a>
+							</li>
+								<li class="text-dark nav-item">
+														<a href="https://ojs.istp-press.com/jait/search/search" class="nav-link">
+						Search
+					</a>
+							</li>
+			</ul>
+
+					
+				</div>
+
+				<hr/>
+
+				<div>
+					
+<ul class="navbar-nav mr-auto flex-row d-block">
+		<li class="nav-item mx-0">
+		<div class="dropdown">
+							<a href="#" class="nav-link dropdown-toggle" type="button" id="dropdownSidebar" data-mdb-toggle="dropdown" aria-expanded="false">
+					Language
+				</a>
+						<ul class="dropdown-menu dropdown-menu-xxl-end dropdown-menu-light" aria-labelledby="dropdownSidebar">
+									<li class="locale_en_US current" lang="en-US">
+						<a href="https://ojs.istp-press.com/jait/user/setLocale/en_US?source=%2Fjait%2Farticle%2Fview%2F734" class="dropdown-item">
+							English
+						</a>
+					</li>
+							</ul>
+		</div>
+	</li>
+
+		<li class="mx-0 nav-item">
+					<a href="https://ojs.istp-press.com/jait/search" class="nav-link">
+				Search
+			</a>
+			</li>
+</ul>											<ul id="_navigationUser" class="_pkp_navigation_user d-block navbar-nav ml-auto">
+
+								<li class="profile text-dark nav-item">
+														<a href="https://ojs.istp-press.com/jait/user/register" class="nav-link">
+						Register
+					</a>
+							</li>
+								<li class="profile text-dark nav-item">
+														<a href="https://ojs.istp-press.com/jait/login" class="nav-link">
+						Login
+					</a>
+							</li>
+										</ul>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				
+			</div>
+		</div>
+	</div>
+</div>    </div>
+  </header><!-- End Header -->
+
+  
+
+
+		
+		<main class="" role="main">
+		<a id="pkp_content_main"></a>
+
+				
+			<section class="hero-section inner-page">
+			  <div class="wave">
+
+			    <svg width="1920px" height="265px" viewBox="0 0 1920 265" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+			      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+			        <g id="Apple-TV" transform="translate(0.000000, -402.000000)" fill="#FFFFFF">
+			          <path d="M0,439.134243 C175.04074,464.89273 327.944386,477.771974 458.710937,477.771974 C654.860765,477.771974 870.645295,442.632362 1205.9828,410.192501 C1429.54114,388.565926 1667.54687,411.092417 1920,477.771974 L1920,667 L1017.15166,667 L0,667 L0,439.134243 Z" id="Path"></path>
+			        </g>
+			      </g>
+			    </svg>
+
+			  </div>
+
+			  <div class="container">
+			    <div class="row align-items-center">
+			      <div class="col-12">
+			        <div class="row justify-content-center">
+			          <div class="col-md-10 text-center hero-text">
+			            <h1 data-aos="fade-up" data-aos-delay="">Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes</h1>
+			            <p class="mb-5" data-aos="fade-up" data-aos-delay="100"></p>
+			          </div>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+
+			</section>
+		
+<div class="page page_article">
+			<nav class="cmp_breadcrumbs" role="navigation" aria-label="You are here:">
+	<ol>
+		<li>
+			<a href="https://ojs.istp-press.com/jait/index">
+				Home
+			</a>
+			<span class="separator">/</span>
+		</li>
+		<li>
+			<a href="https://ojs.istp-press.com/jait/issue/archive">
+				Archives
+			</a>
+			<span class="separator">/</span>
+		</li>
+					<li>
+				<a href="https://ojs.istp-press.com/jait/issue/view/38">
+					Vol. 5 (2025)
+				</a>
+				<span class="separator">/</span>
+			</li>
+				<li class="current" aria-current="page">
+			<span aria-current="page">
+									Research Articles
+							</span>
+		</li>
+	</ol>
+</nav>
+	
+		  	 <article class="obj_article_details">
+
+		
+	<div class="d-md-flex">
+		<div class="main_entry">
+			<section class="item">
+				<h3 class="page_title">
+					Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes
+				</h3>
+
+							</section> 
+
+							<section class="item authors">
+					<h2 class="pkp_screen_reader">Authors</h2>
+					<ul class="authors">
+											<li>
+							<span class="name">
+								Anastasya Latubessy
+							</span>
+															<span class="affiliation">
+									Doctoral Program Department of Computer Science and Electronics, Faculty of Mathematics and Natural Science, Universitas Gadjah Mada
+																	</span>
+																						<span class="orcid">
+									<svg class="orcid_icon" viewBox="0 0 256 256" aria-hidden="true">
+	<style type="text/css">
+		.st0{fill:#A6CE39;}
+		.st1{fill:#FFFFFF;}
+	</style>
+	<path class="st0" d="M256,128c0,70.7-57.3,128-128,128C57.3,256,0,198.7,0,128C0,57.3,57.3,0,128,0C198.7,0,256,57.3,256,128z"/>
+	<g>
+		<path class="st1" d="M86.3,186.2H70.9V79.1h15.4v48.4V186.2z"/>
+		<path class="st1" d="M108.9,79.1h41.6c39.6,0,57,28.3,57,53.6c0,27.5-21.5,53.6-56.8,53.6h-41.8V79.1z M124.3,172.4h24.5
+			c34.9,0,42.9-26.5,42.9-39.7c0-21.5-13.7-39.7-43.7-39.7h-23.7V172.4z"/>
+		<path class="st1" d="M88.7,56.8c0,5.5-4.5,10.1-10.1,10.1c-5.6,0-10.1-4.6-10.1-10.1c0-5.6,4.5-10.1,10.1-10.1
+			C84.2,46.7,88.7,51.3,88.7,56.8z"/>
+	</g>
+</svg>
+									<a href="https://orcid.org/0000-0002-8380-3866" target="_blank">
+										https://orcid.org/0000-0002-8380-3866
+									</a>
+								</span>
+													</li>
+											<li>
+							<span class="name">
+								Edi Winarko
+							</span>
+															<span class="affiliation">
+									Department of Computer Science and Electronics, Faculty of Mathematics and Natural Science, Universitas Gadjah Mada
+																	</span>
+																						<span class="orcid">
+									<svg class="orcid_icon" viewBox="0 0 256 256" aria-hidden="true">
+	<style type="text/css">
+		.st0{fill:#A6CE39;}
+		.st1{fill:#FFFFFF;}
+	</style>
+	<path class="st0" d="M256,128c0,70.7-57.3,128-128,128C57.3,256,0,198.7,0,128C0,57.3,57.3,0,128,0C198.7,0,256,57.3,256,128z"/>
+	<g>
+		<path class="st1" d="M86.3,186.2H70.9V79.1h15.4v48.4V186.2z"/>
+		<path class="st1" d="M108.9,79.1h41.6c39.6,0,57,28.3,57,53.6c0,27.5-21.5,53.6-56.8,53.6h-41.8V79.1z M124.3,172.4h24.5
+			c34.9,0,42.9-26.5,42.9-39.7c0-21.5-13.7-39.7-43.7-39.7h-23.7V172.4z"/>
+		<path class="st1" d="M88.7,56.8c0,5.5-4.5,10.1-10.1,10.1c-5.6,0-10.1-4.6-10.1-10.1c0-5.6,4.5-10.1,10.1-10.1
+			C84.2,46.7,88.7,51.3,88.7,56.8z"/>
+	</g>
+</svg>
+									<a href="https://orcid.org/0000-0001-6057-5082" target="_blank">
+										https://orcid.org/0000-0001-6057-5082
+									</a>
+								</span>
+													</li>
+											<li>
+							<span class="name">
+								Aina Musdholifah
+							</span>
+															<span class="affiliation">
+									Department of Computer Science and Electronics, Faculty of Mathematics and Natural Science, Universitas Gadjah Mada
+																	</span>
+																				</li>
+											<li>
+							<span class="name">
+								Sri Kusrohmaniah
+							</span>
+															<span class="affiliation">
+									Department of Psychology, Faculty of Psychology, Universitas Gadjah Mada
+																	</span>
+																				</li>
+										</ul>
+				</section>
+			
+																												<section class="item doi">
+						<h2 class="label">
+														DOI:
+						</h2>
+						<span class="value">
+							<a href="https://doi.org/10.37965/jait.2025.0734">
+								https://doi.org/10.37965/jait.2025.0734
+							</a>
+						</span>
+					</section>
+							
+									<section class="item keywords">
+				<h4 class="_label">
+										Keywords:
+				</h4>
+				<span class="value">
+											attribute-weighted, 											 feature management, 											fine-tune, 											gaming disorder, 											 modified partial instance reduction, 											 Naïve Bayes									</span>
+			</section>
+			
+										<section class="item abstract">
+					<h4 class="_label">Abstract</h4>
+					<p>The dynamic nature of the social environment can influence symptom patterns in mental illnesses, thereby affecting their classification. Gaming disorder (GD), recently recognized in ICD-11 by the World Health Organization, is currently identified based on 44 symptoms derived from expert assessments. However, these symptoms may shift as social behaviors evolve, necessitating classification models that remain robust despite changes in dataset attributes. This study proposes a robust model—fine-tuned attribute-weighted Naïve Bayes (FTAWNB) with modified partial instance reduction (mPIR)—to address this issue. Two test scenarios were conducted: the addition of one new attribute and the removal of four attributes from the GD dataset, applied to both the original and updated datasets. The results indicate that FTAWNB with modified PIR enhances classification performance. On the original dataset, accuracy increased by 1.28% (Scenario 1) and 1.4% (Scenario 2). On the updated dataset, the model maintained 99.74% accuracy (Scenario 1) and improved by 1.4% (Scenario 2). These findings demonstrate that the integration of modified PIR improves model stability in dynamic feature environments, thereby contributing to more reliable mental health classification systems.</p>
+				</section>
+			
+			
+
+																																								
+						
+		</div><!-- .main_entry -->
+
+		<div class="entry_details"> 
+										<div class="item cover_image">
+					<div class="sub_item">
+													<a href="https://ojs.istp-press.com/jait/issue/view/38">
+								<img src="https://ojs.istp-press.com/public/journals/1/cover_issue_38_en_US.jpg" alt="">
+							</a>
+											</div>
+				</div>
+			
+										<div class="item galleys">
+					<h2 class="pkp_screen_reader">
+						Downloads
+					</h2>
+					<ul class="value galleys_links">
+													<li>
+								
+	
+							
+
+<a class="obj_galley_link btn btn-primary  pdf" href="https://ojs.istp-press.com/jait/article/view/734/631">
+
+		
+	PDF
+
+	</a>
+							</li>
+													<li>
+								
+	
+							
+
+<a class="obj_galley_link btn btn-primary  file" href="https://ojs.istp-press.com/jait/article/view/734/637">
+
+		
+	HTML
+
+	</a>
+							</li>
+											</ul>
+				</div>
+						
+						<div class="item published">
+				<section class="sub_item">
+					<h2 class="label">
+						Published
+					</h2>
+					<div class="value">
+																			<span>2025-07-30</span>
+																	</div>
+				</section>
+							</div>
+			
+										<div class="item citation">
+					<section class="sub_item citation_display">
+						<h2 class="label">
+							How to Cite
+						</h2>
+						<div class="value">
+							<div id="citationOutput" role="region" aria-live="polite">
+								<div class="csl-bib-body">
+  <div class="csl-entry">Latubessy, A., Winarko, E., Musdholifah, A., &#38; Kusrohmaniah, S. (2025). Robust Feature Management for Gaming Disorder Classification Using Modified Partial Instance Reduction and Fine-Tune Attribute-Weighted Naïve Bayes. <i>Journal of Artificial Intelligence and Technology</i>, <i>5</i>, 278–288. https://doi.org/10.37965/jait.2025.0734</div>
+</div>
+							</div>
+							<div class="citation_formats">
+								<button class="cmp_button citation_formats_button" aria-controls="cslCitationFormats" aria-expanded="false" data-csl-dropdown="true">
+									More Citation Formats
+								</button>
+								<div id="cslCitationFormats" class="citation_formats_list" aria-hidden="true">
+									<ul class="citation_formats_styles">
+																					<li>
+												<a
+													aria-controls="citationOutput"
+													href="https://ojs.istp-press.com/jait/citationstylelanguage/get/acm-sig-proceedings?submissionId=734&amp;publicationId=736"
+													data-load-citation
+													data-json-href="https://ojs.istp-press.com/jait/citationstylelanguage/get/acm-sig-proceedings?submissionId=734&amp;publicationId=736&amp;return=json"
+												>
+													ACM
+												</a>
+											</li>
+																					<li>
+												<a
+													aria-controls="citationOutput"
+													href="https://ojs.istp-press.com/jait/citationstylelanguage/get/acs-nano?submissionId=734&amp;publicationId=736"
+													data-load-citation
+													data-json-href="https://ojs.istp-press.com/jait/citationstylelanguage/get/acs-nano?submissionId=734&amp;publicationId=736&amp;return=json"
+												>
+													ACS
+												</a>
+											</li>
+																					<li>
+												<a
+													aria-controls="citationOutput"
+													href="https://ojs.istp-press.com/jait/citationstylelanguage/get/apa?submissionId=734&amp;publicationId=736"
+													data-load-citation
+													data-json-href="https://ojs.istp-press.com/jait/citationstylelanguage/get/apa?submissionId=734&amp;publicationId=736&amp;return=json"
+												>
+													APA
+												</a>
+											</li>
+																					<li>
+												<a
+													aria-controls="citationOutput"
+													href="https://ojs.istp-press.com/jait/citationstylelanguage/get/associacao-brasileira-de-normas-tecnicas?submissionId=734&amp;publicationId=736"
+													data-load-citation
+													data-json-href="https://ojs.istp-press.com/jait/citationstylelanguage/get/associacao-brasileira-de-normas-tecnicas?submissionId=734&amp;publicationId=736&amp;return=json"
+												>
+													ABNT
+												</a>
+											</li>
+																					<li>
+												<a
+													aria-controls="citationOutput"
+													href="https://ojs.istp-press.com/jait/citationstylelanguage/get/chicago-author-date?submissionId=734&amp;publicationId=736"
+													data-load-citation
+													data-json-href="https://ojs.istp-press.com/jait/citationstylelanguage/get/chicago-author-date?submissionId=734&amp;publicationId=736&amp;return=json"
+												>
+													Chicago
+												</a>
+											</li>
+																					<li>
+												<a
+													aria-controls="citationOutput"
+													href="https://ojs.istp-press.com/jait/citationstylelanguage/get/harvard-cite-them-right?submissionId=734&amp;publicationId=736"
+													data-load-citation
+													data-json-href="https://ojs.istp-press.com/jait/citationstylelanguage/get/harvard-cite-them-right?submissionId=734&amp;publicationId=736&amp;return=json"
+												>
+													Harvard
+												</a>
+											</li>
+																					<li>
+												<a
+													aria-controls="citationOutput"
+													href="https://ojs.istp-press.com/jait/citationstylelanguage/get/ieee?submissionId=734&amp;publicationId=736"
+													data-load-citation
+													data-json-href="https://ojs.istp-press.com/jait/citationstylelanguage/get/ieee?submissionId=734&amp;publicationId=736&amp;return=json"
+												>
+													IEEE
+												</a>
+											</li>
+																					<li>
+												<a
+													aria-controls="citationOutput"
+													href="https://ojs.istp-press.com/jait/citationstylelanguage/get/modern-language-association?submissionId=734&amp;publicationId=736"
+													data-load-citation
+													data-json-href="https://ojs.istp-press.com/jait/citationstylelanguage/get/modern-language-association?submissionId=734&amp;publicationId=736&amp;return=json"
+												>
+													MLA
+												</a>
+											</li>
+																					<li>
+												<a
+													aria-controls="citationOutput"
+													href="https://ojs.istp-press.com/jait/citationstylelanguage/get/turabian-fullnote-bibliography?submissionId=734&amp;publicationId=736"
+													data-load-citation
+													data-json-href="https://ojs.istp-press.com/jait/citationstylelanguage/get/turabian-fullnote-bibliography?submissionId=734&amp;publicationId=736&amp;return=json"
+												>
+													Turabian
+												</a>
+											</li>
+																					<li>
+												<a
+													aria-controls="citationOutput"
+													href="https://ojs.istp-press.com/jait/citationstylelanguage/get/vancouver?submissionId=734&amp;publicationId=736"
+													data-load-citation
+													data-json-href="https://ojs.istp-press.com/jait/citationstylelanguage/get/vancouver?submissionId=734&amp;publicationId=736&amp;return=json"
+												>
+													Vancouver
+												</a>
+											</li>
+																			</ul>
+																			<div class="label">
+											Download Citation
+										</div>
+										<ul class="citation_formats_styles">
+																							<li>
+													<a href="https://ojs.istp-press.com/jait/citationstylelanguage/download/ris?submissionId=734&amp;publicationId=736">
+														<span class="fa fa-download"></span>
+														Endnote/Zotero/Mendeley (RIS)
+													</a>
+												</li>
+																							<li>
+													<a href="https://ojs.istp-press.com/jait/citationstylelanguage/download/bibtex?submissionId=734&amp;publicationId=736">
+														<span class="fa fa-download"></span>
+														BibTeX
+													</a>
+												</li>
+																					</ul>
+																	</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			
+										<div class="item issue">
+
+											<section class="sub_item">
+							<h2 class="label">
+								Issue
+							</h2>
+							<div class="value">
+								<a class="title" href="https://ojs.istp-press.com/jait/issue/view/38">
+									Vol. 5 (2025)
+								</a>
+							</div>
+						</section>
+					
+											<section class="sub_item">
+							<h2 class="label">
+								Section
+							</h2>
+							<div class="value">
+								Research Articles
+							</div>
+						</section>
+					
+									</div>
+			
+															
+										<div class="item copyright">
+					<h2 class="label">
+						License
+					</h2>
+																										<p>Copyright (c) 2025 Authors</p>
+														<a rel="license" href="https://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" src="//i.creativecommons.org/l/by/4.0/88x31.png" /></a><p>This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
+																
+				</div>
+			
+			<div class="item citations-container" data-image-path="https://ojs.istp-press.com/plugins/generic/citations/images/" data-citations-url="https://ojs.istp-press.com/jait/citations/get?citationsId=10.37965%2Fjait.2025.0734&amp;citationsShowList=1&amp;citationsProvider=crossref"
+     data-citations-provider="crossref" data-citations-total="1" data-citations-list="1"
+     data-show-google="0" data-show-pmc="0">
+	<div id="citations-loader"></div>
+	<div class="citations-count">
+		<div class="citations-count-crossref">
+			<img class="img-fluid" src="https://ojs.istp-press.com/plugins/generic/citations/images/crossref.png" alt="Crossref"/>
+			<div class="badge_total"></div>
+		</div>
+		<div class="citations-count-scopus">
+			<img src="https://ojs.istp-press.com/plugins/generic/citations/images/scopus.png" alt="Scopus"/>
+			<br/>
+			<span class="badge_total"></span>
+		</div>
+		<div class="citations-count-google">
+			<a href="https://scholar.google.com/scholar?q=10.37965/jait.2025.0734" target="_blank" rel="noreferrer">
+				<img src="https://ojs.istp-press.com/plugins/generic/citations/images/scholar.png" alt="Google Scholar"/>
+			</a>
+		</div>
+		<div class="citations-count-pmc">
+			<a href="http://europepmc.org/search?scope=fulltext&query=(REF:10.37965/jait.2025.0734)" target="_blank" rel="noreferrer">
+				<img src="https://ojs.istp-press.com/plugins/generic/citations/images/pmc.png" alt="Europe PMC"/>
+				<br/>
+				<span class="badge_total"></span>
+			</a>
+		</div>
+	</div>
+	<div class="citations-list"></div>
+    </div>
+<div class="item addthis">
+	<div class="value">
+		<!-- AddThis Button BEGIN -->
+					<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+			<a class="addthis_button_preferred_1"></a>
+			<a class="addthis_button_preferred_2"></a>
+			<a class="addthis_button_preferred_3"></a>
+			<a class="addthis_button_preferred_4"></a>
+			<a class="addthis_button_compact"></a>
+			<a class="addthis_counter addthis_bubble_style"></a>
+			</div>
+			<script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
+				<!-- AddThis Button END -->
+	</div>
+</div>
+
+
+		</div><!-- .entry_details -->
+	</div><!-- .row -->
+
+</article>
+
+	<div id="articlesBySimilarityList">
+	</div>
+
+
+</div><!-- .page -->
+
+		<div class="html-preloader bg-light">
+			<div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+		</div>
+
+	</main><!-- _pkp_structure_main -->
+
+    	  	      <div class="mt-5 pt-4" data-aos="fade-up" data-aos-delay="200">
+    		<ul class="_pkp_structure_sidebar list-unstyled container" role="complementary" aria-label="Sidebar">
+    			 
+	<style type="text/css">
+		.block_announcements_article:not(:last-child) {
+			padding-bottom: 1.5em;
+			border-bottom: 1px solid;
+
+		}
+
+		.block_announcements_article {
+			text-align: justify;
+		}
+	</style>
+	<div class="pkp_block block_announcements">
+		<h2 class="title">Announcements</h2>
+		<div class="content">
+							<article class="block_announcements_article">
+					<h3 class="block_announcements_article_headline">
+						<a href="https://ojs.istp-press.com/jait/announcement/view/25">
+							JAIT is now Indexed in EI Compendex
+						</a>
+					</h3>
+					<time class="block_announcements_article_date" datetime="2026-05-20">
+						<strong>2026-05-20</strong>
+					</time>
+					<div class="block_announcements_article_content">
+																										<p>The <em>Journal of Artificial Intelligence and Technology</em> (<strong>JAIT, EISSN: 27668649</strong>) has been officially indexed in the <strong>EI Compendex</strong> database.</p>
+											</div>
+				</article>
+							<article class="block_announcements_article">
+					<h3 class="block_announcements_article_headline">
+						<a href="https://ojs.istp-press.com/jait/announcement/view/23">
+							Second CiteScore Released: 11.0
+						</a>
+					</h3>
+					<time class="block_announcements_article_date" datetime="2025-06-05">
+						<strong>2025-06-05</strong>
+					</time>
+					<div class="block_announcements_article_content">
+																										<p>We are thrilled to announce that the CiteScore 2024 for the<em> Journal of Artificial Intelligence and Technology</em> is 11.0, which ranks 62 out of 450 journals in the Artificial Intelligence category.</p>
+											</div>
+				</article>
+							<article class="block_announcements_article">
+					<h3 class="block_announcements_article_headline">
+						<a href="https://ojs.istp-press.com/jait/announcement/view/21">
+							First CiteScore Released: 8.7
+						</a>
+					</h3>
+					<time class="block_announcements_article_date" datetime="2024-06-16">
+						<strong>2024-06-16</strong>
+					</time>
+					<div class="block_announcements_article_content">
+																										<p>We are delighted to announce that the CiteScore 2023 for the <em>Journal of Artificial Intelligence and Technology</em> is 8.7, which ranks it 77 out of 350 journals in the Artificial Intelligence category.</p>
+											</div>
+				</article>
+							<article class="block_announcements_article">
+					<h3 class="block_announcements_article_headline">
+						<a href="https://ojs.istp-press.com/jait/announcement/view/19">
+							JAIT is now indexed in Scopus
+						</a>
+					</h3>
+					<time class="block_announcements_article_date" datetime="2023-01-29">
+						<strong>2023-01-29</strong>
+					</time>
+					<div class="block_announcements_article_content">
+																										<p>The Journal of Artificial Intelligence and Technology has been accepted for inclusion in Scopus, the world’s largest abstract and citation database of peer reviewed literature. The acceptance for inclusion by Scopus underlines the journal’s consistent high quality.</p>
+											</div>
+				</article>
+							<article class="block_announcements_article">
+					<h3 class="block_announcements_article_headline">
+						<a href="https://ojs.istp-press.com/jait/announcement/view/14">
+							JAIT is now indexed in IET Inspec
+						</a>
+					</h3>
+					<time class="block_announcements_article_date" datetime="2022-05-12">
+						<strong>2022-05-12</strong>
+					</time>
+					<div class="block_announcements_article_content">
+																										<p>We are pleased to announce that the <em>Journal of Artificial Intelligence and Technology</em> is now indexed in <a href="https://www.theiet.org/publishing/inspec/">IET Inspec, </a>the definitive engineering, physics, and computer science research database.</p>
+											</div>
+				</article>
+							<article class="block_announcements_article">
+					<h3 class="block_announcements_article_headline">
+						<a href="https://ojs.istp-press.com/jait/announcement/view/5">
+							ORCID has been integrated into submission system
+						</a>
+					</h3>
+					<time class="block_announcements_article_date" datetime="2021-07-14">
+						<strong>2021-07-14</strong>
+					</time>
+					<div class="block_announcements_article_content">
+																										<p>We are delighted to announce that ORCID has been integrated into submission system. It's encouraged that authors can authorize our journal's submission system to obtain your ORCID ID.  We would send e-mail to request ORCID authorization from contributor before publication.</p>
+											</div>
+				</article>
+					</div>
+	</div>
+<div class="pkp_block block_custom" id="customblock-sjr">
+	<h2 class="title pkp_screen_reader">SJR</h2>
+	<div class="content">
+		<p>&nbsp;</p>
+<p><img src="https://ojs.istp-press.com/public/site/images/jenny/journal-img-10f1e39c9775b7f1fb4245f145d97849.png" alt="" width="200" height="200"></p>
+	</div>
+</div>
+
+    		</ul><!-- pkp_sidebar.left -->
+      </div>
+  	  
+	<!-- ======= Footer ======= -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+            	<p><a href="http://creativecommons.org/licenses/by/4.0/" rel="license"><img style="border-width: 0;" src="https://ojs.istp-press.com/public/site/images/istp/creative-commons-license.png" alt="Creative Commons License" width="88" height="31" /></a>   All site content, except where otherwise noted, is licensed under a <a href="http://creativecommons.org/licenses/by/4.0/" rel="license">Creative Commons Attribution 4.0 International License</a>.</p>
+<p>ISSN: 2766-8649 | Published by <a href="http://www.istp-press.com/">INTELLIGENCE SCIENCE AND TECHNOLOGY PRESS INC.</a></p>
+<p><strong>Member of </strong></p>
+<p><img style="width: 144px; height: 49px;" src="https://ojs.istp-press.com/public/site/images/istp/crossref.png" alt="Crossref logo" /></p>
+      
+      <div class="row justify-content-center text-center">
+        <div class="col-md-7">
+          <p class="copyright">&copy; Platform & Workflow by: <a href="https://ojs.istp-press.com/jait/about/aboutThisPublishingSystem"> Open Journal Systems</a></p>
+
+          <div class="credits">
+            Designed by <a href="https://github.com/madi-nuralin/material">Material Theme</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+<script src="https://ojs.istp-press.com/lib/pkp/lib/vendor/components/jquery/jquery.min.js?v=3.3.0.14" type="text/javascript"></script><script src="https://ojs.istp-press.com/lib/pkp/lib/vendor/components/jqueryui/jquery-ui.min.js?v=3.3.0.14" type="text/javascript"></script><script src="https://ojs.istp-press.com\plugins/themes/material\vendor/mdb/js/mdb.min.js?v=3.3.0.14" type="text/javascript"></script><script src="https://ojs.istp-press.com\plugins/themes/material\vendor/aos/aos.js?v=3.3.0.14" type="text/javascript"></script><script src="https://ojs.istp-press.com\plugins/themes/material\vendor/swiper/swiper-bundle.min.js?v=3.3.0.14" type="text/javascript"></script><script src="https://ojs.istp-press.com\plugins/themes/material\js/main.js?v=3.3.0.14" type="text/javascript"></script><script src="https://ojs.istp-press.com/plugins/generic/citationStyleLanguage/js/articleCitation.js?v=3.3.0.14" type="text/javascript"></script><script src="https://d3js.org/d3.v4.min.js?v=3.3.0.14" type="text/javascript"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js?v=3.3.0.14" type="text/javascript"></script><script src="https://ojs.istp-press.com/plugins/generic/paperbuzz/paperbuzzviz/paperbuzzviz.js?v=3.3.0.14" type="text/javascript"></script><script src="https://ojs.istp-press.com/plugins/generic/citations/js/citations.js?v=3.3.0.14" type="text/javascript"></script><script type="text/javascript">
+(function (w, d, s, l, i) { w[l] = w[l] || []; var f = d.getElementsByTagName(s)[0],
+j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; 
+j.src = 'https://www.googletagmanager.com/gtag/js?id=' + i + dl; f.parentNode.insertBefore(j, f); 
+function gtag(){dataLayer.push(arguments)}; gtag('js', new Date()); gtag('config', i); })
+(window, document, 'script', 'dataLayer', 'G-HRNWKBGZ3K');
+</script>
+
+<style type="text/css">
+@media (min-width:992px){.pkp_site_name_wrapper{height:6rem;}}
+</style>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HRNWKBGZ3K"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-HRNWKBGZ3K');
+</script>
+
+</body>
+</html>

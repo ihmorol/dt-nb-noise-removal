@@ -1,0 +1,13 @@
+{
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "n_splits": 10,
+  "j48": "Weka 3.8.6 unpruned -M 2",
+  "nb": "FaithfulNB (categorical add-one nominal, Gaussian numeric)",
+  "attribute_space": "original columns, no one-hot",
+  "protocol_B": "stages and classifier refit inside each training fold",
+  "protocol_A": "stages fitted once on the whole dataset before CV"
+}

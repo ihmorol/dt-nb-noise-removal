@@ -1,0 +1,207 @@
+================================================================================================
+Farid (2014) pipeline -- data -> [Alg 1 -> Alg 2] and [Alg 2 -> Alg 1] -> NB / DT
+10-fold CV x 3 seeds, every stage refit inside the training fold, tree ccp_alpha=0.005, NB likelihood=mixed, Alg-2 weights to NB=True
+================================================================================================
+
+--- breast-cancer: 286 instances x 41 attributes, 2 classes (Table 5: (286, 9, 2)) ---
+arm             final accuracy    std  macroF1  rows removed  attrs kept
+baseline        NB       70.88   7.94    63.93          0.0%      100.0%   (0s)
+baseline        DT       64.68   7.41    57.38          0.0%      100.0%   (0s)
+Alg1            NB       71.23   8.35    64.16         27.8%      100.0%   (0s)
+Alg1            DT       71.35   6.85    63.59         27.8%      100.0%   (0s)
+Alg2            NB       72.39   7.77    64.44          0.0%       78.6%   (0s)
+Alg2            DT       65.50   8.24    58.38          0.0%       78.6%   (0s)
+C1 N->A         NB       70.77   8.25    63.13         27.8%       19.9%   (0s)
+C1 N->A         DT       71.23   6.88    63.31         27.8%       19.9%   (0s)
+C2 A->N         NB       71.93   7.47    63.24         25.5%       78.6%   (0s)
+C2 A->N         DT       70.54   7.50    61.73         25.5%       78.6%   (0s)
+
+--- contact-lenses: 24 instances x 4 attributes, 3 classes (Table 5: (24, 4, 3)) ---
+arm             final accuracy    std  macroF1  rows removed  attrs kept
+baseline        NB       85.00  20.34    79.19          0.0%      100.0%   (0s)
+baseline        DT       82.78  23.76    76.41          0.0%      100.0%   (0s)
+Alg1            NB       85.00  20.34    79.19         11.7%      100.0%   (0s)
+Alg1            DT       85.00  20.34    79.19         11.7%      100.0%   (0s)
+Alg2            NB       85.00  20.34    79.19          0.0%      100.0%   (0s)
+Alg2            DT       82.78  23.76    76.41          0.0%      100.0%   (0s)
+C1 N->A         NB       85.00  20.34    79.19         11.7%       52.5%   (0s)
+C1 N->A         DT       85.00  20.34    79.19         11.7%       52.5%   (0s)
+C2 A->N         NB       85.00  20.34    79.19         11.7%      100.0%   (0s)
+C2 A->N         DT       85.00  20.34    79.19         11.7%      100.0%   (0s)
+
+--- diabetes: 768 instances x 8 attributes, 2 classes (Table 5: (768, 8, 2)) ---
+arm             final accuracy    std  macroF1  rows removed  attrs kept
+baseline        NB       75.52   4.43    72.36          0.0%      100.0%   (0s)
+baseline        DT       69.53   4.61    66.58          0.0%      100.0%   (0s)
+Alg1            NB       74.26   4.85    71.28         23.6%      100.0%   (0s)
+Alg1            DT       74.22   5.48    70.26         23.6%      100.0%   (0s)
+Alg2            NB       76.38   4.93    72.54          0.0%      100.0%   (0s)
+Alg2            DT       69.53   4.61    66.58          0.0%      100.0%   (0s)
+C1 N->A         NB       75.43   5.05    71.93         23.6%       94.6%   (0s)
+C1 N->A         DT       74.47   5.46    70.55         23.6%       94.6%   (0s)
+C2 A->N         NB       75.60   4.82    71.21         22.9%      100.0%   (0s)
+C2 A->N         DT       75.21   4.30    70.96         22.9%      100.0%   (0s)
+
+--- glass: 214 instances x 9 attributes, 6 classes (Table 5: (214, 9, 7)) ---
+arm             final accuracy    std  macroF1  rows removed  attrs kept
+baseline        NB       46.60  10.35    46.75          0.0%      100.0%   (0s)
+baseline        DT       68.38   8.41    65.60          0.0%      100.0%   (0s)
+Alg1            NB       36.02  10.84    40.04         47.1%      100.0%   (0s)
+Alg1            DT       49.89  10.97    47.36         47.1%      100.0%   (0s)
+Alg2            NB       47.41   9.04    42.57          0.0%       99.6%   (0s)
+Alg2            DT       68.38   8.41    65.60          0.0%       99.6%   (0s)
+C1 N->A         NB       35.24   8.90    39.95         47.1%       81.9%   (0s)
+C1 N->A         DT       49.57  10.70    46.61         47.1%       81.9%   (0s)
+C2 A->N         NB       44.12   9.35    41.51         46.1%       99.6%   (0s)
+C2 A->N         DT       52.39   7.95    47.86         46.1%       99.6%   (0s)
+
+--- iris: 150 instances x 4 attributes, 3 classes (Table 5: (150, 4, 3)) ---
+arm             final accuracy    std  macroF1  rows removed  attrs kept
+baseline        NB       95.56   4.66    95.47          0.0%      100.0%   (0s)
+baseline        DT       94.67   5.55    94.54          0.0%      100.0%   (0s)
+Alg1            NB       95.56   4.66    95.47          4.1%      100.0%   (0s)
+Alg1            DT       95.33   4.60    95.23          4.1%      100.0%   (0s)
+Alg2            NB       95.78   4.38    95.69          0.0%       76.7%   (0s)
+Alg2            DT       94.22   5.64    94.08          0.0%       76.7%   (0s)
+C1 N->A         NB       95.11   4.85    94.99          4.1%       47.5%   (0s)
+C1 N->A         DT       95.33   4.60    95.23          4.1%       47.5%   (0s)
+C2 A->N         NB       95.78   4.38    95.69          4.1%       76.7%   (0s)
+C2 A->N         DT       95.56   5.26    95.41          4.1%       76.7%   (0s)
+
+--- soybean: 683 instances x 133 attributes, 19 classes (Table 5: (683, 35, 19)) ---
+arm             final accuracy    std  macroF1  rows removed  attrs kept
+baseline        NB       89.94   3.50    93.25          0.0%      100.0%   (0s)
+baseline        DT       92.24   3.33    94.82          0.0%      100.0%   (0s)
+Alg1            NB       89.07   3.77    92.89          9.6%      100.0%   (1s)
+Alg1            DT       88.68   4.08    91.77          9.6%      100.0%   (1s)
+Alg2            NB       90.48   3.48    92.72          0.0%       30.3%   (0s)
+Alg2            DT       92.58   3.52    95.17          0.0%       30.3%   (0s)
+C1 N->A         NB       86.09   4.25    88.71          9.6%       24.2%   (1s)
+C1 N->A         DT       88.67   3.99    91.74          9.6%       24.2%   (1s)
+C2 A->N         NB       88.77   3.83    91.42          8.0%       30.3%   (0s)
+C2 A->N         DT       90.82   3.78    93.08          8.0%       30.3%   (0s)
+
+--- vote: 435 instances x 48 attributes, 2 classes (Table 5: (435, 16, 2)) ---
+arm             final accuracy    std  macroF1  rows removed  attrs kept
+baseline        NB       90.18   4.54    89.80          0.0%      100.0%   (0s)
+baseline        DT       94.17   2.97    93.85          0.0%      100.0%   (0s)
+Alg1            NB       90.26   4.30    89.92          9.6%      100.0%   (0s)
+Alg1            DT       94.32   3.34    94.04          9.6%      100.0%   (0s)
+Alg2            NB       92.87   3.48    92.49          0.0%       33.3%   (0s)
+Alg2            DT       93.86   2.94    93.54          0.0%       33.3%   (0s)
+C1 N->A         NB       94.63   3.32    94.38          9.6%        9.8%   (0s)
+C1 N->A         DT       94.32   3.34    94.04          9.6%        9.8%   (0s)
+C2 A->N         NB       93.25   3.61    92.88          6.7%       33.3%   (0s)
+C2 A->N         DT       95.17   2.75    94.94          6.7%       33.3%   (0s)
+
+--- image-segmentation: 2310 instances x 19 attributes, 7 classes (Table 5: (1500, 19, 7)) ---
+arm             final accuracy    std  macroF1  rows removed  attrs kept
+baseline        NB       79.67   1.82    77.66          0.0%      100.0%   (0s)
+baseline        DT       96.84   1.33    96.83          0.0%      100.0%   (1s)
+Alg1            NB       75.06   2.51    74.65         19.8%      100.0%   (0s)
+Alg1            DT       89.54   1.59    89.35         19.8%      100.0%   (1s)
+Alg2            NB       86.05   3.41    85.98          0.0%       55.4%   (1s)
+Alg2            DT       96.98   1.24    96.98          0.0%       55.4%   (1s)
+C1 N->A         NB       72.74   2.48    71.86         19.8%       39.6%   (1s)
+C1 N->A         DT       89.58   1.68    89.40         19.8%       39.6%   (1s)
+C2 A->N         NB       80.46   4.37    80.26         13.6%       55.4%   (1s)
+C2 A->N         DT       91.30   1.79    91.32         13.6%       55.4%   (1s)
+
+--- tic-tac-toe: 958 instances x 27 attributes, 2 classes (Table 5: (958, 9, 2)) ---
+arm             final accuracy    std  macroF1  rows removed  attrs kept
+baseline        NB       68.82   3.88    63.91          0.0%      100.0%   (0s)
+baseline        DT       93.56   3.04    92.85          0.0%      100.0%   (0s)
+Alg1            NB       70.11   3.85    64.50         29.8%      100.0%   (0s)
+Alg1            DT       76.17   3.96    71.08         29.8%      100.0%   (0s)
+Alg2            NB       69.76   3.60    62.48          0.0%       68.4%   (0s)
+Alg2            DT       94.75   2.43    94.15          0.0%       68.4%   (0s)
+C1 N->A         NB       70.25   4.24    64.47         29.8%       58.9%   (0s)
+C1 N->A         DT       75.89   3.52    70.60         29.8%       58.9%   (0s)
+C2 A->N         NB       71.85   4.05    63.19         29.5%       68.4%   (0s)
+C2 A->N         DT       74.29   3.95    66.64         29.5%       68.4%   (0s)
+
+--- nsl-kdd: 25192 instances x 118 attributes, 22 classes (Table 5: (25192, 41, 23)) ---
+arm             final accuracy    std  macroF1  rows removed  attrs kept
+baseline        NB       76.33   1.53    48.73          0.0%      100.0%   (5s)
+baseline        DT       99.55   0.12    81.80          0.0%      100.0%   (5s)
+Alg1            NB       76.75   2.02    48.45         23.6%      100.0%   (38s)
+Alg1            DT       85.76   2.56    60.01         23.6%      100.0%   (36s)
+Alg2            NB       56.25   5.27    29.06          0.0%       14.5%   (5s)
+Alg2            DT       99.48   0.14    82.66          0.0%       14.5%   (6s)
+C1 N->A         NB       70.09   5.63    33.24         23.6%        8.9%   (36s)
+C1 N->A         DT       86.34   2.45    59.67         23.6%        8.9%   (36s)
+C2 A->N         NB       56.37  11.16    31.72         43.7%       14.5%   (8s)
+C2 A->N         DT       82.74   3.51    41.22         43.7%       14.5%   (8s)
+
+================================================================================================
+THE FOUR HEADLINE RESULTS, AND THE TWO ORDERS COMPARED (accuracy %, macro-F1 in brackets)
+================================================================================================
+dataset                  C1 N->A ->NB     C1 N->A ->DT     C2 A->N ->NB     C2 A->N ->DT   winner
+breast-cancer             70.77 (63.1)      71.23 (63.3)      71.93 (63.2)      70.54 (61.7)   71.93
+contact-lenses            85.00 (79.2)      85.00 (79.2)      85.00 (79.2)      85.00 (79.2)   85.00
+diabetes                  75.43 (71.9)      74.47 (70.6)      75.60 (71.2)      75.21 (71.0)   75.60
+glass                     35.24 (39.9)      49.57 (46.6)      44.12 (41.5)      52.39 (47.9)   52.39
+iris                      95.11 (95.0)      95.33 (95.2)      95.78 (95.7)      95.56 (95.4)   95.78
+soybean                   86.09 (88.7)      88.67 (91.7)      88.77 (91.4)      90.82 (93.1)   90.82
+vote                      94.63 (94.4)      94.32 (94.0)      93.25 (92.9)      95.17 (94.9)   95.17
+image-segmentation        72.74 (71.9)      89.58 (89.4)      80.46 (80.3)      91.30 (91.3)   91.30
+tic-tac-toe               70.25 (64.5)      75.89 (70.6)      71.85 (63.2)      74.29 (66.6)   75.89
+nsl-kdd                   70.09 (33.2)      86.34 (59.7)      56.37 (31.7)      82.74 (41.2)   86.34
+
+================================================================================================
+COMPARISON WITH FARID (2014) TABLES 8-11 -- accuracy % on 10-fold CV
+================================================================================================
+dataset             classifier           Farid 2014   this run    delta
+breast-cancer       C4.5                      75.52      64.68   -10.84
+breast-cancer       Alg 1 (hybrid DT)         81.46      71.35   -10.11
+breast-cancer       NB                        71.67      70.88    -0.79
+breast-cancer       Alg 2 (hybrid NB)         75.87      72.39    -3.48
+-----------------------------------------------------------------------
+contact-lenses      C4.5                      83.33      82.78    -0.55
+contact-lenses      Alg 1 (hybrid DT)         91.66      85.00    -6.66
+contact-lenses      NB                        70.83      85.00   +14.17
+contact-lenses      Alg 2 (hybrid NB)         87.50      85.00    -2.50
+-----------------------------------------------------------------------
+diabetes            C4.5                      73.82      69.53    -4.29
+diabetes            Alg 1 (hybrid DT)         79.03      74.22    -4.81
+diabetes            NB                        76.30      75.52    -0.78
+diabetes            Alg 2 (hybrid NB)         85.41      76.38    -9.03
+-----------------------------------------------------------------------
+glass               C4.5                      66.82      68.38    +1.56
+glass               Alg 1 (hybrid DT)         76.27      49.89   -26.38
+glass               NB                        48.59      46.60    -1.99
+glass               Alg 2 (hybrid NB)         52.33      47.41    -4.92
+-----------------------------------------------------------------------
+iris                C4.5                      96.00      94.67    -1.33
+iris                Alg 1 (hybrid DT)         98.66      95.33    -3.33
+iris                NB                        96.00      95.56    -0.44
+iris                Alg 2 (hybrid NB)         98.00      95.78    -2.22
+-----------------------------------------------------------------------
+soybean             C4.5                      91.50      92.24    +0.74
+soybean             Alg 1 (hybrid DT)         92.97      88.68    -4.29
+soybean             NB                        92.83      89.94    -2.89
+soybean             Alg 2 (hybrid NB)         94.15      90.48    -3.67
+-----------------------------------------------------------------------
+vote                C4.5                      96.32      94.17    -2.15
+vote                Alg 1 (hybrid DT)         97.70      94.32    -3.38
+vote                NB                        90.11      90.18    +0.07
+vote                Alg 2 (hybrid NB)         94.48      92.87    -1.61
+-----------------------------------------------------------------------
+image-segmentation  C4.5                      95.73      96.84    +1.11
+image-segmentation  Alg 1 (hybrid DT)         96.53      89.54    -6.99
+image-segmentation  NB                        81.06      79.67    -1.39
+image-segmentation  Alg 2 (hybrid NB)         85.19      86.05    +0.86
+-----------------------------------------------------------------------
+tic-tac-toe         C4.5                      85.07      93.56    +8.49
+tic-tac-toe         Alg 1 (hybrid DT)         88.10      76.17   -11.93
+tic-tac-toe         NB                        69.62      68.82    -0.80
+tic-tac-toe         Alg 2 (hybrid NB)         78.91      69.76    -9.15
+-----------------------------------------------------------------------
+nsl-kdd             C4.5                      71.11      99.55   +28.44
+nsl-kdd             Alg 1 (hybrid DT)         81.92      85.76    +3.84
+nsl-kdd             NB                        76.27      76.33    +0.06
+nsl-kdd             Alg 2 (hybrid NB)         82.39      56.25   -26.14
+-----------------------------------------------------------------------
+MEAN over all cells                           83.18      80.44    -2.74
+
+[saved] E:\University\dt-nb-project-big-data\results\EXP-E9_pipeline\sweep_a0.005_mixed_on.csv
