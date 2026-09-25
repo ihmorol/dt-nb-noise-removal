@@ -1,6 +1,6 @@
 # Algorithm ↔ code, line by line
 
-*2026-09-18. The listings below are transcribed from the publisher PDF's text layer
+*2026-09-18 (code references updated 2026-09-25 after the code cleanup). The listings below are transcribed from the publisher PDF's text layer
 (`reference/Farid_2014_hybrid_DT_NB_multiclass.pdf`, pp. 1941–1942). Verdict column:
 **match** = implemented as written; **split** = implemented, but in another file because
 the pipeline composes steps; **deviation** = deliberate difference, explained below.*
@@ -9,18 +9,18 @@ the pipeline composes steps; **deviation** = deliberate difference, explained be
 
 | Step (paper) | Code | Verdict |
 |---|---|---|
-| 1–3: for each class find the prior probabilities P(C_i) | `WeightedNB.fit` (nb.py:28), called by `farid_algorithm1` (algorithm1.py:34) | match |
+| 1–3: for each class find the prior probabilities P(C_i) | `WeightedNB.fit` (nb.py:20), called by `algorithm1` (algorithm1.py:21) | match |
 | 4–6: for each attribute value find the class-conditional probabilities P(A_ij\|C_i) | same `fit` (Gaussian for numeric, Bernoulli for 0/1 columns) | match |
-| 7–8: for each training instance find the posterior P(C_i\|x_i) | `WeightedNB.predict` → `joint_log_likelihood` (nb.py:74) | match |
-| 9–11: if x_i is misclassified, remove x_i from D | `wrong = judge.predict(X) != y` (algorithm1.py:35) → `X[~wrong], y[~wrong]` (algorithm1.py:53) | match |
-| 12: end for (the filter) | the return of `farid_algorithm1` | match |
-| 13: T = ∅ | — | split: this is the final classifier slot, `classify` (pipeline.py:27) |
-| 14–16: best splitting attribute; root node; arcs | `DecisionTreeClassifier(criterion="entropy")` (pipeline.py:32), fitted on the cleaned data | split |
+| 7–8: for each training instance find the posterior P(C_i\|x_i) | `WeightedNB.predict` → `class_scores` (nb.py:44) | match |
+| 9–11: if x_i is misclassified, remove x_i from D | `keep = judge.predict(X) == y` (algorithm1.py:22) → `X[keep], y[keep]` in `clean` (pipeline.py:66) | match |
+| 12: end for (the filter) | the return of `algorithm1` | match |
+| 13: T = ∅ | — | split: this is the final classifier slot, `make_classifier` (pipeline.py:75) |
+| 14–16: best splitting attribute; root node; arcs | `DecisionTreeClassifier(criterion="entropy")` (pipeline.py:78), fitted on the cleaned data | split |
 | 17–24: recurse `DTBuild(D)` for each arc, leaf at the stopping point | the same estimator (sklearn CART), **not** Weka J48 | split + deviation (CART ≠ C4.5, documented limitation) |
 | 25: end for | — | — |
 
 **How to read the "split".** Farid's Algorithm 1 is one object: *filter → tree*. In the code
-the filter is `farid_algorithm1` and the tree is whatever `final` classifier the arm asks for.
+the filter is `algorithm1` and the tree is whatever `final` classifier the arm asks for.
 For the arm `Alg1→DT` that reproduces Algorithm 1 exactly (filter, then an entropy tree on
 what survived). For the reference arm `Alg1→NB` no tree is grown — the paper never did that;
 that arm exists only to attribute a gain to the filter alone.
@@ -29,30 +29,30 @@ that arm exists only to attribute a gain to the filter alone.
 
 | Step (paper) | Code | Verdict |
 |---|---|---|
-| 1–13: build the decision tree T on D (root, arcs, recurse `DTBuild`) | `tree.fit(X, y)` in `farid_algorithm2` (algorithm2.py:58) | match (CART, not J48) |
-| 14: for each attribute A_i ∈ D | `attribute_weights(tree, n_attributes)` (algorithm2.py:23, called at :60) | match |
-| 15–16: if A_i is not tested in T → W_i = 0 | `depth[attribute] == 0` → the weight stays 0 (algorithm2.py:41–45) | match |
-| 17–18: else d = minimum depth of A_i in T, W_i = 1/√d | breadth-first walk recording each node's depth; smallest depth kept per attribute; `weights[tested] = 1.0 / np.sqrt(depth[tested])` (algorithm2.py:45) | match, **with one choice the paper leaves open**: root = depth 1, so the first-split attribute gets weight 1. Root = 0 would make 1/√d undefined at the root |
+| 1–13: build the decision tree T on D (root, arcs, recurse `DTBuild`) | `tree.fit(X, y)` in `algorithm2` (algorithm2.py:43) | match (CART, not J48) |
+| 14: for each attribute A_i ∈ D | `tree_weights(tree, n_columns)` (algorithm2.py:12, called at :43) | match |
+| 15–16: if A_i is not tested in T → W_i = 0 | an attribute never met in the walk keeps weight 0 (algorithm2.py:29) | match |
+| 17–18: else d = minimum depth of A_i in T, W_i = 1/√d | walk over the nodes recording each node's depth; smallest depth kept per attribute; `weights[column] = 1 / np.sqrt(depth)` (algorithm2.py:31) | match, **with one choice the paper leaves open**: root = depth 1, so the first-split attribute gets weight 1. Root = 0 would make 1/√d undefined at the root |
 | 19–20: end for | — | — |
-| 21–23: for each class find the prior probabilities P(C_i) | `WeightedNB.fit` (nb.py:28) | match |
-| 24–26: for each attribute with W_i ≠ 0 and each of its values, find P(A_ij\|C_i)^W_i | only the kept columns reach the NB (`return X[:, keep]`, algorithm2.py:73); the exponent is applied in `joint_log_likelihood`: `(log_p * self.weights).sum(axis=1)` (nb.py:79) — that is Π P(A_j\|C)^W_j, Eq. (14) | match |
+| 21–23: for each class find the prior probabilities P(C_i) | `WeightedNB.fit` (nb.py:20) | match |
+| 24–26: for each attribute with W_i ≠ 0 and each of its values, find P(A_ij\|C_i)^W_i | only the kept columns reach the NB (`X[:, keep]` in `clean`, pipeline.py:58); the exponent is applied in `class_scores`: `(log_p * self.weights_).sum(axis=1)` (nb.py:55) — that is Π P(A_j\|C)^W_j, Eq. (14) | match |
 | 27–28: end for | — | — |
-| 29–31: for each instance find the posterior P(C_i\|x_i) | `predict` = argmax of the weighted joint log-likelihood (nb.py:82) | match |
+| 29–31: for each instance find the posterior P(C_i\|x_i) | `predict` = argmax of the weighted class scores (nb.py:58) | match |
 
 ## The deviations, all deliberate
 
-1. **Attributes are removed from the table, not only zero-weighted** (algorithm2.py:73).
+1. **Attributes are removed from the table, not only zero-weighted** (pipeline.py:58).
    For the NB product this is *identical*, because a zero weight makes the term p⁰ = 1. It
    differs for the **DT** final classifier, which Farid never ran after Alg 2 — the reduced
    feature space is a real change there, and removal is what the pipeline was asked for.
-2. **Alg 1's judge can be the weighted NB** (`weights` argument, algorithm1.py:25 and :34).
+2. **Alg 1's judge can be the weighted NB** (`weights` argument, algorithm1.py:15 and :21).
    As published, Algorithm 1's judge is plain NB. This is the mutual-support extension: on
    Path 2, the tree that Alg 2 grew decides which attributes the filter looks at.
    `weights=None` (Path 1) is the faithful form.
-3. **Safety rule in Alg 1** (algorithm1.py:46–51): if deleting every misclassified instance
-   would leave a single class, nothing is deleted and `info["skipped"]` records it. The paper
+3. **Safety rule in Alg 1** (algorithm1.py:24–25): if deleting every misclassified instance
+   would leave a single class, nothing is deleted and the returned `skipped` flag records it. The paper
    has no such guard; without it the fold has no trainable data at all.
-4. **Likelihood for 0/1 columns** (`likelihood="mixed"`, nb.py:32–37 and :63–67): Bernoulli for
+4. **Likelihood for 0/1 columns** (`likelihood="mixed"`, nb.py:26–29, :41 and :53): Bernoulli for
    0/1 columns, Gaussian elsewhere. The paper says probabilities are computed "even if it is
    numeric" but never specifies the nominal case; its Weka NB uses frequency counts for nominal
    attributes. Gaussian-on-one-hot was measurably the wrong reading (Play-Tennis below).
@@ -71,9 +71,9 @@ that arm exists only to attribute a gain to the filter alone.
 
 ## What is in the code but not in the paper (and why)
 
-- 10-fold CV with everything refit inside each training fold (`run_fold`, pipeline.py:41): the
+- 10-fold CV with everything refit inside each training fold (`run_fold`, pipeline.py:81): the
   paper says "10-fold cross validation" but never says whether the filter and the tree were
   refit per fold. This is the leakage-safe reading; the difference is what E3a will measure.
-- Reference arms and the Farid comparison table (`ARMS`, main.py:39; `print_farid_comparison`,
+- Reference arms and the Farid comparison table (`ARMS`, main.py:32; `print_farid_comparison`,
   tables.py): attribution scaffolding, not part of either algorithm.
-- The three data versions and the removal log (`trace_dataset`, versions.py:56): reporting only.
+- The three data versions and the removal log (`trace_dataset`, versions.py:42): reporting only.

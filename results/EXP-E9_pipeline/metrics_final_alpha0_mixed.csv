@@ -9,16 +9,16 @@ breast-cancer,C1 N->A,NB,70.8645,8.4295,63.3115,27.85,19.51,5,10,0.0,mixed,True
 breast-cancer,C1 N->A,DT,71.0640,7.0024,63.2345,27.85,19.51,5,10,0.0,mixed,True
 breast-cancer,C2 A->N,NB,72.2660,8.0778,63.5659,25.63,81.12,5,10,0.0,mixed,True
 breast-cancer,C2 A->N,DT,70.8645,7.6785,61.8536,25.63,81.12,5,10,0.0,mixed,True
-contact-lenses,baseline,NB,84.0000,21.0713,77.7778,0.00,100.00,5,10,0.0,mixed,True
-contact-lenses,baseline,DT,82.0000,24.0000,75.2778,0.00,100.00,5,10,0.0,mixed,True
-contact-lenses,Alg1,NB,84.0000,21.0713,77.7778,11.67,100.00,5,10,0.0,mixed,True
-contact-lenses,Alg1,DT,84.0000,21.0713,77.7778,11.67,100.00,5,10,0.0,mixed,True
-contact-lenses,Alg2,NB,84.0000,21.0713,77.7778,0.00,100.00,5,10,0.0,mixed,True
-contact-lenses,Alg2,DT,82.0000,24.0000,75.2778,0.00,100.00,5,10,0.0,mixed,True
-contact-lenses,C1 N->A,NB,84.0000,21.0713,77.7778,11.67,52.50,5,10,0.0,mixed,True
-contact-lenses,C1 N->A,DT,84.0000,21.0713,77.7778,11.67,52.50,5,10,0.0,mixed,True
-contact-lenses,C2 A->N,NB,84.0000,21.0713,77.7778,11.67,100.00,5,10,0.0,mixed,True
-contact-lenses,C2 A->N,DT,84.0000,21.0713,77.7778,11.67,100.00,5,10,0.0,mixed,True
+contact-lenses,baseline,NB,85.3333,20.9868,80.7111,0.00,100.00,5,10,0.0,mixed,True
+contact-lenses,baseline,DT,76.0000,24.9800,67.2778,0.00,100.00,5,10,0.0,mixed,True
+contact-lenses,Alg1,NB,86.0000,20.9125,81.9111,11.20,100.00,5,10,0.0,mixed,True
+contact-lenses,Alg1,DT,80.0000,20.8167,71.1111,11.20,100.00,5,10,0.0,mixed,True
+contact-lenses,Alg2,NB,70.6667,22.4994,58.2444,0.00,58.89,5,10,0.0,mixed,True
+contact-lenses,Alg2,DT,74.0000,24.9800,64.6111,0.00,58.89,5,10,0.0,mixed,True
+contact-lenses,C1 N->A,NB,84.0000,21.0713,78.3111,11.20,24.44,5,10,0.0,mixed,True
+contact-lenses,C1 N->A,DT,80.0000,20.8167,71.1111,11.20,24.44,5,10,0.0,mixed,True
+contact-lenses,C2 A->N,NB,65.6667,19.8354,51.6889,5.19,58.89,5,10,0.0,mixed,True
+contact-lenses,C2 A->N,DT,69.0000,23.5726,57.0111,5.19,58.89,5,10,0.0,mixed,True
 diabetes,baseline,NB,75.3636,4.5878,72.1298,0.00,100.00,5,10,0.0,mixed,True
 diabetes,baseline,DT,70.6709,4.4460,67.8121,0.00,100.00,5,10,0.0,mixed,True
 diabetes,Alg1,NB,74.3465,5.0682,71.3497,23.66,100.00,5,10,0.0,mixed,True

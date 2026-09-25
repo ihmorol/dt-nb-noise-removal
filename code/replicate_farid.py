@@ -1,244 +1,154 @@
-"""R1 -- replication of Farid et al. (2014), Tables 8-11: C4.5, Algorithm 1,
-Naive Bayes, Algorithm 2 on their ten datasets.
+"""R1: replicate Farid et al. (2014) Tables 8-11 with the paper's own setup.
 
-What is faithful here (every choice fixed a priori, none tuned against results):
-    * tree engine   Weka J48 3.8.6, pruned, Weka defaults (-C 0.25 -M 2) -- J48 IS
-                    C4.5; it splits nominal attributes one branch per value, so the
-                    "attribute" of Algorithm 2 is one ARFF column, exactly as in the
-                    paper. Verified in verify_faithful.py (iris tree parse).
-    * NB            FaithfulNB: the paper's own Java NB is a textbook NB -- categorical
-                    (add-one) on nominal attributes, Gaussian on numeric. Verified
-                    == sklearn GaussianNB on numeric and == Weka NB on nominal data.
-    * attribute space  the ORIGINAL columns (no one-hot), as the paper's tables have it
-    * Algorithm 1   faithful judge = FaithfulNB self-classification of the training
-                    rows; delete every misclassified row; J48 on the remainder.
-    * Algorithm 2   J48 on the training rows; W_j = 1/sqrt(min depth) for tested
-                    attributes, 0 otherwise; FaithfulNB with those exponents
-                    (Eq. 14) on the kept attributes.
+    C4.5   Weka J48, pruned, Weka's default options
+    NB     FaithfulNB (textbook NB on the original attribute columns)
+    Alg 1  FaithfulNB classifies the training rows, the wrong ones are deleted,
+           J48 is trained on the rest
+    Alg 2  J48 is trained, every tested attribute gets W = 1/sqrt(smallest depth),
+           the rest get W = 0, then the weighted FaithfulNB (Eq. 14) classifies
 
-Protocols (both reported -- the paper never states which it used; E3a showed this
-choice is worth ~15 points to Algorithm 1):
-    B  refit per fold (leakage-safe): stages AND classifier refit inside every
-       training fold; the test fold is never touched by any fit.
-    A  paper-apparent: the filter / the attribute selection are fitted ONCE on the
-       whole dataset, applied to it, and only the classifier is cross-validated.
-       (The baselines have no stages, so A == B for them.)
+All choices were fixed before any result was seen (see DECISIONS.md, 2026-09-19).
+The paper does not say which protocol it used, so both are reported:
+    B  honest: Algorithm 1/2 and the classifier are refit inside every training fold
+    A  paper-style: Algorithm 1/2 run once on the whole dataset, then only the
+       classifier is cross-validated (C4.5 and NB have no algorithm step, so A = B)
 
-Usage: python replicate_farid.py --seeds 3 iris glass
-       python replicate_farid.py                  all datasets, 3 seeds
-       python replicate_farid.py --unpruned       J48 -U sensitivity (declared)
-Writes results/EXP-R1_replication/{replication.csv, config.json}.
+Usage:
+    python replicate_farid.py                    all datasets, 3 seeds
+    python replicate_farid.py iris glass --seeds 10
+    python replicate_farid.py --unpruned         J48 -U sensitivity run
+Writes ../results/EXP-R1_replication/replication.csv and config.json
+(replication_unpruned.csv and config_unpruned.json with --unpruned).
+Needs Java; the Weka jars are in code/lib/.
 """
-
-import csv
+import argparse
 import json
-import sys
-import warnings
+import tempfile
 from pathlib import Path
 
 import numpy as np
-from sklearn.model_selection import StratifiedKFold
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
-from data import FARID_2014, available, load_original                       # noqa: E402
-from faithful_nb import FaithfulNB                                          # noqa: E402
-from weka_utils import parse_tree, run_j48, sanitize, write_arff            # noqa: E402
+from data import FARID_2014, available, load_original
+from faithful_nb import FaithfulNB
+from pipeline import N_SPLITS, make_folds
+from tables import write_csv
+from weka_utils import clean_name, run_j48, tree_depths, write_arff
 
 RESULTS = Path(__file__).resolve().parent.parent / "results" / "EXP-R1_replication"
-TMP = RESULTS / "tmp"
-N_SPLITS = 10
-
-# the four paper arms, in the paper's own table order; FARID_2014 stores the
-# C4.5 column under the key "DT"
-ARMS = ["C4.5", "NB", "Alg1", "Alg2"]
 PAPER_KEY = {"C4.5": "DT", "NB": "NB", "Alg1": "Alg1", "Alg2": "Alg2"}
 
 
-def parse_args(argv):
-    seeds = list(range(3))
-    names, rest = [], list(argv)
-    unpruned = False
-    while rest:
-        arg = rest.pop(0)
-        if arg == "--seeds":
-            seeds = list(range(int(rest.pop(0))))
-        elif arg == "--unpruned":
-            unpruned = True
-        else:
-            names.append(arg)
-    return seeds, (names or available()), unpruned
+def weighted_nb_accuracy(X, y, meta, depths, train, test):
+    """Algorithm 2's classifier: FaithfulNB on the tested attributes, W = 1/sqrt(depth).
 
-
-def folds_for(y, seeds):
-    """The same stratified fold plans the rest of the project uses."""
-    out = []
-    for seed in seeds:
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore", message="The least populated class")
-            splits = StratifiedKFold(n_splits=N_SPLITS, shuffle=True,
-                                     random_state=seed).split(np.zeros(len(y)), y)
-            out.append(list(splits))
-    return out
-
-
-def write_fold(name, tag, X, y, rows, meta, class_levels):
-    """Write one ARFF holding the given rows; returns the path.
-
-    class_levels are the WHOLE-dataset class values, so every file of a dataset
-    carries the same header (a training slice missing a class still declares it).
+    If the tree tests no attribute, every W is 0 and NB predicts from the class
+    priors alone, which is what Eq. (14) gives in that case.
     """
-    path = TMP / f"{name}_{tag}.arff"
-    write_arff(path, X[rows], y[rows], meta["names"], meta["nominal"],
-               meta["levels"], relation=f"{name}_{tag}",
-               class_levels=class_levels)
-    return path
+    column_of = {clean_name(name): j for j, name in enumerate(meta["names"])}
+    columns = sorted(column_of[name] for name in depths)
+    weights = [1 / np.sqrt(depths[clean_name(meta["names"][j])]) for j in columns]
+
+    nb = FaithfulNB(meta["nominal"][columns], [meta["levels"][j] for j in columns], weights)
+    nb.fit(X[train][:, columns], y[train])
+    return nb.accuracy(X[test][:, columns], y[test])
 
 
-def reduced_view(X, meta, keep):
-    """Slice columns down to the tree-tested ones, with matching mask/levels."""
-    keep = np.asarray(sorted(keep), dtype=int)
-    return X[:, keep], meta["nominal"][keep], [meta["levels"][j] for j in keep]
-
-
-def run_dataset(name, seeds, unpruned):
-    """Both protocols for the four arms on one dataset. Returns result rows."""
+def run_dataset(name, seeds, unpruned, folder):
     X, y, meta = load_original(name)
-    name_to_idx = {sanitize(n): j for j, n in enumerate(meta["names"])}
-    class_levels = sorted(set(str(v) for v in y))
-    paper = FARID_2014[name]
-    n = len(y)
+    classes = sorted(set(y))
     print(f"\n--- {name}: {X.shape[0]} instances x {X.shape[1]} attributes "
           f"({int(meta['nominal'].sum())} nominal), {meta['n_classes']} classes ---")
 
-    accs = {arm: {"B": [], "A": []} for arm in ARMS}
+    def arff(tag, rows):
+        path = folder / f"{tag}.arff"
+        write_arff(path, X[rows], y[rows], meta, classes)
+        return path
 
-    # ---- protocol A stage fits happen ONCE, on the whole dataset -----------------
-    arff_all = write_fold(name, "all", X, y, np.arange(n), meta, class_levels)
+    honest = {"C4.5": [], "NB": [], "Alg1": [], "Alg2": []}
+    paper_style = {"Alg1": [], "Alg2": []}
 
-    # Alg1-A: the judge deletes from the WHOLE dataset
+    # Protocol B: everything is refit inside each training fold
+    for seed in seeds:
+        for train, test in make_folds(y, seed):
+            train_file, test_file = arff("train", train), arff("test", test)
+
+            # one J48 run gives both the C4.5 score and Algorithm 2's tree
+            accuracy, tree = run_j48(train_file, test_file, unpruned)
+            honest["C4.5"].append(accuracy)
+            honest["Alg2"].append(weighted_nb_accuracy(X, y, meta, tree_depths(tree),
+                                                       train, test))
+            nb = FaithfulNB(meta["nominal"], meta["levels"]).fit(X[train], y[train])
+            honest["NB"].append(nb.accuracy(X[test], y[test]))
+
+            # Algorithm 1: the same NB judges the training rows, the wrong ones go
+            keep = nb.predict(X[train]) == y[train]
+            if len(np.unique(y[train][keep])) < 2:
+                # our safety rule: never delete down to one class; the tree is then plain C4.5
+                honest["Alg1"].append(accuracy)
+            else:
+                honest["Alg1"].append(run_j48(arff("filtered", train[keep]), test_file,
+                                              unpruned)[0])
+
+    # Protocol A: Algorithm 1 and 2 run once on the whole dataset
+    all_file = arff("all", np.arange(len(y)))
+    depths = tree_depths(run_j48(all_file, all_file, unpruned)[1])
     judge = FaithfulNB(meta["nominal"], meta["levels"]).fit(X, y)
-    keep_rows = np.flatnonzero(judge.predict(X) == y)
-    arff_a1 = write_fold(name, "a1filtered", X, y, keep_rows, meta, class_levels)
-    plan_a1 = folds_for(y[keep_rows], seeds)        # folds recomputed on the filter
+    kept_rows = np.flatnonzero(judge.predict(X) == y)
+    print(f"    paper-style: the tree tests {len(depths)}/{X.shape[1]} attributes, "
+          f"the NB filter deletes {len(y) - len(kept_rows)} of {len(y)} rows")
 
-    # Alg2-A folds over the FULL data: only the columns were pre-selected.
-    # (Reusing Alg1's filtered-row plan here would silently chain the two
-    # algorithms -- the bug the tic-tac-toe smoke test exposed.)
-    plan_full = folds_for(y, seeds)
+    for seed in seeds:
+        for train, test in make_folds(y[kept_rows], seed):
+            train_file = arff("a1train", kept_rows[train])
+            test_file = arff("a1test", kept_rows[test])
+            paper_style["Alg1"].append(run_j48(train_file, test_file, unpruned)[0])
+        for train, test in make_folds(y, seed):
+            paper_style["Alg2"].append(weighted_nb_accuracy(X, y, meta, depths, train, test))
 
-    # Alg2-A: the tree selects on the WHOLE dataset
-    _, tree_lines_a = run_j48(arff_all, arff_all, unpruned)
-    tested_a = parse_tree(tree_lines_a)
-    keep_a = sorted(name_to_idx[a] for a in tested_a)
-    weights_a = np.array([1.0 / np.sqrt(tested_a[sanitize(meta["names"][j])]) for j in keep_a]) \
-        if keep_a else np.array([])
-    print(f"    Alg2-A tree tests {len(keep_a)}/{X.shape[1]} attributes; "
-          f"Alg1-A deletes {n - len(keep_rows)} of {n} rows")
-
-    # ---- protocol B: everything refit inside each fold ---------------------------
-    for seed_folds in folds_for(y, seeds):
-        for train_rows, test_rows in seed_folds:
-            arff_train = write_fold(name, "train", X, y, train_rows, meta, class_levels)
-            arff_test = write_fold(name, "test", X, y, test_rows, meta, class_levels)
-
-            # one J48 call serves both C4.5 (accuracy) and Alg2 (the tree)
-            accuracy_c45, tree_lines = run_j48(arff_train, arff_test, unpruned)
-            accs["C4.5"]["B"].append(accuracy_c45)
-
-            tested_b = parse_tree(tree_lines)
-            keep_b = sorted(name_to_idx[a] for a in tested_b)
-            if keep_b:
-                Xb, nominal_b, levels_b = reduced_view(X, meta, keep_b)
-                w = np.array([1.0 / np.sqrt(tested_b[sanitize(meta["names"][j])])
-                              for j in keep_b])
-                model = FaithfulNB(nominal_b, levels_b,
-                                   weights=w).fit(Xb[train_rows], y[train_rows])
-                accs["Alg2"]["B"].append(model.score(Xb[test_rows], y[test_rows]) * 100)
-            else:
-                accs["Alg2"]["B"].append(np.nan)    # degenerate: no attribute tested
-
-            model = FaithfulNB(meta["nominal"], meta["levels"]).fit(X[train_rows],
-                                                                    y[train_rows])
-            accs["NB"]["B"].append(model.score(X[test_rows], y[test_rows]) * 100)
-
-            # Alg1: judge on the training rows, delete, tree on the remainder
-            judge = FaithfulNB(meta["nominal"], meta["levels"]).fit(X[train_rows],
-                                                                    y[train_rows])
-            wrong = judge.predict(X[train_rows]) != y[train_rows]
-            if np.unique(y[train_rows][~wrong]).size < 2:
-                accs["Alg1"]["B"].append(accuracy_c45)   # safety rule: skip filter
-            else:
-                kept = train_rows[~wrong]
-                arff_f = write_fold(name, "filtered", X, y, kept, meta, class_levels)
-                accs["Alg1"]["B"].append(run_j48(arff_f, arff_test, unpruned)[0])
-
-    # ---- protocol A: stages once, classifier cross-validated ---------------------
-    # Alg1-A: CV the tree on the pre-filtered population
-    for seed_folds in plan_a1:
-        for train_rows, test_rows in seed_folds:
-            arff_train = write_fold(name, "a1train", X, y, keep_rows[train_rows], meta, class_levels)
-            arff_test = write_fold(name, "a1test", X, y, keep_rows[test_rows], meta, class_levels)
-            accs["Alg1"]["A"].append(run_j48(arff_train, arff_test, unpruned)[0])
-
-    # Alg2-A: CV the weighted NB on the pre-selected columns, full population
-    Xa, nominal_a, levels_a = reduced_view(X, meta, keep_a) if keep_a else (X, meta["nominal"], meta["levels"])
-    for seed_folds in plan_full:
-        for train_rows, test_rows in seed_folds:
-            if keep_a:
-                model = FaithfulNB(nominal_a, levels_a,
-                                   weights=weights_a).fit(Xa[train_rows], y[train_rows])
-                accs["Alg2"]["A"].append(model.score(Xa[test_rows], y[test_rows]) * 100)
-            else:
-                accs["Alg2"]["A"].append(np.nan)
-
-    # ---- collect and print --------------------------------------------------------
+    # the table
+    print(f"    {'arm':<6}{'B honest':>10}{'A paper-style':>15}{'paper':>9}")
     rows = []
-    print(f"    {'arm':<6}{'B honest':>10}{'A paper-style':>14}{'paper':>9}")
-    for arm in ARMS:
-        b = float(np.nanmean(accs[arm]["B"]))
-        entries = [{"dataset": name, "arm": arm, "protocol": "B refit-per-fold",
-                    "accuracy": round(b, 2), "paper": paper[PAPER_KEY[arm]],
-                    "delta": round(b - paper[PAPER_KEY[arm]], 2)}]
-        if arm in ("Alg1", "Alg2"):                 # baselines have no stages
-            a = float(np.nanmean(accs[arm]["A"]))
-            entries.append({"dataset": name, "arm": arm, "protocol": "A before-CV",
-                            "accuracy": round(a, 2), "paper": paper[PAPER_KEY[arm]],
-                            "delta": round(a - paper[PAPER_KEY[arm]], 2)})
-        for entry in entries:
-            rows.append(entry)
-            print(f"    {entry['arm']:<6}{entry['accuracy']:>10.2f}"
-                  f"{entry['accuracy'] if entry['protocol'] == 'A before-CV' else '':>14}"
-                  f"{entry['paper']:>9.2f}")
+    for arm, scores in honest.items():
+        paper = FARID_2014[name][PAPER_KEY[arm]]
+        b = float(np.mean(scores))
+        rows.append([name, arm, "B refit-per-fold", round(b, 2), paper, round(b - paper, 2)])
+        a_text = ""
+        if arm in paper_style:
+            a = float(np.mean(paper_style[arm]))
+            rows.append([name, arm, "A before-CV", round(a, 2), paper, round(a - paper, 2)])
+            a_text = f"{a:.2f}"
+        print(f"    {arm:<6}{b:>10.2f}{a_text:>15}{paper:>9.2f}")
     return rows
 
 
 def main():
-    seeds, names, unpruned = parse_args(sys.argv[1:])
-    TMP.mkdir(parents=True, exist_ok=True)
+    parser = argparse.ArgumentParser(description="Replicate Farid (2014) Tables 8-11")
+    parser.add_argument("datasets", nargs="*", help="default: every dataset on disk")
+    parser.add_argument("--seeds", type=int, default=3)
+    parser.add_argument("--unpruned", action="store_true", help="run J48 with -U")
+    args = parser.parse_args()
+    seeds = list(range(args.seeds))
+    suffix = "_unpruned" if args.unpruned else ""
+
     RESULTS.mkdir(parents=True, exist_ok=True)
-
     config = {"seeds": seeds, "n_splits": N_SPLITS,
-              "j48": "Weka 3.8.6 " + ("unpruned -M 2" if unpruned
+              "j48": "Weka 3.8.6 " + ("unpruned -U -M 2" if args.unpruned
                                       else "pruned, defaults -C 0.25 -M 2"),
-              "nb": "FaithfulNB (categorical add-one nominal, Gaussian numeric)",
+              "nb": "FaithfulNB (add-one counts for nominal, Gaussian for numeric)",
               "attribute_space": "original columns, no one-hot",
-              "protocol_B": "stages and classifier refit inside each training fold",
-              "protocol_A": "stages fitted once on the whole dataset before CV"}
-    (RESULTS / "config.json").write_text(json.dumps(config, indent=2), encoding="utf-8")
+              "protocol_B": "Algorithm 1/2 and classifier refit inside each training fold",
+              "protocol_A": "Algorithm 1/2 fitted once on the whole dataset before CV"}
+    (RESULTS / f"config{suffix}.json").write_text(json.dumps(config, indent=2),
+                                                  encoding="utf-8")
 
-    all_rows = []
-    for name in names:
-        all_rows += run_dataset(name, seeds, unpruned)
-        for stale in TMP.glob(f"{sanitize(name)}_*.arff"):
-            stale.unlink()
+    rows = []
+    with tempfile.TemporaryDirectory() as folder:          # ARFF files, deleted at the end
+        for name in args.datasets or available():
+            rows += run_dataset(name, seeds, args.unpruned, Path(folder))
 
-    with open(RESULTS / "replication.csv", "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=["dataset", "arm", "protocol",
-                                               "accuracy", "paper", "delta"])
-        writer.writeheader()
-        writer.writerows(all_rows)
-    print(f"\n[saved] {RESULTS / 'replication.csv'}")
+    out = RESULTS / f"replication{suffix}.csv"
+    write_csv(out, ["dataset", "arm", "protocol", "accuracy", "paper", "delta"], rows)
+    print(f"\n[saved] {out}")
 
 
 if __name__ == "__main__":

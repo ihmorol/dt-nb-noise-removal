@@ -3,20 +3,20 @@ main data: 435 rows x 48 attributes -> main.csv
 (one pass over the whole dataset, no cross-validation)
 
 === path1__Alg1_then_Alg2 ===
-  step 1  Alg 1 -- NB noise filter (judge: plain NB)
+  step 1  Alg 1, NB noise filter (judge: plain NB)
            rows 435 -> 394, removed 41 (9.4%)
            removed per class: democrat: 10.9%, republican: 7.1%
            removed row ids: 2, 6, 71, 73, 75, 76, 77, 85, 96, 100, 107, 140, 151, 160, 161, 162, 164, 167, 168, 173, 176, 215, 248, 267, 275, 281, 325, 355, 365, 372, 373, 375, 382, 384, 385, 388, 390, 393, 397, 402 ... (+1 more)
-  step 2  Alg 2 -- tree attribute selection (ccp_alpha=0.0)
+  step 2  Alg 2, tree attribute selection (ccp_alpha=0.0)
            attributes 48 -> 5, removed 43 (89.6%)
            removed attributes: 1_?, 1_n, 1_y, 2_?, 2_n, 2_y, 3_?, 3_y, 4_?, 4_n, 5_?, 5_y, 6_?, 6_n, 6_y, 7_?, 7_n, 7_y, 8_n, 8_y, 9_?, 9_n, 9_y, 10_?, 10_n, 10_y, 11_?, 11_n, 11_y, 12_n, 12_y, 13_?, 13_n, 13_y, 14_?, 14_n, 14_y, 15_?, 15_n, 15_y, 16_?, 16_n, 16_y
   new data: 394 rows x 5 attributes -> path1__Alg1_then_Alg2.csv
 
 === path2__Alg2_then_Alg1 ===
-  step 1  Alg 2 -- tree attribute selection (ccp_alpha=0.0)
+  step 1  Alg 2, tree attribute selection (ccp_alpha=0.0)
            attributes 48 -> 21, removed 27 (56.2%)
            removed attributes: 1_?, 1_y, 2_?, 2_n, 3_?, 4_n, 5_?, 5_n, 5_y, 6_?, 6_y, 7_?, 7_n, 8_?, 8_n, 8_y, 9_?, 10_?, 11_?, 12_y, 13_?, 13_n, 14_?, 14_n, 14_y, 15_?, 16_n
-  step 2  Alg 1 -- NB noise filter (judge: weighted NB (Alg 2 weights))
+  step 2  Alg 1, NB noise filter (judge: weighted NB)
            rows 435 -> 405, removed 30 (6.9%)
            removed per class: democrat: 6.0%, republican: 8.3%
            removed row ids: 6, 71, 73, 75, 107, 151, 160, 161, 164, 166, 167, 173, 176, 215, 242, 248, 267, 315, 325, 351, 355, 365, 372, 375, 382, 384, 388, 393, 402, 407

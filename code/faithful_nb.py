@@ -1,110 +1,67 @@
-"""Weka-style Naive Bayes on the ORIGINAL attribute space.
+"""The Naive Bayes of the replication (R1), on the original attribute columns.
 
-The pipeline's WeightedNB (nb.py) works on one-hot columns. That is measurably the
-wrong reading for replication: Weka's NB (and the paper's own Java NB, which follows
-the same textbook) treats a nominal attribute as ONE categorical variable -- a single
-frequency table per class -- not as independent 0/1 columns. This module is that
-classifier, so the replication can run the paper's algorithms in the paper's own
-attribute space.
+The paper's NB is a textbook NB: a nominal attribute is ONE variable with one
+frequency table per class, not a set of 0/1 columns. This class does that.
 
-Input convention:
-    X                float ndarray. NOMINAL columns hold integer level codes
-                     (the code of the value in the dataset's level list); NUMERIC
-                     columns hold their value.
-    nominal_mask     bool per column -- which columns are nominal
-    levels           one list of level strings per nominal column (defines k_j)
+    nominal  column holds the position of its value in levels[j]
+             P(value | C) = (count(value, C) + 1) / (n_C + number of values)
+    numeric  Gaussian per class, variance smoothed like sklearn's GaussianNB
+    weights  Farid's Eq. (14) exponents; None means plain NB
 
-Likelihoods (the two Weka estimators):
-    nominal  DiscreteEstimator:  P(v|C) = (count(v,C) + 1) / (n_C + k_j)   [add-one]
-    numeric  NormalEstimator:    Gaussian per class, variance smoothed like sklearn
-
-weights   the paper's Eq. (14):  P(x|C) = P(C) * prod_j P(A_j|C)^W_j.
-          None -> all exponents 1, i.e. plain NB.
-
-With no nominal columns and weights=None this reproduces sklearn.GaussianNB exactly
-(same epsilon construction as the pipeline's WeightedNB) -- that identity is checked
-in verify_faithful.py.
+verify_faithful.py checks that this equals sklearn's GaussianNB on numeric data
+and Weka's NaiveBayes on nominal data.
 """
-
 import numpy as np
 
 
 class FaithfulNB:
-    """Naive Bayes over mixed nominal/numeric attributes, with per-attribute exponents."""
-
-    def __init__(self, nominal_mask, levels, weights=None, var_smoothing=1e-9):
-        self.nominal_mask = np.asarray(nominal_mask, dtype=bool)
-        self.levels = levels                       # k_j per nominal column
-        self.weights = None if weights is None else np.asarray(weights, dtype=float)
-        self.var_smoothing = var_smoothing
+    def __init__(self, nominal, levels, weights=None):
+        self.nominal = np.asarray(nominal, dtype=bool)
+        self.levels = levels
+        self.weights = weights
 
     def fit(self, X, y):
-        X = np.asarray(X, dtype=float)
         self.classes_ = np.unique(y)
-        numeric = ~self.nominal_mask
+        self.weights_ = np.ones(X.shape[1]) if self.weights is None else np.asarray(self.weights)
 
-        # epsilon exactly as sklearn's GaussianNB / the pipeline's WeightedNB compute it
-        if numeric.any():
-            self.epsilon_ = self.var_smoothing * np.var(X[:, numeric], axis=0).max()
-        else:
-            self.epsilon_ = 0.0
+        numeric = ~self.nominal
+        epsilon = 1e-9 * np.var(X[:, numeric], axis=0).max() if numeric.any() else 0.0
 
-        self.priors_ = []
-        self.means_ = []
-        self.variances_ = []
-        self.log_prob_tables_ = []                 # per class: list of (k_j,) log-prob arrays
+        self.priors_, self.means_, self.variances_, self.log_tables_ = [], [], [], []
         for c in self.classes_:
             Xc = X[y == c]
-            n_c = len(Xc)
-            self.priors_.append(n_c / len(X))
-
-            means = np.zeros(X.shape[1])
-            variances = np.zeros(X.shape[1])
-            tables = []
+            self.priors_.append(len(Xc) / len(X))
+            means, variances, tables = {}, {}, {}
             for j in range(X.shape[1]):
-                if self.nominal_mask[j]:
-                    k_j = len(self.levels[j])
-                    counts = np.bincount(Xc[:, j].astype(int), minlength=k_j)
-                    p = (counts + 1.0) / (n_c + k_j)          # Weka's add-one estimator
-                    tables.append(np.log(p))
+                if self.nominal[j]:
+                    n_values = len(self.levels[j])
+                    counts = np.bincount(Xc[:, j].astype(int), minlength=n_values)
+                    tables[j] = np.log((counts + 1) / (len(Xc) + n_values))
                 else:
                     means[j] = Xc[:, j].mean()
-                    variances[j] = Xc[:, j].var() + self.epsilon_
-                    tables.append(None)
+                    variances[j] = Xc[:, j].var() + epsilon
             self.means_.append(means)
             self.variances_.append(variances)
-            self.log_prob_tables_.append(tables)
-
-        if self.weights is None:
-            self.weights = np.ones(X.shape[1])
+            self.log_tables_.append(tables)
         return self
 
-    def joint_log_likelihood(self, X):
-        """log P(C) + sum_j W_j * log P(A_j = x_j | C), one column per class."""
-        X = np.asarray(X, dtype=float)
+    def class_scores(self, X):
+        """log P(C) + sum over attributes of W_j * log P(x_j | C). One column per class."""
         scores = np.zeros((len(X), len(self.classes_)))
-        for k, c in enumerate(self.classes_):
+        for k in range(len(self.classes_)):
             total = np.full(len(X), np.log(self.priors_[k]))
-            tables = self.log_prob_tables_[k]
             for j in range(X.shape[1]):
-                if self.nominal_mask[j]:
-                    total += self.weights[j] * tables[j][X[:, j].astype(int)]
+                if self.nominal[j]:
+                    log_p = self.log_tables_[k][j][X[:, j].astype(int)]
                 else:
-                    mean, var = self.means_[k][j], self.variances_[k][j]
-                    log_gaussian = -0.5 * (np.log(2 * np.pi * var)
-                                           + (X[:, j] - mean) ** 2 / var)
-                    total += self.weights[j] * log_gaussian
+                    mean, variance = self.means_[k][j], self.variances_[k][j]
+                    log_p = -0.5 * (np.log(2 * np.pi * variance) + (X[:, j] - mean) ** 2 / variance)
+                total += self.weights_[j] * log_p
             scores[:, k] = total
         return scores
 
     def predict(self, X):
-        return self.classes_[self.joint_log_likelihood(X).argmax(axis=1)]
+        return self.classes_[self.class_scores(X).argmax(axis=1)]
 
-    def predict_proba(self, X):
-        scores = self.joint_log_likelihood(X)
-        scores = scores - scores.max(axis=1, keepdims=True)
-        exp_scores = np.exp(scores)
-        return exp_scores / exp_scores.sum(axis=1, keepdims=True)
-
-    def score(self, X, y):
-        return float((self.predict(X) == y).mean())
+    def accuracy(self, X, y):
+        return 100 * float((self.predict(X) == y).mean())

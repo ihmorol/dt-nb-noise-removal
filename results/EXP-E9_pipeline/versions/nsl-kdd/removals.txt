@@ -3,20 +3,20 @@ main data: 25192 rows x 118 attributes -> main.csv.gz
 (one pass over the whole dataset, no cross-validation)
 
 === path1__Alg1_then_Alg2 ===
-  step 1  Alg 1 -- NB noise filter (judge: plain NB)
+  step 1  Alg 1, NB noise filter (judge: plain NB)
            rows 25192 -> 19072, removed 6120 (24.3%)
            removed per class: back: 2.6%, buffer_overflow: 33.3%, ftp_write: 100.0%, guess_passwd: 0.0%, imap: 80.0%, ipsweep: 100.0%, land: 100.0%, loadmodule: 100.0%, multihop: 100.0%, neptune: 0.0%, nmap: 23.6%, normal: 33.4%, phf: 100.0%, pod: 0.0%, portsweep: 62.7%, rootkit: 100.0%, satan: 64.4%, smurf: 0.0%, spy: 100.0%, teardrop: 0.0%, warezclient: 2.8%, warezmaster: 28.6%
            removed row ids: 0, 1, 17, 30, 33, 34, 35, 36, 43, 54, 55, 59, 60, 62, 66, 72, 73, 75, 83, 89, 92, 96, 100, 102, 109, 112, 117, 125, 126, 128, 129, 136, 146, 155, 156, 158, 161, 162, 163, 166 ... (+6080 more)
-  step 2  Alg 2 -- tree attribute selection (ccp_alpha=0.0)
+  step 2  Alg 2, tree attribute selection (ccp_alpha=0.0)
            attributes 118 -> 18, removed 100 (84.7%)
            removed attributes: 6, 7, 8, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 22, 24, 25, 28, 29, 30, 33, 36, 37, 38, 39, 1_tcp, 1_udp, 2_IRC, 2_X11, 2_Z39_50, 2_auth, 2_bgp, 2_courier, 2_csnet_ns, 2_ctf, 2_daytime, 2_discard, 2_domain, 2_domain_u, 2_echo, 2_eco_i, 2_efs, 2_exec, 2_finger, 2_ftp, 2_gopher, 2_hostnames, 2_http, 2_http_443, 2_http_8001, 2_iso_tsap, 2_klogin, 2_kshell, 2_ldap, 2_link, 2_login, 2_mtp, 2_name, 2_netbios_dgm, 2_netbios_ns, 2_netbios_ssn, 2_netstat, 2_nnsp, 2_nntp, 2_ntp_u, 2_other, 2_pm_dump, 2_pop_2, 2_pop_3, 2_printer, 2_private, 2_red_i, 2_remote_job, 2_rje, 2_shell, 2_smtp, 2_sql_net, 2_ssh, 2_sunrpc, 2_supdup, 2_systat, 2_telnet, 2_tim_i, 2_time, 2_urh_i, 2_urp_i, 2_uucp, 2_uucp_path, 2_vmnet, 2_whois, 3_OTH, 3_REJ, 3_RSTO, 3_RSTOS0, 3_RSTR, 3_S0, 3_S1, 3_S2, 3_S3, 3_SF, 3_SH
   new data: 19072 rows x 18 attributes -> path1__Alg1_then_Alg2.csv.gz
 
 === path2__Alg2_then_Alg1 ===
-  step 1  Alg 2 -- tree attribute selection (ccp_alpha=0.0)
+  step 1  Alg 2, tree attribute selection (ccp_alpha=0.0)
            attributes 118 -> 44, removed 74 (62.7%)
            removed attributes: 6, 10, 12, 13, 14, 17, 19, 20, 28, 40, 2_IRC, 2_X11, 2_Z39_50, 2_auth, 2_bgp, 2_courier, 2_csnet_ns, 2_ctf, 2_daytime, 2_discard, 2_domain, 2_domain_u, 2_echo, 2_efs, 2_exec, 2_ftp, 2_gopher, 2_hostnames, 2_http, 2_http_443, 2_http_8001, 2_iso_tsap, 2_klogin, 2_kshell, 2_ldap, 2_link, 2_login, 2_mtp, 2_name, 2_netbios_dgm, 2_netbios_ns, 2_netbios_ssn, 2_netstat, 2_nnsp, 2_nntp, 2_ntp_u, 2_other, 2_pm_dump, 2_pop_2, 2_pop_3, 2_printer, 2_red_i, 2_remote_job, 2_rje, 2_shell, 2_smtp, 2_sql_net, 2_ssh, 2_sunrpc, 2_systat, 2_telnet, 2_time, 2_urh_i, 2_uucp, 2_uucp_path, 2_vmnet, 2_whois, 3_OTH, 3_RSTO, 3_RSTOS0, 3_RSTR, 3_S1, 3_S2, 3_S3
-  step 2  Alg 1 -- NB noise filter (judge: weighted NB (Alg 2 weights))
+  step 2  Alg 1, NB noise filter (judge: weighted NB)
            rows 25192 -> 16076, removed 9116 (36.2%)
            removed per class: back: 5.1%, buffer_overflow: 100.0%, ftp_write: 0.0%, guess_passwd: 100.0%, imap: 80.0%, ipsweep: 100.0%, land: 100.0%, loadmodule: 100.0%, multihop: 100.0%, neptune: 0.0%, nmap: 25.9%, normal: 52.8%, phf: 0.0%, pod: 5.3%, portsweep: 67.5%, rootkit: 75.0%, satan: 90.4%, smurf: 0.0%, spy: 100.0%, teardrop: 0.0%, warezclient: 91.2%, warezmaster: 28.6%
            removed row ids: 1, 4, 12, 13, 17, 18, 30, 32, 33, 34, 35, 36, 47, 48, 53, 54, 55, 59, 62, 66, 70, 72, 73, 75, 77, 83, 89, 92, 96, 97, 98, 100, 101, 102, 105, 106, 108, 109, 110, 112 ... (+9076 more)

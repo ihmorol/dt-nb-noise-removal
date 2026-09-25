@@ -5,7 +5,7 @@
     2
   ],
   "n_splits": 10,
-  "j48": "Weka 3.8.6 pruned, defaults -C 0.25 -M 2",
+  "j48": "Weka 3.8.6 unpruned -U -M 2",
   "nb": "FaithfulNB (add-one counts for nominal, Gaussian for numeric)",
   "attribute_space": "original columns, no one-hot",
   "protocol_B": "Algorithm 1/2 and classifier refit inside each training fold",

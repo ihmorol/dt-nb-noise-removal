@@ -4,9 +4,9 @@ breast-cancer,path1__Alg1_then_Alg2,2,Alg2,34,82.93,"removed: 6, 1_20-29, 1_30-3
 breast-cancer,path2__Alg2_then_Alg1,1,Alg2,9,21.95,"removed: 1_70-79, 2_ge40, 2_lt40, 4_12-14, 4_15-17, 4_24-26, 4_9-11, 7_right, 9_yes"
 breast-cancer,path2__Alg2_then_Alg1,2,Alg1,73,25.52,rows 286->213
 contact-lenses,path1__Alg1_then_Alg2,1,Alg1,3,12.50,rows 24->21
-contact-lenses,path1__Alg1_then_Alg2,2,Alg2,2,50.00,"removed: 1, 2"
-contact-lenses,path2__Alg2_then_Alg1,1,Alg2,0,0.00,removed: none
-contact-lenses,path2__Alg2_then_Alg1,2,Alg1,3,12.50,rows 24->21
+contact-lenses,path1__Alg1_then_Alg2,2,Alg2,7,77.78,"removed: 1_1, 1_2, 1_3, 2_1, 2_2, 3_2, 4_2"
+contact-lenses,path2__Alg2_then_Alg1,1,Alg2,3,33.33,"removed: 1_2, 3_2, 4_2"
+contact-lenses,path2__Alg2_then_Alg1,2,Alg1,1,4.17,rows 24->23
 diabetes,path1__Alg1_then_Alg2,1,Alg1,182,23.70,rows 768->586
 diabetes,path1__Alg1_then_Alg2,2,Alg2,1,12.50,removed: 3
 diabetes,path2__Alg2_then_Alg1,1,Alg2,0,0.00,removed: none
@@ -16,8 +16,8 @@ glass,path1__Alg1_then_Alg2,2,Alg2,2,22.22,"removed: 5, 9"
 glass,path2__Alg2_then_Alg1,1,Alg2,0,0.00,removed: none
 glass,path2__Alg2_then_Alg1,2,Alg1,96,44.86,rows 214->118
 iris,path1__Alg1_then_Alg2,1,Alg1,6,4.00,rows 150->144
-iris,path1__Alg1_then_Alg2,2,Alg2,2,50.00,"removed: sepal length (cm), sepal width (cm)"
-iris,path2__Alg2_then_Alg1,1,Alg2,1,25.00,removed: sepal length (cm)
+iris,path1__Alg1_then_Alg2,2,Alg2,2,50.00,"removed: sepal_length, sepal_width"
+iris,path2__Alg2_then_Alg1,1,Alg2,1,25.00,removed: sepal_length
 iris,path2__Alg2_then_Alg1,2,Alg1,6,4.00,rows 150->144
 soybean,path1__Alg1_then_Alg2,1,Alg1,66,9.66,rows 683->617
 soybean,path1__Alg1_then_Alg2,2,Alg2,97,72.93,"removed: date_?, date_april, date_july, date_june, date_may, plant-stand_?, plant-stand_normal, precip_?, precip_lt-norm, precip_norm, temp_?, temp_lt-norm, hail_?, hail_yes, crop-hist_?, crop-hist_same-lst-sev-yrs, crop-hist_same-lst-two-yrs, crop-hist_same-lst-yr, area-damaged_?, area-damaged_upper-areas, area-damaged_whole-field, severity_?, severity_pot-severe, severity_severe, seed-tmt_?, seed-tmt_none, germination_80-89, germination_90-100, germination_?, germination_lt-80, plant-growth_?, plant-growth_norm, leaves_abnorm, leaves_norm, leafspots-halo_?, leafspots-halo_absent, leafspots-halo_no-yellow-halos, leafspots-halo_yellow-halos, leafspots-marg_?, leafspots-marg_dna, leafspots-marg_no-w-s-marg, leafspot-size_dna, leafspot-size_lt-1/8, leaf-shread_absent, leaf-shread_present, leaf-malf_?, leaf-mild_?, leaf-mild_absent, stem_?, stem_abnorm, stem_norm, lodging_yes, stem-cankers_?, stem-cankers_above-sec-nde, stem-cankers_above-soil, stem-cankers_below-soil, canker-lesion_?, canker-lesion_brown, canker-lesion_dna, fruiting-bodies_?, fruiting-bodies_present, external-decay_?, external-decay_absent, external-decay_firm-and-dry, external-decay_watery, mycelium_?, mycelium_absent, mycelium_present, int-discolor_?, int-discolor_black, int-discolor_brown, sclerotia_?, sclerotia_present, fruit-pods_?, fruit-pods_dna, fruit-pods_few-present, fruit-pods_norm, fruit-spots_?, fruit-spots_brown-w/blk-specks, fruit-spots_colored, seed_?, seed_abnorm, seed_norm, mold-growth_?, mold-growth_absent, mold-growth_present, seed-discolor_?, seed-discolor_absent, seed-size_?, seed-size_norm, shriveling_?, shriveling_absent, shriveling_present, roots_?, roots_galls-cysts, roots_norm, roots_rotted"

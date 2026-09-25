@@ -11,18 +11,18 @@ breast-cancer,C2 A->N,NB,1,Alg2,257.4,257.4,0.00,41.0,33.3,18.88,0.0
 breast-cancer,C2 A->N,NB,2,Alg1,257.4,191.4,25.63,33.3,33.3,0.00,0.0
 breast-cancer,C2 A->N,DT,1,Alg2,257.4,257.4,0.00,41.0,33.3,18.88,0.0
 breast-cancer,C2 A->N,DT,2,Alg1,257.4,191.4,25.63,33.3,33.3,0.00,0.0
-contact-lenses,Alg1,NB,1,Alg1,21.6,19.1,11.67,4.0,4.0,0.00,0.0
-contact-lenses,Alg1,DT,1,Alg1,21.6,19.1,11.67,4.0,4.0,0.00,0.0
-contact-lenses,Alg2,NB,1,Alg2,21.6,21.6,0.00,4.0,4.0,0.00,0.0
-contact-lenses,Alg2,DT,1,Alg2,21.6,21.6,0.00,4.0,4.0,0.00,0.0
-contact-lenses,C1 N->A,NB,1,Alg1,21.6,19.1,11.67,4.0,4.0,0.00,0.0
-contact-lenses,C1 N->A,NB,2,Alg2,19.1,19.1,0.00,4.0,2.1,47.50,0.0
-contact-lenses,C1 N->A,DT,1,Alg1,21.6,19.1,11.67,4.0,4.0,0.00,0.0
-contact-lenses,C1 N->A,DT,2,Alg2,19.1,19.1,0.00,4.0,2.1,47.50,0.0
-contact-lenses,C2 A->N,NB,1,Alg2,21.6,21.6,0.00,4.0,4.0,0.00,0.0
-contact-lenses,C2 A->N,NB,2,Alg1,21.6,19.1,11.67,4.0,4.0,0.00,0.0
-contact-lenses,C2 A->N,DT,1,Alg2,21.6,21.6,0.00,4.0,4.0,0.00,0.0
-contact-lenses,C2 A->N,DT,2,Alg1,21.6,19.1,11.67,4.0,4.0,0.00,0.0
+contact-lenses,Alg1,NB,1,Alg1,21.6,19.2,11.20,9.0,9.0,0.00,0.0
+contact-lenses,Alg1,DT,1,Alg1,21.6,19.2,11.20,9.0,9.0,0.00,0.0
+contact-lenses,Alg2,NB,1,Alg2,21.6,21.6,0.00,9.0,5.3,41.11,0.0
+contact-lenses,Alg2,DT,1,Alg2,21.6,21.6,0.00,9.0,5.3,41.11,0.0
+contact-lenses,C1 N->A,NB,1,Alg1,21.6,19.2,11.20,9.0,9.0,0.00,0.0
+contact-lenses,C1 N->A,NB,2,Alg2,19.2,19.2,0.00,9.0,2.2,75.56,0.0
+contact-lenses,C1 N->A,DT,1,Alg1,21.6,19.2,11.20,9.0,9.0,0.00,0.0
+contact-lenses,C1 N->A,DT,2,Alg2,19.2,19.2,0.00,9.0,2.2,75.56,0.0
+contact-lenses,C2 A->N,NB,1,Alg2,21.6,21.6,0.00,9.0,5.3,41.11,0.0
+contact-lenses,C2 A->N,NB,2,Alg1,21.6,20.5,5.19,5.3,5.3,0.00,0.0
+contact-lenses,C2 A->N,DT,1,Alg2,21.6,21.6,0.00,9.0,5.3,41.11,0.0
+contact-lenses,C2 A->N,DT,2,Alg1,21.6,20.5,5.19,5.3,5.3,0.00,0.0
 diabetes,Alg1,NB,1,Alg1,691.2,527.7,23.66,8.0,8.0,0.00,0.0
 diabetes,Alg1,DT,1,Alg1,691.2,527.7,23.66,8.0,8.0,0.00,0.0
 diabetes,Alg2,NB,1,Alg2,691.2,691.2,0.00,8.0,8.0,0.00,0.0

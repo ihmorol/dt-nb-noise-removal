@@ -1,9 +1,9 @@
 ================================================================================================
-Farid (2014) pipeline -- data -> [Alg 1 -> Alg 2] and [Alg 2 -> Alg 1] -> NB / DT
-10-fold CV x 3 seeds, every stage refit inside the training fold, tree ccp_alpha=0.01, NB likelihood=mixed, Alg-2 weights to NB=False
+Farid (2014) pipeline: [Alg 1 -> Alg 2] and [Alg 2 -> Alg 1], then NB or DT
+10-fold CV x 3 seeds, every step refit inside the training fold, ccp_alpha=0.01, NB=mixed, weights to NB=off
 ================================================================================================
 
---- breast-cancer: 286 instances x 41 attributes, 2 classes (Table 5: (286, 9, 2)) ---
+--- breast-cancer: 286 instances x 41 attributes, 2 classes ---
 arm             final accuracy    std  macroF1  rows removed  attrs kept
 baseline        NB       70.88   7.94    63.93          0.0%      100.0%   (0s)
 baseline        DT       64.68   7.41    57.38          0.0%      100.0%   (0s)
@@ -15,21 +15,27 @@ C1 N->A         NB       71.24   8.20    63.66         27.8%       19.8%   (0s)
 C1 N->A         DT       71.35   6.85    63.51         27.8%       19.8%   (0s)
 C2 A->N         NB       71.35   7.71    63.27         26.4%       50.1%   (0s)
 C2 A->N         DT       70.30   7.66    61.42         26.4%       50.1%   (0s)
+   what each algorithm removed (averaged over the folds):
+     Path 1: Alg 1 removed 27.8% of the rows -> Alg 2 removed 80.2% of the attributes -> new data 186 rows x 8 attributes
+     Path 2: Alg 2 removed 49.9% of the attributes -> Alg 1 removed 26.4% of the rows -> new data 189 rows x 21 attributes
 
---- contact-lenses: 24 instances x 4 attributes, 3 classes (Table 5: (24, 4, 3)) ---
+--- contact-lenses: 24 instances x 9 attributes, 3 classes ---
 arm             final accuracy    std  macroF1  rows removed  attrs kept
-baseline        NB       85.00  20.34    79.19          0.0%      100.0%   (0s)
-baseline        DT       82.78  23.76    76.41          0.0%      100.0%   (0s)
-Alg1            NB       85.00  20.34    79.19         11.7%      100.0%   (0s)
-Alg1            DT       85.00  20.34    79.19         11.7%      100.0%   (0s)
-Alg2            NB       85.00  20.34    79.19          0.0%      100.0%   (0s)
-Alg2            DT       82.78  23.76    76.41          0.0%      100.0%   (0s)
-C1 N->A         NB       85.00  20.34    79.19         11.7%       52.5%   (0s)
-C1 N->A         DT       85.00  20.34    79.19         11.7%       52.5%   (0s)
-C2 A->N         NB       85.00  20.34    79.19         11.7%      100.0%   (0s)
-C2 A->N         DT       85.00  20.34    79.19         11.7%      100.0%   (0s)
+baseline        NB       86.11  20.22    82.07          0.0%      100.0%   (0s)
+baseline        DT       74.44  24.99    65.30          0.0%      100.0%   (0s)
+Alg1            NB       87.22  20.04    84.07         11.3%      100.0%   (0s)
+Alg1            DT       80.56  20.22    72.07         11.3%      100.0%   (0s)
+Alg2            NB       72.22  22.50    60.69          0.0%       58.9%   (0s)
+Alg2            DT       72.78  24.90    63.07          0.0%       58.9%   (0s)
+C1 N->A         NB       81.67  20.34    74.07         11.3%       24.4%   (0s)
+C1 N->A         DT       80.56  20.22    72.07         11.3%       24.4%   (0s)
+C2 A->N         NB       71.67  21.15    59.85          3.4%       58.9%   (0s)
+C2 A->N         DT       70.56  23.84    59.07          3.4%       58.9%   (0s)
+   what each algorithm removed (averaged over the folds):
+     Path 1: Alg 1 removed 11.3% of the rows -> Alg 2 removed 75.6% of the attributes -> new data 19 rows x 2 attributes
+     Path 2: Alg 2 removed 41.1% of the attributes -> Alg 1 removed 3.4% of the rows -> new data 21 rows x 5 attributes
 
---- diabetes: 768 instances x 8 attributes, 2 classes (Table 5: (768, 8, 2)) ---
+--- diabetes: 768 instances x 8 attributes, 2 classes ---
 arm             final accuracy    std  macroF1  rows removed  attrs kept
 baseline        NB       75.52   4.43    72.36          0.0%      100.0%   (0s)
 baseline        DT       69.53   4.61    66.58          0.0%      100.0%   (0s)
@@ -41,8 +47,11 @@ C1 N->A         NB       74.56   4.95    71.52         23.6%       83.3%   (0s)
 C1 N->A         DT       74.52   5.15    70.59         23.6%       83.3%   (0s)
 C2 A->N         NB       74.35   4.22    70.82         23.3%       66.2%   (0s)
 C2 A->N         DT       75.65   5.33    71.50         23.3%       66.2%   (0s)
+   what each algorithm removed (averaged over the folds):
+     Path 1: Alg 1 removed 23.6% of the rows -> Alg 2 removed 16.7% of the attributes -> new data 528 rows x 7 attributes
+     Path 2: Alg 2 removed 33.8% of the attributes -> Alg 1 removed 23.3% of the rows -> new data 530 rows x 5 attributes
 
---- glass: 214 instances x 9 attributes, 6 classes (Table 5: (214, 9, 7)) ---
+--- glass: 214 instances x 9 attributes, 6 classes ---
 arm             final accuracy    std  macroF1  rows removed  attrs kept
 baseline        NB       46.60  10.35    46.75          0.0%      100.0%   (0s)
 baseline        DT       68.38   8.41    65.60          0.0%      100.0%   (0s)
@@ -54,8 +63,11 @@ C1 N->A         NB       36.05  10.28    40.50         47.1%       81.9%   (0s)
 C1 N->A         DT       49.57  10.70    46.61         47.1%       81.9%   (0s)
 C2 A->N         NB       36.02  10.84    40.04         47.1%       99.6%   (0s)
 C2 A->N         DT       49.59  10.70    47.17         47.1%       99.6%   (0s)
+   what each algorithm removed (averaged over the folds):
+     Path 1: Alg 1 removed 47.1% of the rows -> Alg 2 removed 18.1% of the attributes -> new data 102 rows x 7 attributes
+     Path 2: Alg 2 removed 0.4% of the attributes -> Alg 1 removed 47.1% of the rows -> new data 102 rows x 9 attributes
 
---- iris: 150 instances x 4 attributes, 3 classes (Table 5: (150, 4, 3)) ---
+--- iris: 150 instances x 4 attributes, 3 classes ---
 arm             final accuracy    std  macroF1  rows removed  attrs kept
 baseline        NB       95.56   4.66    95.47          0.0%      100.0%   (0s)
 baseline        DT       94.67   5.55    94.54          0.0%      100.0%   (0s)
@@ -67,21 +79,27 @@ C1 N->A         NB       95.11   4.85    94.99          4.1%       47.5%   (0s)
 C1 N->A         DT       95.33   4.60    95.23          4.1%       47.5%   (0s)
 C2 A->N         NB       95.78   4.38    95.69          4.0%       76.7%   (0s)
 C2 A->N         DT       95.78   5.01    95.65          4.0%       76.7%   (0s)
+   what each algorithm removed (averaged over the folds):
+     Path 1: Alg 1 removed 4.1% of the rows -> Alg 2 removed 52.5% of the attributes -> new data 130 rows x 2 attributes
+     Path 2: Alg 2 removed 23.3% of the attributes -> Alg 1 removed 4.0% of the rows -> new data 130 rows x 3 attributes
 
---- soybean: 683 instances x 133 attributes, 19 classes (Table 5: (683, 35, 19)) ---
+--- soybean: 683 instances x 133 attributes, 19 classes ---
 arm             final accuracy    std  macroF1  rows removed  attrs kept
 baseline        NB       89.94   3.50    93.25          0.0%      100.0%   (0s)
 baseline        DT       92.24   3.33    94.82          0.0%      100.0%   (0s)
-Alg1            NB       89.07   3.77    92.89          9.6%      100.0%   (1s)
-Alg1            DT       88.68   4.08    91.77          9.6%      100.0%   (1s)
-Alg2            NB       90.19   3.32    92.78          0.0%       24.6%   (0s)
+Alg1            NB       89.07   3.77    92.89          9.6%      100.0%   (2s)
+Alg1            DT       88.68   4.08    91.77          9.6%      100.0%   (2s)
+Alg2            NB       90.19   3.32    92.78          0.0%       24.6%   (1s)
 Alg2            DT       92.92   3.35    95.08          0.0%       24.6%   (0s)
 C1 N->A         NB       86.48   4.31    90.36          9.6%       21.5%   (1s)
-C1 N->A         DT       88.43   4.23    91.81          9.6%       21.5%   (1s)
-C2 A->N         NB       89.11   3.61    92.22          8.3%       24.6%   (0s)
-C2 A->N         DT       90.48   3.57    93.07          8.3%       24.6%   (0s)
+C1 N->A         DT       88.43   4.23    91.81          9.6%       21.5%   (2s)
+C2 A->N         NB       89.11   3.61    92.22          8.3%       24.6%   (1s)
+C2 A->N         DT       90.48   3.57    93.07          8.3%       24.6%   (1s)
+   what each algorithm removed (averaged over the folds):
+     Path 1: Alg 1 removed 9.6% of the rows -> Alg 2 removed 78.5% of the attributes -> new data 556 rows x 29 attributes
+     Path 2: Alg 2 removed 75.4% of the attributes -> Alg 1 removed 8.3% of the rows -> new data 563 rows x 33 attributes
 
---- vote: 435 instances x 48 attributes, 2 classes (Table 5: (435, 16, 2)) ---
+--- vote: 435 instances x 48 attributes, 2 classes ---
 arm             final accuracy    std  macroF1  rows removed  attrs kept
 baseline        NB       90.18   4.54    89.80          0.0%      100.0%   (0s)
 baseline        DT       94.17   2.97    93.85          0.0%      100.0%   (0s)
@@ -93,21 +111,27 @@ C1 N->A         NB       94.24   3.66    93.97          9.6%        7.9%   (0s)
 C1 N->A         DT       94.24   3.25    93.94          9.6%        7.9%   (0s)
 C2 A->N         NB       92.02   4.59    91.50          7.1%       15.3%   (0s)
 C2 A->N         DT       94.24   3.36    93.90          7.1%       15.3%   (0s)
+   what each algorithm removed (averaged over the folds):
+     Path 1: Alg 1 removed 9.6% of the rows -> Alg 2 removed 92.1% of the attributes -> new data 354 rows x 4 attributes
+     Path 2: Alg 2 removed 84.7% of the attributes -> Alg 1 removed 7.1% of the rows -> new data 364 rows x 7 attributes
 
---- image-segmentation: 2310 instances x 19 attributes, 7 classes (Table 5: (1500, 19, 7)) ---
+--- image-segmentation: 2310 instances x 19 attributes, 7 classes ---
 arm             final accuracy    std  macroF1  rows removed  attrs kept
 baseline        NB       79.67   1.82    77.66          0.0%      100.0%   (0s)
 baseline        DT       96.84   1.33    96.83          0.0%      100.0%   (1s)
 Alg1            NB       75.06   2.51    74.65         19.8%      100.0%   (0s)
 Alg1            DT       89.54   1.59    89.35         19.8%      100.0%   (1s)
 Alg2            NB       84.04   3.61    83.82          0.0%       43.9%   (1s)
-Alg2            DT       96.68   1.33    96.68          0.0%       43.9%   (1s)
+Alg2            DT       96.68   1.33    96.68          0.0%       43.9%   (2s)
 C1 N->A         NB       72.64   2.88    71.54         19.8%       35.6%   (1s)
 C1 N->A         DT       89.70   1.88    89.52         19.8%       35.6%   (1s)
 C2 A->N         NB       80.01   4.55    79.80         15.7%       43.9%   (1s)
-C2 A->N         DT       89.99   2.34    89.96         15.7%       43.9%   (1s)
+C2 A->N         DT       89.99   2.34    89.96         15.7%       43.9%   (2s)
+   what each algorithm removed (averaged over the folds):
+     Path 1: Alg 1 removed 19.8% of the rows -> Alg 2 removed 64.4% of the attributes -> new data 1666 rows x 7 attributes
+     Path 2: Alg 2 removed 56.1% of the attributes -> Alg 1 removed 15.7% of the rows -> new data 1753 rows x 8 attributes
 
---- tic-tac-toe: 958 instances x 27 attributes, 2 classes (Table 5: (958, 9, 2)) ---
+--- tic-tac-toe: 958 instances x 27 attributes, 2 classes ---
 arm             final accuracy    std  macroF1  rows removed  attrs kept
 baseline        NB       68.82   3.88    63.91          0.0%      100.0%   (0s)
 baseline        DT       93.56   3.04    92.85          0.0%      100.0%   (0s)
@@ -119,48 +143,54 @@ C1 N->A         NB       71.23   3.97    64.13         29.8%       47.7%   (0s)
 C1 N->A         DT       76.28   3.40    71.27         29.8%       47.7%   (0s)
 C2 A->N         NB       69.13   3.17    62.17         31.0%       58.6%   (0s)
 C2 A->N         DT       78.74   3.72    74.86         31.0%       58.6%   (0s)
+   what each algorithm removed (averaged over the folds):
+     Path 1: Alg 1 removed 29.8% of the rows -> Alg 2 removed 52.3% of the attributes -> new data 605 rows x 13 attributes
+     Path 2: Alg 2 removed 41.4% of the attributes -> Alg 1 removed 31.0% of the rows -> new data 595 rows x 16 attributes
 
---- nsl-kdd: 25192 instances x 118 attributes, 22 classes (Table 5: (25192, 41, 23)) ---
+--- nsl-kdd: 25192 instances x 118 attributes, 22 classes ---
 arm             final accuracy    std  macroF1  rows removed  attrs kept
-baseline        NB       76.33   1.53    48.73          0.0%      100.0%   (5s)
-baseline        DT       99.55   0.12    81.80          0.0%      100.0%   (4s)
-Alg1            NB       76.75   2.02    48.45         23.6%      100.0%   (36s)
-Alg1            DT       85.76   2.56    60.01         23.6%      100.0%   (35s)
-Alg2            NB       68.14   7.51    32.31          0.0%       11.3%   (5s)
-Alg2            DT       99.44   0.12    83.99          0.0%       11.3%   (6s)
-C1 N->A         NB       60.99  13.97    29.36         23.6%        6.5%   (36s)
-C1 N->A         DT       83.90   3.07    57.85         23.6%        6.5%   (36s)
-C2 A->N         NB       72.57   8.42    35.79         31.8%       11.3%   (8s)
-C2 A->N         DT       81.51   4.29    39.81         31.8%       11.3%   (8s)
+baseline        NB       76.33   1.53    48.73          0.0%      100.0%   (24s)
+baseline        DT       99.55   0.12    81.80          0.0%      100.0%   (20s)
+Alg1            NB       76.75   2.02    48.45         23.6%      100.0%   (217s)
+Alg1            DT       85.76   2.56    60.01         23.6%      100.0%   (192s)
+Alg2            NB       68.14   7.51    32.31          0.0%       11.3%   (26s)
+Alg2            DT       99.44   0.12    83.99          0.0%       11.3%   (21s)
+C1 N->A         NB       60.99  13.97    29.36         23.6%        6.5%   (185s)
+C1 N->A         DT       83.90   3.07    57.85         23.6%        6.5%   (164s)
+C2 A->N         NB       72.57   8.42    35.79         31.8%       11.3%   (27s)
+C2 A->N         DT       81.51   4.29    39.81         31.8%       11.3%   (24s)
+   what each algorithm removed (averaged over the folds):
+     Path 1: Alg 1 removed 23.6% of the rows -> Alg 2 removed 93.5% of the attributes -> new data 17320 rows x 8 attributes
+     Path 2: Alg 2 removed 88.7% of the attributes -> Alg 1 removed 31.8% of the rows -> new data 15462 rows x 13 attributes
 
 ================================================================================================
-THE FOUR HEADLINE RESULTS, AND THE TWO ORDERS COMPARED (accuracy %, macro-F1 in brackets)
+THE FOUR RESULTS: accuracy %, macro-F1 in brackets
 ================================================================================================
-dataset                  C1 N->A ->NB     C1 N->A ->DT     C2 A->N ->NB     C2 A->N ->DT   winner
-breast-cancer             71.24 (63.7)      71.35 (63.5)      71.35 (63.3)      70.30 (61.4)   71.35
-contact-lenses            85.00 (79.2)      85.00 (79.2)      85.00 (79.2)      85.00 (79.2)   85.00
-diabetes                  74.56 (71.5)      74.52 (70.6)      74.35 (70.8)      75.65 (71.5)   75.65
-glass                     36.05 (40.5)      49.57 (46.6)      36.02 (40.0)      49.59 (47.2)   49.59
-iris                      95.11 (95.0)      95.33 (95.2)      95.78 (95.7)      95.78 (95.6)   95.78
-soybean                   86.48 (90.4)      88.43 (91.8)      89.11 (92.2)      90.48 (93.1)   90.48
-vote                      94.24 (94.0)      94.24 (93.9)      92.02 (91.5)      94.24 (93.9)   94.24
-image-segmentation        72.64 (71.5)      89.70 (89.5)      80.01 (79.8)      89.99 (90.0)   89.99
-tic-tac-toe               71.23 (64.1)      76.28 (71.3)      69.13 (62.2)      78.74 (74.9)   78.74
-nsl-kdd                   60.99 (29.4)      83.90 (57.8)      72.57 (35.8)      81.51 (39.8)   83.90
+dataset                     C1 N->A->NB        C1 N->A->DT        C2 A->N->NB        C2 A->N->DT
+breast-cancer              71.24 (63.7)       71.35 (63.5)       71.35 (63.3)       70.30 (61.4)
+contact-lenses             81.67 (74.1)       80.56 (72.1)       71.67 (59.9)       70.56 (59.1)
+diabetes                   74.56 (71.5)       74.52 (70.6)       74.35 (70.8)       75.65 (71.5)
+glass                      36.05 (40.5)       49.57 (46.6)       36.02 (40.0)       49.59 (47.2)
+iris                       95.11 (95.0)       95.33 (95.2)       95.78 (95.7)       95.78 (95.6)
+soybean                    86.48 (90.4)       88.43 (91.8)       89.11 (92.2)       90.48 (93.1)
+vote                       94.24 (94.0)       94.24 (93.9)       92.02 (91.5)       94.24 (93.9)
+image-segmentation         72.64 (71.5)       89.70 (89.5)       80.01 (79.8)       89.99 (90.0)
+tic-tac-toe                71.23 (64.1)       76.28 (71.3)       69.13 (62.2)       78.74 (74.9)
+nsl-kdd                    60.99 (29.4)       83.90 (57.8)       72.57 (35.8)       81.51 (39.8)
 
-================================================================================================
-COMPARISON WITH FARID (2014) TABLES 8-11 -- accuracy % on 10-fold CV
-================================================================================================
+=======================================================================
+COMPARISON WITH FARID (2014) TABLES 8-11: 10-fold CV accuracy %
+=======================================================================
 dataset             classifier           Farid 2014   this run    delta
 breast-cancer       C4.5                      75.52      64.68   -10.84
 breast-cancer       Alg 1 (hybrid DT)         81.46      71.35   -10.11
 breast-cancer       NB                        71.67      70.88    -0.79
 breast-cancer       Alg 2 (hybrid NB)         75.87      70.54    -5.33
 -----------------------------------------------------------------------
-contact-lenses      C4.5                      83.33      82.78    -0.55
-contact-lenses      Alg 1 (hybrid DT)         91.66      85.00    -6.66
-contact-lenses      NB                        70.83      85.00   +14.17
-contact-lenses      Alg 2 (hybrid NB)         87.50      85.00    -2.50
+contact-lenses      C4.5                      83.33      74.44    -8.89
+contact-lenses      Alg 1 (hybrid DT)         91.66      80.56   -11.10
+contact-lenses      NB                        70.83      86.11   +15.28
+contact-lenses      Alg 2 (hybrid NB)         87.50      72.22   -15.28
 -----------------------------------------------------------------------
 diabetes            C4.5                      73.82      69.53    -4.29
 diabetes            Alg 1 (hybrid DT)         79.03      74.22    -4.81
@@ -202,6 +232,7 @@ nsl-kdd             Alg 1 (hybrid DT)         81.92      85.76    +3.84
 nsl-kdd             NB                        76.27      76.33    +0.06
 nsl-kdd             Alg 2 (hybrid NB)         82.39      68.14   -14.25
 -----------------------------------------------------------------------
-MEAN over all cells                           83.18      80.53    -2.65
+MEAN over all cells                           83.18      79.92    -3.26
 
 [saved] E:\University\dt-nb-project-big-data\results\EXP-E9_pipeline\sweep_a0.01_mixed_off.csv
+[saved] E:\University\dt-nb-project-big-data\results\EXP-E9_pipeline\stages.csv

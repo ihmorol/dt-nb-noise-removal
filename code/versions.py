@@ -1,140 +1,92 @@
-"""The three data versions of a run, and what each algorithm removed.
+"""Save the data before and after each path, and what each algorithm removed.
 
-For every dataset, one pass over the whole table (no cross-validation) writes
+This is one pass over the WHOLE dataset (no cross-validation). It shows what the
+algorithms do; the scores come from the cross-validated run, not from these files.
 
     versions/<dataset>/main.csv                    the data as loaded
-    versions/<dataset>/path1__Alg1_then_Alg2.csv   new data after Path 1
-    versions/<dataset>/path2__Alg2_then_Alg1.csv   new data after Path 2
+    versions/<dataset>/path1__Alg1_then_Alg2.csv   the data after Path 1
+    versions/<dataset>/path2__Alg2_then_Alg1.csv   the data after Path 2
     versions/<dataset>/removals.txt                what was removed, step by step
 
-Every row keeps its original row id, so the removed row ids in the report can be
-checked against the files. The metrics themselves are cross-validated per fold, so the
-versions are there to show the mechanics, not to compute the scores.
+Every row keeps its original row id, so the removed ids can be checked in the files.
 """
-
 import numpy as np
 import pandas as pd
 
-from algorithm1 import farid_algorithm1
-from algorithm2 import CCP_ALPHA, farid_algorithm2
 from data import load_data
+from pipeline import clean
 
-PLAIN_CSV_MAX_ROWS = 5000        # bigger tables are written as .csv.gz instead
-
-# (name of the folder and file, the algorithms in the order they run)
-PATHS = [
-    ("path1__Alg1_then_Alg2", ("N", "A")),
-    ("path2__Alg2_then_Alg1", ("A", "N")),
-]
+PATHS = {"path1__Alg1_then_Alg2": ("N", "A"), "path2__Alg2_then_Alg1": ("A", "N")}
 
 
-def save_table(folder, filename, X, y, columns, row_ids):
-    """Write one data version and return the path that was written."""
-    path = folder / filename
-    if len(X) > PLAIN_CSV_MAX_ROWS:
-        path = path.with_suffix(".csv.gz")
-
-    table = pd.DataFrame(X, columns=columns)
+def save_table(folder, filename, X, y, column_names, row_ids):
+    """Write one data version. Tables over 5000 rows are gzipped."""
+    path = folder / (filename + (".csv.gz" if len(y) > 5000 else ".csv"))
+    table = pd.DataFrame(X, columns=column_names, index=pd.Index(row_ids, name="row_id"))
     table["class"] = y
-    table.index = row_ids
-    table.index.name = "row_id"
     table.to_csv(path)
     return path
 
 
-def id_list(ids, limit=40):
-    """The first few ids plus a count, so the report stays readable."""
-    ids = list(ids)
-    if not ids:
+def short_list(items, limit=40):
+    """The first `limit` items, then how many more there are."""
+    items = [str(item) for item in items]
+    if not items:
         return "none"
-    text = ", ".join(str(int(i)) for i in ids[:limit])
-    if len(ids) > limit:
-        text += f" ... (+{len(ids) - limit} more)"
+    text = ", ".join(items[:limit])
+    if len(items) > limit:
+        text += f" ... (+{len(items) - limit} more)"
     return text
 
 
-def trace_dataset(name, results_folder, alpha=CCP_ALPHA, support=True,
-                  likelihood="gaussian"):
-    """Write the three data versions and the removal report for one dataset.
+def trace_dataset(name, results_folder, alpha, support, likelihood):
+    """Write the data versions and removals.txt for one dataset.
 
-    Returns (report_lines, removal_rows); removal_rows feed versions_removals.csv.
+    Returns (report lines, rows for versions_removals.csv).
     """
     X, y, meta = load_data(name)
-    columns = list(meta["columns"])
+    names = np.array(meta["columns"])
     folder = results_folder / "versions" / name
     folder.mkdir(parents=True, exist_ok=True)
 
-    main_file = save_table(folder, "main.csv", X, y, columns, np.arange(len(y)))
-    report = [
-        f"dataset: {name}",
-        f"main data: {X.shape[0]} rows x {X.shape[1]} attributes -> {main_file.name}",
-        "(one pass over the whole dataset, no cross-validation)",
-        "",
-    ]
-    removal_rows = []
+    main_file = save_table(folder, "main", X, y, names, np.arange(len(y)))
+    report = [f"dataset: {name}",
+              f"main data: {X.shape[0]} rows x {X.shape[1]} attributes -> {main_file.name}",
+              "(one pass over the whole dataset, no cross-validation)", ""]
+    csv_rows = []
 
-    for tag, steps in PATHS:
-        X_new = X.copy()
-        y_new = y.copy()
-        column_names = list(columns)
-        row_ids = np.arange(len(y))
-        weights = None
-
+    for tag, steps in PATHS.items():
+        X_new, y_new, _, rows, columns, log = clean(X, y, steps, alpha, support, likelihood)
         report.append(f"=== {tag} ===")
 
-        for position, step in enumerate(steps):
-            if step == "N":
-                # ---- Algorithm 1: the NB judge deletes instances ---------------
-                rows_before = len(y_new)
-                X_new, y_new, info = farid_algorithm1(X_new, y_new, weights=weights,
-                                                      likelihood=likelihood)
-
-                removed_ids = row_ids[~info["keep"]]
-                row_ids = row_ids[info["keep"]]
-
-                report.append(f"  step {position + 1}  Alg 1 -- NB noise filter "
-                              f"(judge: {info['judge']})")
-                report.append(f"           rows {rows_before} -> {len(y_new)}, removed "
-                              f"{info['removed']} ({info['removed_rate'] * 100:.1f}%)")
-                class_rates = ", ".join(f"{c}: {r * 100:.1f}%"
-                                        for c, r in sorted(info["per_class"].items()))
-                report.append(f"           removed per class: {class_rates}")
-                if info["skipped"]:
-                    report.append("           SKIPPED: removing them would wipe a class")
-                report.append(f"           removed row ids: {id_list(removed_ids)}")
-
-                removal_rows.append([name, tag, position + 1, "Alg1", info["removed"],
-                                     f"{info['removed_rate'] * 100:.2f}",
-                                     f"rows {rows_before}->{len(y_new)}"])
+        for number, step in enumerate(log, start=1):
+            if step["method"] == "Alg1":
+                removed = len(step["removed_rows"])
+                pct = 100 * removed / step["rows_before"]
+                per_class = ", ".join(f"{c}: {100 * rate:.1f}%"
+                                      for c, rate in sorted(step["per_class"].items()))
+                report += [f"  step {number}  Alg 1, NB noise filter (judge: {step['judge']})",
+                           f"           rows {step['rows_before']} -> {step['rows_after']}, "
+                           f"removed {removed} ({pct:.1f}%)",
+                           f"           removed per class: {per_class}"]
+                if step["skipped"]:
+                    report.append("           SKIPPED: fewer than two classes would be left")
+                report.append(f"           removed row ids: {short_list(step['removed_rows'])}")
+                detail = f"rows {step['rows_before']}->{step['rows_after']}"
             else:
-                # ---- Algorithm 2: the tree deletes attributes ------------------
-                attributes_before = len(column_names)
-                X_new, info = farid_algorithm2(X_new, y_new, ccp_alpha=alpha)
+                removed_names = names[step["removed_columns"]]
+                removed = len(removed_names)
+                pct = 100 * removed / step["attributes_before"]
+                report += [f"  step {number}  Alg 2, tree attribute selection (ccp_alpha={alpha})",
+                           f"           attributes {step['attributes_before']} -> "
+                           f"{step['attributes_after']}, removed {removed} ({pct:.1f}%)",
+                           f"           removed attributes: {short_list(removed_names, 1000)}"]
+                detail = "removed: " + short_list(removed_names, 1000)
+            csv_rows.append([name, tag, number, step["method"], removed, f"{pct:.2f}", detail])
 
-                kept = set(int(k) for k in info["keep"])
-                removed_names = [c for j, c in enumerate(column_names) if j not in kept]
-                column_names = [column_names[j] for j in info["keep"]]
-                if support:
-                    weights = info["weights"]
-                removed_pct = 100 * len(removed_names) / attributes_before
-
-                report.append(f"  step {position + 1}  Alg 2 -- tree attribute selection "
-                              f"(ccp_alpha={alpha})")
-                report.append(f"           attributes {attributes_before} -> "
-                              f"{len(column_names)}, removed {len(removed_names)} "
-                              f"({removed_pct:.1f}%)")
-                report.append("           removed attributes: "
-                              + (", ".join(removed_names) if removed_names else "none"))
-
-                removal_rows.append([name, tag, position + 1, "Alg2", len(removed_names),
-                                     f"{removed_pct:.2f}",
-                                     "removed: " + (", ".join(removed_names)
-                                                    if removed_names else "none")])
-
-        saved = save_table(folder, tag + ".csv", X_new, y_new, column_names, row_ids)
-        report.append(f"  new data: {X_new.shape[0]} rows x {X_new.shape[1]} attributes "
-                      f"-> {saved.name}")
-        report.append("")
+        saved = save_table(folder, tag, X_new, y_new, names[columns], rows)
+        report += [f"  new data: {X_new.shape[0]} rows x {X_new.shape[1]} attributes "
+                   f"-> {saved.name}", ""]
 
     (folder / "removals.txt").write_text("\n".join(report), encoding="utf-8")
-    return report, removal_rows
+    return report, csv_rows

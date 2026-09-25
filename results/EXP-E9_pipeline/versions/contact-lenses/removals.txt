@@ -1,23 +1,23 @@
 dataset: contact-lenses
-main data: 24 rows x 4 attributes -> main.csv
+main data: 24 rows x 9 attributes -> main.csv
 (one pass over the whole dataset, no cross-validation)
 
 === path1__Alg1_then_Alg2 ===
-  step 1  Alg 1 -- NB noise filter (judge: plain NB)
+  step 1  Alg 1, NB noise filter (judge: plain NB)
            rows 24 -> 21, removed 3 (12.5%)
            removed per class: 1: 0.0%, 2: 0.0%, 3: 20.0%
            removed row ids: 15, 17, 23
-  step 2  Alg 2 -- tree attribute selection (ccp_alpha=0.0)
-           attributes 4 -> 2, removed 2 (50.0%)
-           removed attributes: 1, 2
+  step 2  Alg 2, tree attribute selection (ccp_alpha=0.0)
+           attributes 9 -> 2, removed 7 (77.8%)
+           removed attributes: 1_1, 1_2, 1_3, 2_1, 2_2, 3_2, 4_2
   new data: 21 rows x 2 attributes -> path1__Alg1_then_Alg2.csv
 
 === path2__Alg2_then_Alg1 ===
-  step 1  Alg 2 -- tree attribute selection (ccp_alpha=0.0)
-           attributes 4 -> 4, removed 0 (0.0%)
-           removed attributes: none
-  step 2  Alg 1 -- NB noise filter (judge: weighted NB (Alg 2 weights))
-           rows 24 -> 21, removed 3 (12.5%)
-           removed per class: 1: 0.0%, 2: 0.0%, 3: 20.0%
-           removed row ids: 15, 17, 23
-  new data: 21 rows x 4 attributes -> path2__Alg2_then_Alg1.csv
+  step 1  Alg 2, tree attribute selection (ccp_alpha=0.0)
+           attributes 9 -> 6, removed 3 (33.3%)
+           removed attributes: 1_2, 3_2, 4_2
+  step 2  Alg 1, NB noise filter (judge: weighted NB)
+           rows 24 -> 23, removed 1 (4.2%)
+           removed per class: 1: 0.0%, 2: 0.0%, 3: 6.7%
+           removed row ids: 17
+  new data: 23 rows x 6 attributes -> path2__Alg2_then_Alg1.csv

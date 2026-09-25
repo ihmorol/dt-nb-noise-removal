@@ -1,102 +1,82 @@
 
 --- breast-cancer: 286 instances x 9 attributes (8 nominal), 2 classes ---
-    Alg2-A tree tests 9/9 attributes; Alg1-A deletes 73 of 286 rows
-    arm     B honest A paper-style    paper
-    C4.5       67.70                  75.52
-    NB         72.39                  71.67
-    Alg1       71.72                  81.46
-    Alg1       92.35         92.35    81.46
-    Alg2       72.87                  75.87
-    Alg2       73.22         73.22    75.87
+    paper-style: the tree tests 9/9 attributes, the NB filter deletes 73 of 286 rows
+    arm     B honest  A paper-style    paper
+    C4.5       67.70                   75.52
+    NB         72.39                   71.67
+    Alg1       71.72          92.35    81.46
+    Alg2       72.87          73.22    75.87
 
 --- contact-lenses: 24 instances x 4 attributes (4 nominal), 3 classes ---
-    Alg2-A tree tests 3/4 attributes; Alg1-A deletes 1 of 24 rows
-    arm     B honest A paper-style    paper
-    C4.5       77.22                  83.33
-    NB         73.33                  70.83
-    Alg1       77.22                  91.66
-    Alg1       81.67         81.67    91.66
-    Alg2       76.11                  87.50
-    Alg2       83.89         83.89    87.50
+    paper-style: the tree tests 3/4 attributes, the NB filter deletes 1 of 24 rows
+    arm     B honest  A paper-style    paper
+    C4.5       77.22                   83.33
+    NB         73.33                   70.83
+    Alg1       77.22          81.67    91.66
+    Alg2       76.11          83.89    87.50
 
 --- diabetes: 768 instances x 8 attributes (0 nominal), 2 classes ---
-    Alg2-A tree tests 6/8 attributes; Alg1-A deletes 182 of 768 rows
-    arm     B honest A paper-style    paper
-    C4.5       73.56                  73.82
-    NB         75.52                  76.30
-    Alg1       75.56                  79.03
-    Alg1       91.81         91.81    79.03
-    Alg2       76.64                  85.41
-    Alg2       76.69         76.69    85.41
+    paper-style: the tree tests 6/8 attributes, the NB filter deletes 182 of 768 rows
+    arm     B honest  A paper-style    paper
+    C4.5       73.56                   73.82
+    NB         75.52                   76.30
+    Alg1       75.56          91.81    79.03
+    Alg2       76.64          76.69    85.41
 
 --- glass: 214 instances x 9 attributes (0 nominal), 6 classes ---
-    Alg2-A tree tests 9/9 attributes; Alg1-A deletes 96 of 214 rows
-    arm     B honest A paper-style    paper
-    C4.5       67.04                  66.82
-    NB         46.60                  48.59
-    Alg1       49.28                  76.27
-    Alg1       83.64         83.64    76.27
-    Alg2       47.41                  52.33
-    Alg2       47.57         47.57    52.33
+    paper-style: the tree tests 9/9 attributes, the NB filter deletes 96 of 214 rows
+    arm     B honest  A paper-style    paper
+    C4.5       67.04                   66.82
+    NB         46.60                   48.59
+    Alg1       49.28          83.64    76.27
+    Alg2       47.41          47.57    52.33
 
 --- iris: 150 instances x 4 attributes (0 nominal), 3 classes ---
-    Alg2-A tree tests 2/4 attributes; Alg1-A deletes 6 of 150 rows
-    arm     B honest A paper-style    paper
-    C4.5       93.11                  96.00
-    NB         95.56                  96.00
-    Alg1       94.67                  98.66
-    Alg1       97.44         97.44    98.66
-    Alg2       95.56                  98.00
-    Alg2       95.56         95.56    98.00
+    paper-style: the tree tests 2/4 attributes, the NB filter deletes 6 of 150 rows
+    arm     B honest  A paper-style    paper
+    C4.5       93.11                   96.00
+    NB         95.56                   96.00
+    Alg1       94.67          97.44    98.66
+    Alg2       95.56          95.56    98.00
 
 --- soybean: 683 instances x 35 attributes (35 nominal), 19 classes ---
-    Alg2-A tree tests 23/35 attributes; Alg1-A deletes 63 of 683 rows
-    arm     B honest A paper-style    paper
-    C4.5       92.44                  91.50
-    NB         89.94                  92.83
-    Alg1       89.30                  92.97
-    Alg1       96.99         96.99    92.97
-    Alg2       90.09                  94.15
-    Alg2       89.99         89.99    94.15
+    paper-style: the tree tests 23/35 attributes, the NB filter deletes 63 of 683 rows
+    arm     B honest  A paper-style    paper
+    C4.5       92.44                   91.50
+    NB         89.94                   92.83
+    Alg1       89.30          96.99    92.97
+    Alg2       90.09          89.99    94.15
 
 --- vote: 435 instances x 16 attributes (16 nominal), 2 classes ---
-    Alg2-A tree tests 6/16 attributes; Alg1-A deletes 42 of 435 rows
-    arm     B honest A paper-style    paper
-    C4.5       94.40                  96.32
-    NB         90.18                  90.11
-    Alg1       93.94                  97.70
-    Alg1       98.90          98.9    97.70
-    Alg2       94.94                  94.48
-    Alg2       95.17         95.17    94.48
+    paper-style: the tree tests 6/16 attributes, the NB filter deletes 42 of 435 rows
+    arm     B honest  A paper-style    paper
+    C4.5       94.40                   96.32
+    NB         90.18                   90.11
+    Alg1       93.94          98.90    97.70
+    Alg2       94.94          95.17    94.48
 
 --- image-segmentation: 2310 instances x 19 attributes (0 nominal), 7 classes ---
-    Alg2-A tree tests 15/19 attributes; Alg1-A deletes 461 of 2310 rows
-    arm     B honest A paper-style    paper
-    C4.5       96.65                  95.73
-    NB         79.67                  81.06
-    Alg1       89.12                  96.53
-    Alg1       99.12         99.12    96.53
-    Alg2       82.16                  85.19
-    Alg2       82.81         82.81    85.19
+    paper-style: the tree tests 15/19 attributes, the NB filter deletes 461 of 2310 rows
+    arm     B honest  A paper-style    paper
+    C4.5       96.65                   95.73
+    NB         79.67                   81.06
+    Alg1       89.12          99.12    96.53
+    Alg2       82.16          82.81    85.19
 
 --- tic-tac-toe: 958 instances x 9 attributes (9 nominal), 2 classes ---
-    Alg2-A tree tests 9/9 attributes; Alg1-A deletes 289 of 958 rows
-    arm     B honest A paper-style    paper
-    C4.5       85.53                  85.07
-    NB         69.87                  69.62
-    Alg1       75.75                  88.10
-    Alg1       95.37         95.37    88.10
-    Alg2       70.32                  78.91
-    Alg2       70.11         70.11    78.91
+    paper-style: the tree tests 9/9 attributes, the NB filter deletes 289 of 958 rows
+    arm     B honest  A paper-style    paper
+    C4.5       85.53                   85.07
+    NB         69.87                   69.62
+    Alg1       75.75          95.37    88.10
+    Alg2       70.32          70.11    78.91
 
 --- nsl-kdd: 25192 instances x 41 attributes (3 nominal), 22 classes ---
-    Alg2-A tree tests 30/41 attributes; Alg1-A deletes 8509 of 25192 rows
-    arm     B honest A paper-style    paper
-    C4.5       99.49                  71.11
-    NB         67.44                  76.27
-    Alg1       84.10                  81.92
-    Alg1       99.76         99.76    81.92
-    Alg2       64.12                  82.39
-    Alg2       64.10          64.1    82.39
+    paper-style: the tree tests 30/41 attributes, the NB filter deletes 8509 of 25192 rows
+    arm     B honest  A paper-style    paper
+    C4.5       99.49                   71.11
+    NB         67.44                   76.27
+    Alg1       84.10          99.76    81.92
+    Alg2       64.12          64.10    82.39
 
-[saved] E:\University\dt-nb-project-big-data\results\EXP-R1_replication\replication.csv
+[saved] E:\University\dt-nb-project-big-data\results\EXP-R1_replication\replication_unpruned.csv

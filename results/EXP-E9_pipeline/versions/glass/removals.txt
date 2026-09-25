@@ -3,20 +3,20 @@ main data: 214 rows x 9 attributes -> main.csv
 (one pass over the whole dataset, no cross-validation)
 
 === path1__Alg1_then_Alg2 ===
-  step 1  Alg 1 -- NB noise filter (judge: plain NB)
+  step 1  Alg 1, NB noise filter (judge: plain NB)
            rows 214 -> 118, removed 96 (44.9%)
            removed per class: 1: 18.6%, 2: 82.9%, 3: 52.9%, 5: 69.2%, 6: 0.0%, 7: 6.9%
            removed row ids: 0, 8, 18, 19, 20, 21, 44, 45, 49, 55, 60, 61, 63, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97 ... (+56 more)
-  step 2  Alg 2 -- tree attribute selection (ccp_alpha=0.0)
+  step 2  Alg 2, tree attribute selection (ccp_alpha=0.0)
            attributes 9 -> 7, removed 2 (22.2%)
            removed attributes: 5, 9
   new data: 118 rows x 7 attributes -> path1__Alg1_then_Alg2.csv
 
 === path2__Alg2_then_Alg1 ===
-  step 1  Alg 2 -- tree attribute selection (ccp_alpha=0.0)
+  step 1  Alg 2, tree attribute selection (ccp_alpha=0.0)
            attributes 9 -> 9, removed 0 (0.0%)
            removed attributes: none
-  step 2  Alg 1 -- NB noise filter (judge: weighted NB (Alg 2 weights))
+  step 2  Alg 1, NB noise filter (judge: weighted NB)
            rows 214 -> 118, removed 96 (44.9%)
            removed per class: 1: 11.4%, 2: 80.3%, 3: 94.1%, 5: 69.2%, 6: 0.0%, 7: 6.9%
            removed row ids: 0, 21, 52, 53, 54, 55, 61, 63, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 105, 106, 107, 109, 110, 111 ... (+56 more)

@@ -1,51 +1,54 @@
-# Code conventions (keep it boring and reproducible)
+# Code
 
-## Layout
+## Files
 
 ```
 code/
-├── data.py         # data selection and structuring: load_data(name) -> X, y, meta
-├── nb.py           # the Naive Bayes model both algorithms share (plain or weighted)
-├── algorithm1.py   # Farid (2014) Algorithm 1 -- NB deletes the instances it gets wrong
-├── algorithm2.py   # Farid (2014) Algorithm 2 -- tree selects and weights attributes
-├── pipeline.py     # the two paths, the classifiers, the cross-validation
-├── versions.py     # the three data versions of a run + what each algorithm removed
-├── tables.py       # the printed tables and the CSV files
-└── main.py         # run configuration, argument parsing, the run loop
+├── data.py             load the ten datasets (original columns or one-hot)
+├── nb.py               the pipeline's Naive Bayes (plain or weighted, Eq. 14)
+├── algorithm1.py       Farid Algorithm 1: NB deletes the training rows it gets wrong
+├── algorithm2.py       Farid Algorithm 2: a tree picks and weights the attributes
+├── pipeline.py         run the algorithms in order, then cross-validate NB or DT
+├── versions.py         save the data before/after each path and what was removed
+├── tables.py           printed tables and CSV writing
+├── main.py             E9: run every arm on every dataset
+├── leakage_check.py    E3a: honest vs paper-style vs fully leaky protocol
+├── faithful_nb.py      R1: textbook NB on the original (nominal) columns
+├── weka_utils.py       R1: write ARFF, run Weka J48 and NaiveBayes
+├── replicate_farid.py  R1: replicate Farid's Tables 8-11 with J48
+├── verify_faithful.py  R1: checks to run before replicate_farid.py
+├── figures.py          the paper's Figures 2 and 3 with our hybrid added
+└── lib/                Weka 3.8.6 jars (R1 needs Java)
 ```
-
-Each file holds one thing, and none of them is long. `nb.py` is separate because both
-algorithms need the same NB (Algorithm 1 as its judge, Algorithm 2 as its classifier).
 
 ## How to run
 
+Run from inside `code/`:
+
 ```
-python main.py                       # every dataset found under ../data/raw
-python main.py iris glass            # a subset
-python main.py --seeds 3             # fewer CV repeats
-python main.py --alpha 0.0 --nb mixed --support on
-python main.py --no-trace            # skip the three-data-version dump
+python data.py                     dataset shapes vs Farid's Table 5
+python main.py                     E9, all datasets, final settings (5 seeds, alpha 0, mixed NB)
+python main.py iris glass --seeds 3
+python main.py --alpha 0.01 --nb gaussian --out metrics_alpha0.01.csv
+python leakage_check.py            E3a
+python verify_faithful.py          R1 checks (all must PASS)
+python replicate_farid.py          R1, pruned J48, 3 seeds
+python replicate_farid.py --unpruned
+python figures.py
 ```
 
-What one run writes into `../results/EXP-E9_pipeline/`:
+`main.py` writes into `../results/EXP-E9_pipeline/`:
 
 | File | Contents |
 |---|---|
-| `metrics.csv` | accuracy, macro-F1 and end-to-end removal per dataset × arm × classifier |
-| `stages.csv` | per algorithm stage: rows/attributes before and after, what it removed |
-| `versions_removals.csv` | what the whole-dataset pass removed, step by step |
-| `versions/<dataset>/main.csv` | the data as loaded |
-| `versions/<dataset>/path1__Alg1_then_Alg2.csv` | new data after Path 1 |
-| `versions/<dataset>/path2__Alg2_then_Alg1.csv` | new data after Path 2 |
-| `versions/<dataset>/removals.txt` | removed row ids, removed attribute names, per-class rates |
+| `metrics*.csv` | accuracy, macro-F1 and removal % per dataset, arm and classifier, plus the settings used |
+| `stages.csv` | per algorithm step: rows/attributes before and after, averaged over the folds |
+| `versions_removals.csv` | what the one pass over the whole dataset removed |
+| `versions/<dataset>/` | the data before and after each path, and `removals.txt` |
 
-Every row of a version file keeps its original row id, so the removal lists can be
-checked against the files.
+## Rules
 
-## Rules (small, non-negotiable)
-
-1. Every experiment = one run that writes its outputs to `../results/EXP-<id>_<name>/` and prints nothing else needed by hand.
-2. Fixed seeds in config at the top of each script; seeds are part of the experiment config.
-3. Pure functions; models keep the sklearn API (`fit`/`predict`) so the CV plumbing stays generic.
-4. Unit-test Alg. 1 + Alg. 2 on the paper's 14-instance Play-Tennis table before touching UCI data (the paper's own Tables 2–4 give you the numbers).
-5. `git init` here; commit before and after every experiment run.
+1. Every experiment is one script run that writes into `../results/EXP-<id>_<name>/`.
+2. Seeds are fixed and written into the output files.
+3. Everything (filter, attribute selection, classifier) is fitted on the training fold only.
+4. Commit before and after every experiment run.
