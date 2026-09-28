@@ -1,0 +1,107 @@
+\section{Results}
+\label{sec:results}
+
+\subsection{Baselines replicate; the hybrids do not}
+
+Table~\ref{tab:r1} lists, for every dataset, the protocol-B (honest)
+accuracy of the C4.5 and NB baselines and of Algorithms 1 and 2, next to
+Farid et al.'s reported numbers. The C4.5 baseline is within 1.4 points of
+the paper on 7 of the 9 non-NSL-KDD datasets (largest gap $-2.89$ on iris,
+smallest 0.00 on diabetes), and the NB baseline is within 2.0 points on 7
+of 10 datasets. NSL-KDD is the exception for C4.5: this replication scores
+99.47\% against a reported 71.11\%, a 28.36-point gap far outside the
+spread on any other dataset; we did not find a configuration change that
+closes it and report it as unresolved rather than adjust the protocol
+until it matches. The hybrids do not replicate on average: Algorithm~1
+reaches a mean of 81.02\% against a reported 88.43\%, worst on glass
+($-27.14$), and Algorithm~2 reaches 77.16\% against 83.42\%, worst on
+NSL-KDD ($-19.66$). Table~\ref{tab:tests} shows neither honest hybrid
+beats its baseline once Holm correction is applied: Algorithm~1 vs.\ C4.5
+has a median difference of $-3.71$ points ($p=0.055$, Holm $p=0.328$), and
+Algorithm~2 vs.\ NB has a median difference of $+0.65$ points ($p=0.164$,
+Holm $p=0.656$). Neither result supports the paper's claim of a
+consistent hybrid advantage under an evaluation protocol that never lets a
+stage see a test instance's label.
+
+\input{tables/table_r1}
+
+\subsection{Fitting the filter before cross-validation inflates Algorithm 1}
+
+Table~\ref{tab:tests} reports the protocol-A-vs-B comparison directly.
+Under R1's Weka/J48 implementation, moving Algorithm~1 from protocol B to
+protocol A raises accuracy by a median of 11.58 points across the ten
+datasets ($W=0$, $p=0.002$, Holm $p=0.016$): every one of the ten datasets
+moves in the same direction, which is why the Wilcoxon statistic is at its
+minimum possible value. Algorithm~2 moves by a median of only 0.14 points
+under the same protocol change ($p=0.164$, Holm $p=0.656$, not
+significant). The same asymmetry appears in E3a's independent
+sklearn/one-hot/CART implementation (Table~\ref{tab:e3a}): Algorithm~1's
+mean accuracy rises from 80.58\% (protocol B) to 96.16\% (protocol A), a
+mean gap of $+15.57$ points, with the paired test again significant after
+correction ($W=0$, $p=0.002$, Holm $p=0.016$, median $+15.52$); Algorithm~2
+rises from 75.00\% to 75.78\%, a mean gap of only $+0.78$ points and not
+significant ($p=0.129$, Holm $p=0.645$). The chained paths inflate by
+similarly large amounts under protocol A (Path~1 ($N\to A$) by a mean
+of $+16.42$ points and Path~2 ($A\to N$) by $+17.73$) because both
+paths include Algorithm~1's filtering step. The mechanism is direct:
+protocol A deletes, from the entire dataset, every instance the filter's
+judge disagrees with, so those instances never appear in any test fold
+either; since the deleted instances are disproportionately the ones a
+model finds hard, removing them from the test side of every fold inflates
+accuracy independently of anything protocol B's honest classifier
+actually learned. Algorithm~2 only removes columns, which changes what
+every fold's classifier is trained and tested on but does not remove any
+row from any test fold, and its leakage is correspondingly close to zero
+in both implementations. Fig.~\ref{fig:r1_protocols} shows this pattern
+per dataset: the protocol-A bars for Algorithm~1 (bottom panel of the pair
+is Algorithm~2) sit far above both the protocol-B bars and the paper's own
+reported numbers on most datasets, while Algorithm~2's three series track
+each other closely.
+
+\input{tables/table_e3a}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=3.4in]{figures/fig1_r1_protocols.pdf}
+\caption{Accuracy of Algorithm~1 (top) and Algorithm~2 (bottom) per
+dataset: Farid et al.'s reported number, protocol B (refit-per-fold,
+honest), and protocol A (fit-before-CV). Algorithm~1's protocol-A bars are
+inflated on almost every dataset; Algorithm~2's three series stay close
+together.}
+\label{fig:r1_protocols}
+\end{figure}
+
+\subsection{The filter hurts a downstream tree, and order barely matters}
+
+Table~\ref{tab:e9} reports E9's protocol-B pipeline results. Chaining
+Algorithm~1 into a final tree costs accuracy relative to the no-cleaning
+baseline (80.58\% vs.\ 85.16\% mean, both final DT), and the cost is not
+uniform across datasets: Fig.~\ref{fig:removal} plots, per dataset, the
+percentage of training rows Algorithm~1 removes against the resulting
+change in the tree's accuracy relative to the baseline tree. The largest
+drop is on tic-tac-toe ($-18.18$ points), and the only clear gain is on
+breast-cancer ($+5.45$ points), consistent with a filter that helps only
+where the NB judge is a better error detector than the tree already is on
+its own, and otherwise discards rows the tree needed. Algorithm~2's effect
+on the tree is close to neutral (85.01\% vs.\ 85.16\%), consistent with a
+tree re-deriving similar splits from whichever 69.97\% of attributes
+survive selection on average. Swapping the order of the two algorithms
+changes accuracy by less than one point on both final classifiers: Path~2
+minus Path~1 has a median difference of $-0.09$ points for a final tree
+($p=0.846$) and $+0.97$ points for a final NB ($p=0.322$), neither
+significant even before correction. Order is not the lever that recovers
+the paper's reported gains.
+
+\input{tables/table_e9}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=3.4in]{figures/fig2_alg1_removal_vs_tree.pdf}
+\caption{Rows Algorithm~1 removes (mean over folds and seeds, x-axis)
+against the change in the downstream tree's accuracy relative to the
+no-cleaning baseline (y-axis), one point per dataset. Datasets where the
+filter removes a large share of rows tend to see the tree's accuracy fall.}
+\label{fig:removal}
+\end{figure}
+
+\input{tables/table_tests}

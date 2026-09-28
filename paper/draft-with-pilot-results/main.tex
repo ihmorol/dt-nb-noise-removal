@@ -1,0 +1,70 @@
+\documentclass[journal]{IEEEtran}
+
+\usepackage{cite}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+
+\begin{document}
+
+\title{Do Hybrid Decision Tree--Na\"ive Bayes Gains Survive Leakage-Safe Evaluation?\\
+A Replication of Farid et al.\ (2014)}
+
+\author{First~A.~Author%
+  \thanks{Manuscript received September 25, 2026. This work was carried out
+  independently; affiliation placeholder.}%
+  \markboth{Journal Name Placeholder,~Vol.~XX, No.~X, 2026}{Author: Do Hybrid DT--NB Gains Survive Leakage-Safe Evaluation?}}
+
+\maketitle
+
+\begin{abstract}
+Farid et al.\ (2014) reported that a Na\"ive Bayes (NB) instance filter grown
+into a decision tree, and a decision tree that weights attributes for NB,
+each beat their base classifier on ten benchmark datasets. We replicate both
+hybrids with the paper's own components (Weka J48 (pruned) and a
+textbook NB on the original attribute columns) and test two evaluation
+protocols: protocol A, in which the filter or the attribute weights are
+fitted once on the whole dataset before cross-validation, and protocol B,
+in which every stage is refit inside each training fold. The C4.5 baseline
+is within 1.4 points of the paper on 7 of the 9 datasets other than NSL-KDD
+and NB is within 2 points on 7 of 10; NSL-KDD is an unresolved outlier for
+C4.5 (99.47\% here vs.\ 71.11\% reported). Under protocol B, Algorithm 1
+reaches 81.02\% against a reported 88.43\%, and Algorithm 2 reaches 77.16\%
+against a reported 83.42\%. Protocol A inflates Algorithm 1 by a median of 11.58 points
+(Wilcoxon $W$=0, $p$=0.002, Holm-adjusted $p$=0.016, $n$=10 datasets) and
+Algorithm 2 by a median of only 0.14 points ($p$=0.164, not significant after
+correction). A second, independent codebase (sklearn CART, one-hot
+attributes) reproduces the same pattern (mean inflation +15.57 vs.\ +0.78 points). Under refit-per-fold
+evaluation neither hybrid shows a significant gain over its base classifier,
+and swapping the order of the two algorithms changes mean accuracy by less
+than one point. We
+report these results as preliminary (3 and 5 seeds) and discuss what the
+audit does and does not establish.
+\end{abstract}
+
+\begin{IEEEkeywords}
+decision tree, Na\"ive Bayes, hybrid classifier, data leakage, cross-validation,
+replication study, noise filtering, attribute weighting
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+\input{sections/introduction}
+\input{sections/related_work}
+\input{sections/background}
+\input{sections/setup}
+\input{sections/experiments}
+\input{sections/results}
+\input{sections/discussion}
+\input{sections/conclusion}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

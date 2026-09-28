@@ -1,0 +1,23 @@
+\section{Conclusion}
+
+Replicating Farid et al.'s two decision-tree/Na\"ive-Bayes hybrids with
+the paper's own components reproduces the C4.5 and NB baselines closely on
+most datasets (C4.5 within 1.4 points on 7 of 9 datasets other than NSL-KDD,
+NB within 2 points on 7 of 10) but does not reproduce either hybrid's reported gain
+under an evaluation protocol that refits every stage inside each
+cross-validation fold. Fitting Algorithm~1's noise filter once on the
+whole dataset before cross-validation, rather than inside each fold,
+accounts for a large and statistically significant part of the gap
+between this replication and the original paper, confirmed on two
+independent implementations; fitting Algorithm~2's attribute weights the
+same way accounts for almost none of its own, smaller gap. Chaining the
+two algorithms in either order does not recover the paper's reported
+accuracy, and the order itself makes little difference. The honest result
+of this replication is the protocol effect and the diagnostics behind it,
+not a hybrid classifier that beats its baseline: readers who want
+Algorithm~1's filtering behavior should expect it to help only where its
+Na\"ive Bayes judge is already more reliable than the tree it feeds, and
+to cost accuracy otherwise. All results here are preliminary, run over 3
+or 5 seeds rather than the 10 planned for a final study, and are reported
+with that caveat rather than rounded into a stronger claim than the data
+support.

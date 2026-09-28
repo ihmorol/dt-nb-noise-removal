@@ -1,0 +1,68 @@
+\section{Related Work}
+
+Decision-tree/Na\"ive-Bayes hybrids predate Farid et al.'s paper by nearly
+two decades. Kohavi's NBTree~\cite{kohavi1996scaling} grows a tree and
+places a local NB classifier at each leaf, using the tree to partition the
+instance space rather than to select or weight attributes. Closer to
+Algorithm 2's mechanism, Hall~\cite{hall2007decision} weights each
+attribute for NB by a function of the depth at which a decision tree
+tests it, on the same reasoning Farid et al.\ use (attributes near the
+root separate classes more cleanly and should count more) but the two
+papers were developed independently and Farid et al.\ do not cite
+Hall's. Algorithm 1's filter-then-grow design continues a line that goes
+back to John's robust decision
+trees~\cite{john1995robust}, which also delete training instances a
+classifier misclassifies before regrowing a tree on the remainder; the
+family shares the same basic assumption that disagreement with a fitted
+model is a reasonable proxy for label noise.
+
+That assumption is the most contested part of the noise-filtering
+literature. Brodley and Friedl~\cite{brodley1999identifying} show that a
+single classifier used as its own noise judge is the weakest filtering
+design available, because its errors on ambiguous but correctly labeled
+instances are indistinguishable from its errors on genuinely mislabeled
+ones; ensemble and consensus filters are more conservative and better
+calibrated. Wong et al.~\cite{wong2020instance} build a more recent
+instance-filtering hybrid that outperforms earlier one-shot filters
+including designs close to Algorithm 1, and confident-learning
+methods~\cite{northcutt2021confident} replace hard deletion with an
+estimated confidence score per instance so uncertain cases can be
+downweighted rather than discarded. On the correction side, Jiang et
+al.~\cite{jiang2024correction} report that correcting a mislabeled
+instance's label is often more effective than removing the instance
+outright, which is a direct critique of Algorithm 1's delete-only design.
+On the attribute side, tree-derived weighting for NB has continued past
+Hall's original scheme; Zhang et al.~\cite{zhang2023multiview} build a
+multi-view attribute-weighted NB from an ensemble of random trees rather
+than a single tree, trading Algorithm 2's simplicity for a less
+variance-prone weight estimate. Whether instance and attribute operations
+should run in a fixed order, and whether that order matters, has direct
+evidence in two places: Tsai et al.~\cite{tsai2013genetic} use a genetic
+algorithm to learn a priority between feature and instance selection and
+find the priority itself affects accuracy, and S\'aez et
+al.~\cite{saez2015smoteipf} show that running a noise filter before
+resampling strips borderline minority instances that resampling after
+filtering would have kept, a sharp demonstration that pipeline order is
+not a free choice. Both motivate directly testing the two possible orders
+of Algorithms 1 and 2 rather than assuming they commute, which is what
+the E9 study in Section~\ref{sec:experiments} does.
+
+The third relevant body of work is methodological rather than about
+classifiers. Cawley and Talbot~\cite{cawley2010overfitting} give the
+general argument that any model-selection or preprocessing step fit on
+data that later contributes to the reported test score produces an
+optimistically biased estimate, and prescribe nesting that step inside
+cross-validation; this is precisely the choice Farid et al.'s protocol
+never states, and precisely what protocols A and B in this paper are
+designed to separate. Demircio\u{g}lu~\cite{demircioglu2021measuring}
+quantifies the resulting bias in a medical-imaging setting at up to 0.15
+AUC or 0.17 accuracy when feature selection is fit outside
+cross-validation, worse as the ratio of samples to features shrinks, which
+matches the small-sample, many-attribute character of several datasets
+used here. Kapoor and Narayanan~\cite{kapoor2023leakage} survey the same
+failure mode across machine-learning-based science broadly and argue it
+is common enough to be a contributor to the field's reproducibility
+problems, and Bouke and Abdullah~\cite{bouke2023empirical} demonstrate the
+effect concretely on NSL-KDD, one of the ten datasets used in this
+replication, which is one reason NSL-KDD receives separate attention in
+Section~\ref{sec:results}.

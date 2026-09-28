@@ -1,0 +1,104 @@
+\section{Replication Setup and Protocols}
+\label{sec:setup}
+
+\subsection{Datasets}
+
+We use the same ten datasets as Farid et al.'s Table 5: breast cancer,
+contact lenses, diabetes, glass, iris, soybean, vote, image segmentation,
+tic-tac-toe, and NSL-KDD~\cite{tavallaee2009detailed}. NSL-KDD is the
+corrected, de-duplicated successor to KDD Cup 1999 and is the one dataset
+in the set built specifically to study intrusion-detection classifiers
+rather than as a generic UCI benchmark; it is also the dataset on which a
+preprocessing-leakage effect has previously been
+documented~\cite{bouke2023empirical}, which is one reason its results are
+reported separately rather than folded into an average.
+
+\subsection{Two evaluation protocols}
+
+Every experiment in this paper compares the same two protocols, applied to
+whichever stages an arm uses (the NB filter of Algorithm~1, the tree-based
+attribute weighting of Algorithm~2, or both):
+\begin{itemize}
+\item \textbf{Protocol B (refit-per-fold, honest).} For each of the 10
+cross-validation folds, every stage (the filter, the attribute
+selector, and the final classifier) is fit on that fold's training
+split only, and scored on that fold's held-out test split. No stage ever
+sees a label from a test instance before that instance is scored.
+\item \textbf{Protocol A (fit-before-CV).} The filter and/or the attribute
+selector are fit once on the entire dataset, using every instance's label.
+Cross-validation is then run only over the final classifier, on the data
+already cleaned or reduced by that one full-data fit. This is the protocol
+consistent with a plain reading of Farid et al.'s Section 4, which never
+mentions folds when it describes Algorithms 1 and 2, and only introduces
+10-fold cross-validation afterward, in Section 5, as the way the resulting
+classifier is scored.
+\end{itemize}
+Where a fully leaky upper bound is useful for calibration, we also report
+\textbf{protocol C}: the stages and the final classifier are fit on the
+whole dataset and then scored on that same data, with no held-out split at
+all. Protocol C is not a protocol anyone would defend; it exists only to
+show how high a number leakage can reach.
+
+\subsection{R1: faithful replication with the paper's own components}
+
+R1 reproduces Farid et al.'s Tables 8--11 as closely as the paper's own
+tools allow. C4.5 is Weka J48 3.8.6~\cite{witten2016weka}, pruned, with
+Weka's default options (\texttt{-C 0.25 -M 2}), matching Quinlan's original
+C4.5~\cite{quinlan1993c45} far more closely than a CART-style tree does,
+because J48 splits a nominal attribute into one branch per value rather
+than into binary one-hot tests; this matters because Algorithm~2's notion
+of ``the attribute'' and its minimum-depth weight are only meaningful in
+the attribute space the paper used. NB is a from-scratch implementation
+(add-one Laplace counts on nominal attributes, Gaussian likelihood on
+numeric ones) fit on the datasets' original, non-one-hot columns, because
+Weka's own NB diverges from this textbook form on attributes with very
+wide numeric ranges such as NSL-KDD's byte counts. Algorithm~1 uses this
+NB as its noise judge; Algorithm~2 uses J48's tree structure for the
+minimum-depth weights and the same NB, weighted by Eq.~\eqref{eq:14}, as
+its final classifier. Both protocols above are run for every arm, with 3
+seeds and stratified 10-fold cross-validation per seed. As a sensitivity
+check, R1 is repeated once with J48 unpruned (\texttt{-U -M 2}).
+
+\subsection{E3a: an independent leakage audit}
+
+E3a re-runs the same protocol-A/B/C comparison with a second, independent
+implementation: scikit-learn~\cite{pedregosa2011scikit} decision trees
+grown with entropy splitting (CART, not C4.5), a one-hot encoding of
+nominal attributes, and a NB with mixed likelihoods (Bernoulli on the
+0/1 one-hot columns, Gaussian elsewhere). If the protocol-A inflation seen
+in R1 were an artifact of the Weka/J48 implementation, it should not
+reappear here; if it is a property of the algorithms and the leaky
+protocol, it should. E3a uses 3 seeds and stratified 10-fold
+cross-validation, tree pruning strength $\mathrm{ccp\_alpha}=0.01$.
+
+\subsection{E9: the two orders of Algorithm 1 and Algorithm 2}
+
+E9 chains Algorithm~1 (instance filtering, written $N$) and Algorithm~2
+(attribute weighting, written $A$) in both possible orders, always under
+protocol B: Path~1 is $N\to A$ (filter, then weight attributes on the
+filtered rows), Path~2 is $A\to N$ (weight attributes, then filter
+instances using the weighted NB as judge). Both paths end in either a
+final NB or a final decision tree, alongside single-stage (Algorithm~1
+alone, Algorithm~2 alone) and no-cleaning baseline arms, all evaluated on
+the same folds so every arm is directly comparable. E9 uses the same
+scikit-learn CART/one-hot/mixed-NB implementation as E3a, tree pruning
+strength $\mathrm{ccp\_alpha}=0$ (no pruning), and Algorithm~2's weights
+are also handed to Algorithm~1's judge and to the final NB when both
+stages run. E9 uses 5 seeds and stratified 10-fold cross-validation.
+
+\subsection{Statistical testing}
+
+Every comparison in this paper is a Wilcoxon signed-rank test over the ten
+datasets: for a given pair of conditions, the ten paired accuracy
+differences (one per dataset, averaged over that condition's seeds and
+folds already) are tested against a null median difference of zero,
+two-sided, using SciPy. With only ten datasets, this gives $n=10$ paired
+observations per test, which is a small sample by any standard and a low-power
+test in the sense discussed by Dem\v{s}ar~\cite{demsar2006statistical};
+we report the Wilcoxon statistic, the raw $p$-value, the median paired
+difference, and a Holm step-down correction applied across the family of
+eight tests reported in Table~\ref{tab:tests}, and we do not claim
+significance where the corrected $p$-value does not support it. No
+per-fold results are stored in the underlying CSV files, so no
+resampled or corrected paired $t$-test is computed; only the
+between-dataset Wilcoxon test is reported.

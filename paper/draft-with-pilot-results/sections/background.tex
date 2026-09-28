@@ -1,0 +1,108 @@
+\section{Background: Farid's Algorithms 1 and 2}
+\label{sec:background}
+
+This section restates the two algorithms as printed in
+Farid et al.~\cite{farid2014hybrid} (Section 4, pp.~1941--1942), because
+the replication in Section~\ref{sec:setup} depends on reproducing their
+exact steps rather than a paraphrase of their intent.
+
+\subsection{Algorithm 1: the hybrid decision tree}
+
+Algorithm 1 first classifies every training instance with a NB classifier
+fit on the same training data, using the standard class-conditional
+probabilities $P(C_i)$ and $P(A_{ij}\mid C_i)$; every instance the NB
+classifier misclassifies (its posterior-probability class disagrees with
+the recorded label) is removed from the training set. A C4.5-style
+decision tree is then grown on the reduced training set by ordinary
+recursive splitting: pick the best splitting attribute, create a labeled
+root, branch on each split predicate, and recurse until a stopping
+criterion is met at each branch.
+
+\begin{algorithm}[t]
+\caption{Hybrid decision tree induction (Farid et al.~\cite{farid2014hybrid}, Alg.\ 1)}
+\label{alg:1}
+\begin{algorithmic}[1]
+\Require Training dataset $D=\{x_1,\dots,x_n\}$ with class labels
+\Ensure Decision tree $T$
+\For{each class $C_i \in D$}
+  \State find prior probability $P(C_i)$
+\EndFor
+\For{each attribute value $A_{ij} \in D$}
+  \State find class-conditional probability $P(A_{ij}\mid C_i)$
+\EndFor
+\For{each training instance $x_i \in D$}
+  \State find posterior probability $P(C_i\mid x_i)$
+  \If{$x_i$ is misclassified}
+    \State remove $x_i$ from $D$
+  \EndIf
+\EndFor
+\State $T \gets \emptyset$; determine the best splitting attribute
+\State create the root node of $T$, labeled with that attribute
+\State add an arc to the root for each split predicate/label
+\For{each arc}
+  \State $D \gets$ the subset of $D$ that satisfies the arc's predicate
+  \If{a stopping point is reached on this path}
+    \State create a leaf labeled with the majority class
+  \Else
+    \State recursively build a subtree on $D$
+  \EndIf
+  \State attach the resulting subtree to the arc
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Algorithm 2: the hybrid Na\"ive Bayes classifier}
+
+Algorithm 2 reverses the order: a decision tree is grown first on the full
+training set, by the same recursive splitting procedure as Algorithm~1's
+second half. Every attribute the tree tests is then given a weight
+$W_i = 1/\sqrt{d}$, where $d$ is the smallest depth (root $=1$) at which
+the tree tests that attribute; an attribute the tree never tests gets
+$W_i = 0$ and is dropped from the classifier entirely. A NB classifier is
+then built using only the attributes with $W_i \neq 0$, with each
+class-conditional probability raised to the power of its attribute's
+weight:
+\begin{equation}
+P(x_i \mid C_i) = \prod_{j=1}^{n} P(A_{ij}\mid C_i)^{W_i}. \label{eq:14}
+\end{equation}
+Equation~\eqref{eq:14} is the paper's Eq.~(14); the posterior
+$P(C_i\mid x_i)$ used for classification combines this weighted likelihood
+with the class prior in the usual NB way.
+
+\begin{algorithm}[t]
+\caption{Hybrid Na\"ive Bayes classifier (Farid et al.~\cite{farid2014hybrid}, Alg.\ 2)}
+\label{alg:2}
+\begin{algorithmic}[1]
+\Require Training dataset $D=\{x_1,\dots,x_n\}$ with class labels
+\Ensure A NB classification model
+\State build a decision tree $T$ on $D$ (as in Alg.~\ref{alg:1}, lines 9--16)
+\For{each attribute $A_i \in D$}
+  \If{$A_i$ is not tested in $T$}
+    \State $W_i \gets 0$
+  \Else
+    \State $d \gets$ the smallest depth at which $T$ tests $A_i$
+    \State $W_i \gets 1/\sqrt{d}$
+  \EndIf
+\EndFor
+\For{each class $C_i \in D$}
+  \State find prior probability $P(C_i)$
+\EndFor
+\For{each attribute $A_i \in D$ with $W_i \neq 0$}
+  \For{each value $A_{ij}$ of $A_i$}
+    \State find $P(A_{ij}\mid C_i)$
+  \EndFor
+\EndFor
+\For{each instance $x_i \in D$}
+  \State find posterior probability $P(C_i\mid x_i)$ using Eq.~\eqref{eq:14}
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+Two properties of these algorithms matter for what follows. First, neither
+step in Algorithm~1 or Algorithm~2 is stated as being confined to a
+training fold; the paper's description is silent on whether the filter or
+the tree ever sees an instance that is later scored as a test case. Second,
+Algorithm 1's notion of noise is entirely internal to one NB fit: an
+instance is noise if and only if this particular classifier, trained on
+this particular data, disagrees with its label, with no second opinion and
+no confidence threshold.

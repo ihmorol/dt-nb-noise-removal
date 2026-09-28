@@ -1,0 +1,19 @@
+% E3a: sklearn entropy CART / one-hot / mixed-likelihood NB, protocol B honest vs A before-CV vs C fully leaky.
+\begin{table}[t]
+\caption{E3a leakage check, mean accuracy over 10 datasets (entropy CART, one-hot attributes, mixed-likelihood NB).}
+\label{tab:e3a}
+\centering\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrr}
+\toprule
+Arm & B honest & A before-CV & C on all data & A$-$B \\
+\midrule
+baseline (NB) & 77.96 & 77.96 & 79.26 & +0.00 \\
+baseline (DT) & 84.81 & 84.81 & 99.78 & +0.00 \\
+Alg1 & 80.58 & 96.16 & 100.00 & +15.57 \\
+Alg2 & 75.00 & 75.78 & 78.72 & +0.78 \\
+C1 N->A & 80.39 & 96.81 & 99.91 & +16.42 \\
+C2 A->N & 79.41 & 97.15 & 100.00 & +17.73 \\
+\bottomrule
+\end{tabular}
+\end{table}

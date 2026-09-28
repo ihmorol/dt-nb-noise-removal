@@ -1,0 +1,17 @@
+% E9: refit-per-fold, 10-fold CV x 5 seeds, alpha=0, mixed NB, weights on.
+\begin{table}[t]
+\caption{E9 pipeline, mean accuracy over 10 datasets ($\pm$ across-dataset SD), 10-fold CV $\times$ 5 seeds.}
+\label{tab:e9}
+\centering\small
+\begin{tabular}{lrr}
+\toprule
+Arm & final DT & final NB \\
+\midrule
+baseline (no cleaning) & 85.16 $\pm$ 13.42 & 77.82 $\pm$ 14.13 \\
+Algorithm 1 alone & 80.58 $\pm$ 13.41 & 76.58 $\pm$ 16.38 \\
+Algorithm 2 alone & 85.01 $\pm$ 13.38 & 76.45 $\pm$ 14.33 \\
+Path 1 (Alg1 $\to$ Alg2) & 80.52 $\pm$ 13.49 & 76.15 $\pm$ 16.70 \\
+Path 2 (Alg2 $\to$ Alg1) & 79.54 $\pm$ 14.09 & 75.89 $\pm$ 14.77 \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,23 @@
+% R1: Weka J48 (pruned) / FaithfulNB replication, protocol B honest, 10-fold CV x 3 seeds.
+\begin{table*}[t]
+\caption{R1 replication (protocol B, refit-per-fold): C4.5 and NB baselines and the two hybrids, against Farid et al.\ (2014).}
+\label{tab:r1}
+\centering\small
+\begin{tabular}{lrrrrrrrr}
+\toprule
+& \multicolumn{2}{c}{C4.5} & \multicolumn{2}{c}{NB} & \multicolumn{2}{c}{Alg.\ 1} & \multicolumn{2}{c}{Alg.\ 2} \\
+Dataset & ours & paper & ours & paper & ours & paper & ours & paper \\
+\midrule
+breast-cancer & 75.31 & 75.52 & 72.39 & 71.67 & 71.61 & 81.46 & 72.63 & 75.87 \\
+contact-lenses & 85.00 & 83.33 & 73.33 & 70.83 & 85.00 & 91.66 & 79.44 & 87.50 \\
+diabetes & 73.82 & 73.82 & 75.52 & 76.30 & 75.52 & 79.03 & 77.12 & 85.41 \\
+glass & 66.88 & 66.82 & 46.60 & 48.59 & 49.13 & 76.27 & 47.41 & 52.33 \\
+image-segmentation & 96.75 & 95.73 & 79.67 & 81.06 & 89.11 & 96.53 & 81.75 & 85.19 \\
+iris & 93.11 & 96.00 & 95.56 & 96.00 & 94.67 & 98.66 & 95.56 & 98.00 \\
+nsl-kdd & 99.47 & 71.11 & 67.44 & 76.27 & 86.57 & 81.92 & 62.73 & 82.39 \\
+soybean & 92.54 & 91.50 & 89.94 & 92.83 & 88.82 & 92.97 & 89.40 & 94.15 \\
+tic-tac-toe & 85.08 & 85.07 & 69.87 & 69.62 & 74.50 & 88.10 & 70.36 & 78.91 \\
+vote & 94.93 & 96.32 & 90.18 & 90.11 & 95.25 & 97.70 & 95.24 & 94.48 \\
+\bottomrule
+\end{tabular}
+\end{table*}

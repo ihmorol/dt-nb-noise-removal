@@ -1,0 +1,62 @@
+\section{Introduction}
+
+\IEEEPARstart{D}{ecision} trees and Na\"ive Bayes are two of the oldest
+workhorses of supervised classification, and each covers the other's
+weak spot: a tree splits on whichever attribute looks most informative at
+each node but ignores the rest of the joint distribution, while NB uses
+every attribute but assumes they are independent given the class. Farid
+et al.~\cite{farid2014hybrid} proposed two hybrids that combine the two
+models in opposite directions. Algorithm 1 trains a NB classifier, uses it
+to flag the training instances it misclassifies as noise, deletes them,
+and grows a C4.5 tree on what remains. Algorithm 2 grows a tree first,
+turns the depth at which each attribute is tested into a weight
+($1/\sqrt{d}$, zero for attributes the tree never tests), and plugs those
+weights into NB's class-conditional likelihood. Both hybrids were reported
+to outperform their un-hybridized counterpart on ten benchmark
+datasets (nine from the UCI repository plus NSL-KDD), and the paper has since accumulated a substantial citation
+record built on those numbers.
+
+Three properties of the original evaluation raise concern independently
+of whether the numbers are correct. First, the paper never states whether
+the noise filter and the attribute weights were fit once on the full
+dataset or refit inside each cross-validation fold; if it is the former,
+every deleted instance and every attribute weight was chosen with
+knowledge of the labels of the instances later used for testing, which is
+exactly the kind of preprocessing leakage that inflates reported accuracy
+in unrelated
+domains~\cite{cawley2010overfitting,demircioglu2021measuring,kapoor2023leakage,bouke2023empirical}.
+Second, Algorithm 1 equates ``the instance NB gets wrong'' with ``the
+instance is noise,'' a design that later work on label-noise filtering
+identifies as one of the weaker choices available, because a single model
+is both the source and the arbiter of its own
+disagreement~\cite{brodley1999identifying,jiang2024correction,northcutt2021confident}.
+Third, the two hybrids were evaluated separately: nobody, including the
+original paper, reports what happens when the filter and the weighting
+scheme are chained, in either order, inside one pipeline.
+
+This paper reports a replication built to check the first two concerns
+directly and to measure the third. Our contributions are:
+\begin{itemize}
+\item \textbf{A faithful replication (R1)} of Farid et al.'s two hybrids
+using the paper's own components (Weka J48 (pruned, default options) as
+C4.5 and a textbook NB on the original nominal attribute columns) under
+two evaluation protocols: protocol A (fit-before-CV), where the filter or
+weights are fit once on the whole dataset, and protocol B
+(refit-per-fold), where every stage is refit inside each training fold.
+\item \textbf{A quantified leakage audit (E3a)} that isolates the effect of
+protocol alone, holding the algorithms, data encoding and classifiers
+fixed, and repeats the audit on an independent codebase (sklearn entropy
+trees, one-hot attributes) to check the finding is not an artifact of one
+implementation.
+\item \textbf{A two-order pipeline study (E9)} that chains Algorithm 1 and
+Algorithm 2 in both possible orders under protocol B, with a final NB or
+decision tree, to measure whether order or combination changes the
+honest picture.
+\item \textbf{Honest statistical reporting} of every comparison as a
+Wilcoxon signed-rank test over the ten datasets, Holm-adjusted, with an
+explicit acknowledgment of the low power that ten paired
+datasets gives~\cite{demsar2006statistical}.
+\end{itemize}
+All numbers in this paper are computed by a script from CSV files produced
+by runnable code; none are transcribed from earlier notes or hand-copied
+from the original paper's tables.

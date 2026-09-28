@@ -1,0 +1,41 @@
+\section{Experiments}
+\label{sec:experiments}
+
+Given the setup in Section~\ref{sec:setup}, three experiments answer three
+separate questions, each tested against a specific, falsifiable claim.
+
+\textbf{R1} asks whether Farid et al.'s baselines and hybrids reproduce
+under the paper's own components. It tests two claims: that the C4.5 and
+NB baselines replicate closely (Section~\ref{sec:results} reports the
+per-dataset gap to the paper's Tables 8--11), and that protocol A inflates
+Algorithm~1 more than Algorithm~2, since Algorithm~1's filter removes rows
+from the training set that a leaky protocol also removes from the test
+folds, while Algorithm~2 only drops columns, which changes what a fold
+learns from but not which instances a fold ever sees.
+
+\textbf{E3a} asks whether the R1 inflation pattern is specific to the
+Weka/J48 implementation or a property of the algorithms and the leaky
+protocol in general, by repeating the same protocol-A-vs-B comparison with
+an independent sklearn/one-hot/CART implementation. If both
+implementations show the same asymmetry (large Algorithm~1 inflation,
+small Algorithm~2 inflation), the asymmetry is attributable to the
+algorithms' design, not to one toolchain.
+
+\textbf{E9} asks two questions about the pipeline that Farid et al.\ never
+built: whether either honest hybrid beats its non-hybrid baseline under
+protocol B (Algorithm~1's tree vs.\ a plain tree; Algorithm~2's NB vs.\
+plain NB), and whether the order in which the two algorithms are chained
+(Path~1, filter-then-weight, vs.\ Path~2, weight-then-filter) changes
+accuracy. E9 also records, per dataset, the percentage of training rows
+Algorithm~1 removes and the percentage of attributes Algorithm~2 keeps, to
+check whether a large removal or reduction predicts a large accuracy
+change in the downstream classifier, which is the relationship plotted in
+Fig.~\ref{fig:removal}.
+
+All three experiments share the same ten datasets, the same protocol-B
+refit-per-fold discipline as the default honest condition, and the same
+Wilcoxon-over-datasets testing procedure described in
+Section~\ref{sec:setup}. Table~\ref{tab:tests} collects every statistical
+test from all three experiments in one place so the eight $p$-values can
+be Holm-adjusted as one family rather than read as eight independent
+tests.

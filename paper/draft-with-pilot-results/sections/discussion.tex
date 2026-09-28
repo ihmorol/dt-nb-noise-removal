@@ -1,0 +1,67 @@
+\section{Discussion and Threats to Validity}
+
+The central finding is a protocol effect, not an implementation bug: two
+independent codebases, one built to match Farid et al.'s own tools (Weka
+J48, a textbook NB on nominal columns) and one built independently
+(sklearn entropy trees, one-hot attributes, a mixed-likelihood NB), agree
+that fitting Algorithm~1's filter on the whole dataset before
+cross-validation inflates its reported accuracy by double digits, while
+fitting Algorithm~2's attribute weights the same way inflates almost
+nothing. That agreement across two different attribute encodings and two
+different tree implementations is evidence the effect belongs to the
+algorithm's structure (Algorithm~1 removes rows that then vanish from
+every test fold; Algorithm~2 only removes columns, which are never
+test-fold-specific) rather than to a coding choice in either
+implementation.
+
+Several limitations bound what this replication can claim. The R1 tree is
+Weka's J48, a close match to Quinlan's C4.5~\cite{quinlan1993c45}, but E3a
+and E9 use scikit-learn's~\cite{pedregosa2011scikit} CART-style entropy
+tree on one-hot attributes, which is not C4.5 and does not test a nominal
+attribute the way the original algorithms describe; the E3a/E9 numbers
+should be read as a leakage audit on a related but distinct
+implementation, not as a second attempt to match the paper's Table 7--11
+numbers. Ten datasets is a small sample for any between-dataset
+statistical test; every Wilcoxon test in this paper has $n=10$ pairs at
+most, which is why several comparisons with visually large mean
+differences (for instance Algorithm~1 vs.\ C4.5 under protocol B, median
+$-3.71$, raw $p=0.055$) do not survive Holm correction, and why we report
+these as directional rather than as confirmed effects. All datasets come
+from the paper's original 2014 benchmark, several of them (contact lenses,
+iris, vote) small and decades old; nothing here speaks to how either
+algorithm behaves on larger or more recent data outside this
+benchmark. The seed counts (3 for R1 and E3a, 5 for E9) are smaller than
+the 10 originally planned for this line of experiments, and the results
+should be read as preliminary; increasing seed count would narrow the
+per-arm standard deviations shown in Table~\ref{tab:e9} without changing
+which comparisons are paired by dataset for the Wilcoxon tests. No
+per-fold accuracy is retained in the result files produced by this
+project's code, only fold-averaged, seed-averaged accuracy per dataset and
+arm; a corrected resampled $t$-test that accounts for the dependence
+between folds from the same dataset was therefore not computed, and we
+report only the between-dataset Wilcoxon test, following
+Dem\v{s}ar~\cite{demsar2006statistical}, rather than claim a test this
+data cannot support.
+
+The NSL-KDD C4.5 discrepancy (99.47\% here vs.\ 71.11\% reported) remains
+unresolved and is reported plainly rather than explained away. NSL-KDD is
+also the dataset with the largest number of attributes and instances in
+the benchmark, and a leakage effect specific to intrusion-detection
+preprocessing has been documented on it
+elsewhere~\cite{bouke2023empirical}; whether the paper's 71.11\% reflects
+a different data split, a different feature set, or a different intrusion
+detection preprocessing step is not something this replication can
+determine from the published paper alone.
+
+This audit tests one filter design (a single NB classifier judging its
+own training data) and one weighting design (inverse-square-root tree
+depth); it does not test whether a consensus or ensemble
+filter~\cite{brodley1999identifying}, a confidence-thresholded
+filter~\cite{northcutt2021confident}, or a correction-based
+alternative~\cite{jiang2024correction} would recover some of the honest
+accuracy that Algorithm~1's hard deletion gives up, nor whether a
+multi-view attribute weighting scheme~\cite{zhang2023multiview} would
+close Algorithm~2's small remaining gap to the paper. Those are separate,
+un-run experiments; this paper's claim is limited to what Algorithms~1 and
+2, as specified in the 2014 paper, do under leakage-safe evaluation on
+these ten datasets.
