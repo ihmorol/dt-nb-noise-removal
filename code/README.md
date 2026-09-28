@@ -16,6 +16,7 @@ code/
 ├── faithful_nb.py      R1: textbook NB on the original (nominal) columns
 ├── weka_utils.py       R1: write ARFF, run Weka J48 and NaiveBayes
 ├── replicate_farid.py  R1: replicate Farid's Tables 8-11 with J48
+├── check_pipeline.py   checks the leakage rules of pipeline.py (no Java)
 ├── verify_faithful.py  R1: checks to run before replicate_farid.py
 ├── figures.py          the paper's Figures 2 and 3 with our hybrid added
 └── lib/                Weka 3.8.6 jars (R1 needs Java)
@@ -27,6 +28,7 @@ Run from inside `code/`:
 
 ```
 python data.py                     dataset shapes vs Farid's Table 5
+python check_pipeline.py           pipeline leakage rules (all must PASS)
 python main.py                     E9, all datasets, final settings (5 seeds, alpha 0, mixed NB)
 python main.py iris glass --seeds 3
 python main.py --alpha 0.01 --nb gaussian --out metrics_alpha0.01.csv

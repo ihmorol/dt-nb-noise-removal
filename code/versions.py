@@ -39,7 +39,7 @@ def short_list(items, limit=40):
     return text
 
 
-def trace_dataset(name, results_folder, alpha, support, likelihood):
+def trace_dataset(name, results_folder, settings):
     """Write the data versions and removals.txt for one dataset.
 
     Returns (report lines, rows for versions_removals.csv).
@@ -56,10 +56,10 @@ def trace_dataset(name, results_folder, alpha, support, likelihood):
     csv_rows = []
 
     for tag, steps in PATHS.items():
-        X_new, y_new, _, rows, columns, log = clean(X, y, steps, alpha, support, likelihood)
+        cleaned = clean(X, y, steps, settings)
         report.append(f"=== {tag} ===")
 
-        for number, step in enumerate(log, start=1):
+        for number, step in enumerate(cleaned.removals, start=1):
             if step["method"] == "Alg1":
                 removed = len(step["removed_rows"])
                 pct = 100 * removed / step["rows_before"]
@@ -77,15 +77,16 @@ def trace_dataset(name, results_folder, alpha, support, likelihood):
                 removed_names = names[step["removed_columns"]]
                 removed = len(removed_names)
                 pct = 100 * removed / step["attributes_before"]
-                report += [f"  step {number}  Alg 2, tree attribute selection (ccp_alpha={alpha})",
+                report += [f"  step {number}  Alg 2, tree attribute selection (ccp_alpha={settings.alpha})",
                            f"           attributes {step['attributes_before']} -> "
                            f"{step['attributes_after']}, removed {removed} ({pct:.1f}%)",
                            f"           removed attributes: {short_list(removed_names, 1000)}"]
                 detail = "removed: " + short_list(removed_names, 1000)
             csv_rows.append([name, tag, number, step["method"], removed, f"{pct:.2f}", detail])
 
-        saved = save_table(folder, tag, X_new, y_new, names[columns], rows)
-        report += [f"  new data: {X_new.shape[0]} rows x {X_new.shape[1]} attributes "
+        saved = save_table(folder, tag, cleaned.X, cleaned.y, names[cleaned.columns],
+                           cleaned.rows)
+        report += [f"  new data: {cleaned.X.shape[0]} rows x {cleaned.X.shape[1]} attributes "
                    f"-> {saved.name}", ""]
 
     (folder / "removals.txt").write_text("\n".join(report), encoding="utf-8")

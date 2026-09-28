@@ -12,10 +12,10 @@ the pipeline composes steps; **deviation** = deliberate difference, explained be
 | 1–3: for each class find the prior probabilities P(C_i) | `WeightedNB.fit` (nb.py:20), called by `algorithm1` (algorithm1.py:21) | match |
 | 4–6: for each attribute value find the class-conditional probabilities P(A_ij\|C_i) | same `fit` (Gaussian for numeric, Bernoulli for 0/1 columns) | match |
 | 7–8: for each training instance find the posterior P(C_i\|x_i) | `WeightedNB.predict` → `class_scores` (nb.py:44) | match |
-| 9–11: if x_i is misclassified, remove x_i from D | `keep = judge.predict(X) == y` (algorithm1.py:22) → `X[keep], y[keep]` in `clean` (pipeline.py:66) | match |
+| 9–11: if x_i is misclassified, remove x_i from D | `keep = judge.predict(X) == y` (algorithm1.py:22) → `X[keep], y[keep]` in `clean` (pipeline.py:94) | match |
 | 12: end for (the filter) | the return of `algorithm1` | match |
-| 13: T = ∅ | — | split: this is the final classifier slot, `make_classifier` (pipeline.py:75) |
-| 14–16: best splitting attribute; root node; arcs | `DecisionTreeClassifier(criterion="entropy")` (pipeline.py:78), fitted on the cleaned data | split |
+| 13: T = ∅ | — | split: this is the final classifier slot, `make_classifier` (pipeline.py:105) |
+| 14–16: best splitting attribute; root node; arcs | `DecisionTreeClassifier(criterion="entropy")` (pipeline.py:109), fitted on the cleaned data | split |
 | 17–24: recurse `DTBuild(D)` for each arc, leaf at the stopping point | the same estimator (sklearn CART), **not** Weka J48 | split + deviation (CART ≠ C4.5, documented limitation) |
 | 25: end for | — | — |
 
@@ -35,13 +35,13 @@ that arm exists only to attribute a gain to the filter alone.
 | 17–18: else d = minimum depth of A_i in T, W_i = 1/√d | walk over the nodes recording each node's depth; smallest depth kept per attribute; `weights[column] = 1 / np.sqrt(depth)` (algorithm2.py:31) | match, **with one choice the paper leaves open**: root = depth 1, so the first-split attribute gets weight 1. Root = 0 would make 1/√d undefined at the root |
 | 19–20: end for | — | — |
 | 21–23: for each class find the prior probabilities P(C_i) | `WeightedNB.fit` (nb.py:20) | match |
-| 24–26: for each attribute with W_i ≠ 0 and each of its values, find P(A_ij\|C_i)^W_i | only the kept columns reach the NB (`X[:, keep]` in `clean`, pipeline.py:58); the exponent is applied in `class_scores`: `(log_p * self.weights_).sum(axis=1)` (nb.py:55) — that is Π P(A_j\|C)^W_j, Eq. (14) | match |
+| 24–26: for each attribute with W_i ≠ 0 and each of its values, find P(A_ij\|C_i)^W_i | only the kept columns reach the NB (`X[:, keep]` in `clean`, pipeline.py:84); the exponent is applied in `class_scores`: `(log_p * self.weights_).sum(axis=1)` (nb.py:55) — that is Π P(A_j\|C)^W_j, Eq. (14) | match |
 | 27–28: end for | — | — |
 | 29–31: for each instance find the posterior P(C_i\|x_i) | `predict` = argmax of the weighted class scores (nb.py:58) | match |
 
 ## The deviations, all deliberate
 
-1. **Attributes are removed from the table, not only zero-weighted** (pipeline.py:58).
+1. **Attributes are removed from the table, not only zero-weighted** (pipeline.py:84).
    For the NB product this is *identical*, because a zero weight makes the term p⁰ = 1. It
    differs for the **DT** final classifier, which Farid never ran after Alg 2 — the reduced
    feature space is a real change there, and removal is what the pipeline was asked for.
@@ -71,7 +71,7 @@ that arm exists only to attribute a gain to the filter alone.
 
 ## What is in the code but not in the paper (and why)
 
-- 10-fold CV with everything refit inside each training fold (`run_fold`, pipeline.py:81): the
+- 10-fold CV with everything refit inside each training fold (`run_fold`, pipeline.py:113; tested by `check_pipeline.py`): the
   paper says "10-fold cross validation" but never says whether the filter and the tree were
   refit per fold. This is the leakage-safe reading; the difference is what E3a will measure.
 - Reference arms and the Farid comparison table (`ARMS`, main.py:32; `print_farid_comparison`,

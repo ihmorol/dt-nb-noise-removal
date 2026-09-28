@@ -6,13 +6,15 @@
 A path is written as steps: "N" is Algorithm 1 (noise filter), "A" is
 Algorithm 2 (attribute selection). ("A", "N") is Path 2, () is no cleaning.
 
-Rules that keep the results honest:
-    * everything is fitted on the training fold only
-    * Algorithm 2 drops columns from the training AND the test fold,
-      Algorithm 1 drops rows from the training fold only
+Rules that keep the results honest, all enforced in this file:
+    * the algorithms and the classifier see the training fold only
+    * Algorithm 2 drops columns from the training AND the test fold
+      (Cleaned.apply_to_test), Algorithm 1 drops training rows only
     * every arm uses the same folds, so arms can be compared fold by fold
+check_pipeline.py tests these rules.
 """
 import warnings
+from dataclasses import dataclass
 
 import numpy as np
 from sklearn.metrics import f1_score
@@ -30,79 +32,103 @@ N_SPLITS = 10
 warnings.filterwarnings("ignore", message="The least populated class")
 
 
+@dataclass
+class Settings:
+    alpha: float = 0.0            # Algorithm 2 tree pruning (sklearn ccp_alpha)
+    support: bool = True          # hand Algorithm 2's weights to the judge and the final NB
+    likelihood: str = "mixed"     # NB likelihood, see nb.py
+
+
+@dataclass
+class Cleaned:
+    """A training fold after the algorithms ran.
+
+    rows, columns   the original rows and columns that are left
+    weights         Algorithm 2's weights for those columns, or None
+    removals        one record per step, all with the same keys
+    """
+    X: np.ndarray
+    y: np.ndarray
+    weights: np.ndarray
+    rows: np.ndarray
+    columns: np.ndarray
+    removals: list
+
+    def apply_to_test(self, X_test):
+        """The test fold loses the same columns; its rows are never removed."""
+        return X_test[:, self.columns]
+
+
 def make_folds(y, seed):
     """The 10 (train rows, test rows) pairs for one seed. Same seed, same folds."""
     splitter = StratifiedKFold(n_splits=N_SPLITS, shuffle=True, random_state=seed)
     return list(splitter.split(np.zeros(len(y)), y))
 
 
-def clean(X, y, steps, alpha, support, likelihood):
-    """Run the algorithms in the order given by steps.
-
-    support=True hands Algorithm 2's weights on to Algorithm 1's judge and to the
-    final NB. Returns (X, y, weights, rows, columns, log):
-        rows, columns   which original rows and columns are left
-        log             one dictionary per step, saying what it removed
-    """
+def clean(X, y, steps, settings):
+    """Run the algorithms on a training fold, in the order given by steps."""
     rows = np.arange(len(y))
     columns = np.arange(X.shape[1])
     weights = None
-    log = []
+    removals = []
 
     for step in steps:
-        before = {"rows_before": len(y), "attributes_before": X.shape[1]}
+        record = {"rows_before": len(y), "attributes_before": X.shape[1],
+                  "removed_rows": np.array([], dtype=int),
+                  "removed_columns": np.array([], dtype=int),
+                  "skipped": False, "judge": None, "per_class": {}}
         if step == "A":
-            keep, new_weights = algorithm2(X, y, alpha)
-            entry = {"method": "Alg2", "removed_columns": np.delete(columns, keep),
-                     "skipped": False}
+            keep, new_weights = algorithm2(X, y, settings.alpha)
+            record["method"] = "Alg2"
+            record["removed_columns"] = np.delete(columns, keep)
             X, columns = X[:, keep], columns[keep]
-            if support:
+            if settings.support:
                 weights = new_weights
-        else:
-            keep, skipped = algorithm1(X, y, weights, likelihood)
-            entry = {"method": "Alg1", "removed_rows": rows[~keep], "skipped": skipped,
-                     "judge": "plain NB" if weights is None else "weighted NB",
-                     "per_class": {c: float(np.mean(~keep[y == c])) for c in np.unique(y)}}
+        elif step == "N":
+            keep, skipped = algorithm1(X, y, weights, settings.likelihood)
+            record["method"] = "Alg1"
+            record["removed_rows"] = rows[~keep]
+            record["skipped"] = skipped
+            record["judge"] = "plain NB" if weights is None else "weighted NB"
+            record["per_class"] = {c: float(np.mean(~keep[y == c])) for c in np.unique(y)}
             X, y, rows = X[keep], y[keep], rows[keep]
+        else:
+            raise ValueError(f"unknown step {step!r}; use 'N' (Alg 1) or 'A' (Alg 2)")
 
-        entry.update(before)
-        entry.update({"rows_after": len(y), "attributes_after": X.shape[1]})
-        log.append(entry)
+        record["rows_after"] = len(y)
+        record["attributes_after"] = X.shape[1]
+        removals.append(record)
 
-    return X, y, weights, rows, columns, log
+    return Cleaned(X, y, weights, rows, columns, removals)
 
 
-def make_classifier(final, weights, likelihood):
+def make_classifier(final, weights, settings):
     if final == "NB":
-        return WeightedNB(weights, likelihood)
-    return DecisionTreeClassifier(criterion="entropy", random_state=0)
+        return WeightedNB(weights, settings.likelihood)
+    if final == "DT":
+        return DecisionTreeClassifier(criterion="entropy", random_state=0)
+    raise ValueError(f"unknown final classifier {final!r}; use 'NB' or 'DT'")
 
 
-def run_fold(X, y, train, test, steps, final, alpha, support, likelihood):
-    """One arm on one fold. Returns (accuracy %, macro-F1 %, stage log)."""
-    X_train, y_train, weights, _, columns, log = clean(X[train], y[train], steps,
-                                                       alpha, support, likelihood)
-    X_test = X[test][:, columns]
-
-    model = make_classifier(final, weights, likelihood).fit(X_train, y_train)
-    predicted = model.predict(X_test)
-    accuracy = 100 * np.mean(predicted == y[test])
-    macro_f1 = 100 * f1_score(y[test], predicted, average="macro", zero_division=0)
-    return accuracy, macro_f1, log
+def run_fold(X, y, train, test, steps, final, settings):
+    """One arm on one fold. Returns (predicted labels for the test rows, removals)."""
+    cleaned = clean(X[train], y[train], steps, settings)
+    model = make_classifier(final, cleaned.weights, settings).fit(cleaned.X, cleaned.y)
+    return model.predict(cleaned.apply_to_test(X[test])), cleaned.removals
 
 
-def run_arm(X, y, steps, final, seeds, alpha, support, likelihood):
+def run_arm(X, y, steps, final, seeds, settings):
     """Cross-validate one arm: 10 folds for every seed. Returns a result dictionary."""
-    accuracies, macro_f1s, logs = [], [], []
+    accuracies, macro_f1s, removals = [], [], []
     for seed in seeds:
         for train, test in make_folds(y, seed):
-            accuracy, macro_f1, log = run_fold(X, y, train, test, steps, final,
-                                               alpha, support, likelihood)
-            accuracies.append(accuracy)
-            macro_f1s.append(macro_f1)
-            logs.append(log)
+            predicted, fold_removals = run_fold(X, y, train, test, steps, final, settings)
+            accuracies.append(100 * np.mean(predicted == y[test]))
+            macro_f1s.append(100 * f1_score(y[test], predicted, average="macro",
+                                            zero_division=0))
+            removals.append(fold_removals)
 
-    stages = average_stages(logs)
+    stages = average_stages(removals)
     result = {
         "accuracy": float(np.mean(accuracies)),
         "accuracy_std": float(np.std(accuracies)),
@@ -118,15 +144,15 @@ def run_arm(X, y, steps, final, seeds, alpha, support, likelihood):
     return result
 
 
-def average_stages(logs):
-    """Average the fold logs: one summary per step of the path."""
+def average_stages(removals):
+    """Average the fold removals: one summary per step of the path."""
     stages = []
-    for i in range(len(logs[0])):
-        step_logs = [log[i] for log in logs]
-        stage = {"stage": i + 1, "method": step_logs[0]["method"]}
+    for i in range(len(removals[0])):
+        records = [fold[i] for fold in removals]
+        stage = {"stage": i + 1, "method": records[0]["method"]}
         for key in ("rows_before", "rows_after", "attributes_before", "attributes_after",
                     "skipped"):
-            stage[key] = float(np.mean([entry[key] for entry in step_logs]))
+            stage[key] = float(np.mean([record[key] for record in records]))
         stage["rows_removed_pct"] = 100 * (1 - stage["rows_after"] / stage["rows_before"])
         stage["attributes_removed_pct"] = 100 * (1 - stage["attributes_after"]
                                                  / stage["attributes_before"])

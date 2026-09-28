@@ -4,6 +4,7 @@ import csv
 import numpy as np
 
 from data import FARID_2014
+from pipeline import N_SPLITS
 
 # the two paths x the two final classifiers
 HEADLINE = ["C1 N->A->NB", "C1 N->A->DT", "C2 A->N->NB", "C2 A->N->DT"]
@@ -63,7 +64,7 @@ def print_farid_comparison(all_results):
           f"{our_mean - paper_mean:>+9.2f}")
 
 
-def metrics_rows(all_results, settings):
+def metrics_rows(all_results, seeds, settings):
     """One row per dataset, arm and final classifier (for metrics.csv)."""
     rows = []
     for name, results in all_results.items():
@@ -71,8 +72,8 @@ def metrics_rows(all_results, settings):
             arm, final = key.rsplit("->", 1)
             rows.append([name, arm, final, f"{r['accuracy']:.4f}", f"{r['accuracy_std']:.4f}",
                          f"{r['macro_f1']:.4f}", f"{r['instances_removed_pct']:.2f}",
-                         f"{r['attributes_kept_pct']:.2f}", settings.seeds, settings.n_splits,
-                         settings.alpha, settings.nb, settings.support == "on"])
+                         f"{r['attributes_kept_pct']:.2f}", seeds, N_SPLITS,
+                         settings.alpha, settings.likelihood, settings.support])
     return rows
 
 

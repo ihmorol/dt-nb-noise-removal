@@ -20,14 +20,12 @@ from pathlib import Path
 import numpy as np
 
 from data import FARID_2014, available, load_data
-from pipeline import clean, make_classifier, make_folds, run_arm
+from pipeline import Settings, clean, make_classifier, make_folds, run_arm
 from tables import write_csv
 
 RESULTS = Path(__file__).resolve().parent.parent / "results" / "EXP-E3a_leakage_check"
 SEEDS = range(3)
-ALPHA = 0.01
-SUPPORT = True
-LIKELIHOOD = "mixed"
+SETTINGS = Settings(alpha=0.01, support=True, likelihood="mixed")
 
 # (arm, steps, final classifier, key of the paper's number or None)
 ARMS = [
@@ -42,27 +40,29 @@ ARMS = [
 
 def protocol_a(X, y, steps, final):
     """Clean the whole dataset once, then cross-validate only the classifier."""
-    X, y, weights, _, _, _ = clean(X, y, steps, ALPHA, SUPPORT, LIKELIHOOD)
+    cleaned = clean(X, y, steps, SETTINGS)
+    X, y = cleaned.X, cleaned.y
     accuracies = []
     for seed in SEEDS:
         for train, test in make_folds(y, seed):
-            model = make_classifier(final, weights, LIKELIHOOD).fit(X[train], y[train])
+            model = make_classifier(final, cleaned.weights, SETTINGS).fit(X[train], y[train])
             accuracies.append(100 * np.mean(model.predict(X[test]) == y[test]))
     return float(np.mean(accuracies))
 
 
 def protocol_c(X, y, steps, final):
     """Clean and fit on the whole dataset, then score on that same data."""
-    X, y, weights, _, _, _ = clean(X, y, steps, ALPHA, SUPPORT, LIKELIHOOD)
-    model = make_classifier(final, weights, LIKELIHOOD).fit(X, y)
-    return 100 * float(np.mean(model.predict(X) == y))
+    cleaned = clean(X, y, steps, SETTINGS)
+    model = make_classifier(final, cleaned.weights, SETTINGS).fit(cleaned.X, cleaned.y)
+    return 100 * float(np.mean(model.predict(cleaned.X) == cleaned.y))
 
 
 def main(names):
     print("=" * 110)
     print("E3a leakage check: B = refit per fold (honest), A = algorithms fitted once on "
           "all data, C = everything fitted and scored on all data")
-    print(f"10-fold CV x {len(SEEDS)} seeds, ccp_alpha={ALPHA}, NB likelihood={LIKELIHOOD}")
+    print(f"10-fold CV x {len(SEEDS)} seeds, ccp_alpha={SETTINGS.alpha}, "
+          f"NB likelihood={SETTINGS.likelihood}")
     print("=" * 110)
     print(f"{'dataset':<20}{'arm':<10}{'final':<6}{'B honest':>9}{'A leaky':>9}{'C worst':>9}"
           f"{'A - B':>8}{'paper':>8}{'A - paper':>11}{'B - paper':>11}")
@@ -71,7 +71,7 @@ def main(names):
     for name in names:
         X, y, _ = load_data(name)
         for arm, steps, final, paper_key in ARMS:
-            b = run_arm(X, y, steps, final, SEEDS, ALPHA, SUPPORT, LIKELIHOOD)["accuracy"]
+            b = run_arm(X, y, steps, final, SEEDS, SETTINGS)["accuracy"]
             a = protocol_a(X, y, steps, final)
             c = protocol_c(X, y, steps, final)
             paper = FARID_2014[name][paper_key] if paper_key else np.nan

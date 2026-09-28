@@ -19,7 +19,7 @@ import time
 from pathlib import Path
 
 from data import available, load_data
-from pipeline import N_SPLITS, describe_path, run_arm
+from pipeline import N_SPLITS, Settings, describe_path, run_arm
 from tables import (METRICS_HEADER, REMOVALS_HEADER, STAGES_HEADER, metrics_rows,
                     print_arm_header, print_arm_row, print_farid_comparison,
                     print_headline, stage_rows, write_csv)
@@ -38,7 +38,7 @@ ARMS = [
 ]
 
 
-def read_settings():
+def read_arguments():
     parser = argparse.ArgumentParser(description="Farid (2014) two-path pipeline")
     parser.add_argument("datasets", nargs="*", help="default: every dataset on disk")
     parser.add_argument("--seeds", type=int, default=5, help="CV repeats (default 5)")
@@ -51,12 +51,10 @@ def read_settings():
     parser.add_argument("--out", default="metrics.csv", help="name of the metrics file")
     parser.add_argument("--no-trace", action="store_true",
                         help="skip writing the data versions")
-    settings = parser.parse_args()
-    settings.n_splits = N_SPLITS
-    return settings
+    return parser.parse_args()
 
 
-def run_dataset(name, settings):
+def run_dataset(name, seeds, settings):
     """Cross-validate every arm on one dataset."""
     X, y, meta = load_data(name)
     print(f"\n--- {name}: {X.shape[0]} instances x {X.shape[1]} attributes, "
@@ -66,8 +64,7 @@ def run_dataset(name, settings):
     results = {}
     for arm, steps, final in ARMS:
         start = time.time()
-        result = run_arm(X, y, steps, final, range(settings.seeds), settings.alpha,
-                         settings.support == "on", settings.nb)
+        result = run_arm(X, y, steps, final, range(seeds), settings)
         results[f"{arm}->{final}"] = result
         print_arm_row(arm, final, result, time.time() - start)
 
@@ -78,23 +75,23 @@ def run_dataset(name, settings):
 
 
 def main():
-    settings = read_settings()
-    names = settings.datasets or available()
+    args = read_arguments()
+    settings = Settings(alpha=args.alpha, support=args.support == "on", likelihood=args.nb)
+    names = args.datasets or available()
 
     print("=" * 96)
     print("Farid (2014) pipeline: [Alg 1 -> Alg 2] and [Alg 2 -> Alg 1], then NB or DT")
-    print(f"{N_SPLITS}-fold CV x {settings.seeds} seeds, every step refit inside the "
-          f"training fold, ccp_alpha={settings.alpha}, NB={settings.nb}, "
+    print(f"{N_SPLITS}-fold CV x {args.seeds} seeds, every step refit inside the "
+          f"training fold, ccp_alpha={settings.alpha}, NB={settings.likelihood}, "
           f"weights to NB={settings.support}")
     print("=" * 96)
 
     all_results, all_stages, all_removals = {}, [], []
     for name in names:
-        all_results[name] = run_dataset(name, settings)
+        all_results[name] = run_dataset(name, args.seeds, settings)
         all_stages += stage_rows(name, all_results[name])
-        if not settings.no_trace:
-            report, removals = trace_dataset(name, RESULTS, settings.alpha,
-                                             settings.support == "on", settings.nb)
+        if not args.no_trace:
+            report, removals = trace_dataset(name, RESULTS, settings)
             all_removals += removals
             print("\n".join(report))
 
@@ -102,9 +99,9 @@ def main():
     print_farid_comparison(all_results)
 
     RESULTS.mkdir(parents=True, exist_ok=True)
-    write_csv(RESULTS / settings.out, METRICS_HEADER, metrics_rows(all_results, settings))
+    write_csv(RESULTS / args.out, METRICS_HEADER, metrics_rows(all_results, args.seeds, settings))
     write_csv(RESULTS / "stages.csv", STAGES_HEADER, all_stages)
-    print(f"\n[saved] {RESULTS / settings.out}")
+    print(f"\n[saved] {RESULTS / args.out}")
     print(f"[saved] {RESULTS / 'stages.csv'}")
     if all_removals:
         write_csv(RESULTS / "versions_removals.csv", REMOVALS_HEADER, all_removals)
