@@ -14,8 +14,12 @@ code/
 ├── main.py             E9: run every arm on every dataset
 ├── leakage_check.py    E3a: honest vs paper-style vs fully leaky protocol
 ├── faithful_nb.py      R1: textbook NB on the original (nominal) columns
-├── weka_utils.py       R1: write ARFF, run Weka J48 and NaiveBayes
+├── weka_utils.py       R1+E9f: write ARFF, run Weka J48 and NaiveBayes,
+│                       parse the tree, the accuracy and the confusion matrix
 ├── replicate_farid.py  R1: replicate Farid's Tables 8-11 with J48
+├── e9_farid.py         E9f: the manuscript's Table II — both orders of the two
+│                       algorithms in this same J48/FaithfulNB world, protocols
+│                       A+B, accuracy + macro-F1 + per-class removals
 ├── check_pipeline.py   checks the leakage rules of pipeline.py (no Java)
 ├── verify_faithful.py  R1: checks to run before replicate_farid.py
 ├── figures.py          the paper's Figures 2 and 3 with our hybrid added
@@ -24,7 +28,7 @@ code/
 
 ## How to run
 
-Run from inside `code/`:
+Run from inside `code/` (first: `python -m venv .venv && .venv/bin/pip install -r ../requirements.txt`; `pandas<3` is load-bearing, see the file):
 
 ```
 python data.py                     dataset shapes vs Farid's Table 5
@@ -36,6 +40,8 @@ python leakage_check.py            E3a
 python verify_faithful.py          R1 checks (all must PASS)
 python replicate_farid.py          R1, pruned J48, 3 seeds
 python replicate_farid.py --unpruned
+python e9_farid.py                 E9f, all datasets, 10 seeds (the manuscript's Table II)
+python e9_farid.py iris --seeds 1  E9f pilot
 python figures.py
 ```
 

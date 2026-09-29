@@ -251,22 +251,30 @@ significant, we report no clear difference; ten datasets may miss a small one.
 \section{Results}
 
 \begin{table}[H]
-\caption{Fold-specific classification results (percent)}
+\caption{Fold-specific classification results (percent), averaged over the
+datasets. Per-dataset scores are in Table~\ref{tab:results-datasets}.}
+\label{tab:results}
 \centering
-\begin{tabular}{lrr}
-\toprule
-Method & Accuracy & Macro-F1 \\
-\midrule
-NB & -- & -- \\
-C4.5 & -- & -- \\
-Algorithm 1 & -- & -- \\
-Algorithm 2 & -- & -- \\
-Instances first, NB & -- & -- \\
-Instances first, DT & -- & -- \\
-Attributes first, NB & -- & -- \\
-Attributes first, DT & -- & -- \\
-\bottomrule
-\end{tabular}
+\input{tables/table_results}
+\end{table}
+
+\begin{table*}[t]
+\caption{Accuracy per dataset under the fold-specific protocol (percent).
+Alg.~1 NB final and Alg.~2 DT final are the reference arms of
+Section~IV-C.}
+\label{tab:results-datasets}
+\centering
+\resizebox{\textwidth}{!}{\input{tables/table_results_datasets}}
+\end{table*}
+
+\begin{table}[H]
+\caption{Cleaning before cross-validation versus inside each training fold
+(accuracy, percent, averaged over the datasets). The before-CV protocol can
+delete future test rows, so its scores do not estimate performance on unseen
+cases.}
+\label{tab:results-protocol-a}
+\centering
+\input{tables/table_results_A}
 \end{table}
 
 \section{Limitations}

@@ -1,0 +1,142 @@
+
+--- breast-cancer: 286 instances x 9 attributes, 2 classes ---
+    protocol A: the filter deletes 73 rows plain, 73 weighted; the full-data trees test 4/9 and 3/9 attributes
+    arm             accuracy  macro-F1  A accuracy
+    baseline->NB       72.12     64.42            
+    baseline->DT       74.84     61.81            
+    Alg1->NB           72.68     64.22       97.14
+    Alg1->DT           71.77     62.68       94.13
+    Alg2->NB           72.43     62.57       72.78
+    Alg2->DT           73.91     60.52       75.41
+    C1 N->A->NB        71.28     61.33       93.42
+    C1 N->A->DT        71.77     62.65       94.69
+    C2 A->N->NB        72.53     61.57       96.24
+    C2 A->N->DT        72.08     61.37       97.27
+
+--- contact-lenses: 24 instances x 4 attributes, 3 classes ---
+    protocol A: the filter deletes 1 rows plain, 2 weighted; the full-data trees test 3/4 and 3/4 attributes
+    arm             accuracy  macro-F1  A accuracy
+    baseline->NB       73.00     62.31            
+    baseline->DT       84.67     79.47            
+    Alg1->NB           73.00     62.31       79.33
+    Alg1->DT           84.67     79.47       88.67
+    Alg2->NB           80.67     72.27       82.33
+    Alg2->DT           84.67     79.47       84.67
+    C1 N->A->NB        83.00     76.47       88.67
+    C1 N->A->DT        84.67     79.47       88.67
+    C2 A->N->NB        79.33     69.87       85.33
+    C2 A->N->DT        80.67     72.27       90.83
+
+--- diabetes: 768 instances x 8 attributes, 2 classes ---
+    protocol A: the filter deletes 182 rows plain, 173 weighted; the full-data trees test 6/8 and 6/8 attributes
+    arm             accuracy  macro-F1  A accuracy
+    baseline->NB       75.52     72.32            
+    baseline->DT       74.12     70.71            
+    Alg1->NB           74.41     71.43       96.35
+    Alg1->DT           75.12     71.45       92.24
+    Alg2->NB           76.73     72.76       77.07
+    Alg2->DT           74.18     70.79       74.55
+    C1 N->A->NB        75.58     71.96       95.68
+    C1 N->A->DT        75.23     71.56       92.82
+    C2 A->N->NB        75.67     71.05       97.08
+    C2 A->N->DT        75.57     71.19       95.48
+
+--- glass: 214 instances x 9 attributes, 6 classes ---
+    protocol A: the filter deletes 96 rows plain, 96 weighted; the full-data trees test 9/9 and 6/9 attributes
+    arm             accuracy  macro-F1  A accuracy
+    baseline->NB       45.95     44.98            
+    baseline->DT       66.58     62.00            
+    Alg1->NB           37.00     40.72       63.39
+    Alg1->DT           48.83     45.29       84.11
+    Alg2->NB           47.84     44.71       48.54
+    Alg2->DT           66.58     62.00       66.58
+    C1 N->A->NB        30.93     36.78       48.86
+    C1 N->A->DT        48.97     45.45       84.61
+    C2 A->N->NB        37.28     40.42       50.74
+    C2 A->N->DT        49.15     43.35       89.44
+
+--- iris: 150 instances x 4 attributes, 3 classes ---
+    protocol A: the filter deletes 6 rows plain, 7 weighted; the full-data trees test 2/4 and 2/4 attributes
+    arm             accuracy  macro-F1  A accuracy
+    baseline->NB       95.53     95.48            
+    baseline->DT       94.27     94.18            
+    Alg1->NB           95.33     95.28       98.96
+    Alg1->DT           94.93     94.88       97.50
+    Alg2->NB           95.40     95.35       95.40
+    Alg2->DT           94.27     94.18       94.53
+    C1 N->A->NB        95.33     95.29       98.62
+    C1 N->A->DT        94.93     94.88       97.50
+    C2 A->N->NB        95.87     95.82      100.00
+    C2 A->N->DT        93.80     93.72       97.48
+
+--- soybean: 683 instances x 35 attributes, 19 classes ---
+    protocol A: the filter deletes 63 rows plain, 61 weighted; the full-data trees test 19/35 and 16/35 attributes
+    arm             accuracy  macro-F1  A accuracy
+    baseline->NB       90.09     93.13            
+    baseline->DT       92.71     94.26            
+    Alg1->NB           89.00     92.59       98.18
+    Alg1->DT           88.71     92.08       96.40
+    Alg2->NB           89.40     91.33       88.87
+    Alg2->DT           92.26     94.10       93.07
+    C1 N->A->NB        85.67     87.27       94.16
+    C1 N->A->DT        87.89     90.47       96.74
+    C2 A->N->NB        86.66     88.40       96.01
+    C2 A->N->DT        90.98     92.08       98.33
+
+--- vote: 435 instances x 16 attributes, 2 classes ---
+    protocol A: the filter deletes 42 rows plain, 19 weighted; the full-data trees test 5/16 and 1/16 attributes
+    arm             accuracy  macro-F1  A accuracy
+    baseline->NB       90.06     89.66            
+    baseline->DT       95.08     94.86            
+    Alg1->NB           90.13     89.80       99.21
+    Alg1->DT           95.13     94.90       99.03
+    Alg2->NB           95.24     95.02       95.63
+    Alg2->DT           95.03     94.81       95.24
+    C1 N->A->NB        95.45     95.25       99.24
+    C1 N->A->DT        95.13     94.90       99.24
+    C2 A->N->NB        95.49     95.29       99.76
+    C2 A->N->DT        95.54     95.34       99.76
+
+--- image-segmentation: 2310 instances x 19 attributes, 7 classes ---
+    protocol A: the filter deletes 461 rows plain, 302 weighted; the full-data trees test 12/19 and 7/19 attributes
+    arm             accuracy  macro-F1  A accuracy
+    baseline->NB       79.76     77.78            
+    baseline->DT       96.81     96.81            
+    Alg1->NB           74.92     74.52       91.05
+    Alg1->DT           89.24     88.96       99.09
+    Alg2->NB           82.30     81.42       86.63
+    Alg2->DT           96.83     96.83       96.93
+    C1 N->A->NB        74.53     73.40       91.79
+    C1 N->A->DT        89.26     88.98       99.11
+    C2 A->N->NB        77.32     77.06       92.37
+    C2 A->N->DT        90.88     90.79       98.49
+
+--- tic-tac-toe: 958 instances x 9 attributes, 2 classes ---
+    protocol A: the filter deletes 289 rows plain, 277 weighted; the full-data trees test 9/9 and 8/9 attributes
+    arm             accuracy  macro-F1  A accuracy
+    baseline->NB       69.83     63.83            
+    baseline->DT       84.74     82.82            
+    Alg1->NB           71.89     64.08       96.32
+    Alg1->DT           74.43     66.94       94.33
+    Alg2->NB           70.68     64.26       70.41
+    Alg2->DT           84.74     82.82       84.74
+    C1 N->A->NB        70.03     62.93       92.84
+    C1 N->A->DT        74.55     67.18       93.99
+    C2 A->N->NB        68.07     61.45       94.98
+    C2 A->N->DT        73.17     66.02       96.30
+
+--- nsl-kdd: 25192 instances x 41 attributes, 22 classes ---
+    protocol A: the filter deletes 8509 rows plain, 9775 weighted; the full-data trees test 29/41 and 17/41 attributes
+    arm             accuracy  macro-F1  A accuracy
+    baseline->NB       67.42     34.06            
+    baseline->DT       99.47     82.25            
+    Alg1->NB           75.79     35.87       99.37
+    Alg1->DT           87.43     60.33       99.73
+    Alg2->NB           62.80     37.58       63.06
+    Alg2->DT           99.47     82.92       99.47
+    C1 N->A->NB        74.53     35.36       97.83
+    C1 N->A->DT        89.68     62.05       99.81
+    C2 A->N->NB        75.23     38.18       98.32
+    C2 A->N->DT        87.07     53.18       99.81
+
+[saved] /home/emon-morol/projects/dt-nb-noise-removal/results/EXP-E9_farid

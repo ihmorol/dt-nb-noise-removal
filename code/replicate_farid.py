@@ -73,7 +73,7 @@ def run_dataset(name, seeds, unpruned, folder):
             train_file, test_file = arff("train", train), arff("test", test)
 
             # one J48 run gives both the C4.5 score and Algorithm 2's tree
-            accuracy, tree = run_j48(train_file, test_file, unpruned)
+            accuracy, tree, _ = run_j48(train_file, test_file, unpruned)
             honest["C4.5"].append(accuracy)
             honest["Alg2"].append(weighted_nb_accuracy(X, y, meta, tree_depths(tree),
                                                        train, test))

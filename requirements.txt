@@ -1,0 +1,12 @@
+# Run with:  python -m venv .venv && .venv/bin/pip install -r requirements.txt
+#
+# pandas<3 is load-bearing: code/data.py detects nominal columns via
+# `values.dtype == object`, which pandas 3's string dtype no longer reports
+# (the loader then tries to read 'x'/'o' cells as floats and crashes).
+# All committed results were produced on pandas 2.x.
+pandas<3
+numpy
+scikit-learn
+scipy
+matplotlib
+pytest

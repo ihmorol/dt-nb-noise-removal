@@ -23,15 +23,20 @@ def clean_name(name):
     return re.sub(r"[^A-Za-z0-9_]", "_", str(name))
 
 
-def write_arff(path, X, y, meta, class_values):
+def write_arff(path, X, y, meta, class_values, columns=None):
     """Write the rows of X and y as an ARFF file. The class is the last attribute.
 
     class_values should be the classes of the WHOLE dataset, so every file of a
     dataset has the same header, even a training fold that misses a class.
+    columns selects a subset of the attributes to write (default: all); X stays
+    the full-width array and is indexed by the selected columns.
     """
+    if columns is None:
+        columns = range(len(meta["names"]))
     with open(path, "w", encoding="utf-8") as file:
         file.write("@relation data\n\n")
-        for j, name in enumerate(meta["names"]):
+        for j in columns:
+            name = meta["names"][j]
             if meta["nominal"][j]:
                 values = ",".join("'" + value.replace("'", "''") + "'"
                                   for value in meta["levels"][j])
@@ -42,7 +47,8 @@ def write_arff(path, X, y, meta, class_values):
 
         for row, label in zip(X, y):
             cells = []
-            for j, value in enumerate(row):
+            for j in columns:
+                value = row[j]
                 if meta["nominal"][j]:
                     cells.append("'" + meta["levels"][j][int(value)].replace("'", "''") + "'")
                 elif float(value).is_integer():
@@ -71,7 +77,12 @@ def test_accuracy(output):
 
 
 def run_j48(train_file, test_file, unpruned=False):
-    """Train J48 on train_file, test on test_file. Returns (accuracy %, tree lines)."""
+    """Train J48 on train_file, test on test_file.
+
+    Returns (accuracy %, tree lines, confusion matrix). With a -T test file the
+    output holds two evaluations (training and test); the accuracy regex and the
+    confusion-matrix parser below both take the LAST one, which is the test set.
+    """
     options = J48_OPTIONS + (["-U"] if unpruned else [])
     output = run_weka(["weka.classifiers.trees.J48"] + options
                       + ["-t", str(train_file), "-T", str(test_file)])
@@ -80,7 +91,30 @@ def run_j48(train_file, test_file, unpruned=False):
     end = output.find("Number of Leaves", start)
     if start < 0 or end < 0:
         raise RuntimeError("no tree in the J48 output")
-    return test_accuracy(output), output[start:end].splitlines()
+    return test_accuracy(output), output[start:end].splitlines(), confusion_matrix(output)
+
+
+def confusion_matrix(output):
+    """The last confusion matrix in Weka's output, as counts[actual][predicted].
+
+    Weka prints it as
+        === Confusion Matrix ===
+          a  b  c   <-- classified as
+         50  0  0 |  a = setosa
+    one row per class of the dataset header, so a class absent from the test
+    fold still gets a row of zeros.
+    """
+    rows = []
+    for line in output[output.rfind("=== Confusion Matrix ==="):].splitlines()[1:]:
+        counts = line.split("|")[0].split()
+        if counts and all(token.isdigit() for token in counts):
+            rows.append([int(token) for token in counts])
+        elif rows:
+            break                       # the matrix ended ("Time taken...", etc.)
+    k = len(rows)
+    if k == 0 or any(len(row) != k for row in rows):
+        raise RuntimeError("could not parse a square confusion matrix")
+    return rows
 
 
 def tree_depths(tree_lines):

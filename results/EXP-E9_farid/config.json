@@ -1,0 +1,23 @@
+{
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "n_splits": 10,
+  "j48": "Weka 3.8.6 pruned, defaults -C 0.25 -M 2",
+  "nb": "FaithfulNB (add-one counts for nominal, Gaussian for numeric)",
+  "attribute_space": "original columns, no one-hot",
+  "support": "Algorithm 2's weights go to the NB judge and the final NB in attributes-first paths (always on, as the manuscript describes)",
+  "safety": "Alg1 never deletes down to one class; a chained path whose tree tests no attribute keeps every column at W = 1; the standalone Alg2 arm follows R1 (priors-only)",
+  "macro_f1": "sklearn convention: classes present in the fold, 0-division = 0",
+  "protocol_B": "every step refit inside each training fold",
+  "protocol_A": "cleaning once on the whole dataset, then only the final classifier cross-validated on the cleaned data"
+}
