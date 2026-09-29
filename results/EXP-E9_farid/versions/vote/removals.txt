@@ -1,0 +1,4 @@
+parallel full-data pass: the plain-NB judge deleted 42/435 rows, the tree kept 5/16 attributes
+rows deleted per class: {"democrat": 29, "republican": 13}
+attributes removed: 1, 5, 6, 7, 8, 10, 12, 13, 14, 15, 16
+tree tests (min depth): {"11": 2, "2": 5, "3": 4, "4": 1, "9": 3}

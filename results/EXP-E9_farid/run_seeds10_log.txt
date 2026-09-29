@@ -12,6 +12,8 @@
     C1 N->A->DT        71.77     62.65       94.69
     C2 A->N->NB        72.53     61.57       96.24
     C2 A->N->DT        72.08     61.37       97.27
+    parallel->NB       72.46     62.94       95.92
+    parallel->DT       71.20     61.82       94.73
 
 --- contact-lenses: 24 instances x 4 attributes, 3 classes ---
     protocol A: the filter deletes 1 rows plain, 2 weighted; the full-data trees test 3/4 and 3/4 attributes
@@ -26,6 +28,8 @@
     C1 N->A->DT        84.67     79.47       88.67
     C2 A->N->NB        79.33     69.87       85.33
     C2 A->N->DT        80.67     72.27       90.83
+    parallel->NB       83.00     76.47       88.67
+    parallel->DT       84.67     79.47       88.67
 
 --- diabetes: 768 instances x 8 attributes, 2 classes ---
     protocol A: the filter deletes 182 rows plain, 173 weighted; the full-data trees test 6/8 and 6/8 attributes
@@ -40,6 +44,8 @@
     C1 N->A->DT        75.23     71.56       92.82
     C2 A->N->NB        75.67     71.05       97.08
     C2 A->N->DT        75.57     71.19       95.48
+    parallel->NB       75.81     72.03       94.37
+    parallel->DT       74.86     70.97       92.42
 
 --- glass: 214 instances x 9 attributes, 6 classes ---
     protocol A: the filter deletes 96 rows plain, 96 weighted; the full-data trees test 9/9 and 6/9 attributes
@@ -54,6 +60,8 @@
     C1 N->A->DT        48.97     45.45       84.61
     C2 A->N->NB        37.28     40.42       50.74
     C2 A->N->DT        49.15     43.35       89.44
+    parallel->NB       32.29     37.99       50.58
+    parallel->DT       48.65     45.03       84.11
 
 --- iris: 150 instances x 4 attributes, 3 classes ---
     protocol A: the filter deletes 6 rows plain, 7 weighted; the full-data trees test 2/4 and 2/4 attributes
@@ -68,6 +76,8 @@
     C1 N->A->DT        94.93     94.88       97.50
     C2 A->N->NB        95.87     95.82      100.00
     C2 A->N->DT        93.80     93.72       97.48
+    parallel->NB       95.60     95.56       98.62
+    parallel->DT       94.93     94.88       97.50
 
 --- soybean: 683 instances x 35 attributes, 19 classes ---
     protocol A: the filter deletes 63 rows plain, 61 weighted; the full-data trees test 19/35 and 16/35 attributes
@@ -82,6 +92,8 @@
     C1 N->A->DT        87.89     90.47       96.74
     C2 A->N->NB        86.66     88.40       96.01
     C2 A->N->DT        90.98     92.08       98.33
+    parallel->NB       86.95     89.95       95.60
+    parallel->DT       88.24     91.21       97.05
 
 --- vote: 435 instances x 16 attributes, 2 classes ---
     protocol A: the filter deletes 42 rows plain, 19 weighted; the full-data trees test 5/16 and 1/16 attributes
@@ -96,6 +108,8 @@
     C1 N->A->DT        95.13     94.90       99.24
     C2 A->N->NB        95.49     95.29       99.76
     C2 A->N->DT        95.54     95.34       99.76
+    parallel->NB       95.36     95.15       99.24
+    parallel->DT       95.38     95.17       99.24
 
 --- image-segmentation: 2310 instances x 19 attributes, 7 classes ---
     protocol A: the filter deletes 461 rows plain, 302 weighted; the full-data trees test 12/19 and 7/19 attributes
@@ -110,6 +124,8 @@
     C1 N->A->DT        89.26     88.98       99.11
     C2 A->N->NB        77.32     77.06       92.37
     C2 A->N->DT        90.88     90.79       98.49
+    parallel->NB       76.57     75.82       94.65
+    parallel->DT       89.79     89.53       98.96
 
 --- tic-tac-toe: 958 instances x 9 attributes, 2 classes ---
     protocol A: the filter deletes 289 rows plain, 277 weighted; the full-data trees test 9/9 and 8/9 attributes
@@ -124,6 +140,8 @@
     C1 N->A->DT        74.55     67.18       93.99
     C2 A->N->NB        68.07     61.45       94.98
     C2 A->N->DT        73.17     66.02       96.30
+    parallel->NB       69.72     62.30       94.63
+    parallel->DT       74.43     66.94       94.33
 
 --- nsl-kdd: 25192 instances x 41 attributes, 22 classes ---
     protocol A: the filter deletes 8509 rows plain, 9775 weighted; the full-data trees test 29/41 and 17/41 attributes
@@ -138,5 +156,7 @@
     C1 N->A->DT        89.68     62.05       99.81
     C2 A->N->NB        75.23     38.18       98.32
     C2 A->N->DT        87.07     53.18       99.81
+    parallel->NB       76.16     36.46       98.74
+    parallel->DT       88.37     60.82       99.73
 
 [saved] /home/emon-morol/projects/dt-nb-noise-removal/results/EXP-E9_farid

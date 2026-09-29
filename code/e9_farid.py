@@ -12,6 +12,12 @@ Ten arms, named <path>-><final>; "N" = Algorithm 1 (NB deletes instances),
     Alg1->NB, Alg2->DT                  references (one step, other classifier)
     C1 N->A->NB, C1 N->A->DT            instances first, then attributes
     C2 A->N->NB, C2 A->N->DT            attributes first, then instances
+    parallel->NB, parallel->DT          both algorithms on the SAME raw fold,
+                                        independently: the rows the plain-NB
+                                        judge keeps x the columns the tree
+                                        tests; no step sees the other's output,
+                                        so the C1/C2-vs-parallel difference is
+                                        pure interaction
 
 Both protocols are run for every cleaning arm:
     B  refit-per-fold (main): every step and the classifier refit in the fold
@@ -26,7 +32,15 @@ Choices fixed before any result (DECISIONS.md, 2026-09-28):
       grown after plain-NB filtering is the Alg1 score AND the C1 paths'
       second step. Five J48 runs per fold in total.
     * support is always on in attributes-first paths: Algorithm 2's weights go
-      to the NB judge and the final NB, as the manuscript describes.
+      to the NB judge and the final NB, as the manuscript describes. The
+      parallel arm's judge stays PLAIN (independence is the point of the arm)
+      while its final NB uses the tree's weights, like every attributes-first
+      final NB.
+    * the run also writes the parallel pass's cleaned dataset to
+      versions/<dataset>/parallel.csv (rows x attributes the full-data pass
+      kept, original columns) with a removals report. That artifact comes from
+      cleaning on the whole dataset, so it is for inspection only — the
+      evaluation numbers are the CV arms.
     * if Algorithm 2's tree tests no attribute: the standalone Alg2 arm keeps
       R1's reading (Eq. 14 with all W = 0, NB on the priors); a chained path
       cannot continue with zero columns, so it keeps every column at W = 1.
@@ -59,7 +73,8 @@ from weka_utils import clean_name, run_j48, tree_depths, write_arff
 
 RESULTS = Path(__file__).resolve().parent.parent / "results" / "EXP-E9_farid"
 ARMS = ["baseline->NB", "baseline->DT", "Alg1->NB", "Alg1->DT", "Alg2->NB",
-        "Alg2->DT", "C1 N->A->NB", "C1 N->A->DT", "C2 A->N->NB", "C2 A->N->DT"]
+        "Alg2->DT", "C1 N->A->NB", "C1 N->A->DT", "C2 A->N->NB", "C2 A->N->DT",
+        "parallel->NB", "parallel->DT"]
 
 
 # --------------------------------------------------------------- scoring --
@@ -209,14 +224,23 @@ def run_fold(folder, X, y, meta, classes, train, test):
     scores["C1 N->A->NB"] = nb_scores(rows_na, cols_na, w_na)
     scores["C1 N->A->DT"], _ = _j48(folder, "b3", X, y, meta, classes, rows_na, test,
                                     cols_na)
+
+    # parallel: the same raw fold, both algorithms independently. Both inputs
+    # already exist (rows_na from the plain judge, cols_all/w_all from b1), so
+    # the only new computation is one J48 run on the intersection.
+    scores["parallel->NB"] = nb_scores(rows_na, cols_all, w_all)
+    scores["parallel->DT"], _ = _j48(folder, "b6", X, y, meta, classes, rows_na, test,
+                                     cols_all)
     return scores, records
 
 
 # --------------------------------------------------------- protocol A ----
-def run_protocol_a(folder, X, y, meta, classes, seeds, baseline_dt_folds):
+def run_protocol_a(folder, name, X, y, meta, classes, seeds, baseline_dt_folds):
     """Clean once on the whole dataset, then CV only the final classifier.
 
-    Returns ({arm: [(accuracy, macro-F1) per fold]}, [removal records]).
+    Also writes the parallel pass's cleaned dataset and removal report to
+    versions/<name>/. Returns ({arm: [(accuracy, macro-F1) per fold]},
+    [removal records]).
     """
     all_columns = list(range(X.shape[1]))
     everything = np.arange(len(y))
@@ -277,12 +301,47 @@ def run_protocol_a(folder, X, y, meta, classes, seeds, baseline_dt_folds):
         "C1 N->A->DT": cv(rows_na, cols_na, None, "a_c1dt", True),
         "C2 A->N->NB": cv(rows_an, cols_all, w_all, "", False),
         "C2 A->N->DT": cv(rows_an, cols_all, None, "a_c2dt", True),
+        "parallel->NB": cv(rows_na, cols_all, w_all, "", False),
+        "parallel->DT": cv(rows_na, cols_all, None, "a_pdt", True),
     }
     if cols_all == all_columns:
         # the full-data tree kept every column: protocol A's Alg2->DT folds are
-        # the same J48 runs as protocol B's baseline tree folds
+        # the same J48 runs as protocol B's baseline tree folds, and the
+        # parallel->DT folds are the same runs as protocol A's Alg1->DT folds
         arms["Alg2->DT"] = baseline_dt_folds
+        arms["parallel->DT"] = arms["Alg1->DT"]
+    _save_versions(name, X, y, meta, rows_na, cols_all, depths_all)
     return arms, records
+
+
+def _save_versions(name, X, y, meta, rows_kept, columns, depths):
+    """The new dataset from one full-data parallel pass, plus what was removed.
+
+    rows_kept are the rows the plain-NB judge did not delete, columns the
+    attributes the tree tested. This is the leaky full-data pass: an inspection
+    artifact, never evaluation data.
+    """
+    out = RESULTS / "versions" / name
+    out.mkdir(parents=True, exist_ok=True)
+    with open(out / "parallel.csv", "w", encoding="utf-8") as f:
+        f.write(",".join(str(meta["names"][j]) for j in columns) + ",class\n")
+        for row, label in zip(X[rows_kept], y[rows_kept]):
+            cells = [meta["levels"][j][int(row[j])] if meta["nominal"][j]
+                     else f"{row[j]:.10g}" for j in columns]
+            f.write(",".join(cells) + f",{label}\n")
+    removed_rows = np.setdiff1d(np.arange(len(y)), rows_kept)
+    removed_cols = np.setdiff1d(np.arange(X.shape[1]), np.asarray(columns))
+    with open(out / "removals.txt", "w", encoding="utf-8") as f:
+        f.write(f"parallel full-data pass: the plain-NB judge deleted "
+                f"{len(removed_rows)}/{len(y)} rows, the tree kept "
+                f"{len(columns)}/{X.shape[1]} attributes\n")
+        f.write("rows deleted per class: " + json.dumps(
+            {str(c): int(np.sum(y[removed_rows] == c)) for c in np.unique(y[removed_rows])})
+            + "\n")
+        f.write("attributes removed: " + ", ".join(str(meta["names"][j])
+                                                   for j in removed_cols) + "\n")
+        f.write("tree tests (min depth): " +
+                json.dumps({k: int(v) for k, v in sorted(depths.items())}) + "\n")
 
 
 # -------------------------------------------------------------- output ---
@@ -316,7 +375,11 @@ def main():
               "attribute_space": "original columns, no one-hot",
               "support": "Algorithm 2's weights go to the NB judge and the final NB "
                          "in attributes-first paths (always on, as the manuscript "
-                         "describes)",
+                         "describes); the parallel arm's judge stays plain",
+              "parallel": "both algorithms on the same raw fold, independently: "
+                          "rows kept by the plain-NB judge x attributes tested by "
+                          "the tree; final NB uses the tree's weights; the "
+                          "full-data pass also writes versions/<dataset>/parallel.csv",
               "safety": "Alg1 never deletes down to one class; a chained path whose "
                         "tree tests no attribute keeps every column at W = 1; the "
                         "standalone Alg2 arm follows R1 (priors-only)",
@@ -347,8 +410,9 @@ def main():
                     all_removal_rows += removal_rows(name, "B refit-per-fold", seed, i,
                                                      records)
 
-            a_folds, a_records = run_protocol_a(Path(folder), X, y, meta, classes,
-                                                seeds, b_scores["baseline->DT"])
+            a_folds, a_records = run_protocol_a(Path(folder), name, X, y, meta,
+                                                classes, seeds,
+                                                b_scores["baseline->DT"])
             a_scores = {arm: folds for arm, folds in a_folds.items() if folds}
             for arm, folds in a_scores.items():
                 per_fold_rows += [[name, "A before-CV", "", "", arm, acc, f1]

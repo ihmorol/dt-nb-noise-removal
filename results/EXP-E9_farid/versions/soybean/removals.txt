@@ -1,0 +1,4 @@
+parallel full-data pass: the plain-NB judge deleted 63/683 rows, the tree kept 19/35 attributes
+rows deleted per class: {"bacterial-pustule": 1, "brown-spot": 13, "frog-eye-leaf-spot": 25, "phyllosticta-leaf-spot": 4, "phytophthora-rot": 20}
+attributes removed: temp, hail, crop-hist, severity, germination, leafspots-halo, lodging, stem-cankers, external-decay, mycelium, sclerotia, seed, mold-growth, seed-discolor, shriveling, roots
+tree tests (min depth): {"area_damaged": 9, "canker_lesion": 3, "date": 7, "fruit_pods": 4, "fruit_spots": 5, "fruiting_bodies": 6, "int_discolor": 1, "leaf_malf": 5, "leaf_mild": 3, "leaf_shread": 8, "leafspot_size": 2, "leafspots_marg": 4, "leaves": 4, "plant_growth": 3, "plant_stand": 5, "precip": 8, "seed_size": 5, "seed_tmt": 9, "stem": 2}
