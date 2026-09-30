@@ -1,0 +1,112 @@
+
+--- breast-cancer: 286 instances x 9 attributes, 2 classes ---
+    arm              accuracy  macro-F1
+    baseline->NB        72.12     64.42
+    soft->NB            72.99     65.03
+    attr->NB            72.43     62.57
+    softattr->NB        72.71     63.73
+    correct->NB         71.98     61.53
+    soft->DT            70.11     58.98
+    correct->DT         73.16     61.16
+    committee->DT       73.69     60.07
+
+--- contact-lenses: 24 instances x 4 attributes, 3 classes ---
+    arm              accuracy  macro-F1
+    baseline->NB        73.00     62.31
+    soft->NB            72.50     59.06
+    attr->NB            80.67     72.27
+    softattr->NB        75.17     62.47
+    correct->NB         74.17     64.12
+    soft->DT            87.00     83.67
+    correct->DT         84.00     78.27
+    committee->DT       84.67     79.47
+
+--- diabetes: 768 instances x 8 attributes, 2 classes ---
+    arm              accuracy  macro-F1
+    baseline->NB        75.52     72.32
+    soft->NB            73.93     71.07
+    attr->NB            76.73     72.76
+    softattr->NB        75.52     71.98
+    correct->NB         75.54     71.78
+    soft->DT            74.77     71.34
+    correct->DT         76.03     72.01
+    committee->DT       76.16     72.06
+
+--- glass: 214 instances x 9 attributes, 6 classes ---
+    arm              accuracy  macro-F1
+    baseline->NB        45.95     44.98
+    soft->NB            40.26     41.26
+    attr->NB            47.84     44.71
+    softattr->NB        39.99     40.68
+    correct->NB         35.91     41.84
+    soft->DT            52.45     48.24
+    correct->DT         63.51     57.38
+    committee->DT       66.75     60.48
+
+--- iris: 150 instances x 4 attributes, 3 classes ---
+    arm              accuracy  macro-F1
+    baseline->NB        95.53     95.48
+    soft->NB            95.13     95.08
+    attr->NB            95.40     95.35
+    softattr->NB        95.60     95.56
+    correct->NB         95.13     95.07
+    soft->DT            94.07     93.99
+    correct->DT         95.00     94.93
+    committee->DT       94.73     94.67
+
+--- soybean: 683 instances x 35 attributes, 19 classes ---
+    arm              accuracy  macro-F1
+    baseline->NB        90.09     93.13
+    soft->NB            88.96     92.48
+    attr->NB            89.40     91.33
+    softattr->NB        86.82     89.91
+    correct->NB         89.17     92.65
+    soft->DT            89.16     92.12
+    correct->DT         91.86     93.91
+    committee->DT       92.36     93.91
+
+--- vote: 435 instances x 16 attributes, 2 classes ---
+    arm              accuracy  macro-F1
+    baseline->NB        90.06     89.66
+    soft->NB            90.16     89.82
+    attr->NB            95.24     95.02
+    softattr->NB        95.43     95.22
+    correct->NB         90.32     89.92
+    soft->DT            95.29     95.06
+    correct->DT         95.38     95.14
+    committee->DT       95.45     95.22
+
+--- image-segmentation: 2310 instances x 19 attributes, 7 classes ---
+    arm              accuracy  macro-F1
+    baseline->NB        79.76     77.78
+    soft->NB            75.45     74.97
+    attr->NB            82.30     81.42
+    softattr->NB        76.57     75.83
+    correct->NB         79.33     77.87
+    soft->DT            90.10     89.89
+    correct->DT         94.87     94.87
+    committee->DT       95.46     95.46
+
+--- tic-tac-toe: 958 instances x 9 attributes, 2 classes ---
+    arm              accuracy  macro-F1
+    baseline->NB        69.83     63.83
+    soft->NB            70.37     63.51
+    attr->NB            70.68     64.26
+    softattr->NB        70.43     63.30
+    correct->NB         73.50     62.61
+    soft->DT            79.37     73.70
+    correct->DT         78.19     71.27
+    committee->DT       79.15     73.39
+
+--- nsl-kdd: 25192 instances x 41 attributes, 22 classes ---
+    arm              accuracy  macro-F1
+    baseline->NB        67.42     34.06
+    soft->NB            75.83     34.10
+    attr->NB            62.80     37.58
+    softattr->NB        77.10     37.76
+    correct->NB         75.38     37.38
+    soft->DT            89.28     65.44
+    correct->DT         99.17     82.54
+    committee->DT       99.26     81.36
+
+[saved] /home/emon-morol/projects/dt-nb-noise-removal/results/EXP-E5_strategy

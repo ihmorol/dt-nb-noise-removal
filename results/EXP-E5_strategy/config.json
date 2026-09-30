@@ -1,0 +1,23 @@
+{
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "n_splits": 10,
+  "judges": "FaithfulNB (plain), J48 pruned defaults, sklearn LogisticRegression (C=1, standardized on the training fold); all fitted on the raw training fold only",
+  "soft": "w_i = P_judge(y_i|x_i); no deletion; fractional counts / instance weights",
+  "correct": "relabel to c' iff >= 2 of 3 judges predict the same c' != y_i",
+  "committee": "delete iff >= 2 of 3 judges misclassify (majority partnership)",
+  "attr": "Algorithm 2's 1/sqrt(min-depth) weights from the raw-fold J48 tree",
+  "hard_reference": "E9f's Alg1->DT and baseline arms (same folds, same engines)",
+  "protocol": "B refit-per-fold only",
+  "endpoints": "primary: soft->DT vs hard->DT paired over folds; secondary: each arm vs baseline on the same folds"
+}

@@ -20,6 +20,8 @@ code/
 ├── e9_farid.py         E9f: the manuscript's Table II — both orders of the two
 │                       algorithms in this same J48/FaithfulNB world, protocols
 │                       A+B, accuracy + macro-F1 + per-class removals
+├── e5_strategy.py      E5: graded noise handling — soft posterior weighting,
+│                       committee correction/deletion vs Farid's hard deletion
 ├── check_pipeline.py   checks the leakage rules of pipeline.py (no Java)
 ├── verify_faithful.py  R1: checks to run before replicate_farid.py
 ├── figures.py          the paper's Figures 2 and 3 with our hybrid added
@@ -42,6 +44,8 @@ python replicate_farid.py          R1, pruned J48, 3 seeds
 python replicate_farid.py --unpruned
 python e9_farid.py                 E9f, all datasets, 10 seeds (the manuscript's Table II)
 python e9_farid.py iris --seeds 1  E9f pilot
+python e5_strategy.py              E5, all datasets, 10 seeds (graded noise handling)
+python e5_strategy.py iris --seeds 1
 python figures.py
 ```
 

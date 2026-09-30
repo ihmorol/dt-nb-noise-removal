@@ -23,13 +23,14 @@ def clean_name(name):
     return re.sub(r"[^A-Za-z0-9_]", "_", str(name))
 
 
-def write_arff(path, X, y, meta, class_values, columns=None):
+def write_arff(path, X, y, meta, class_values, columns=None, weights=None):
     """Write the rows of X and y as an ARFF file. The class is the last attribute.
 
     class_values should be the classes of the WHOLE dataset, so every file of a
     dataset has the same header, even a training fold that misses a class.
     columns selects a subset of the attributes to write (default: all); X stays
-    the full-width array and is indexed by the selected columns.
+    the full-width array and is indexed by the selected columns. weights gives
+    one Weka instance weight per row, written as ARFF's trailing {weight}.
     """
     if columns is None:
         columns = range(len(meta["names"]))
@@ -45,7 +46,7 @@ def write_arff(path, X, y, meta, class_values, columns=None):
                 file.write(f"@attribute {clean_name(name)} real\n")
         file.write(f"@attribute class {{{','.join(class_values)}}}\n\n@data\n")
 
-        for row, label in zip(X, y):
+        for i, (row, label) in enumerate(zip(X, y)):
             cells = []
             for j in columns:
                 value = row[j]
@@ -56,7 +57,10 @@ def write_arff(path, X, y, meta, class_values, columns=None):
                 else:
                     cells.append(f"{value:.10g}")
             cells.append(f"'{label}'")
-            file.write(",".join(cells) + "\n")
+            line = ",".join(cells)
+            if weights is not None:
+                line += f" {{{weights[i]:.10g}}}"
+            file.write(line + "\n")
 
 
 def run_weka(arguments):
@@ -128,6 +132,21 @@ def tree_depths(tree_lines):
         depth = line.count("|   ") + 1
         depths[attribute] = min(depth, depths.get(attribute, depth))
     return depths
+
+
+def weka_predicted(classifier, train_file, test_file, options=()):
+    """The predicted class of every test row, from the -p 0 output (file order).
+
+    Prediction lines look like:   3   1:no   2:yes   +   0.9
+    """
+    output = run_weka([classifier] + list(options) + ["-t", str(train_file),
+                                                      "-T", str(test_file), "-p", "0"])
+    predicted = []
+    for line in output[output.find("inst#"):].splitlines()[1:]:
+        labels = [token.split(":", 1)[1] for token in line.split() if ":" in token]
+        if len(labels) >= 2:
+            predicted.append(labels[1])
+    return predicted
 
 
 def naive_bayes_mistakes(train_file, test_file):

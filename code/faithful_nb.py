@@ -20,7 +20,10 @@ class FaithfulNB:
         self.levels = levels
         self.weights = weights
 
-    def fit(self, X, y):
+    def fit(self, X, y, sample_weight=None):
+        """Fit. sample_weight (E5's soft treatment) turns counts into fractional
+        counts, i.e. the MLE under the weighted empirical distribution; the
+        unweighted path is the original one, unchanged."""
         self.classes_ = np.unique(y)
         self.weights_ = np.ones(X.shape[1]) if self.weights is None else np.asarray(self.weights)
 
@@ -29,17 +32,31 @@ class FaithfulNB:
 
         self.priors_, self.means_, self.variances_, self.log_tables_ = [], [], [], []
         for c in self.classes_:
-            Xc = X[y == c]
-            self.priors_.append(len(Xc) / len(X))
+            m = y == c
+            Xc = X[m]
+            if sample_weight is None:
+                W = len(Xc)
+                self.priors_.append(W / len(X))
+                wc = None
+            else:
+                wc = sample_weight[m]
+                W = wc.sum()
+                self.priors_.append(W / sample_weight.sum())
             means, variances, tables = {}, {}, {}
             for j in range(X.shape[1]):
                 if self.nominal[j]:
                     n_values = len(self.levels[j])
-                    counts = np.bincount(Xc[:, j].astype(int), minlength=n_values)
-                    tables[j] = np.log((counts + 1) / (len(Xc) + n_values))
+                    counts = np.bincount(Xc[:, j].astype(int), weights=wc,
+                                         minlength=n_values)
+                    tables[j] = np.log((counts + 1) / (W + n_values))
                 else:
-                    means[j] = Xc[:, j].mean()
-                    variances[j] = Xc[:, j].var() + epsilon
+                    if wc is None:
+                        means[j] = Xc[:, j].mean()
+                        variances[j] = Xc[:, j].var() + epsilon
+                    else:
+                        mean = (wc * Xc[:, j]).sum() / W
+                        means[j] = mean
+                        variances[j] = (wc * (Xc[:, j] - mean) ** 2).sum() / W + epsilon
             self.means_.append(means)
             self.variances_.append(variances)
             self.log_tables_.append(tables)
