@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Lesson 01 — What the new code does, and what the results say</title>
+<style>
+  body{font-family:Georgia,serif;max-width:44em;margin:3em auto;padding:0 1.5em;line-height:1.65;color:#1a1a1a}
+  h1{font-size:1.6em;border-bottom:3px solid #8b0000;padding-bottom:.3em}
+  h2{font-size:1.25em;margin-top:2em;color:#8b0000}
+  h3{font-size:1.05em;margin-top:1.5em}
+  .analogy{background:#f6f1e7;border-left:4px solid #b8860b;padding:.7em 1em;margin:1em 0;font-style:italic}
+  .win{background:#eef7ee;border-left:4px solid #2e7d32;padding:.7em 1em;margin:1em 0}
+  .warn{background:#fdeeee;border-left:4px solid #8b0000;padding:.7em 1em;margin:1em 0}
+  table{border-collapse:collapse;margin:1em auto;font-size:.92em}
+  th,td{border:1px solid #bbb;padding:.35em .8em;text-align:right}
+  th:first-child,td:first-child{text-align:left}
+  code{background:#f4f4f4;padding:.1em .3em;font-size:.9em}
+  .glossary dt{font-weight:bold;margin-top:.8em}
+  .glossary dd{margin-left:0;margin-bottom:.4em}
+  footer{margin-top:3em;font-size:.85em;color:#666;border-top:1px solid #ccc;padding-top:1em}
+</style>
+</head>
+<body>
+
+<h1>Lesson 01 — What the new code does, and what the results say</h1>
+<p><em>Mission: understand your own project well enough to defend every table to Prof.&nbsp;Farid without notes.
+Read this once now, once the night before the meeting. Ask the agent anything that is still fuzzy.</em></p>
+
+<h2>1. The story in five sentences</h2>
+<p>Your submitted paper describes an experiment but its results table was empty.
+The experiment could not simply be "run", because the paper promises the 2014 study's own tools
+(Weka's J48 tree + a textbook Naive Bayes on the original data columns), and the combined
+algorithm only existed in a different toolbox (scikit-learn). So we built the missing experiment
+in the promised toolbox, ran it honestly, and the paper's hybrids lost ~5 points to a plain tree.
+Then we searched for a strategy that removes noise <em>without</em> that damage, using mathematics
+to choose the design: a committee of three different judges voting on each row. It wins, significantly.</p>
+
+<h2>2. The code</h2>
+
+<h3>2.1 The two toolboxes ("worlds")</h3>
+<p>The repo already had two separate implementations:</p>
+<ul>
+<li><strong>Pipeline world</strong> (<code>main.py</code>): sklearn's CART tree, one-hot columns, its own NB.
+Like cooking the recipe with whatever pans you own.</li>
+<li><strong>Replication world</strong> (<code>replicate_farid.py</code>): the paper's own tools —
+Weka J48 (which <em>is</em> C4.5), a hand-built textbook NB (<code>FaithfulNB</code>), original columns.
+Like sourcing the exact brand of ingredients the original chef used.</li>
+</ul>
+<p>The manuscript promises the second kitchen. The combined algorithm existed only in the first.
+Filling the table with first-kitchen numbers would contradict the paper's own Methods section.</p>
+
+<h3>2.2 <code>e9_farid.py</code> — the experiment engine</h3>
+<p>One script tests <strong>12 "recipes" (arms)</strong> side by side on identical data splits:</p>
+<table>
+<tr><th>Arm (plain words)</th><th>What it does</th></tr>
+<tr><td>no cleaning → NB / → tree</td><td>baselines: how good is the data as-is?</td></tr>
+<tr><td>Algorithm 1 → tree</td><td>NB deletes rows it misclassifies, then a tree learns (Farid's Alg 1)</td></tr>
+<tr><td>Algorithm 2 → NB</td><td>a tree picks useful columns and weights them, then NB learns (Farid's Alg 2)</td></tr>
+<tr><td>chain instances→attrs, chain attrs→instances</td><td>the paper's Algorithm 3: run both steps in sequence, each order</td></tr>
+<tr><td>parallel</td><td>both steps work <em>independently on the same data</em>; keep surviving rows × surviving columns</td></tr>
+<tr><td>two reference arms</td><td>one step each, ending in the "other" classifier — for attribution</td></tr>
+</table>
+<p>Each arm is evaluated with <strong>10-fold cross-validation, repeated with 10 different shuffles (seeds)</strong>:
+cut the data into 10 pieces, let each piece take one turn as the exam while the other 9 teach.
+100 exams per arm per dataset. Nothing is judged on data it has seen.</p>
+<div class="analogy">Protocol B (used for all headline numbers) is the honest exam: before each quiz,
+the cleaning is redone using only that quiz's training material — the cleaning never peeks at the exam students.
+Protocol A (also reported) cleans once using the <em>whole</em> dataset, exam students included — like grading
+yourself after deleting the questions you got wrong. We run A only to show how high a score cheating reaches.</div>
+<p><strong>Efficiency trick:</strong> one J48 run answers several questions at once — its accuracy is the C4.5
+row, its tree structure is Algorithm 2's column choice, and the same tree starts the attributes-first chain.
+About 5–6 Java calls per fold instead of ~10.</p>
+<p><strong>Reading Weka's answer sheet:</strong> Weka prints a <em>confusion matrix</em> — a grid, rows = true
+class, columns = predicted class. From one grid we compute both accuracy (diagonal ÷ total) and macro-F1
+(average of per-class F1). A built-in guard demands the grid's accuracy match Weka's own printed summary,
+else the program stops — this caught one real parsing bug during development.</p>
+<p><strong>Deletion diary:</strong> every deletion is logged per class — how many rows of each class were removed,
+and what share of that class that is. Not "we expelled 30 students" but "30, of which 25 were music students".</p>
+<p><strong>New data files:</strong> <code>results/EXP-E9_farid/versions/&lt;dataset&gt;/parallel.csv</code> holds the
+parallel-cleaned dataset (original columns) plus a <code>removals.txt</code> explaining every removal.
+Inspection only — it was cleaned with full-data knowledge, so it is not evaluation data.</p>
+
+<h3>2.3 <code>e5_strategy.py</code> — the strategy search</h3>
+<p><strong>Three judges, three thinking styles</strong>, all fitted on training data only:</p>
+<ul>
+<li><strong>NB</strong> — the probabilist: judges by frequency counts.</li>
+<li><strong>J48 tree</strong> — the checklist writer: judges by if-then rules.</li>
+<li><strong>Standardized logistic regression</strong> — the border drawer: judges by a sliding score.
+(sklearn, not Weka — see the caveat in §4.)</li>
+</ul>
+<p>Their mistakes are <em>different</em> mistakes — measured: on glass, NB is wrong on 47% of rows,
+the tree on 7%. That difference is the whole engine of the strategy.</p>
+<p><strong>Four treatments of a suspected-noise row:</strong></p>
+<table>
+<tr><th>Treatment</th><th>Rule</th><th>Analogy</th></tr>
+<tr><td>hard (Farid's)</td><td>delete if the NB judge misclassifies it</td><td>expel every student one teacher flunks</td></tr>
+<tr><td>soft</td><td>keep all, vote weight = judge's confidence in the row's label</td><td>suspect students stay, but count as 0.2 of a vote</td></tr>
+<tr><td>correct</td><td>relabel only if ≥2 of 3 judges agree on the same different answer</td><td>retake: two of three teachers must agree on the new answer</td></tr>
+<tr><td>committee</td><td>delete only if ≥2 of 3 judges misclassify it</td><td>expulsion needs a majority of the panel</td></tr>
+</table>
+<p><strong>Fractional counts</strong> (<code>faithful_nb.py</code>): NB can now learn from "30.5 students' worth"
+of evidence — implemented without touching the old code path, so every previous number still reproduces exactly
+(<code>verify_faithful.py</code> still passes: ALL PASS).</p>
+
+<h3>2.4 The honesty machinery</h3>
+<div class="win"><strong>Pre-registration (DECISIONS.md).</strong> Every formula, threshold, judge and success
+criterion was written and dated <em>before</em> the runs. Like sealing your prediction in an envelope before
+results day — nobody can say you picked rules that fit the answers.</div>
+<div class="win"><strong>Determinism anchors.</strong> Before trusting the new engine, it had to reproduce the
+old committed numbers exactly (breast-cancer, 3 seeds: 75.31 / 72.39 / 71.61 / 72.63 — identical to the decimal).
+Like proving the new oven bakes the old recipe identically before trusting it with a new one.</div>
+<div class="warn"><strong>Documented mechanics fixes:</strong> the loader breaks on pandas 3 (pinned
+<code>pandas&lt;3</code>); Weka's Logistic cannot converge on NSL-KDD's huge-valued features (two 600-second
+timeouts — it fits unscaled features, so ridge 1.0 is still ~zero regularization there), so the third judge
+became sklearn's standardized logistic — same thinking style, different implementation, changed because of the
+crash, before any results were analyzed.</div>
+
+<h2>3. The results</h2>
+
+<h3>3.1 Experiment E9f — the paper's Table II (honest retest, 10 datasets × 10 seeds)</h3>
+<table>
+<tr><th>Method</th><th>Accuracy</th><th>Macro-F1</th></tr>
+<tr><td>No cleaning → tree (C4.5)</td><td><strong>86.33</strong></td><td>81.92</td></tr>
+<tr><td>Algorithm 1 (filter → tree)</td><td>81.03</td><td>75.70</td></tr>
+<tr><td>Algorithm 2 (weights → NB)</td><td>77.35</td><td>71.73</td></tr>
+<tr><td>chain instances→attrs → tree</td><td>81.21</td><td>75.76</td></tr>
+<tr><td>chain attrs→instances → tree</td><td>80.89</td><td>73.93</td></tr>
+<tr><td>No cleaning → NB</td><td>75.93</td><td>69.80</td></tr>
+</table>
+<ul>
+<li><strong>The implementation is trustworthy:</strong> baselines land within ~3 points of the 2014 paper
+(C4.5 +2.81, NB −1.40) — so when the hybrids fail, it is not our code.</li>
+<li><strong>Every filter method loses ~5 points to the plain tree.</strong> Deleting "noise" deletes the
+hardest — and usually correctly-labelled — rows.</li>
+<li><strong>The leak story:</strong> cleaning before cross-validation inflates every filter method by
++13.5 to +16.5 points. The 2014 numbers live exactly in that inflated range — their protocol was
+underspecified, and under the honest protocol the gains vanish.</li>
+<li><strong>Order does not matter</strong> (p=0.92 and p=0.28 for the two chains).</li>
+</ul>
+
+<h3>3.2 Experiment E3b — parallel cleaning</h3>
+<p>Parallel 81.05, chain-1 81.21, chain-2 80.89 — a statistical three-way tie.
+So the "interaction" between the two algorithms (each seeing the other's output) buys nothing.
+The damage comes from the row deletion itself, wherever it runs. Bonus: the design
+{none, single, sequential, parallel} is now complete.</p>
+
+<h3>3.3 Experiment E5 — the strategy that wins</h3>
+<table>
+<tr><th>Strategy</th><th>Tree accuracy</th><th>vs hard deletion</th><th>vs no cleaning</th></tr>
+<tr><td>no cleaning</td><td>86.33</td><td>—</td><td>—</td></tr>
+<tr><td><strong>committee delete</strong></td><td><strong>85.77</strong></td><td><strong>+4.74, p=0.0078</strong></td><td>−0.11 median, p=0.65 (a tie)</td></tr>
+<tr><td><strong>committee correct</strong></td><td><strong>85.12</strong></td><td><strong>+4.09, p=0.0098</strong></td><td>−0.76 median, p=0.13</td></tr>
+<tr><td>soft weighting</td><td>82.16</td><td>+1.14, p=0.16</td><td>−4.17</td></tr>
+<tr><td>hard deletion (Farid)</td><td>81.03</td><td>—</td><td>−5.30</td></tr>
+</table>
+<div class="win"><strong>Headline:</strong> committee deletion and committee correction both beat Farid's
+hard deletion <em>significantly</em> (p &lt; 0.01), and committee deletion is statistically
+<em>indistinguishable from not cleaning</em> — you now remove noise and pay nothing for it.</div>
+<p><strong>Why it works (measured, not claimed):</strong> on NSL-KDD hard deletion removes 7,374 training rows
+per fold; the committee removes 293 — because there the tree errs on 0.2% and logistic on 1.4% of rows, so
+NB's false "noise!" verdicts get outvoted. On glass: 91 deletions become 42. A false expulsion now needs two
+<em>independent</em> mistakes to coincide — probability ~e², not e (the Condorcet jury effect; Brodley &amp;
+Friedl 1999 measured the same).</p>
+<p><strong>Why soft weighting failed (an honest negative with a mechanism):</strong> NB posteriors saturate —
+it is nearly always ~0% or ~100% sure. Its low-weight rows turned out to be almost the same rows hard deletion
+removes (e.g. 414 vs 413 per fold on image segmentation). Weighting through an overconfident judge is not
+actually "soft". The lever is the <em>diversity of judges</em>, not continuous weights.</p>
+<p><strong>Where the committee beats even no cleaning:</strong> diabetes +2.03, plus iris, vote, glass.
+Where it loses: tic-tac-toe (−5.6) — the one dataset where all three judges err heavily together.
+The honest claim for the paper: <em>never-worse-except-where-judges-fail, better-where-noise-is-real,
+significantly-better-than-the-original-filter.</em></p>
+
+<h2>4. Say this to Prof. Farid</h2>
+<ul>
+<li>"Under the fold-specific protocol your Table II describes, neither order of the two algorithms beats the
+plain C4.5 tree; your reported range matches what the leaky protocol produces."</li>
+<li>"We replaced the single-judge deletion with a three-family vote; it recovers the 5-point loss
+(p=0.008) and matches the untouched tree."</li>
+<li>Caveat you volunteered before he finds it: the third judge is sklearn's logistic, not Weka's
+(Weka cannot converge on unscaled NSL-KDD features — documented in DECISIONS.md before the run).</li>
+</ul>
+
+<h2>5. Glossary (plain words)</h2>
+<dl class="glossary">
+<dt>fold / 10-fold CV</dt><dd>cut data into 10 parts; each part takes one turn as the exam, the rest teach.</dd>
+<dt>seed</dt><dd>the shuffle number. 10 seeds = 10 different exam schedules, so no lucky split decides the grade.</dd>
+<dt>protocol A / B</dt><dd>B = clean inside each fold (honest). A = clean once on everything first (leaky; shown for contrast).</dd>
+<dt>arm</dt><dd>one recipe in the comparison (e.g. "filter rows, then grow a tree").</dd>
+<dt>confusion matrix</dt><dd>Weka's grid: rows = true class, columns = predicted class. Accuracy and macro-F1 both come from it.</dd>
+<dt>macro-F1</dt><dd>average of per-class F1 scores, so a huge class cannot hide a failed small class.</dd>
+<dt>judge</dt><dd>a model that flags training rows it thinks are mislabelled. Farid's judge is NB.</dd>
+<dt>posterior / confidence weight</dt><dd>the judge's probability that the row's existing label is right.</dd>
+<dt>Wilcoxon test</dt><dd>a paired significance test over the 10 dataset-level scores; p &lt; 0.05 = the difference is unlikely to be luck.</dd>
+<dt>pre-registration</dt><dd>writing the plan (and the success criteria) before seeing results.</dd>
+</dl>
+
+<footer>Workspace: dt-nb-noise-removal · produced 2026-09-29 · ask the agent follow-ups any time ·
+next lesson candidates: "how Wilcoxon on 10 datasets works", "how to read treatments.csv".</footer>
+</body>
+</html>

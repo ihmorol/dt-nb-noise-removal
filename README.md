@@ -1,4 +1,3 @@
-
 # DT–NB hybrid research
 
 The conference study compares NB instance filtering and tree-based attribute selection/weighting, separately and in both orders. Its main evaluation refits all supervised steps within each training fold and scores every held-out row.
@@ -48,3 +47,49 @@ Alternative code, notes, and manuscript versions are preserved as ZIP files
 in `archive/branch-snapshots/`. The working manuscript in
 `paper/manuscript/` is the audited conference version. The previous branch
 histories remain available in Git.
+
+## Setup (fresh clone)
+
+```bash
+git clone https://github.com/ihmorol/dt-nb-noise-removal.git
+cd dt-nb-noise-removal
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt    # pandas<3 is load-bearing, see the file
+java -version                                # Java 17+ (Weka jars are vendored in code/lib/)
+```
+
+## Repository layout
+
+```
+data/raw/                 the ten datasets, vendored (sources in data/README.md)
+code/                     all experiment code (one script per experiment; see code/README.md)
+  ├── e9_farid.py         E9f+E3b: the manuscript's Table II — 12 arms × 2 protocols, J48 world
+  ├── e5_strategy.py      E5: graded noise handling (soft / correct / committee vs hard deletion)
+  ├── e11_lr_mlp_hybrid.py E11: committee filter + Alg 2 on LR / PyTorch MLP (hybrid data)
+  ├── replicate_farid.py  R1: faithful replication of Farid's Tables 8–11 (Weka J48 + FaithfulNB)
+  ├── leakage_check.py    E3a: protocol A vs B vs C leakage audit (sklearn world)
+  ├── main.py             E9p: the original sklearn pipeline pilot
+  ├── faithful_nb.py      textbook NB (add-one nominal counts, Gaussian numeric)
+  ├── weka_utils.py       ARFF writing, J48 runner, per-row prediction parser
+  └── lib/                vendored Weka 3.8.6 jars (needs Java 17+)
+results/                  every experiment's committed outputs (config.json, metrics, per-fold
+                          rows, removal records, run logs)
+paper/manuscript/         the audited conference paper (tables auto-generated from results/)
+paper/draft-with-pilot-results/  the replication/leakage-audit draft
+notes/                    experiment write-ups, project audit, literature ledger
+trackers/                 experiment registry, todos, writing progress
+CONTEXT.md                fixed domain vocabulary (the exact terms every file uses)
+DECISIONS.md              append-only log: every design choice, pre-registered and dated
+AGENTS.md                 how to work in this repo with an AI agent
+```
+
+## Data
+
+The ten datasets of Farid et al. (2014), Table 5, are vendored under `data/raw/` (iris loads via
+scikit-learn; NSL-KDD is `KDDTrain+_20Percent`). Sources, download dates, and the three known
+deviations from the paper's Table 5 are documented in [`data/README.md`](data/README.md).
+
+## Working on this with an AI agent
+
+See [`AGENTS.md`](AGENTS.md): the read order, the pre-registration rule, and the integrity rules
+that every table in the papers depends on.
