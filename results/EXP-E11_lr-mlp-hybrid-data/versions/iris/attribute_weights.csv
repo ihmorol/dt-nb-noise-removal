@@ -1,0 +1,5 @@
+attribute,weight,kept
+sepal_length,0.0,False
+sepal_width,0.5,True
+petal_length,0.5773502691896258,True
+petal_width,1.0,True

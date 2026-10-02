@@ -1,0 +1,96 @@
+[1/10] breast-cancer
+  breast-cancer seed 0 mean acc: old-LR 67.89  old-MLP 71.01  clean-LR 72.06  clean-MLP 69.95  weighted-LR 71.37  weighted-MLP 72.40  new-LR 73.45  new-MLP 72.41
+  breast-cancer seed 1 mean acc: old-LR 68.50  old-MLP 72.73  clean-LR 70.28  clean-MLP 73.77  weighted-LR 68.51  weighted-MLP 74.48  new-LR 69.94  new-MLP 72.72
+  breast-cancer seed 2 mean acc: old-LR 65.79  old-MLP 70.00  clean-LR 67.89  clean-MLP 69.64  weighted-LR 68.95  weighted-MLP 72.45  new-LR 68.24  new-MLP 72.44
+  breast-cancer seed 3 mean acc: old-LR 68.19  old-MLP 69.20  clean-LR 71.70  clean-MLP 71.33  weighted-LR 69.94  weighted-MLP 69.95  new-LR 73.42  new-MLP 72.36
+  breast-cancer seed 4 mean acc: old-LR 69.61  old-MLP 70.69  clean-LR 70.33  clean-MLP 72.44  weighted-LR 71.72  weighted-MLP 71.33  new-LR 71.75  new-MLP 73.47
+  full-data pass: committee removed 9.8% of rows, Alg 2 kept 78.0% of attributes
+[2/10] contact-lenses
+  contact-lenses seed 0 mean acc: old-LR 75.00  old-MLP 78.33  clean-LR 78.33  clean-MLP 73.33  weighted-LR 83.33  weighted-MLP 68.33  new-LR 78.33  new-MLP 78.33
+  contact-lenses seed 1 mean acc: old-LR 76.67  old-MLP 85.00  clean-LR 88.33  clean-MLP 81.67  weighted-LR 80.00  weighted-MLP 70.00  new-LR 88.33  new-MLP 71.67
+  contact-lenses seed 2 mean acc: old-LR 78.33  old-MLP 76.67  clean-LR 80.00  clean-MLP 80.00  weighted-LR 81.67  weighted-MLP 70.00  new-LR 85.00  new-MLP 73.33
+  contact-lenses seed 3 mean acc: old-LR 71.67  old-MLP 65.00  clean-LR 80.00  clean-MLP 73.33  weighted-LR 80.00  weighted-MLP 70.00  new-LR 83.33  new-MLP 70.00
+  contact-lenses seed 4 mean acc: old-LR 70.00  old-MLP 73.33  clean-LR 78.33  clean-MLP 81.67  weighted-LR 78.33  weighted-MLP 70.00  new-LR 85.00  new-MLP 73.33
+  full-data pass: committee removed 8.3% of rows, Alg 2 kept 66.7% of attributes
+[3/10] diabetes
+  diabetes seed 0 mean acc: old-LR 77.47  old-MLP 77.47  clean-LR 77.60  clean-MLP 77.87  weighted-LR 77.60  weighted-MLP 77.73  new-LR 77.73  new-MLP 77.22
+  diabetes seed 1 mean acc: old-LR 76.94  old-MLP 75.77  clean-LR 76.68  clean-MLP 77.34  weighted-LR 77.07  weighted-MLP 76.81  new-LR 76.55  new-MLP 77.46
+  diabetes seed 2 mean acc: old-LR 77.60  old-MLP 76.43  clean-LR 77.21  clean-MLP 76.95  weighted-LR 77.34  weighted-MLP 77.47  new-LR 77.21  new-MLP 76.43
+  diabetes seed 3 mean acc: old-LR 77.08  old-MLP 76.43  clean-LR 77.21  clean-MLP 76.95  weighted-LR 76.95  weighted-MLP 77.34  new-LR 77.08  new-MLP 77.47
+  diabetes seed 4 mean acc: old-LR 77.21  old-MLP 77.08  clean-LR 76.95  clean-MLP 77.08  weighted-LR 77.60  weighted-MLP 76.43  new-LR 76.69  new-MLP 77.21
+  full-data pass: committee removed 8.7% of rows, Alg 2 kept 100.0% of attributes
+[4/10] glass
+  glass seed 0 mean acc: old-LR 63.96  old-MLP 65.78  clean-LR 60.65  clean-MLP 64.83  weighted-LR 63.48  weighted-MLP 61.62  new-LR 59.70  new-MLP 60.22
+  glass seed 1 mean acc: old-LR 65.87  old-MLP 56.06  clean-LR 64.46  clean-MLP 52.81  weighted-LR 64.00  weighted-MLP 54.18  new-LR 62.55  new-MLP 53.72
+  glass seed 2 mean acc: old-LR 64.57  old-MLP 64.59  clean-LR 62.68  clean-MLP 66.43  weighted-LR 65.04  weighted-MLP 58.92  new-LR 62.66  new-MLP 58.01
+  glass seed 3 mean acc: old-LR 64.48  old-MLP 62.68  clean-LR 64.48  clean-MLP 64.07  weighted-LR 62.62  weighted-MLP 59.78  new-LR 62.64  new-MLP 60.82
+  glass seed 4 mean acc: old-LR 63.94  old-MLP 60.30  clean-LR 63.03  clean-MLP 61.19  weighted-LR 63.92  weighted-MLP 59.81  new-LR 62.08  new-MLP 60.69
+  full-data pass: committee removed 6.5% of rows, Alg 2 kept 100.0% of attributes
+[5/10] iris
+  iris seed 0 mean acc: old-LR 95.33  old-MLP 89.33  clean-LR 95.33  clean-MLP 90.00  weighted-LR 95.33  weighted-MLP 93.33  new-LR 95.33  new-MLP 92.00
+  iris seed 1 mean acc: old-LR 95.33  old-MLP 90.67  clean-LR 96.00  clean-MLP 88.67  weighted-LR 95.33  weighted-MLP 92.67  new-LR 95.33  new-MLP 93.33
+  iris seed 2 mean acc: old-LR 95.33  old-MLP 89.33  clean-LR 95.33  clean-MLP 88.67  weighted-LR 96.00  weighted-MLP 92.67  new-LR 96.00  new-MLP 92.67
+  iris seed 3 mean acc: old-LR 95.33  old-MLP 85.33  clean-LR 95.33  clean-MLP 86.67  weighted-LR 95.33  weighted-MLP 92.67  new-LR 95.33  new-MLP 92.67
+  iris seed 4 mean acc: old-LR 95.33  old-MLP 86.67  clean-LR 96.00  clean-MLP 87.33  weighted-LR 96.00  weighted-MLP 92.67  new-LR 96.00  new-MLP 92.67
+  full-data pass: committee removed 2.7% of rows, Alg 2 kept 75.0% of attributes
+[6/10] soybean
+  soybean seed 0 mean acc: old-LR 93.70  old-MLP 93.55  clean-LR 92.24  clean-MLP 92.98  weighted-LR 92.38  weighted-MLP 92.10  new-LR 92.39  new-MLP 91.37
+  soybean seed 1 mean acc: old-LR 94.73  old-MLP 93.99  clean-LR 92.53  clean-MLP 93.11  weighted-LR 93.55  weighted-MLP 91.50  new-LR 93.26  new-MLP 91.36
+  soybean seed 2 mean acc: old-LR 93.71  old-MLP 92.83  clean-LR 93.27  clean-MLP 92.83  weighted-LR 92.67  weighted-MLP 91.65  new-LR 92.38  new-MLP 91.50
+  soybean seed 3 mean acc: old-LR 94.14  old-MLP 92.67  clean-LR 93.40  clean-MLP 92.96  weighted-LR 93.26  weighted-MLP 91.20  new-LR 93.55  new-MLP 91.05
+  soybean seed 4 mean acc: old-LR 93.85  old-MLP 93.99  clean-LR 93.11  clean-MLP 93.40  weighted-LR 93.26  weighted-MLP 92.09  new-LR 92.96  new-MLP 91.79
+  full-data pass: committee removed 2.2% of rows, Alg 2 kept 38.3% of attributes
+[7/10] vote
+  vote seed 0 mean acc: old-LR 96.09  old-MLP 94.50  clean-LR 96.56  clean-MLP 94.95  weighted-LR 96.56  weighted-MLP 94.04  new-LR 95.64  new-MLP 94.95
+  vote seed 1 mean acc: old-LR 96.31  old-MLP 94.71  clean-LR 95.40  clean-MLP 95.17  weighted-LR 96.09  weighted-MLP 95.17  new-LR 95.16  new-MLP 94.94
+  vote seed 2 mean acc: old-LR 96.07  old-MLP 94.68  clean-LR 94.91  clean-MLP 95.38  weighted-LR 95.38  weighted-MLP 94.46  new-LR 94.68  new-MLP 93.76
+  vote seed 3 mean acc: old-LR 95.21  old-MLP 95.20  clean-LR 94.98  clean-MLP 94.74  weighted-LR 95.67  weighted-MLP 93.81  new-LR 95.20  new-MLP 94.05
+  vote seed 4 mean acc: old-LR 96.33  old-MLP 94.70  clean-LR 95.18  clean-MLP 94.71  weighted-LR 95.87  weighted-MLP 95.63  new-LR 95.41  new-MLP 94.71
+  full-data pass: committee removed 1.1% of rows, Alg 2 kept 43.8% of attributes
+[8/10] image-segmentation
+  image-segmentation seed 0 mean acc: old-LR 93.51  old-MLP 94.76  clean-LR 93.64  clean-MLP 94.59  weighted-LR 92.64  weighted-MLP 93.38  new-LR 92.68  new-MLP 93.25
+  image-segmentation seed 1 mean acc: old-LR 93.12  old-MLP 94.11  clean-LR 93.33  clean-MLP 93.98  weighted-LR 92.47  weighted-MLP 93.46  new-LR 92.60  new-MLP 93.64
+  image-segmentation seed 2 mean acc: old-LR 93.38  old-MLP 95.06  clean-LR 93.59  clean-MLP 95.02  weighted-LR 92.29  weighted-MLP 93.33  new-LR 92.51  new-MLP 93.38
+  image-segmentation seed 3 mean acc: old-LR 93.29  old-MLP 95.06  clean-LR 93.51  clean-MLP 94.85  weighted-LR 92.47  weighted-MLP 93.42  new-LR 92.55  new-MLP 93.46
+  image-segmentation seed 4 mean acc: old-LR 93.42  old-MLP 95.32  clean-LR 93.33  clean-MLP 94.85  weighted-LR 92.60  weighted-MLP 93.85  new-LR 92.73  new-MLP 93.51
+  full-data pass: committee removed 0.9% of rows, Alg 2 kept 73.7% of attributes
+[9/10] tic-tac-toe
+  tic-tac-toe seed 0 mean acc: old-LR 98.33  old-MLP 92.49  clean-LR 98.33  clean-MLP 85.91  weighted-LR 94.89  weighted-MLP 86.54  new-LR 94.99  new-MLP 81.21
+  tic-tac-toe seed 1 mean acc: old-LR 98.33  old-MLP 92.49  clean-LR 98.33  clean-MLP 86.02  weighted-LR 97.91  weighted-MLP 89.98  new-LR 98.02  new-MLP 80.27
+  tic-tac-toe seed 2 mean acc: old-LR 98.33  old-MLP 91.04  clean-LR 98.33  clean-MLP 87.27  weighted-LR 97.92  weighted-MLP 89.15  new-LR 97.92  new-MLP 82.67
+  tic-tac-toe seed 3 mean acc: old-LR 98.33  old-MLP 92.07  clean-LR 98.33  clean-MLP 88.63  weighted-LR 94.26  weighted-MLP 88.52  new-LR 94.46  new-MLP 84.14
+  tic-tac-toe seed 4 mean acc: old-LR 98.33  old-MLP 94.57  clean-LR 98.33  clean-MLP 86.12  weighted-LR 96.24  weighted-MLP 88.31  new-LR 96.24  new-MLP 79.23
+  full-data pass: committee removed 0.4% of rows, Alg 2 kept 81.5% of attributes
+[10/10] nsl-kdd
+  nsl-kdd seed 0 mean acc: old-LR 99.09  old-MLP 98.70  clean-LR 99.06  clean-MLP 99.01  weighted-LR 98.32  weighted-MLP 98.75  new-LR 98.34  new-MLP 98.76
+  nsl-kdd seed 1 mean acc: old-LR 99.07  old-MLP 99.11  clean-LR 99.02  clean-MLP 98.92  weighted-LR 98.16  weighted-MLP 98.54  new-LR 98.25  new-MLP 98.60
+  nsl-kdd seed 2 mean acc: old-LR 99.06  old-MLP 98.90  clean-LR 99.06  clean-MLP 98.95  weighted-LR 98.18  weighted-MLP 98.45  new-LR 98.22  new-MLP 97.99
+  nsl-kdd seed 3 mean acc: old-LR 99.03  old-MLP 98.98  clean-LR 99.04  clean-MLP 98.92  weighted-LR 98.35  weighted-MLP 98.53  new-LR 98.35  new-MLP 98.63
+  nsl-kdd seed 4 mean acc: old-LR 99.10  old-MLP 99.04  clean-LR 99.06  clean-MLP 98.79  weighted-LR 98.29  weighted-MLP 98.72  new-LR 98.32  new-MLP 98.66
+  full-data pass: committee removed 0.2% of rows, Alg 2 kept 37.3% of attributes
+
+Accuracy, old vs new (mean over folds):
+variant                        clean    new    old  weighted
+dataset            classifier                               
+breast-cancer      LR          70.45  71.36  68.00     70.10
+                   MLP         71.43  72.68  70.73     72.12
+contact-lenses     LR          81.00  84.00  74.33     80.67
+                   MLP         78.00  73.33  75.67     69.67
+diabetes           LR          77.13  77.05  77.26     77.31
+                   MLP         77.24  77.16  76.64     77.16
+glass              LR          63.06  61.93  64.56     63.81
+                   MLP         61.87  58.69  61.88     58.86
+image-segmentation LR          93.48  92.61  93.34     92.49
+                   MLP         94.66  93.45  94.87     93.49
+iris               LR          95.60  95.60  95.33     95.60
+                   MLP         88.27  92.67  88.27     92.80
+nsl-kdd            LR          99.05  98.30  99.07     98.26
+                   MLP         98.92  98.53  98.94     98.60
+soybean            LR          92.91  92.91  94.02     93.03
+                   MLP         93.06  91.42  93.41     91.71
+tic-tac-toe        LR          98.33  96.33  98.33     96.24
+                   MLP         86.79  81.51  92.53     88.50
+vote               LR          95.41  95.22  96.00     95.91
+                   MLP         94.99  94.48  94.76     94.62
+
+written to E:\University\dt-nb-project-big-data\results\EXP-E11_lr-mlp-hybrid-data in 37.2 min

@@ -10,7 +10,7 @@ Full verified review lives in `../reference/literature-review-dt-nb-hybrid.md` �
 | L01 | Farid et al. 2014, ESWA 41(4) — seed | Both hybrids; my target of replication | noted |
 | L02 | **Hall 2007, KBS 20(2):120–126** — tree-based attribute weighting filter | Near-identical to Alg. 2 (1/√d, root=1, exponents); seed does NOT cite it; my closest-prior + baseline | to-read |
 | L03 | John 1995, KDD — Robust decision trees | Direct ancestor of Alg. 1 (delete-what-model-gets-wrong loop) | to-read |
-| L04 | Brodley & Friedl 1999, JAIR 11 — Identifying mislabeled data | Shows single-algorithm filters (Alg. 1's design) are the weakest; consensus/majority = my C3 design | to-read |
+| L04 | Brodley & Friedl 1999, JAIR 11 — Identifying mislabeled data | Shows single-algorithm filters (Alg. 1's design) are the weakest; consensus/majority = my C3 design | noted (E11's filter design; summary in `notes/committee-filter-literature.md`) |
 | L05 | Wilson 1972, IEEE TSMC — Edited data | Theoretical root of instance filtering | to-read |
 | L06 | Zaidi et al. 2013, JMLR 14 — Attribute weighting for NB | Formalizes Hall's weight; WANBIA baseline for C4 | to-read |
 | L07 | Wong, Yang & Chen 2020, Inf. Sci. 520 — Instance-filter hybrids | Closest successor; beats Farid's hybrid; my filtering baseline | to-read |
@@ -76,6 +76,7 @@ Metadata spot-verified the same day via Crossref/arXiv/PubMed/publisher pages; c
 | L50 | Derrac et al. 2012, Information Sciences — fuzzy-rough FS + evolutionary IS | One-way interaction: adding FS improves IS | to-read |
 | L51 | Fragoudis et al. 2005, IJCAI — integrating feature and instance selection (FIS) | Earliest explicit joint treatment | to-read |
 | L52 | Zhu & Wu 2004, Artificial Intelligence Review — class noise vs attribute noise | Class noise hurts more — the two operations are not symmetric | noted |
+| L73 | Khoshgoftaar & Rebours 2007, JCST 22(3):387–396 — Iterative-Partitioning Filter (IPF) | The original IPF (NOT Wilson & Martinez — verified 2026-10-02): repeat the k-fold vote and sum the votes; E11's committee uses its 3×3 voting | noted |
 
 ### Evaluation methodology (the C1/C4 arsenal)
 

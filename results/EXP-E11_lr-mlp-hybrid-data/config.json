@@ -1,0 +1,44 @@
+{
+  "experiment": "E11",
+  "question": "does DT+NB committee noise removal + Alg 2 attribute weighting improve LR and an MLP over the raw data?",
+  "datasets": [
+    "breast-cancer",
+    "contact-lenses",
+    "diabetes",
+    "glass",
+    "iris",
+    "soybean",
+    "vote",
+    "image-segmentation",
+    "tic-tac-toe",
+    "nsl-kdd"
+  ],
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "rule": "consensus",
+  "committee_splits": 3,
+  "committee_repeats": 3,
+  "alpha": 0.0,
+  "lr": {
+    "max_iter": 2000
+  },
+  "mlp": {
+    "hidden": 32,
+    "lr": 0.001,
+    "max_epochs": 150,
+    "batch_size": 256,
+    "patience": 10,
+    "weight_decay": 0.0001,
+    "seed": 0
+  },
+  "sklearn": "1.7.2",
+  "torch": "2.9.1+cpu",
+  "n_folds": 10,
+  "started": "2026-10-02T12:14:32.711529",
+  "minutes": 37.2
+}
