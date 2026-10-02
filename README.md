@@ -1,3 +1,13 @@
+# Current takeover status � 2026-10-02
+
+Cline work integrated into `dev/e12-research-takeover`. E12v2 audited and
+running under `notes/e12v2-protocol.md`; current state in `research-state.yaml`.
+Inherited E12 relabel/AUROC outputs are invalid and are not pooled with the new
+experiment. Original UCI labels are reference labels, not verified clean labels.
+Earlier E9/E5 results remain in `trackers/experiments.md`.
+
+---
+
 # Research Workspace — Mutual DT–NB Hybrid (leakage-safe, confidence-aware)
 
 **Working title:** *A Leakage-Safe, Confidence-Aware Mutual Hybridization of Decision Trees and Naïve Bayes Classifiers*
