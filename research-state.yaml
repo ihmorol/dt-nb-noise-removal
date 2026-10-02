@@ -1,0 +1,12 @@
+status: auditing
+branch: dev/e12-research-takeover
+source: Cline E11 branch and unfinished E12 snapshot
+goal: Evaluate whether NB and DT jointly improve learning under injected label noise
+plan:
+  - preserve inherited work (complete, 9dbd29a)
+  - audit and regression-test filtering and correction
+  - lock E12v2 protocol before running
+  - run all available datasets with paired baselines
+  - independently review results and publish bounded findings
+continuity: Codex heartbeat dt-nb-research-follow-up, every 20 minutes
+claims: No verified E12 improvement yet; inherited relabel pilot is invalid
