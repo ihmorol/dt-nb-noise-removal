@@ -14,5 +14,5 @@ runs:
   mlp: complete, exit 0, exploratory three-dataset one-seed transfer
 verification: independent review, exact domains/counts/hashes, pooled metrics, regression checks, visual QA
 report: to_human/e12-report.html
-continuity: pause dt-nb-research-follow-up after final commit
+continuity: dt-nb-research-follow-up paused; no active experiments
 remaining_research: DT-specific benefit and safe handling of low-noise data need a separately locked study
