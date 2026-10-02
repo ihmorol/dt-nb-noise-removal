@@ -15,5 +15,5 @@ implementation_commit: 82919fe
 protocol_commit: 2e9422a
 runs:
   main: results/EXP-E12v2_main (session 68401)
-  deletion: results/EXP-E12v2_delete (session 60429)
-  mlp: results/EXP-E12v2_mlp (session 66824)
+  deletion: results/EXP-E12v2_delete (complete, exit 0)
+  mlp: results/EXP-E12v2_mlp (complete, exit 0)

@@ -2,6 +2,7 @@
 import hashlib
 import html
 import json
+import sys
 from pathlib import Path
 
 import matplotlib
@@ -11,15 +12,36 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'code'))
+from data import available,load_data
+from e12_noise_removal import ARMS
 
 
 def validate(name):
     out = ROOT/'results'/('EXP-E12v2_'+name)
     cfg = json.loads((out/'config.json').read_text())
     assert cfg['status'] == 'complete', f'{name} not complete'
+    expected = {
+        'main':dict(datasets=available(),seeds=3,rates=[0,.1,.2,.4],kinds=['symmetric','pairflip'],handling='relabel',classifiers=['NB','DT','LR']),
+        'delete':dict(datasets=available(),seeds=1,rates=[0,.2],kinds=['symmetric','pairflip'],handling='delete',classifiers=['NB','DT','LR']),
+        'mlp':dict(datasets=['iris','diabetes','vote'],seeds=1,rates=[0,.2],kinds=['symmetric','pairflip'],handling='relabel',classifiers=['MLP'])}[name]
+    expected['min_per_class'] = 5
+    for key,value in expected.items():
+        assert cfg[key] == value,(name,key,cfg[key],value)
     det = pd.read_csv(out/'detection.csv')
     acc = pd.read_csv(out/'accuracy.csv')
     keys = ['dataset','seed','fold','kind','rate','arm','handling']
+    assert cfg['detection_rows'] == len(det) and cfg['accuracy_rows'] == len(acc)
+    for frame in [det,acc]:
+        assert set(frame.dataset) == set(cfg['datasets'])
+        assert set(frame.seed) == set(range(cfg['seeds']))
+        assert set(frame.fold) == set(range(10))
+        assert set(frame.kind) == set(cfg['kinds'])
+        assert set(frame.rate) == set(cfg['rates'])
+        assert set(frame.handling) == {cfg['handling']}
+    assert set(acc.arm) == {a for a,_,_ in ARMS}
+    assert set(det.arm) == {a for a,_,_ in ARMS if a != 'reference labels'}
+    assert set(acc.classifier) == set(cfg['classifiers'])
     assert not det.duplicated(keys).any()
     assert not acc.duplicated(keys+['classifier']).any()
     conditions = len(cfg['datasets'])*cfg['seeds']*10*len(cfg['kinds'])*len(cfg['rates'])
@@ -30,8 +52,12 @@ def validate(name):
         assert len(block) == cfg['seeds']*10*len(cfg['kinds'])*len(cfg['rates'])*8*len(cfg['classifiers'])
     for file,digest in cfg['code_sha256'].items():
         assert hashlib.sha256((ROOT/'code'/file).read_bytes()).hexdigest() == digest, file
+    for dataset in cfg['datasets']:
+        X,y,_ = load_data(dataset)
+        actual = dict(rows=len(y),features=X.shape[1],classes=len(np.unique(y)),
+            sha256=hashlib.sha256(X.tobytes()+'|'.join(y).encode()).hexdigest())
+        assert cfg['datasets_loaded'][dataset] == actual,(name,dataset)
     if cfg['handling'] == 'relabel':
-        sizes = det.dataset.map({k:v['rows'] for k,v in cfg['datasets_loaded'].items()})
         # Outer training sizes vary by at most one; every treatment agrees with none.
         none = det[det.arm == 'none'][keys[:-2]+['handling','rows_after']]
         check = det.merge(none,on=['dataset','seed','fold','kind','rate','handling'],suffixes=('','_none'))
@@ -79,6 +105,11 @@ No-cleaning and reference-label training are separate controls. Singleton protec
     body += notes+'<img src="e12-results.png" alt="Dataset gains and losses; effects by noise rate"><h2>Dataset outcomes</h2>'+table.to_html()
     body += '<h2>Protocol and completeness</h2><p>All three locked runs passed row-count, duplicate, finite-score, code-hash and row-retention checks.</p>'
     body += '<pre>'+html.escape(json.dumps({k:{f:c[f] for f in ['datasets','seeds','rates','classifiers','handling','minutes']} for k,c in configs.items()},indent=2))+'</pre>'
+    for run,title in [('delete','Deletion sensitivity: descriptive'),('mlp','MLP transfer: exploratory, three datasets and one seed')]:
+        secondary = pd.read_csv(ROOT/'results'/('EXP-E12v2_'+run)/'accuracy_by_dataset.csv')
+        secondary = secondary[secondary.arm == 'dual agreement'].groupby(['dataset','rate'])[['delta_accuracy','delta_macro_f1']].mean().round(3)
+        body += '<h2>'+title+'</h2>'+secondary.to_html()
+    body += '<p>MLP transfer is heterogeneous: gains on Iris/Vote, loss on Diabetes; zero-added-noise mean is negative. It does not establish broad improvement or harmlessness.</p>'
     body += '<h2>Full main results</h2><pre>'+html.escape(summary)+'</pre></html>'
     (ROOT/'to_human/e12-report.html').write_text(body,encoding='utf-8')
     print('All three runs validated; report and PDF/PNG generated.')

@@ -1,0 +1,97 @@
+dataset,kind,rate,handling,arm,classifier,seed,accuracy,macro_f1
+diabetes,pairflip,0.0,relabel,DT hard_vote,MLP,0,76.43229166666667,72.96610845217512
+diabetes,pairflip,0.0,relabel,DT threshold,MLP,0,76.43229166666667,72.96610845217512
+diabetes,pairflip,0.0,relabel,NB hard_vote,MLP,0,76.5625,73.52860075369956
+diabetes,pairflip,0.0,relabel,NB threshold,MLP,0,75.26041666666667,72.82296935879194
+diabetes,pairflip,0.0,relabel,committee consensus,MLP,0,76.82291666666667,73.49875930521092
+diabetes,pairflip,0.0,relabel,dual agreement,MLP,0,76.04166666666667,72.94034743711511
+diabetes,pairflip,0.0,relabel,none,MLP,0,77.47395833333333,73.93469155541605
+diabetes,pairflip,0.0,relabel,reference labels,MLP,0,77.47395833333333,73.93469155541605
+diabetes,pairflip,0.2,relabel,DT hard_vote,MLP,0,75.0,71.16756350894758
+diabetes,pairflip,0.2,relabel,DT threshold,MLP,0,75.0,71.16756350894758
+diabetes,pairflip,0.2,relabel,NB hard_vote,MLP,0,75.390625,72.65281899109792
+diabetes,pairflip,0.2,relabel,NB threshold,MLP,0,74.21875,72.22007058978275
+diabetes,pairflip,0.2,relabel,committee consensus,MLP,0,76.04166666666667,73.046875
+diabetes,pairflip,0.2,relabel,dual agreement,MLP,0,75.26041666666667,72.82296935879194
+diabetes,pairflip,0.2,relabel,none,MLP,0,76.82291666666667,73.49875930521092
+diabetes,pairflip,0.2,relabel,reference labels,MLP,0,77.47395833333333,73.93469155541605
+diabetes,symmetric,0.0,relabel,DT hard_vote,MLP,0,76.43229166666667,72.96610845217512
+diabetes,symmetric,0.0,relabel,DT threshold,MLP,0,76.43229166666667,72.96610845217512
+diabetes,symmetric,0.0,relabel,NB hard_vote,MLP,0,76.5625,73.52860075369956
+diabetes,symmetric,0.0,relabel,NB threshold,MLP,0,75.26041666666667,72.82296935879194
+diabetes,symmetric,0.0,relabel,committee consensus,MLP,0,76.82291666666667,73.49875930521092
+diabetes,symmetric,0.0,relabel,dual agreement,MLP,0,76.04166666666667,72.94034743711511
+diabetes,symmetric,0.0,relabel,none,MLP,0,77.47395833333333,73.93469155541605
+diabetes,symmetric,0.0,relabel,reference labels,MLP,0,77.47395833333333,73.93469155541605
+diabetes,symmetric,0.2,relabel,DT hard_vote,MLP,0,75.0,71.16756350894758
+diabetes,symmetric,0.2,relabel,DT threshold,MLP,0,75.0,71.16756350894758
+diabetes,symmetric,0.2,relabel,NB hard_vote,MLP,0,75.390625,72.65281899109792
+diabetes,symmetric,0.2,relabel,NB threshold,MLP,0,74.21875,72.22007058978275
+diabetes,symmetric,0.2,relabel,committee consensus,MLP,0,76.04166666666667,73.046875
+diabetes,symmetric,0.2,relabel,dual agreement,MLP,0,75.26041666666667,72.82296935879194
+diabetes,symmetric,0.2,relabel,none,MLP,0,76.82291666666667,73.49875930521092
+diabetes,symmetric,0.2,relabel,reference labels,MLP,0,77.47395833333333,73.93469155541605
+iris,pairflip,0.0,relabel,DT hard_vote,MLP,0,90.66666666666667,90.64891641944733
+iris,pairflip,0.0,relabel,DT threshold,MLP,0,90.66666666666667,90.64891641944733
+iris,pairflip,0.0,relabel,NB hard_vote,MLP,0,90.66666666666667,90.67520442520443
+iris,pairflip,0.0,relabel,NB threshold,MLP,0,90.66666666666667,90.67520442520443
+iris,pairflip,0.0,relabel,committee consensus,MLP,0,90.66666666666667,90.67520442520443
+iris,pairflip,0.0,relabel,dual agreement,MLP,0,90.0,89.99762604529238
+iris,pairflip,0.0,relabel,none,MLP,0,89.33333333333333,89.27904225072155
+iris,pairflip,0.0,relabel,reference labels,MLP,0,89.33333333333333,89.27904225072155
+iris,pairflip,0.2,relabel,DT hard_vote,MLP,0,88.0,87.83036858258097
+iris,pairflip,0.2,relabel,DT threshold,MLP,0,85.33333333333333,84.95023495023496
+iris,pairflip,0.2,relabel,NB hard_vote,MLP,0,80.66666666666667,79.36700336700336
+iris,pairflip,0.2,relabel,NB threshold,MLP,0,84.66666666666667,84.32185273970263
+iris,pairflip,0.2,relabel,committee consensus,MLP,0,84.0,83.33333333333334
+iris,pairflip,0.2,relabel,dual agreement,MLP,0,87.33333333333333,87.11558674939816
+iris,pairflip,0.2,relabel,none,MLP,0,84.66666666666667,84.32185273970263
+iris,pairflip,0.2,relabel,reference labels,MLP,0,89.33333333333333,89.27904225072155
+iris,symmetric,0.0,relabel,DT hard_vote,MLP,0,90.66666666666667,90.64891641944733
+iris,symmetric,0.0,relabel,DT threshold,MLP,0,90.66666666666667,90.64891641944733
+iris,symmetric,0.0,relabel,NB hard_vote,MLP,0,90.66666666666667,90.67520442520443
+iris,symmetric,0.0,relabel,NB threshold,MLP,0,90.66666666666667,90.67520442520443
+iris,symmetric,0.0,relabel,committee consensus,MLP,0,90.66666666666667,90.67520442520443
+iris,symmetric,0.0,relabel,dual agreement,MLP,0,90.0,89.99762604529238
+iris,symmetric,0.0,relabel,none,MLP,0,89.33333333333333,89.27904225072155
+iris,symmetric,0.0,relabel,reference labels,MLP,0,89.33333333333333,89.27904225072155
+iris,symmetric,0.2,relabel,DT hard_vote,MLP,0,86.66666666666667,86.50458706984067
+iris,symmetric,0.2,relabel,DT threshold,MLP,0,86.66666666666667,86.50458706984067
+iris,symmetric,0.2,relabel,NB hard_vote,MLP,0,86.66666666666667,86.68710918710917
+iris,symmetric,0.2,relabel,NB threshold,MLP,0,90.0,89.97493734335839
+iris,symmetric,0.2,relabel,committee consensus,MLP,0,90.0,90.02148100086244
+iris,symmetric,0.2,relabel,dual agreement,MLP,0,90.66666666666667,90.6517094017094
+iris,symmetric,0.2,relabel,none,MLP,0,86.66666666666667,86.58078368223295
+iris,symmetric,0.2,relabel,reference labels,MLP,0,89.33333333333333,89.27904225072155
+vote,pairflip,0.0,relabel,DT hard_vote,MLP,0,94.48275862068965,94.2064372918979
+vote,pairflip,0.0,relabel,DT threshold,MLP,0,94.48275862068965,94.2064372918979
+vote,pairflip,0.0,relabel,NB hard_vote,MLP,0,88.73563218390805,88.3614264419218
+vote,pairflip,0.0,relabel,NB threshold,MLP,0,90.34482758620689,90.04901960784312
+vote,pairflip,0.0,relabel,committee consensus,MLP,0,94.48275862068965,94.21850079744817
+vote,pairflip,0.0,relabel,dual agreement,MLP,0,94.25287356321839,93.98376862265643
+vote,pairflip,0.0,relabel,none,MLP,0,94.48275862068965,94.19406504426748
+vote,pairflip,0.0,relabel,reference labels,MLP,0,94.48275862068965,94.19406504426748
+vote,pairflip,0.2,relabel,DT hard_vote,MLP,0,91.03448275862068,90.66980514659377
+vote,pairflip,0.2,relabel,DT threshold,MLP,0,90.34482758620689,89.99802916830902
+vote,pairflip,0.2,relabel,NB hard_vote,MLP,0,88.96551724137932,88.64575629703747
+vote,pairflip,0.2,relabel,NB threshold,MLP,0,89.19540229885058,88.87340883487802
+vote,pairflip,0.2,relabel,committee consensus,MLP,0,92.64367816091954,92.35164835164835
+vote,pairflip,0.2,relabel,dual agreement,MLP,0,91.95402298850574,91.65757995846599
+vote,pairflip,0.2,relabel,none,MLP,0,90.57471264367815,90.11303349982538
+vote,pairflip,0.2,relabel,reference labels,MLP,0,94.48275862068965,94.19406504426748
+vote,symmetric,0.0,relabel,DT hard_vote,MLP,0,94.48275862068965,94.2064372918979
+vote,symmetric,0.0,relabel,DT threshold,MLP,0,94.48275862068965,94.2064372918979
+vote,symmetric,0.0,relabel,NB hard_vote,MLP,0,88.73563218390805,88.3614264419218
+vote,symmetric,0.0,relabel,NB threshold,MLP,0,90.34482758620689,90.04901960784312
+vote,symmetric,0.0,relabel,committee consensus,MLP,0,94.48275862068965,94.21850079744817
+vote,symmetric,0.0,relabel,dual agreement,MLP,0,94.25287356321839,93.98376862265643
+vote,symmetric,0.0,relabel,none,MLP,0,94.48275862068965,94.19406504426748
+vote,symmetric,0.0,relabel,reference labels,MLP,0,94.48275862068965,94.19406504426748
+vote,symmetric,0.2,relabel,DT hard_vote,MLP,0,91.03448275862068,90.66980514659377
+vote,symmetric,0.2,relabel,DT threshold,MLP,0,90.34482758620689,89.99802916830902
+vote,symmetric,0.2,relabel,NB hard_vote,MLP,0,88.96551724137932,88.64575629703747
+vote,symmetric,0.2,relabel,NB threshold,MLP,0,89.19540229885058,88.87340883487802
+vote,symmetric,0.2,relabel,committee consensus,MLP,0,92.64367816091954,92.35164835164835
+vote,symmetric,0.2,relabel,dual agreement,MLP,0,91.95402298850574,91.65757995846599
+vote,symmetric,0.2,relabel,none,MLP,0,90.57471264367815,90.11303349982538
+vote,symmetric,0.2,relabel,reference labels,MLP,0,94.48275862068965,94.19406504426748

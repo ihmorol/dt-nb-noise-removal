@@ -1,0 +1,13 @@
+iris seed=0 symmetric rate=0.0 complete
+iris seed=0 symmetric rate=0.2 complete
+iris seed=0 pairflip rate=0.0 complete
+iris seed=0 pairflip rate=0.2 complete
+diabetes seed=0 symmetric rate=0.0 complete
+diabetes seed=0 symmetric rate=0.2 complete
+diabetes seed=0 pairflip rate=0.0 complete
+diabetes seed=0 pairflip rate=0.2 complete
+vote seed=0 symmetric rate=0.0 complete
+vote seed=0 symmetric rate=0.2 complete
+vote seed=0 pairflip rate=0.0 complete
+vote seed=0 pairflip rate=0.2 complete
+COMPLETE C:\Users\User\.codex\worktrees\70b9\dt-nb-project-big-data\results\EXP-E12v2_mlp in 4.76 min

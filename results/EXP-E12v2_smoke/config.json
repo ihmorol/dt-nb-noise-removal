@@ -1,0 +1,66 @@
+{
+  "datasets": [
+    "iris"
+  ],
+  "seeds": 1,
+  "rates": [
+    0.0,
+    0.2
+  ],
+  "kinds": [
+    "symmetric",
+    "pairflip"
+  ],
+  "handling": "relabel",
+  "min_per_class": 5,
+  "classifiers": [
+    "NB",
+    "DT",
+    "LR"
+  ],
+  "out": "C:\\Users\\User\\.codex\\worktrees\\70b9\\dt-nb-project-big-data\\results\\EXP-E12v2_smoke",
+  "git_commit": "2e9422a4abfa052694baf12de81fd86be6545163",
+  "code_sha256": {
+    "algorithm1.py": "fb79aef1687271615ed1bea38776bbf67469e74ed04b53c61571acd860811f0b",
+    "algorithm2.py": "c82e83a21342f1a6c504fccf09078935749083120e4e4425c282bb9eaeba1c57",
+    "check_e12.py": "fc5f43a4bcb92205b342144267770cf72f554382733a14ac2ffdf08427448be4",
+    "check_pipeline.py": "4a3d84385fd5814896e54339fe13e903152d047c8aec986f90a6826babeda391",
+    "committee_filter.py": "059ea28c01b654f8751a7ddc1a564cf66a35d0d6123cc8384e3cfc61fa217d39",
+    "confident_filter.py": "3d414a824a81382c0b9be52e2e85c3236dcae3f5833bfcc9d82a5d8b2d7b463a",
+    "data.py": "b64738e53ba5bf69016c0634ab66588d6b5434c6fbd39bc2d0a20e5c7200722f",
+    "deep_mlp.py": "83e50c4c01440f68924eb2663774d0658c50eba09758cd5b48cfb04a0fe84b8f",
+    "e11_lr_mlp_hybrid.py": "a029cd63112dc9b5a7223052273f3c23f77d132dc679a553020fdf6bdb734b7f",
+    "e12_noise_removal.py": "5ec5b811343f6b5106bcd355572a4071ae8c81d70b86748fa05cce13fed70a50",
+    "e5_strategy.py": "37da270b1a87fb34f13efaa9b70d678a1fe72cf59acb7d7f74ce0a00ca17d1bf",
+    "e9_farid.py": "28d638955a5d633a3a59c62df22cc244c0d64962a6611424b17aa3212513487d",
+    "faithful_nb.py": "052c99e93268bec219ac7fd65a9511830ab4bf06c9beb2e502082cea2bd04f9b",
+    "figures.py": "b00d4790097ca3ce805d8f495d8fe6b2f9a2ea6195be9f699f16080a7313a025",
+    "leakage_check.py": "df18c28b97e45d12722f6900dfdc476606e023a8ba808281c8452fd4f2595a69",
+    "main.py": "af190b9c8db4c8359e4aa4f54634a63753a9e4879396086e0b4992fcd2d3a4b8",
+    "nb.py": "e3c81f3285fb00c32a13dc4bdd55f886b19d3914965ee7ad46089f22caefdc95",
+    "noise_inject.py": "9aad948da902d48653e3b21fcbcbd0e5e0cabc209ef249c93f4d5fa92d11c1c8",
+    "pipeline.py": "a0f105218c6888b81fa7280e31bfd54775a1059acac5a739fd80a8cddecf095a",
+    "replicate_farid.py": "0d87b8bec3a459494eb502f03c2f1f41f303b050d031b9b7dae661976c48eed6",
+    "tables.py": "894a5730e3afed3094804f3266deff70f79c4afa4ff7e098d3ac36c5ab33d107",
+    "verify_faithful.py": "da6e4f4c30c71fd9a73733931b1c8e260ccbb2daa81e9c7ca47e2b991183fa16",
+    "versions.py": "7eb8c0d091183e42ed79cbb282d3d750857c1193b38c5502a44250ff0a534d15",
+    "weka_utils.py": "3858dce3d7e02a82eae201a5bfdea81423089598cc81ef3596e665435d137a4e"
+  },
+  "versions": {
+    "numpy": "2.2.4",
+    "pandas": "2.3.3",
+    "sklearn": "1.7.2"
+  },
+  "datasets_loaded": {
+    "iris": {
+      "rows": 150,
+      "features": 4,
+      "classes": 3,
+      "sha256": "6a4bc068351468838e23994ddb356fac066783424a39edc4211241088636730e"
+    }
+  },
+  "status": "complete",
+  "minutes": 0.07180476188659668,
+  "detection_rows": 280,
+  "accuracy_rows": 960
+}
