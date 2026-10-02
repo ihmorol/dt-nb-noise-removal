@@ -5,6 +5,8 @@ It is used as Algorithm 1's judge, as Algorithm 2's classifier, and as the final
     weights     one exponent per attribute, Farid's Eq. (14):
                 P(x|C) = P(C) * product of P(A_j|C) ^ W_j
                 None means every exponent is 1, which is plain Naive Bayes.
+                (a column scored 0 by algorithm2 is not kept at all - see
+                algorithm2 - so W_j = 0 does not have to be handled here.)
     likelihood  "gaussian": every column is a bell curve per class.
                 "mixed":    0/1 columns use the Bernoulli formula, the rest stay
                             Gaussian (closer to how Weka treats nominal attributes).
@@ -57,3 +59,16 @@ class WeightedNB:
 
     def predict(self, X):
         return self.classes_[self.class_scores(X).argmax(axis=1)]
+
+    def predict_proba(self, X):
+        """P(C | x) for every class: softmax over the class scores.
+
+        Bayes' rule - class_scores already holds log P(C) + sum_j W_j log P(x_j|C),
+        so normalizing those exponentials gives the posterior. Needed by every
+        threshold-based filter (E12's confident joint), which thresholds a
+        confidence rather than counting hard votes.
+        """
+        scores = self.class_scores(X)
+        scores = scores - scores.max(axis=1, keepdims=True)   # keep exp() finite
+        posterior = np.exp(scores)
+        return posterior / posterior.sum(axis=1, keepdims=True)

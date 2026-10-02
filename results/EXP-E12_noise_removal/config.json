@@ -1,0 +1,36 @@
+{
+  "experiment": "E12",
+  "question": "which noise filter actually finds injected label noise, DT vs NB, and does removing it improve accuracy?",
+  "datasets": [
+    "iris"
+  ],
+  "seeds": [
+    0
+  ],
+  "rates": [
+    0.2
+  ],
+  "kinds": [
+    "symmetric",
+    "asymmetric"
+  ],
+  "handling": "relabel",
+  "min_per_class": 5,
+  "classifiers": [
+    "NB",
+    "DT",
+    "LR"
+  ],
+  "arms": [
+    "none",
+    "NB hard_vote",
+    "DT hard_vote",
+    "DT confident_joint",
+    "NB confident_joint",
+    "committee consensus"
+  ],
+  "n_splits": 10,
+  "sklearn": "1.7.2",
+  "started": "2026-10-02T17:21:17.665758",
+  "minutes": 0.1
+}
