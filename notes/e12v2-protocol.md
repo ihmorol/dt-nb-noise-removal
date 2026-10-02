@@ -43,7 +43,8 @@ No cherry-picked dataset subsets in the main report.
 
 Primary endpoint: dual-agreement relabel macro-F1 minus no-cleaning macro-F1,
 averaged equally over classifiers NB/DT/LR and both noise mechanisms at .20,
-then one paired value per dataset. Two-sided Wilcoxon at .05 across datasets,
+then one paired value per dataset. Pool outer-fold confusion matrices per
+seed before computing accuracy and macro-F1; do not average tiny test-fold F1s. Two-sided Wilcoxon at .05 across datasets,
 not folds; one primary hypothesis. Accuracy, detection precision/recall/F1,
 false-positive rate, post-treatment corruption, class harms and other arms
 are descriptive secondary analyses. Report all datasets and both mechanisms.
@@ -64,3 +65,25 @@ findings. Do not iterate indefinitely until a positive p-value appears.
 
 No theorem of improvement follows from agreement: correlated model errors
 and weak minority-class support remain material limitations.
+
+## Dataset scope deviations inherited from the loader
+
+Glass has 6 observed classes (seed table says 7); image segmentation has
+2310 rows (table says 1500); NSL-KDD has 22 observed classes (table says 23).
+Use all available rows and observed classes without fitting a subset to
+the published table. Singleton classes are protected by the filter but may
+be unlearnable in an outer fold lacking that class. Report this limitation.
+
+## Compute allocation fixed before execution
+
+Main matrix: all ten datasets, 3 seeds, rates 0/.10/.20/.40, both independent
+mechanisms, NB/DT/LR. Deletion sensitivity: all ten, 1 seed, rates 0/.20,
+NB/DT/LR. MLP transfer: iris, diabetes, vote, 1 seed, rates 0/.20, MLP only.
+The MLP subset is a bounded exploratory transfer check, not evidence of
+broad deep-learning superiority. Fixed before the new outputs are inspected.
+
+Committee consensus correction uses the argmax of the mean NB/DT OOF
+probability vector when both dispute the label, even if their individual
+replacement labels differ. This is a descriptive reference. Dual agreement
+requires the SAME replacement and is the primary candidate. Detection metrics
+are computed by pooling counts per dataset-seed before averaging seeds.

@@ -1,308 +1,242 @@
-"""E12: which noise filter actually finds the noise? DT and NB, compared separately.
+"""E12v2: paired noise detection and downstream learning.
 
-The question E11 could not answer. E11 compared cleaning arms only through
-downstream accuracy on ten datasets that are themselves clean, so "did the filter
-remove the mislabeled rows or just the hard ones?" had no answer, and every delta
-came back inside the noise. Here we corrupt a controlled fraction of the labels
-OURSELVES (noise_inject.py), keep the corruption mask, and can therefore grade
-each filter on precision and recall against ground truth.
-
-    python e12_noise_removal.py                     all datasets, 3 seeds
-    python e12_noise_removal.py --datasets iris glass --seeds 2
-    python e12_noise_removal.py --rates 0.1 0.2 --kinds symmetric
-    python e12_noise_removal.py --handling relabel
-    python e12_noise_removal.py --quick             no MLP, 1 seed
-
-Honesty rules, all enforced here:
-
-  * noise is injected into the TRAINING FOLD ONLY. The test fold keeps its clean
-    labels, so the accuracy we report is "how well does this training set teach",
-    and no ground truth leaks across.
-  * the filter is fitted inside the training fold, on the noised labels only.
-  * the confusable-class map for asymmetric noise is estimated by cross-validated
-    NB inside the same training fold.
-  * the test fold never loses rows and never has its labels touched.
-
-Arms, reported separately so DT and NB can be told apart:
-
-    none                      no cleaning - the baseline to beat
-    NB hard_vote              Farid Algorithm 1's rule, out-of-fold
-    DT hard_vote              the same rule with a tree as judge
-    DT confident_joint        per-class thresholds (Confident Learning)
-    NB confident_joint        per-class thresholds
-    committee consensus       E11's committee, as the reference point
-
-Writes ../results/EXP-E12_noise_removal/: detection.csv (precision, recall, F1,
-AUROC per dataset/kind/rate/arm), accuracy.csv (downstream accuracy and macro-F1
-for every classifier), summary.md, config.json.
+Reference labels are not verified clean labels. Corruption is injected only
+inside training folds. Filters see neither masks nor original labels. Each
+output directory is exclusive; completed pilots are never overwritten.
 """
 import argparse
+import hashlib
 import json
+import subprocess
 import time
-import warnings
-from datetime import datetime
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import sklearn
-from sklearn.metrics import f1_score, roc_auc_score
+from scipy.stats import wilcoxon
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, f1_score, roc_auc_score
 from sklearn.model_selection import StratifiedKFold
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeClassifier
 
 from confident_filter import confident_filter
 from data import available, load_data
-from deep_mlp import DeepMLP
 from nb import WeightedNB
-from noise_inject import confusable_map, inject
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.linear_model import LogisticRegression
-
-warnings.filterwarnings("ignore", message="The least populated class")
-
-SEEDS = [0, 1, 2]
-RATES = [0.0, 0.05, 0.10, 0.20, 0.40]
-KINDS = ["symmetric", "asymmetric"]
-OUT = Path(__file__).resolve().parent.parent / "results" / "EXP-E12_noise_removal"
+from noise_inject import inject
 
 ARMS = [
-    ("none", None, None),
-    ("NB hard_vote", "NB", "hard_vote"),
-    ("DT hard_vote", "DT", "hard_vote"),
-    ("DT confident_joint", "DT", "confident_joint"),
-    ("NB confident_joint", "NB", "confident_joint"),
-    ("committee consensus", "committee", "consensus"),
+    ('none', None, None),
+    ('NB hard_vote', 'NB', 'hard_vote'),
+    ('DT hard_vote', 'DT', 'hard_vote'),
+    ('NB threshold', 'NB', 'confident_joint'),
+    ('DT threshold', 'DT', 'confident_joint'),
+    ('committee consensus', 'committee', 'consensus'),
+    ('dual agreement', 'committee', 'dual_agreement'),
+    ('reference labels', None, None),
 ]
 
 
 def make_classifier(name, seed):
-    if name == "NB":
-        return WeightedNB(likelihood="mixed")
-    if name == "DT":
-        return DecisionTreeClassifier(criterion="entropy", random_state=seed)
-    if name == "LR":
-        return LogisticRegression(max_iter=2000, random_state=seed)
-    if name == "MLP":
-        return DeepMLP(seed=seed)
+    if name == 'NB':
+        return WeightedNB(likelihood='mixed')
+    if name == 'DT':
+        return DecisionTreeClassifier(criterion='entropy', random_state=seed)
+    if name == 'LR':
+        return make_pipeline(StandardScaler(), LogisticRegression(max_iter=2000, random_state=seed))
+    if name == 'MLP':
+        from deep_mlp import DeepMLP
+        return make_pipeline(StandardScaler(), DeepMLP(seed=seed))
     raise ValueError(name)
+
+
+def apply_handling(X, y, keep, info, handling):
+    """Use exactly the flag mask; correction keeps every row."""
+    if handling == 'delete':
+        return X[keep], y[keep]
+    if handling != 'relabel':
+        raise ValueError(handling)
+    labels = y.copy()
+    labels[~keep] = np.asarray(info['predicted'])[~keep]
+    return X, labels
+
+
 def detect_scores(keep, info, is_noisy):
-    """Grade one filter against the known corruption. Returns a metrics dict.
-
-    precision  of the rows it deleted, how many were really mislabeled
-    recall     of the truly mislabeled rows, how many it caught
-    auroc      ranking quality, using the judge's confidence as the score; free
-               of any threshold, so it separates "the judge knows" from "the rule
-               knew where to cut"
-    """
-    removed = ~keep
-    hits = int((removed & is_noisy).sum())
-    precision = hits / removed.sum() if removed.sum() else float("nan")
-    recall = hits / is_noisy.sum() if is_noisy.sum() else float("nan")
-    f1 = (0.0 if not (precision and recall)
-          else 2 * precision * recall / (precision + recall))
-
-    score = (np.asarray(info["confidence"], dtype=float) if info
-             else np.zeros(len(is_noisy)))
-    auroc = float("nan")
-    if is_noisy.any() and (~is_noisy).any():
-        try:
-            auroc = float(roc_auc_score(is_noisy.astype(int), score))
-        except ValueError:
-            auroc = float("nan")
-    return {
-        "removed_pct": 100.0 * float(removed.mean()),
-        "precision": precision, "recall": recall, "f1": f1, "auroc": auroc,
-        "true_noise_pct": 100.0 * float(is_noisy.mean()),
-    }
+    flagged = ~keep
+    tp = int((flagged & is_noisy).sum())
+    fp = int((flagged & ~is_noisy).sum())
+    fn = int((~flagged & is_noisy).sum())
+    tn = int((~flagged & ~is_noisy).sum())
+    auroc = float('nan')
+    if info is not None and is_noisy.any() and (~is_noisy).any():
+        auroc = float(roc_auc_score(is_noisy, info['suspicion']))
+    return dict(tp=tp, fp=fp, fn=fn, tn=tn,
+                precision=tp/(tp+fp) if tp+fp else float('nan'),
+                recall=tp/(tp+fn) if tp+fn else float('nan'),
+                f1=2*tp/(2*tp+fp+fn) if tp+fp+fn else float('nan'),
+                auroc=auroc, flagged_pct=100*flagged.mean(),
+                false_positive_rate=fp/(fp+tn) if fp+tn else float('nan'),
+                true_noise_pct=100*is_noisy.mean())
 
 
-def run_fold(X, y_clean, train, test, kind, rate, seed, fold_seed, handling,
-             min_per_class, classifiers):
-    """One fold: inject noise into the training rows, run every arm, and score
-    both the detection and the downstream classifier."""
-    X_train, y_train = X[train], y_clean[train]
-
-    mapping = None
-    if kind == "asymmetric" and rate > 0:
-        mapping = confusable_map(X_train, y_train, seed=fold_seed)
-
-    # noise goes into the TRAINING FOLD ONLY; y_clean[test] stays pristine
-    y_noisy, is_noisy = inject(X_train, y_train, rate, kind=kind,
-                               seed=fold_seed, mapping=mapping)
-
-    detection, accuracy = [], []
+def run_fold(X, y_reference, train, test, kind, rate, seed, fold_seed,
+             handling, min_per_class, classifiers):
+    X_train, y_train = X[train], y_reference[train]
+    noisy, mask = inject(X_train, y_train, rate, kind=kind, seed=fold_seed)
+    labels = np.unique(y_reference)
+    detection, accuracy, cache = [], [], {}
     for arm, judge, method in ARMS:
-        if method is None:
-            keep = np.ones(len(y_noisy), dtype=bool)
-            info = None
-            train_labels = y_noisy
-        else:
-            # E11's committee ran 3 repeats x 3 folds; keep that setting so the
-            # "committee consensus" arm really is the E11 filter being compared
-            repeats, splits = (3, 3) if method == "consensus" else (1, 5)
-            keep, info = confident_filter(X_train, y_noisy, judge=judge,
-                                          method=method, repeats=repeats,
-                                          n_splits=splits,
-                                          min_per_class=min_per_class,
-                                          seed=fold_seed)
-            train_labels = y_noisy[keep]
-            if handling == "relabel" and method == "confident_joint":
-                # trust the judge's own answer on the rows it disputes, but only
-                # where it was confident enough to clear that class's threshold
-                predicted = np.asarray(info["predicted"])
-                thresholds = np.array([info["thresholds"][c]
-                                       for c in info["classes"]], dtype=float)
-                chosen = np.array([list(info["classes"]).index(p)
-                                   for p in predicted])
-                disputed = predicted != y_noisy
-                confident = np.asarray(info["confidence"]) >= thresholds[chosen]
-                switch = (disputed & confident)[keep]
-                train_labels = np.where(switch, predicted[keep], y_noisy[keep])
-
-        row = {"arm": arm, "judge": judge, "method": method, "kind": kind,
-               "rate": rate, "handling": handling, "fold_seed": fold_seed}
-        detection.append({**row, **detect_scores(keep, info, is_noisy),
-                          "rescued_by_floor": info["rescued_by_floor"] if info else 0})
-
+        info = None
+        keep = np.ones(len(noisy), dtype=bool)
+        fit_X, fit_y = X_train, noisy
+        if arm == 'reference labels':
+            fit_y = y_train
+        elif method:
+            keep, info = confident_filter(X_train, noisy, judge=judge, method=method,
+                repeats=1, n_splits=5, min_per_class=min_per_class,
+                seed=fold_seed, cache=cache)
+            fit_X, fit_y = apply_handling(X_train, noisy, keep, info, handling)
+        row = dict(arm=arm, kind=kind, rate=rate, handling=handling, fold_seed=fold_seed)
+        if arm != 'reference labels':
+            det = detect_scores(keep, info, mask)
+            if handling == 'relabel' and method:
+                post_errors = int((fit_y != y_train).sum())
+                corrected = int((mask & (fit_y == y_train)).sum())
+                newly_wrong = int((~mask & (fit_y != y_train)).sum())
+            else:
+                post_errors = int(mask[keep].sum())
+                corrected, newly_wrong = 0, 0
+            detection.append(dict(**row, **det, post_noise_pct=100*post_errors/len(fit_y),
+                corrected=corrected, newly_wrong=newly_wrong, rows_after=len(fit_y),
+                rescued_by_floor=info['rescued_by_floor'] if info else 0))
         for name in classifiers:
-            model = make_classifier(name, seed).fit(X_train[keep], train_labels)
-            predicted_labels = model.predict(X[test])
-            accuracy.append({
-                **row, "classifier": name,
-                "accuracy": 100 * float(np.mean(predicted_labels == y_clean[test])),
-                "macro_f1": 100 * float(f1_score(y_clean[test], predicted_labels,
-                                                 average="macro", zero_division=0)),
-            })
+            model = make_classifier(name, seed).fit(fit_X, fit_y)
+            prediction = model.predict(X[test])
+            assert len(prediction) == len(test)
+            accuracy.append(dict(**row, classifier=name,
+                confusion=json.dumps(confusion_matrix(y_reference[test],prediction,labels=labels).tolist()),
+                accuracy=100*np.mean(prediction == y_reference[test]),
+                macro_f1=100*f1_score(y_reference[test], prediction, labels=labels,
+                                     average='macro', zero_division=0)))
     return detection, accuracy
-def run_dataset(name, seeds, rates, kinds, handling, min_per_class, classifiers,
-                n_splits=10):
-    X, y, _ = load_data(name)
-    det_rows, acc_rows = [], []
-
-    for seed in seeds:
-        splitter = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=seed)
-        folds = list(splitter.split(np.zeros(len(y)), y))
-        for kind in kinds:
-            for rate in rates:
-                for fold, (train, test) in enumerate(folds):
-                    det, acc = run_fold(X, y, train, test, kind, rate, seed,
-                                        seed * 1000 + fold, handling,
-                                        min_per_class, classifiers)
-                    for row in det + acc:
-                        row.update({"dataset": name, "seed": seed, "fold": fold})
-                    det_rows += det
-                    acc_rows += acc
-    print(f"  {name}: {len(det_rows)} detection rows, {len(acc_rows)} accuracy rows",
-          flush=True)
-    return det_rows, acc_rows
 
 
-def summarize_detection(detection):
-    """Mean precision / recall / F1 / AUROC per kind, rate and arm."""
-    if detection.empty:
-        return pd.DataFrame()
-    return detection.groupby(["kind", "rate", "arm"]).agg(
-        precision=("precision", "mean"), recall=("recall", "mean"),
-        f1=("f1", "mean"), auroc=("auroc", "mean"),
-        removed_pct=("removed_pct", "mean"),
-        true_noise_pct=("true_noise_pct", "mean"),
-        rescued=("rescued_by_floor", "mean"),
-    ).reset_index()
-
-
-def summarize_accuracy(accuracy):
-    """Mean accuracy per kind, rate, arm and classifier, plus delta vs 'none'."""
-    if accuracy.empty:
-        return pd.DataFrame()
-    means = (accuracy.groupby(["kind", "rate", "arm", "classifier"])
-             .agg(accuracy=("accuracy", "mean"), macro_f1=("macro_f1", "mean"),
-                  acc_std=("accuracy", "std"))
-             .reset_index())
-    base = means[means["arm"] == "none"].set_index(["kind", "rate", "classifier"])
-    means = means.join(base[["accuracy"]].rename(
-        columns={"accuracy": "accuracy_none"}), on=["kind", "rate", "classifier"])
-    means["delta_vs_none"] = means["accuracy"] - means["accuracy_none"]
-    return means
-
-
-def write_report(detection, accuracy, out):
-    """The human-readable summary: detection and accuracy, macro over datasets."""
-    lines = ["# E12 — which filter finds the noise? (DT and NB, separately)",
-             "", "Generated " + datetime.now().strftime("%Y-%m-%d %H:%M"), ""]
-
-    summary = summarize_detection(detection)
-    if not summary.empty:
-        for kind in summary["kind"].unique():
-            block = summary[summary["kind"] == kind]
-            pivot = block.pivot_table(index="rate", columns="arm",
-                                      values=["precision", "recall", "f1"])
-            lines += [f"## Detection — {kind} noise", "",
-                      "```", pivot.round(3).to_string(), "```", ""]
-
-    acc = summarize_accuracy(accuracy)
-    if not acc.empty:
-        for classifier in acc["classifier"].unique():
-            block = acc[acc["classifier"] == classifier]
-            pivot = block.pivot_table(index=["kind", "rate"], columns="arm",
-                                      values="delta_vs_none")
-            lines += [f"## Accuracy delta vs no cleaning — {classifier} (points)",
-                      "", "```", pivot.round(2).to_string(), "```", ""]
-
-    (out / "summary.md").write_text("\n".join(lines), encoding="utf-8")
-    return "\n".join(lines)
+def summarize(detection, accuracy, out):
+    # Equal weighting across datasets, not across rows or dataset sizes.
+    det_groups = ['dataset', 'kind', 'rate', 'handling', 'arm']
+    det_rows = []
+    for key, block in detection.groupby(det_groups+['seed']):
+        counts = block[['tp','fp','fn','tn']].sum()
+        tp,fp,fn,tn = (int(counts[k]) for k in ['tp','fp','fn','tn'])
+        values = block.mean(numeric_only=True).to_dict()
+        values.update(tp=tp,fp=fp,fn=fn,tn=tn,
+            precision=tp/(tp+fp) if tp+fp else float('nan'),
+            recall=tp/(tp+fn) if tp+fn else float('nan'),
+            f1=2*tp/(2*tp+fp+fn) if tp+fp+fn else float('nan'),
+            false_positive_rate=fp/(fp+tn) if fp+tn else float('nan'))
+        det_rows.append(dict(zip(det_groups+['seed'],key),**values))
+    det_seed = pd.DataFrame(det_rows)
+    det_seed.to_csv(out/'detection_by_seed.csv',index=False)
+    det = det_seed.groupby(det_groups).mean(numeric_only=True).reset_index()
+    det.to_csv(out/'detection_by_dataset.csv', index=False)
+    det.groupby(['kind','rate','handling','arm']).mean(numeric_only=True).to_csv(out/'detection_summary.csv')
+    groups = ['dataset','kind','rate','handling','arm','classifier']
+    seed_rows = []
+    for key, block in accuracy.groupby(groups+['seed']):
+        matrix = np.sum([np.asarray(json.loads(v)) for v in block.confusion], axis=0)
+        tp = np.diag(matrix)
+        denominator = matrix.sum(axis=0)+matrix.sum(axis=1)
+        f1 = np.divide(2*tp,denominator,out=np.zeros(len(tp),float),where=denominator>0)
+        seed_rows.append(dict(zip(groups+['seed'],key), accuracy=100*tp.sum()/matrix.sum(), macro_f1=100*f1.mean()))
+    pooled = pd.DataFrame(seed_rows)
+    pooled.to_csv(out/'accuracy_by_seed.csv',index=False)
+    means = pooled.groupby(groups)[['accuracy','macro_f1']].mean().reset_index()
+    base = means[means.arm == 'none'].drop(columns='arm')
+    means = means.merge(base, on=['dataset','kind','rate','handling','classifier'], suffixes=('', '_none'), validate='many_to_one')
+    for metric in ['accuracy','macro_f1']:
+        means['delta_'+metric] = means[metric]-means[metric+'_none']
+    means.to_csv(out/'accuracy_by_dataset.csv', index=False)
+    summary = means.groupby(['kind','rate','handling','arm','classifier'])[['accuracy','macro_f1','delta_accuracy','delta_macro_f1']].mean().reset_index()
+    summary.to_csv(out/'accuracy_summary.csv', index=False)
+    # Predefined primary endpoint: average 20% noise types and classifiers,
+    # one paired value per dataset, dual relabel vs no cleaning.
+    primary = means[(means.arm == 'dual agreement') & (means.rate == .2)]
+    primary = primary.groupby('dataset')[['delta_accuracy','delta_macro_f1']].mean()
+    primary.to_csv(out/'primary_by_dataset.csv')
+    text = ['# E12v2 results', '', 'Reference labels are unverified; detection is against injected corruption only.',
+            'No novelty claim. Full thresholded Confident Learning is not implemented.',
+            'Primary metrics pool confusion matrices across outer folds per seed, using all dataset classes.', '',
+            '## Primary: dual agreement vs no cleaning at 20% added noise', '', primary.round(3).to_string(), '']
+    eligible = (set(accuracy.handling) == {'relabel'}
+        and set(accuracy.kind) == {'symmetric','pairflip'}
+        and set(accuracy.classifier) == {'NB','DT','LR'}
+        and set(accuracy.dataset) == set(available())
+        and set(accuracy.seed) == {0,1,2}
+        and set(accuracy.rate) == {0,.1,.2,.4})
+    if eligible and len(primary) >= 5:
+        delta = primary.delta_macro_f1.to_numpy()
+        p = 1.0 if np.all(delta == 0) else float(wilcoxon(delta).pvalue)
+        text += [f'Dataset-level mean macro-F1 delta: {delta.mean():.3f} points; two-sided Wilcoxon p={p:.6g}.',
+                 'Accuracy and all other arm comparisons are descriptive secondary results.']
+    else:
+        text += ['Descriptive run only: this configuration does not satisfy the locked main protocol.']
+    text += ['', '## All downstream means', '', summary.round(3).to_string(index=False)]
+    (out/'summary.md').write_text('\n'.join(text), encoding='utf-8')
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--datasets", nargs="*", default=available())
-    parser.add_argument("--seeds", type=int, default=len(SEEDS))
-    parser.add_argument("--rates", type=float, nargs="*", default=RATES)
-    parser.add_argument("--kinds", nargs="*", choices=KINDS, default=KINDS)
-    parser.add_argument("--handling", choices=["delete", "relabel"], default="delete")
-    parser.add_argument("--min-per-class", type=int, default=5)
-    parser.add_argument("--quick", action="store_true",
-                        help="one seed, no MLP - a fast smoke run")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--datasets', nargs='+', default=available())
+    parser.add_argument('--seeds', type=int, default=3)
+    parser.add_argument('--rates', type=float, nargs='+', default=[0, .1, .2, .4])
+    parser.add_argument('--kinds', nargs='+', choices=['symmetric','pairflip','asymmetric'], default=['symmetric','pairflip'])
+    parser.add_argument('--handling', choices=['delete','relabel'], default='relabel')
+    parser.add_argument('--min-per-class', type=int, default=5)
+    parser.add_argument('--classifiers', nargs='+', choices=['NB','DT','LR','MLP'], default=['NB','DT','LR'])
+    parser.add_argument('--out', type=Path, required=True)
     args = parser.parse_args()
-
-    seeds = SEEDS[:args.seeds]
-    classifiers = ["NB", "DT", "LR"] if args.quick else ["NB", "DT", "LR", "MLP"]
-
-    OUT.mkdir(parents=True, exist_ok=True)
-    started = time.time()
+    if args.seeds < 1 or not args.datasets or not args.rates:
+        parser.error('positive seeds and nonempty datasets/rates required')
+    out = args.out.resolve()
+    out.mkdir(parents=True, exist_ok=False)
+    config = vars(args).copy()
+    config['out'] = str(out)
+    config['git_commit'] = subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+    config['code_sha256'] = {p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in Path(__file__).parent.glob('*.py')}
+    config['versions'] = {'numpy':np.__version__, 'pandas':pd.__version__, 'sklearn':sklearn.__version__}
+    config['datasets_loaded'] = {}
+    config['status'] = 'running'
+    (out/'config.json').write_text(json.dumps(config,indent=2))
+    start = time.time()
     all_det, all_acc = [], []
-
-    for i, name in enumerate(args.datasets, 1):
-        print(f"[{i}/{len(args.datasets)}] {name}", flush=True)
-        det, acc = run_dataset(name, seeds, args.rates, args.kinds,
-                               args.handling, args.min_per_class, classifiers)
-        all_det += det
-        all_acc += acc
-
-    detection = pd.DataFrame(all_det)
-    accuracy = pd.DataFrame(all_acc)
-    detection.to_csv(OUT / "detection.csv", index=False)
-    accuracy.to_csv(OUT / "accuracy.csv", index=False)
-    summarize_detection(detection).to_csv(OUT / "detection_summary.csv", index=False)
-    summarize_accuracy(accuracy).to_csv(OUT / "accuracy_summary.csv", index=False)
-
-    with open(OUT / "config.json", "w") as fh:
-        json.dump({
-            "experiment": "E12",
-            "question": "which noise filter actually finds injected label noise, "
-                        "DT vs NB, and does removing it improve accuracy?",
-            "datasets": args.datasets, "seeds": seeds, "rates": args.rates,
-            "kinds": args.kinds, "handling": args.handling,
-            "min_per_class": args.min_per_class, "classifiers": classifiers,
-            "arms": [a for a, _, _ in ARMS], "n_splits": 10,
-            "sklearn": sklearn.__version__,
-            "started": datetime.fromtimestamp(started).isoformat(),
-            "minutes": round((time.time() - started) / 60, 1),
-        }, fh, indent=2)
-
-    print("\n" + write_report(detection, accuracy, OUT))
-    print(f"\nwritten to {OUT} in {round((time.time() - started) / 60, 1)} min")
+    for dataset in args.datasets:
+        X, y, _ = load_data(dataset)
+        config['datasets_loaded'][dataset] = dict(rows=len(y),features=X.shape[1],classes=len(np.unique(y)),
+            sha256=hashlib.sha256(X.tobytes()+'|'.join(y).encode()).hexdigest())
+        (out/'config.json').write_text(json.dumps(config,indent=2))
+        for seed in range(args.seeds):
+            splitter = StratifiedKFold(n_splits=10,shuffle=True,random_state=seed)
+            folds = list(splitter.split(X,y))
+            for kind in args.kinds:
+                for rate in args.rates:
+                    for fold,(train,test) in enumerate(folds):
+                        det,acc = run_fold(X,y,train,test,kind,rate,seed,seed*1000+fold,
+                            args.handling,args.min_per_class,args.classifiers)
+                        for row in det+acc:
+                            row.update(dataset=dataset,seed=seed,fold=fold)
+                        all_det.extend(det)
+                        all_acc.extend(acc)
+                    print(f'{dataset} seed={seed} {kind} rate={rate} complete',flush=True)
+            pd.DataFrame(all_det).to_csv(out/'detection.csv',index=False)
+            pd.DataFrame(all_acc).to_csv(out/'accuracy.csv',index=False)
+    summarize(pd.DataFrame(all_det),pd.DataFrame(all_acc),out)
+    config.update(status='complete',minutes=(time.time()-start)/60,
+                  detection_rows=len(all_det),accuracy_rows=len(all_acc))
+    (out/'config.json').write_text(json.dumps(config,indent=2))
+    print(f'COMPLETE {out} in {config["minutes"]:.2f} min',flush=True)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

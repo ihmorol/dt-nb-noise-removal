@@ -1,23 +1,22 @@
 """Inject label noise we KNOW about, so a noise filter can actually be scored.
 
-Why this file exists: the ten UCI datasets are clean, so "did the filter remove
-the noise or just the hard cases?" has no answer on them - which is exactly why
-E11 produced deltas that all looked like noise. Here we corrupt a controlled
-fraction of the labels ourselves and keep the corruption mask, so a filter can
-be graded on precision / recall against ground truth instead of only through
-downstream accuracy.
+Why this file exists: the ten UCI datasets have no verified row-level noise
+ground truth, so "did the filter remove the noise or just the hard cases?" has
+no answer on them. Here we corrupt a controlled fraction of labels ourselves
+and keep the corruption mask, so a filter can be graded against known injected
+corruption instead of treating the original labels as proven clean.
 
-Two kinds, both standard in the label-noise literature:
+Three controlled corruption mechanisms:
 
   symmetric    flip a row's label to a uniformly random OTHER class. Independent
                of the class and of the row. Easy to detect - the sanity check.
 
-  asymmetric   flip a row to a class it is CONFUSABLE with rather than to a random
-               one, the CIFAR-10N / Patrini-style class-dependent noise. This is
-               the realistic and the hard case, and it is the one that separates
-               a per-class threshold rule from a global one: a global rule spends
-               its deletions on whichever class happens to be hardest, while an
-               asymmetric flip only shows up as noise once you look per class.
+  pairflip     flip each sorted class to the next sorted class. This standard,
+               fixed class-dependent mechanism is independent of a fitted model.
+
+  asymmetric   flip to the class an NB judge confuses with the source class most.
+               This is deliberately data-derived and NB-biased; it must not be
+               presented as an independent or generally realistic noise source.
 
 The confusable-class map is estimated by cross-validated NB *inside the data it is
 estimated from*, so nothing about the test fold leaks in. Call inject() on one
@@ -38,12 +37,21 @@ def confusable_map(X, y, seed=0, n_splits=3):
     from a model that trained on it. Ties and self-confusions are excluded, so
     every returned value is a DIFFERENT class.
     """
-    classes = np.unique(y)
+    X, y = np.asarray(X), np.asarray(y)
+    if X.ndim != 2 or y.ndim != 1 or len(X) != len(y) or not len(y):
+        raise ValueError("X must be a non-empty 2D array matching 1D y")
+    if not np.issubdtype(X.dtype, np.number) or not np.isfinite(X).all():
+        raise ValueError("X must contain only finite numeric values")
+    classes, counts = np.unique(y, return_counts=True)
     if len(classes) < 2:
         return {c: c for c in classes}
 
     votes = {c: {} for c in classes}
-    splitter = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=seed)
+    effective_splits = min(n_splits, int(counts.min()))
+    if effective_splits < 2:
+        return {c: classes[(i + 1) % len(classes)] for i, c in enumerate(classes)}
+    splitter = StratifiedKFold(n_splits=effective_splits, shuffle=True,
+                               random_state=seed)
     for rest, held_out in splitter.split(X, y):
         model = WeightedNB(likelihood="mixed").fit(X[rest], y[rest])
         predicted = model.predict(X[held_out])
@@ -66,12 +74,30 @@ def inject(X, y, rate, kind="symmetric", seed=0, mapping=None):
     is_noisy[i] is True exactly where we changed the label - that is the ground
     truth every filter in E12 is graded against.
 
-    rate is capped at 0.5: above half the labels flipped, the majority class is
-    no longer the majority and "which label was original" stops being meaningful
-    for this kind of study.
+    ``rate`` must be between 0 and 0.5 inclusive. Invalid experiment settings
+    raise instead of being silently clipped.
     """
+    X, y = np.asarray(X), np.asarray(y)
+    if X.ndim != 2 or y.ndim != 1 or len(X) != len(y) or not len(y):
+        raise ValueError("X must be a non-empty 2D array matching 1D y")
+    if not np.issubdtype(X.dtype, np.number) or not np.isfinite(X).all():
+        raise ValueError("X must contain only finite numeric values")
+    if (np.issubdtype(y.dtype, np.number) and not np.isfinite(y).all()) or any(
+            value is None or value != value for value in y):
+        raise ValueError("y must contain only finite, non-missing labels")
+    if kind not in ("symmetric", "asymmetric", "pairflip"):
+        raise ValueError("kind must be 'symmetric', 'asymmetric', or 'pairflip'")
+    if not np.isscalar(rate):
+        raise ValueError("rate must be a finite number between 0 and 0.5")
+    try:
+        rate = float(rate)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("rate must be a finite number between 0 and 0.5") from exc
+    if not np.isfinite(rate):
+        raise ValueError("rate must be a finite number between 0 and 0.5")
+    if not 0.0 <= rate <= 0.5:
+        raise ValueError("rate must be between 0 and 0.5")
     rng = np.random.default_rng(seed)
-    rate = float(np.clip(rate, 0.0, 0.5))
     y_noisy = np.array(y, copy=True)
     is_noisy = np.zeros(len(y), dtype=bool)
     if rate == 0:
@@ -82,14 +108,24 @@ def inject(X, y, rate, kind="symmetric", seed=0, mapping=None):
         return y_noisy, is_noisy
     if kind == "asymmetric" and mapping is None:
         mapping = confusable_map(X, y, seed=seed)
+    elif kind == "pairflip":
+        mapping = {c: classes[(i + 1) % len(classes)]
+                   for i, c in enumerate(classes)}
+    elif mapping is not None:
+        raise ValueError("mapping is only valid for kind='asymmetric'")
+    if mapping is not None:
+        for source, target in mapping.items():
+            if source not in classes or target not in classes or source == target:
+                raise ValueError("mapping must map known classes to different known classes")
 
-    # which rows to touch: a random subset, but never more than half of any one
-    # class, so the corrupted data still has a learnable majority per class.
+    # Bernoulli sampling gives an expected rate. It does not guarantee a cap per
+    # class, so reports must use the observed corruption mask rather than claim
+    # that every class retained a majority.
     chosen = np.flatnonzero(rng.random(len(y)) < rate)
     for i in chosen:
         current = y_noisy[i]
         others = classes[classes != current]
-        if kind == "asymmetric":
+        if kind in ("asymmetric", "pairflip"):
             target = mapping.get(current, others[0])
             if target == current:                        # map degenerated
                 target = others[0]
@@ -112,7 +148,7 @@ if __name__ == "__main__":
         sizes = Counter(y)
         print(f"\n{name}: {len(y)} rows, {len(sizes)} classes, "
               f"smallest class {min(sizes.values())} rows")
-        for kind in ("symmetric", "asymmetric"):
+        for kind in ("symmetric", "pairflip", "asymmetric"):
             for rate in (0.05, 0.10, 0.20, 0.40):
                 y_noisy, is_noisy = inject(X, y, rate, kind=kind, seed=0)
                 observed = 100 * is_noisy.mean()

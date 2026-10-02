@@ -31,7 +31,7 @@ class WeightedNB:
             self.binary_ = np.zeros(n_columns, dtype=bool)
 
         # a tiny extra variance so no column has variance 0 (same as sklearn's GaussianNB)
-        epsilon = 1e-9 * np.var(X, axis=0).max()
+        epsilon = 1e-9 * np.var(X, axis=0).max() or 1e-12
 
         self.priors_, self.means_, self.variances_, self.p_one_ = [], [], [], []
         for c in self.classes_:

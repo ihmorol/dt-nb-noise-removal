@@ -1,3 +1,5 @@
+> HISTORICAL CLINE NOTE � superseded by `e12v2-protocol.md`. The original relabel pilot deleted flagged rows; its AUROC used the wrong score. Claims of full Confident Learning equivalence, certified clean UCI labels, significance implying equivalence, or a universal 51% precision ceiling are unsupported and withdrawn. Retained below for provenance, not as current conclusions.
+
 # E12 — noise removal: the method, and the literature behind it
 
 *2026-10-02. Question: (a) what is the most reliable way to reduce label noise using a **Decision Tree**, and separately using **Naive Bayes**; (b) what published work removes noise from data at all. Every citation below was checked against the Crossref or arXiv API during this session — nothing is quoted from memory.*

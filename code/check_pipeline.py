@@ -126,12 +126,13 @@ def check_class_floor(X, y):
 
 def check_injection_is_local(X, y, train, test):
     """C4: inject() must change only the labels it was handed, and only some."""
+    original = y.copy()
     labels = y[train]
     noised, mask = inject(X[train], labels, 0.30, kind="asymmetric", seed=0)
     unchanged = labels[~mask]
     return (len(mask) == len(labels)
             and np.array_equal(noised[~mask], unchanged)
-            and np.array_equal(y[test], y[test])
+            and np.array_equal(y, original)
             and not np.array_equal(noised, labels))
 
 
