@@ -41,3 +41,39 @@ points at .20 noise, but loses on breast-cancer and tic-tac-toe. DT gains are
 larger than LR/NB gains. Committee deletion is descriptively stronger overall
 than dual deletion. Do not cherry-pick dual as best or change the ongoing locked
 correction strategy. Main three-seed inference remains pending.
+
+## Final main evaluation (2026-10-03)
+
+All 57,600 accuracy rows and 16,800 detection rows are present; every locked
+condition completed. The fixed primary dual-correction endpoint averages
++2.520 macro-F1 points at 20% added noise across ten datasets, three classifiers
+and two mechanisms. Wilcoxon p=0.0839844: overall improvement is not established
+at .05. This does not prove equivalence or absence of useful effects.
+
+Effects are conditional: final DT +5.642 macro-F1 points descriptively;
+LR +0.786 and NB +1.134, with LR/NB accuracy near zero or negative.
+Glass loses 1.938 macro-F1 points and tic-tac-toe loses 4.024. Eight dataset
+macro-F1 aggregates are positive. Dual correction is descriptively above
+committee correction (2.520 vs 2.064), but no superiority test was registered
+for that comparison. Single-judge correction arms are negative at 20% noise.
+
+Mean injected corruption is 19.889%; after dual correction reference-label
+error is 16.644%. Detection precision is .640 and recall .464, averaged equally
+across dataset-level results. Improved detection is insufficient by itself:
+incorrect replacements and model-specific boundary changes can offset it.
+
+With no added corruption, dual correction changes about 5.44% of reference
+labels; downstream mean accuracy changes -0.094 points and macro-F1 +0.350.
+This mixed average conceals harms on glass, image segmentation, soybean and
+tic-tac-toe. Reference labels are unverified: do not equate these changes with
+certified new noise, or call the method harmless. Protected small classes and
+rare-class missing-fold support remain limitations.
+
+## Outer-loop decision
+
+Conclude this fixed evaluation, not the broader research question. The broad
+claim is unsupported; retain conditional tree gains as a lead rather than
+retune until a p-value passes. A future, separately locked study should focus
+on why DT benefits, clean-label safety, and independently evaluated judge
+reliability; it needs new evidence rather than post-hoc threshold selection on
+these same results. No additional experiments were launched after the outcome.

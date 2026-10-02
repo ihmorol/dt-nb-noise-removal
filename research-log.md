@@ -22,3 +22,12 @@ counts, code hashes and data hashes independently checked. Kept mixed outcomes
 and harms; no hypothesis or parameter changes after reading the results. A
 post-launch documentation/unused validation edit was reversed; source bytes
 were restored exactly to all three recorded launch hashes.
+
+2026-10-03: Main run completed with exit 0 after 146.12 minutes. Exact locked
+matrix verified: 57,600 accuracy / 16,800 detection rows, no duplicates,
+finite downstream metrics, identical code hashes and dataset fingerprints.
+Main stderr contains rare-class split warnings only; no convergence, overflow,
+or runtime failure. Primary gain +2.520 macro-F1, p=.0839844: not established.
+Full report includes harms and competitors. Generated PDF/PNG and HTML report;
+PNG visually inspected for clipping, labels and zero-baseline representation.
+Outer-loop decision: conclude the bounded evaluation without outcome tuning.

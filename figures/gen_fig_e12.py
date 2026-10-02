@@ -10,6 +10,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from scipy.stats import wilcoxon
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'code'))
@@ -62,6 +63,10 @@ def validate(name):
         none = det[det.arm == 'none'][keys[:-2]+['handling','rows_after']]
         check = det.merge(none,on=['dataset','seed','fold','kind','rate','handling'],suffixes=('','_none'))
         assert (check.rows_after == check.rows_after_none).all()
+    else:
+        none = det[det.arm == 'none'][['dataset','seed','fold','kind','rate','handling','rows_after']]
+        check = det.merge(none,on=['dataset','seed','fold','kind','rate','handling'],suffixes=('','_none'))
+        assert (check.rows_after == check.rows_after_none-check.tp-check.fp).all()
     return cfg
 
 
@@ -97,13 +102,19 @@ def main():
     summary = (out/'summary.md').read_text()
     table = means[(means.arm == 'dual agreement') & (means.rate.isin([0,.2]))]
     table = table.groupby(['dataset','rate'])[['delta_accuracy','delta_macro_f1']].mean().round(3)
+    p_value = float(wilcoxon(primary.delta_macro_f1).pvalue)
+    endpoint = f'<p><strong>Primary result: {primary.delta_macro_f1.mean():+.2f} macro-F1 points; p={p_value:.3f}. This does not establish overall improvement at the locked 0.05 threshold.</strong></p>'
     notes = '''<p>Corrections preserve rows. Only known injected corruptions are detection ground truth;
 original labels are unverified references. No novelty claim or guarantee of real-world noise improvement.
 The primary is fixed; other comparisons and MLP transfer are descriptive. All ten datasets retained.
 No-cleaning and reference-label training are separate controls. Singleton protection may reduce recall.</p>'''
     body = '<!doctype html><html><meta charset="utf-8"><title>DT–NB noise research</title><style>body{font:17px system-ui;max-width:1100px;margin:40px auto;padding:20px;color:#17212b}img{width:100%}table{border-collapse:collapse;font-size:14px}td,th{padding:7px;border-bottom:1px solid #ddd}pre{white-space:pre-wrap;font-size:13px}</style><h1>Can NB and DT improve learning by correcting noise?</h1>'
-    body += notes+'<img src="e12-results.png" alt="Dataset gains and losses; effects by noise rate"><h2>Dataset outcomes</h2>'+table.to_html()
-    body += '<h2>Protocol and completeness</h2><p>All three locked runs passed row-count, duplicate, finite-score, code-hash and row-retention checks.</p>'
+    body += endpoint+notes+'<img src="e12-results.png" alt="Dataset gains and losses; effects by noise rate"><h2>Dataset outcomes</h2>'+table.to_html()
+    det = pd.read_csv(out/'detection_by_dataset.csv')
+    noise = det[det.arm == 'dual agreement'].groupby('rate')[['true_noise_pct','post_noise_pct','precision','recall','false_positive_rate']].mean().round(3)
+    body += '<h2>Injected corruption and residual reference-label errors</h2>'+noise.to_html()
+    body += '<p>Zero-added-noise correction changes roughly 5.44% of reference labels. Original labels are unverified; this is a reference-label disagreement rate, not proof of genuine new noise. At zero added noise, Glass, image segmentation, soybean and tic-tac-toe lose macro-F1; Glass and tic-tac-toe have the largest losses. Mean gains are concentrated in the DT classifier; LR/NB are mixed.</p>'
+    body += '<h2>Protocol and completeness</h2><p>All three locked runs passed row-count, duplicate, finite-score and code/data-hash checks. Both relabel runs retained every training row; deletion passed expected row-removal checks.</p>'
     body += '<pre>'+html.escape(json.dumps({k:{f:c[f] for f in ['datasets','seeds','rates','classifiers','handling','minutes']} for k,c in configs.items()},indent=2))+'</pre>'
     for run,title in [('delete','Deletion sensitivity: descriptive'),('mlp','MLP transfer: exploratory, three datasets and one seed')]:
         secondary = pd.read_csv(ROOT/'results'/('EXP-E12v2_'+run)/'accuracy_by_dataset.csv')

@@ -20,3 +20,19 @@ smoke. Reviewer additionally checked all dual-agreement flags have identical
 confident DT/NB replacement labels and class floors hold. No remaining blocker.
 LSP/pyright unavailable: syntax verified with compileall. Full result review
 is still required; this approval concerns execution validity, not superiority.
+
+## Final results review — 2026-10-03
+
+Independent reviewer recomputed the primary from raw confusion matrices:
+mean +2.5205, median +2.2211, 8 positive / 2 negative datasets; exact two-sided
+Wilcoxon statistic 10, p=.083984375. No overall improvement established.
+All three exact protocol/domain/source/data validators passed. Main has
+16,800 detection and 57,600 accuracy rows. No convergence or numerical failures;
+12 expected rare-class stratification warnings remain visible. Generated
+PNG/PDF/HTML checked; charts readable and match stored metrics.
+
+Two report wording requests were fixed: list all four zero-added-noise
+macro-F1 harms (glass, image segmentation, soybean, tic-tac-toe), and distinguish
+relabel row retention from intentional deletion. Added a deletion invariant
+check against flagged counts. Reviewer approval applies after these two fixes;
+both are complete and the regenerated validator passes.

@@ -1,19 +1,18 @@
-status: running
+status: complete
 branch: dev/e12-research-takeover
-source: Cline E11 branch and unfinished E12 snapshot
-goal: Evaluate whether NB and DT jointly improve learning under injected label noise
-plan:
-  - preserve inherited work (complete, 9dbd29a)
-  - audit and regression-test filtering and correction
-  - lock E12v2 protocol before running
-  - run all available datasets with paired baselines
-  - independently review results and publish bounded findings
-continuity: Codex heartbeat dt-nb-research-follow-up, every 20 minutes
-claims: No verified E12 improvement yet; inherited relabel pilot is invalid
-
-implementation_commit: 82919fe
+scope: bounded E12v2 evaluation complete; broad improvement goal remains unsupported
+source: preserved Cline E11 branch and unfinished E12 snapshot
 protocol_commit: 2e9422a
+implementation_commit: 82919fe
+primary:
+  mean_macro_f1_delta: 2.5205
+  wilcoxon_p: 0.083984375
+  interpretation: overall improvement not established at 0.05
 runs:
-  main: results/EXP-E12v2_main (session 68401)
-  deletion: results/EXP-E12v2_delete (complete, exit 0)
-  mlp: results/EXP-E12v2_mlp (complete, exit 0)
+  main: complete, exit 0, 57600 accuracy rows, 16800 detection rows
+  deletion: complete, exit 0, descriptive one-seed sensitivity
+  mlp: complete, exit 0, exploratory three-dataset one-seed transfer
+verification: independent review, exact domains/counts/hashes, pooled metrics, regression checks, visual QA
+report: to_human/e12-report.html
+continuity: pause dt-nb-research-follow-up after final commit
+remaining_research: DT-specific benefit and safe handling of low-noise data need a separately locked study
