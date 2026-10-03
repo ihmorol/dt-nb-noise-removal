@@ -1,3 +1,5 @@
+> HISTORICAL E11 NOTE: retained with its original results. Statements below calling the filter safe/reliable, diagnosing native label noise, or declaring the noise-removal target achieved are not established by this experiment and are withdrawn. Labels were not independently verified, rare classes were wiped out, and MLP losses occurred. Non-significant tests do not prove equivalence. Treat mechanistic explanations as hypotheses; use `findings.md` for the current bounded interpretation.
+
 # E11 — reliable (committee) noise removal + attribute weighting for LR and a deep MLP
 
 *2026-10-02. Branch `feat/committee-filter-lr-mlp`. Question: does reliable DT+NB noise removal plus Alg 2 attribute selection/weighting improve Logistic Regression and a fundamental deep model (MLP) over the same models on the raw data? One run, 10 datasets, 10-fold x 5 seeds, refit per fold, 37 min. Artifacts: `../results/EXP-E11_lr-mlp-hybrid-data/`.*
