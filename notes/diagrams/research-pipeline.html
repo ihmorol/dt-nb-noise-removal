@@ -1,0 +1,90 @@
+<!doctype html><html><head><meta charset="utf-8"><title>DT–NB hybrid research pipeline</title>
+<style>@page { size: 816pt 985pt; margin: 0; } * { box-sizing: border-box; margin: 0; }
+body { font-family: "Segoe UI", sans-serif; background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }</style>
+</head><body><style>
+.pipe { position: relative; width: 816pt; height: 985pt; color: #334155; line-height: 1.3; }
+.pipe .wire { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; }
+.pipe .wire text { font-size: 14px; font-weight: 700; }
+.pipe .n { position: absolute; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 3pt;
+  text-align: center; font-size: 12pt; border: 2pt solid; border-radius: 10pt; padding: 0 14pt; }
+.pipe .n.bare { border: 0; padding: 0; }
+.pipe .n b { font-size: 19pt; color: #0f172a; }
+.pipe .n.dia { font-size: 13pt; }
+.pipe .n.dia b { font-size: 17pt; }
+.pipe .num { position: absolute; left: 10pt; top: 10pt; width: 26pt; height: 26pt; border-radius: 50%; color: #fff;
+  font-size: 15pt; font-weight: 700; line-height: 26pt; text-align: center; }
+.pipe .frame { position: absolute; border: 2pt dashed #065f46; border-radius: 14pt; background: #fff; }
+.pipe .tag { position: absolute; height: 24pt; line-height: 24pt; padding: 0 14pt; border-radius: 12pt; background: #065f46; color: #fff;
+  font-size: 13.5pt; font-weight: 700; letter-spacing: .04em; }
+.pipe .mrow { display: flex; justify-content: center; align-items: center; gap: 5pt; }
+.pipe .mini2 { border: 1.5pt solid #a78bfa; border-radius: 8pt; background: #fff; font-size: 11pt; padding: 2pt 7pt; color: #0f172a; white-space: nowrap; }
+.pipe .mar { color: #475569; font-weight: 700; font-size: 12pt; }
+.pipe .mdn { color: #475569; font-weight: 700; font-size: 12pt; line-height: 1; }
+.pipe .chips { display: flex; gap: 8pt; justify-content: center; align-items: baseline; }
+.pipe .chip { border: 1.5pt solid #94a3b8; border-radius: 9pt; background: #fff; padding: 1pt 10pt; font-size: 12.5pt; color: #0f172a; }
+.pipe .chip.t { border-color: #14b8a6; }
+.pipe .lbl { font-size: 11pt; color: #64748b; }
+</style><div class="pipe">
+<div class="frame" style="left:4pt;top:92pt;width:808pt;height:774pt"></div>
+<div class="tag" style="left:24pt;top:80pt">REPEAT PER FOLD · EVERY DATASET × SEED</div>
+<svg class="wire" viewBox="0 0 816 985"><defs><marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#475569"/></marker><marker id="pe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c2410c"/></marker><marker id="pw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#065f46"/></marker></defs>
+<polyline points="408,68 408,112" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#pa)"/>
+<polyline points="408,170 408,184" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="408,184 220,184 220,200" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#pa)"/>
+<polyline points="408,184 596,184 596,200" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#pa)"/>
+<polyline points="220,378 220,392 408,392" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="596,378 596,392 408,392" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round"/>
+<polyline points="408,392 408,404" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#pa)"/>
+<polyline points="408,594 408,606" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#pa)"/>
+<polygon points="230,608 420,658 230,708 40,658" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+<polyline points="420,658 466,658" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#pa)"/><text x="443" y="649" fill="#475569" text-anchor="middle">NO</text>
+<polyline points="768,658 788,658 788,152 770,152" fill="none" stroke="#065f46" stroke-width="2.5" stroke-dasharray="9 6" stroke-linejoin="round" marker-end="url(#pw)"/><text x="777" y="400" fill="#065f46" text-anchor="middle" transform="rotate(-90 777 400)">next fold</text>
+<polyline points="230,708 230,720" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#pa)"/><text x="258" y="716" fill="#475569" text-anchor="middle">YES</text>
+<polygon points="230,722 420,772 230,822 40,772" fill="#fefce8" stroke="#a16207" stroke-width="2"/>
+<polyline points="420,772 466,772" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#pa)"/><text x="443" y="763" fill="#475569" text-anchor="middle">NO</text>
+<polyline points="768,772 806,772 806,132 772,132" fill="none" stroke="#c2410c" stroke-width="2.5" stroke-dasharray="9 6" stroke-linejoin="round" marker-end="url(#pe)"/><text x="797" y="450" fill="#c2410c" text-anchor="middle" transform="rotate(-90 797 450)">next seed</text>
+<polyline points="230,822 230,866" fill="none" stroke="#475569" stroke-width="2.5" stroke-linejoin="round" marker-end="url(#pa)"/><text x="258" y="838" fill="#475569" text-anchor="middle">YES</text>
+</svg>
+
+<div class="n" style="left:4pt;top:4pt;width:808pt;height:64pt;background:#fff7ed;border-color:#c2410c"><span class="num" style="background:#c2410c">1</span><b>Setup</b>
+<div>Farid 2014: Alg 1, an NB row filter · Alg 2, tree attribute weights</div>
+<div>10 UCI datasets · 10-fold CV × seeds</div></div>
+
+<div class="n" style="left:48pt;top:114pt;width:720pt;height:56pt;background:#eff6ff;border-color:#1e40af"><span class="num" style="background:#1e40af">2</span><b>Split</b>
+<div>paired folds, same for every arm · test rows are never removed</div></div>
+
+<div class="n" style="left:48pt;top:204pt;width:344pt;height:174pt;background:#f5f3ff;border-color:#6d28d9"><span class="num" style="background:#6d28d9">3</span><b>Filter rows → copy A</b>
+<div>no judge ever scores a row it trained on</div>
+<div class="mrow"><span class="mini2">3 × 3 folds</span><span class="mar">→</span><span class="mini2">tree + NB vote</span></div>
+<div class="mdn">↓</div>
+<div class="mrow"><span class="mini2">≤ 6 votes per row</span><span class="mar">→</span><span class="mini2">6/6 → delete</span></div>
+<div>delete only at 6/6 votes against (consensus)</div>
+<div>if only one class would remain, nothing is deleted</div></div>
+
+<div class="n" style="left:424pt;top:204pt;width:344pt;height:174pt;background:#f5f3ff;border-color:#6d28d9"><span class="num" style="background:#6d28d9">4</span><b>Weight columns → copy B</b>
+<div>one entropy tree on the common copy</div>
+<div class="mrow"><span class="mini2">grow tree</span><span class="mar">→</span><span class="mini2">smallest depth <i>d</i></span></div>
+<div class="mdn">↓</div>
+<div class="mrow"><span class="mini2"><i>w</i> = 1/√<i>d</i></span><span class="mar">→</span><span class="mini2"><i>w</i> = 0 → drop</span></div>
+<div><i>w</i> = 1/√<i>d</i> (root = depth 1) · untested → dropped</div>
+<div>copy B = kept columns scaled by <i>w</i> · test fold too</div></div>
+
+<div class="n" style="left:48pt;top:404pt;width:720pt;height:120pt;background:#f0fdfa;border-color:#0d9488"><span class="num" style="background:#0d9488">5</span><b>Combine → classify</b>
+<div class="chips"><span class="lbl">data</span><span class="chip">raw</span><span class="chip">A</span><span class="chip">B</span><span class="chip">A × B</span></div>
+<div class="chips"><span class="lbl">model</span><span class="chip t">NB</span><span class="chip t">DT</span><span class="chip t">LR</span><span class="chip t">MLP</span></div>
+<div>the sequential study (E9) chains them instead: Alg 1 → Alg 2, or Alg 2 → Alg 1</div></div>
+
+<div class="n" style="left:48pt;top:540pt;width:720pt;height:54pt;background:#f8fafc;border-color:#475569"><span class="num" style="background:#475569">6</span><b>Score the test fold</b>
+<div>accuracy · macro-F1 · what each filter removed</div></div>
+
+<div class="n bare dia" style="left:116pt;top:626pt;width:228pt;height:64pt;background:transparent"><b>Last fold?</b><div>fold = 10</div></div>
+<div class="n" style="left:470pt;top:625pt;width:298pt;height:66pt;background:#ecfdf5;border-color:#065f46"><b>Next fold</b><div>refit everything</div></div>
+
+<div class="n bare dia" style="left:116pt;top:740pt;width:228pt;height:64pt;background:transparent"><b>Last seed?</b><div>dataset = 10</div></div>
+<div class="n" style="left:470pt;top:739pt;width:298pt;height:66pt;background:#fff7ed;border-color:#c2410c"><b>Next seed</b><div>new split</div></div>
+
+<div class="n" style="left:4pt;top:868pt;width:808pt;height:96pt;background:#eff6ff;border-color:#1e40af"><span class="num" style="background:#1e40af">7</span><b>Audit and report</b>
+<div>leakage check, fit before CV vs refit per fold: Alg 1 +15 pts of pure leakage, Alg 2 ≈ 0</div>
+<div>Wilcoxon + Holm · per-class removal reports · data before and after</div></div>
+
+</div></body></html>
