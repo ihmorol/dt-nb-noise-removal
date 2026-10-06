@@ -13,7 +13,7 @@ United International University\\
 Dhaka, Bangladesh\\
 imoral223489@bscse.uiu.ac.bd}
 \and
-\IEEEauthorblockN{Dewan Md. Farid}
+\IEEEauthorblockN{Dr. Dewan Md. Farid}
 \IEEEauthorblockA{Professor, Department of Computer Science and Engineering\\
 United International University\\
 Dhaka, Bangladesh\\
@@ -249,7 +249,8 @@ C4.5 falls from 66.58\% to 48.97\%. On Contact lenses, the same NB
 combination improves from 73.00\% to 83.00\%, although that dataset has
 only 24 rows. The 24-row result gives limited evidence of benefit.
 
-Table~\ref{tab:tests} reports the paired accuracy comparisons. AN--DT is
+Figure~\ref{fig:accuracy-change} shows the mean accuracy changes from each
+plain classifier. Table~\ref{tab:tests} reports the paired comparisons. AN--DT is
 lower than the C4.5 baseline with raw $p=0.014$, but its Holm-adjusted
 $p=0.109$ exceeds the stated threshold. None of the eight comparisons is
 significant after adjustment. These mean losses do not establish how the methods perform on other datasets.
@@ -268,6 +269,16 @@ tree accuracy by 0.32 pp. The corresponding raw $p$ values are 0.275 and
 0.922. We find no clear order advantage under these settings. This finding
 is limited to a single pass through the two steps, with fixed learner
 settings and the weights passed to the AN judge.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/conference_accuracy_change.pdf}
+\caption{Protocol B mean accuracy change from the corresponding plain
+classifier, with equal dataset weight. N is filtering, A is attribute
+weighting, and NA/AN are the combined orders. Negative values mean lower
+accuracy. These are descriptive differences, not significance tests.}
+\label{fig:accuracy-change}
+\end{figure}
 
 \subsection{Cleaning before the split changes the score}
 Table~\ref{tab:results-protocol-a} compares the two evaluation protocols.
