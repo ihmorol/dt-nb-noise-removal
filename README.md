@@ -25,10 +25,23 @@ Farid et al. (2014) proposed two *separate* DT–NB hybrids: NB deletes misclass
 
 | Phase | Status |
 |---|---|
-| 0 — Setup (env, data) | not started |
-| 1 — Replication + leakage audit | not started |
-| 2 — Mutual hybrid + confidence-aware filter | not started |
+| 0 — Setup (env, data) | done |
+| 1 — Replication + leakage audit | done (R1, E3a) |
+| 2 — Mutual hybrid + confidence-aware filter | done (E9, E11) |
+| 2b — **Which filter actually finds noise? (E12)** | **running** — `notes/e12-noise-removal.md` |
 | 3 — Robustness (repeats, CIs, baselines) | not started |
 | 4 — Writing + submission | not started |
 
 Rule: update the status table and `trackers/experiments.md` at the end of every session.
+
+## E12 in one paragraph
+
+E11 compared noise filters only through downstream accuracy, on ten datasets that
+are themselves clean — so it could never tell whether a filter removed *mislabeled*
+rows or merely *hard* ones, and every delta landed inside `p >= 0.0625`. E12 fixes
+that: `noise_inject.py` corrupts a controlled fraction of the **training fold's**
+labels and keeps the mask, so every filter is graded on precision/recall against
+ground truth. `confident_filter.py` runs DT and NB as judges **separately**, using
+per-class thresholds (the confident joint) instead of E11's vote counting, plus a
+per-class floor so no rule can empty a class. `e12_noise_removal.py` reports both
+the detection quality and the downstream effect.

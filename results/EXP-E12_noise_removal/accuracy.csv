@@ -1,0 +1,361 @@
+arm,judge,method,kind,rate,handling,fold_seed,classifier,accuracy,macro_f1,dataset,seed,fold
+none,,,symmetric,0.2,relabel,0,NB,93.33333333333333,93.26599326599326,iris,0,0
+none,,,symmetric,0.2,relabel,0,DT,93.33333333333333,93.26599326599326,iris,0,0
+none,,,symmetric,0.2,relabel,0,LR,93.33333333333333,93.26599326599326,iris,0,0
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,0,NB,93.33333333333333,93.26599326599326,iris,0,0
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,0,DT,100.0,100.0,iris,0,0
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,0,LR,93.33333333333333,93.26599326599326,iris,0,0
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,0,NB,100.0,100.0,iris,0,0
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,0,DT,100.0,100.0,iris,0,0
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,0,LR,100.0,100.0,iris,0,0
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,0,NB,100.0,100.0,iris,0,0
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,0,DT,100.0,100.0,iris,0,0
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,0,LR,100.0,100.0,iris,0,0
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,0,NB,93.33333333333333,93.26599326599326,iris,0,0
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,0,DT,93.33333333333333,93.26599326599326,iris,0,0
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,0,LR,93.33333333333333,93.26599326599326,iris,0,0
+committee consensus,committee,consensus,symmetric,0.2,relabel,0,NB,100.0,100.0,iris,0,0
+committee consensus,committee,consensus,symmetric,0.2,relabel,0,DT,100.0,100.0,iris,0,0
+committee consensus,committee,consensus,symmetric,0.2,relabel,0,LR,100.0,100.0,iris,0,0
+none,,,symmetric,0.2,relabel,1,NB,93.33333333333333,93.26599326599326,iris,0,1
+none,,,symmetric,0.2,relabel,1,DT,80.0,79.44444444444446,iris,0,1
+none,,,symmetric,0.2,relabel,1,LR,66.66666666666666,63.369963369963365,iris,0,1
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,1,NB,93.33333333333333,93.26599326599326,iris,0,1
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,1,DT,86.66666666666667,86.11111111111111,iris,0,1
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,1,LR,93.33333333333333,93.26599326599326,iris,0,1
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,1,NB,86.66666666666667,86.66666666666667,iris,0,1
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,1,DT,93.33333333333333,93.26599326599326,iris,0,1
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,1,LR,73.33333333333333,72.22222222222221,iris,0,1
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,1,NB,86.66666666666667,86.66666666666667,iris,0,1
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,1,DT,93.33333333333333,93.26599326599326,iris,0,1
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,1,LR,73.33333333333333,72.22222222222221,iris,0,1
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,1,NB,93.33333333333333,93.26599326599326,iris,0,1
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,1,DT,93.33333333333333,93.26599326599326,iris,0,1
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,1,LR,93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,committee,consensus,symmetric,0.2,relabel,1,NB,93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,committee,consensus,symmetric,0.2,relabel,1,DT,93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,committee,consensus,symmetric,0.2,relabel,1,LR,86.66666666666667,86.66666666666667,iris,0,1
+none,,,symmetric,0.2,relabel,2,NB,86.66666666666667,86.11111111111111,iris,0,2
+none,,,symmetric,0.2,relabel,2,DT,73.33333333333333,73.13131313131315,iris,0,2
+none,,,symmetric,0.2,relabel,2,LR,86.66666666666667,86.66666666666667,iris,0,2
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,2,NB,93.33333333333333,93.26599326599326,iris,0,2
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,2,DT,93.33333333333333,93.26599326599326,iris,0,2
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,2,LR,93.33333333333333,93.26599326599326,iris,0,2
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,2,NB,93.33333333333333,93.26599326599326,iris,0,2
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,2,DT,93.33333333333333,93.26599326599326,iris,0,2
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,2,LR,100.0,100.0,iris,0,2
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,2,NB,93.33333333333333,93.26599326599326,iris,0,2
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,2,DT,93.33333333333333,93.26599326599326,iris,0,2
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,2,LR,100.0,100.0,iris,0,2
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,2,NB,93.33333333333333,93.26599326599326,iris,0,2
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,2,DT,93.33333333333333,93.26599326599326,iris,0,2
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,2,LR,93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,committee,consensus,symmetric,0.2,relabel,2,NB,86.66666666666667,86.11111111111111,iris,0,2
+committee consensus,committee,consensus,symmetric,0.2,relabel,2,DT,93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,committee,consensus,symmetric,0.2,relabel,2,LR,93.33333333333333,93.26599326599326,iris,0,2
+none,,,symmetric,0.2,relabel,3,NB,100.0,100.0,iris,0,3
+none,,,symmetric,0.2,relabel,3,DT,93.33333333333333,93.26599326599326,iris,0,3
+none,,,symmetric,0.2,relabel,3,LR,93.33333333333333,93.26599326599326,iris,0,3
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,3,NB,93.33333333333333,93.26599326599326,iris,0,3
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,3,DT,100.0,100.0,iris,0,3
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,3,LR,93.33333333333333,93.26599326599326,iris,0,3
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,3,NB,100.0,100.0,iris,0,3
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,3,DT,100.0,100.0,iris,0,3
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,3,LR,100.0,100.0,iris,0,3
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,3,NB,100.0,100.0,iris,0,3
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,3,DT,100.0,100.0,iris,0,3
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,3,LR,100.0,100.0,iris,0,3
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,3,NB,100.0,100.0,iris,0,3
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,3,DT,100.0,100.0,iris,0,3
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,3,LR,100.0,100.0,iris,0,3
+committee consensus,committee,consensus,symmetric,0.2,relabel,3,NB,100.0,100.0,iris,0,3
+committee consensus,committee,consensus,symmetric,0.2,relabel,3,DT,100.0,100.0,iris,0,3
+committee consensus,committee,consensus,symmetric,0.2,relabel,3,LR,100.0,100.0,iris,0,3
+none,,,symmetric,0.2,relabel,4,NB,86.66666666666667,86.66666666666667,iris,0,4
+none,,,symmetric,0.2,relabel,4,DT,60.0,56.74603174603173,iris,0,4
+none,,,symmetric,0.2,relabel,4,LR,93.33333333333333,93.26599326599326,iris,0,4
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,4,NB,93.33333333333333,93.26599326599326,iris,0,4
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,4,DT,93.33333333333333,93.26599326599326,iris,0,4
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,4,LR,93.33333333333333,93.26599326599326,iris,0,4
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,4,NB,86.66666666666667,86.66666666666667,iris,0,4
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,4,DT,66.66666666666666,66.32996632996633,iris,0,4
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,4,LR,86.66666666666667,86.66666666666667,iris,0,4
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,4,NB,86.66666666666667,86.66666666666667,iris,0,4
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,4,DT,66.66666666666666,66.32996632996633,iris,0,4
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,4,LR,86.66666666666667,86.66666666666667,iris,0,4
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,4,NB,93.33333333333333,93.26599326599326,iris,0,4
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,4,DT,80.0,78.02197802197803,iris,0,4
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,4,LR,93.33333333333333,93.26599326599326,iris,0,4
+committee consensus,committee,consensus,symmetric,0.2,relabel,4,NB,93.33333333333333,93.26599326599326,iris,0,4
+committee consensus,committee,consensus,symmetric,0.2,relabel,4,DT,80.0,78.02197802197803,iris,0,4
+committee consensus,committee,consensus,symmetric,0.2,relabel,4,LR,93.33333333333333,93.26599326599326,iris,0,4
+none,,,symmetric,0.2,relabel,5,NB,100.0,100.0,iris,0,5
+none,,,symmetric,0.2,relabel,5,DT,86.66666666666667,86.59932659932662,iris,0,5
+none,,,symmetric,0.2,relabel,5,LR,86.66666666666667,86.66666666666667,iris,0,5
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,5,NB,100.0,100.0,iris,0,5
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,5,DT,100.0,100.0,iris,0,5
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,5,LR,93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,5,NB,93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,5,DT,93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,5,LR,93.33333333333333,93.26599326599326,iris,0,5
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,5,NB,93.33333333333333,93.26599326599326,iris,0,5
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,5,DT,93.33333333333333,93.26599326599326,iris,0,5
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,5,LR,93.33333333333333,93.26599326599326,iris,0,5
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,5,NB,93.33333333333333,93.26599326599326,iris,0,5
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,5,DT,93.33333333333333,93.26599326599326,iris,0,5
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,5,LR,100.0,100.0,iris,0,5
+committee consensus,committee,consensus,symmetric,0.2,relabel,5,NB,93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,committee,consensus,symmetric,0.2,relabel,5,DT,100.0,100.0,iris,0,5
+committee consensus,committee,consensus,symmetric,0.2,relabel,5,LR,93.33333333333333,93.26599326599326,iris,0,5
+none,,,symmetric,0.2,relabel,6,NB,86.66666666666667,86.11111111111111,iris,0,6
+none,,,symmetric,0.2,relabel,6,DT,73.33333333333333,73.13131313131312,iris,0,6
+none,,,symmetric,0.2,relabel,6,LR,73.33333333333333,73.33333333333334,iris,0,6
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,6,NB,86.66666666666667,86.11111111111111,iris,0,6
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,6,DT,86.66666666666667,86.11111111111111,iris,0,6
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,6,LR,86.66666666666667,86.11111111111111,iris,0,6
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,6,NB,86.66666666666667,86.11111111111111,iris,0,6
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,6,DT,80.0,79.44444444444444,iris,0,6
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,6,LR,86.66666666666667,86.11111111111111,iris,0,6
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,6,NB,86.66666666666667,86.11111111111111,iris,0,6
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,6,DT,80.0,79.44444444444444,iris,0,6
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,6,LR,86.66666666666667,86.11111111111111,iris,0,6
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,6,NB,86.66666666666667,86.11111111111111,iris,0,6
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,6,DT,86.66666666666667,86.11111111111111,iris,0,6
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,6,LR,86.66666666666667,86.11111111111111,iris,0,6
+committee consensus,committee,consensus,symmetric,0.2,relabel,6,NB,86.66666666666667,86.11111111111111,iris,0,6
+committee consensus,committee,consensus,symmetric,0.2,relabel,6,DT,80.0,79.54545454545455,iris,0,6
+committee consensus,committee,consensus,symmetric,0.2,relabel,6,LR,73.33333333333333,73.33333333333334,iris,0,6
+none,,,symmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+none,,,symmetric,0.2,relabel,7,DT,93.33333333333333,93.26599326599326,iris,0,7
+none,,,symmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,7,DT,100.0,100.0,iris,0,7
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,7,DT,100.0,100.0,iris,0,7
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,7,DT,100.0,100.0,iris,0,7
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,7,DT,93.33333333333333,93.26599326599326,iris,0,7
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+committee consensus,committee,consensus,symmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+committee consensus,committee,consensus,symmetric,0.2,relabel,7,DT,100.0,100.0,iris,0,7
+committee consensus,committee,consensus,symmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+none,,,symmetric,0.2,relabel,8,NB,86.66666666666667,86.11111111111111,iris,0,8
+none,,,symmetric,0.2,relabel,8,DT,86.66666666666667,85.60606060606061,iris,0,8
+none,,,symmetric,0.2,relabel,8,LR,86.66666666666667,86.11111111111111,iris,0,8
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,8,NB,93.33333333333333,93.26599326599326,iris,0,8
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,8,DT,100.0,100.0,iris,0,8
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,8,LR,93.33333333333333,93.26599326599326,iris,0,8
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,8,NB,86.66666666666667,86.11111111111111,iris,0,8
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,8,DT,93.33333333333333,93.26599326599326,iris,0,8
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,8,LR,93.33333333333333,93.26599326599326,iris,0,8
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,8,NB,86.66666666666667,86.11111111111111,iris,0,8
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,8,DT,93.33333333333333,93.26599326599326,iris,0,8
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,8,LR,93.33333333333333,93.26599326599326,iris,0,8
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,8,NB,93.33333333333333,93.26599326599326,iris,0,8
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,8,DT,93.33333333333333,93.26599326599326,iris,0,8
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,8,LR,93.33333333333333,93.26599326599326,iris,0,8
+committee consensus,committee,consensus,symmetric,0.2,relabel,8,NB,86.66666666666667,86.11111111111111,iris,0,8
+committee consensus,committee,consensus,symmetric,0.2,relabel,8,DT,93.33333333333333,93.26599326599326,iris,0,8
+committee consensus,committee,consensus,symmetric,0.2,relabel,8,LR,86.66666666666667,86.11111111111111,iris,0,8
+none,,,symmetric,0.2,relabel,9,NB,100.0,100.0,iris,0,9
+none,,,symmetric,0.2,relabel,9,DT,80.0,79.79797979797979,iris,0,9
+none,,,symmetric,0.2,relabel,9,LR,86.66666666666667,86.11111111111111,iris,0,9
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,9,NB,93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,9,DT,93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,NB,hard_vote,symmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,9,NB,93.33333333333333,93.26599326599326,iris,0,9
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,9,DT,86.66666666666667,86.66666666666667,iris,0,9
+DT hard_vote,DT,hard_vote,symmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,9,NB,93.33333333333333,93.26599326599326,iris,0,9
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,9,DT,86.66666666666667,86.66666666666667,iris,0,9
+DT confident_joint,DT,confident_joint,symmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,9,NB,93.33333333333333,93.26599326599326,iris,0,9
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,9,DT,80.0,79.79797979797979,iris,0,9
+NB confident_joint,NB,confident_joint,symmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9
+committee consensus,committee,consensus,symmetric,0.2,relabel,9,NB,86.66666666666667,85.60606060606061,iris,0,9
+committee consensus,committee,consensus,symmetric,0.2,relabel,9,DT,73.33333333333333,74.07407407407406,iris,0,9
+committee consensus,committee,consensus,symmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9
+none,,,asymmetric,0.2,relabel,0,NB,86.66666666666667,86.11111111111111,iris,0,0
+none,,,asymmetric,0.2,relabel,0,DT,80.0,78.02197802197803,iris,0,0
+none,,,asymmetric,0.2,relabel,0,LR,100.0,100.0,iris,0,0
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,0,NB,93.33333333333333,93.26599326599326,iris,0,0
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,0,DT,93.33333333333333,93.26599326599326,iris,0,0
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,0,LR,86.66666666666667,86.11111111111111,iris,0,0
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,0,NB,100.0,100.0,iris,0,0
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,0,DT,100.0,100.0,iris,0,0
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,0,LR,100.0,100.0,iris,0,0
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,0,NB,100.0,100.0,iris,0,0
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,0,DT,100.0,100.0,iris,0,0
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,0,LR,100.0,100.0,iris,0,0
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,0,NB,93.33333333333333,93.26599326599326,iris,0,0
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,0,DT,93.33333333333333,93.26599326599326,iris,0,0
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,0,LR,93.33333333333333,93.26599326599326,iris,0,0
+committee consensus,committee,consensus,asymmetric,0.2,relabel,0,NB,93.33333333333333,93.26599326599326,iris,0,0
+committee consensus,committee,consensus,asymmetric,0.2,relabel,0,DT,100.0,100.0,iris,0,0
+committee consensus,committee,consensus,asymmetric,0.2,relabel,0,LR,100.0,100.0,iris,0,0
+none,,,asymmetric,0.2,relabel,1,NB,93.33333333333333,93.26599326599326,iris,0,1
+none,,,asymmetric,0.2,relabel,1,DT,86.66666666666667,86.66666666666667,iris,0,1
+none,,,asymmetric,0.2,relabel,1,LR,100.0,100.0,iris,0,1
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,1,NB,86.66666666666667,86.66666666666667,iris,0,1
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,1,DT,100.0,100.0,iris,0,1
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,1,LR,93.33333333333333,93.26599326599326,iris,0,1
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,1,NB,93.33333333333333,93.26599326599326,iris,0,1
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,1,DT,86.66666666666667,87.03703703703704,iris,0,1
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,1,LR,93.33333333333333,93.26599326599326,iris,0,1
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,1,NB,93.33333333333333,93.26599326599326,iris,0,1
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,1,DT,86.66666666666667,87.03703703703704,iris,0,1
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,1,LR,93.33333333333333,93.26599326599326,iris,0,1
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,1,NB,86.66666666666667,86.66666666666667,iris,0,1
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,1,DT,93.33333333333333,93.26599326599326,iris,0,1
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,1,LR,93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,committee,consensus,asymmetric,0.2,relabel,1,NB,86.66666666666667,86.66666666666667,iris,0,1
+committee consensus,committee,consensus,asymmetric,0.2,relabel,1,DT,93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,committee,consensus,asymmetric,0.2,relabel,1,LR,100.0,100.0,iris,0,1
+none,,,asymmetric,0.2,relabel,2,NB,80.0,78.02197802197803,iris,0,2
+none,,,asymmetric,0.2,relabel,2,DT,80.0,80.53872053872054,iris,0,2
+none,,,asymmetric,0.2,relabel,2,LR,100.0,100.0,iris,0,2
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,2,NB,80.0,78.02197802197803,iris,0,2
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,2,DT,86.66666666666667,86.11111111111111,iris,0,2
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,2,LR,80.0,78.02197802197803,iris,0,2
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,2,NB,80.0,78.02197802197803,iris,0,2
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,2,DT,86.66666666666667,86.11111111111111,iris,0,2
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,2,LR,100.0,100.0,iris,0,2
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,2,NB,80.0,78.02197802197803,iris,0,2
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,2,DT,86.66666666666667,86.11111111111111,iris,0,2
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,2,LR,100.0,100.0,iris,0,2
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,2,NB,86.66666666666667,86.11111111111111,iris,0,2
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,2,DT,86.66666666666667,86.11111111111111,iris,0,2
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,2,LR,86.66666666666667,86.11111111111111,iris,0,2
+committee consensus,committee,consensus,asymmetric,0.2,relabel,2,NB,80.0,78.02197802197803,iris,0,2
+committee consensus,committee,consensus,asymmetric,0.2,relabel,2,DT,93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,committee,consensus,asymmetric,0.2,relabel,2,LR,93.33333333333333,93.26599326599326,iris,0,2
+none,,,asymmetric,0.2,relabel,3,NB,93.33333333333333,93.26599326599326,iris,0,3
+none,,,asymmetric,0.2,relabel,3,DT,86.66666666666667,87.03703703703704,iris,0,3
+none,,,asymmetric,0.2,relabel,3,LR,100.0,100.0,iris,0,3
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,3,NB,93.33333333333333,93.26599326599326,iris,0,3
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,3,DT,100.0,100.0,iris,0,3
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,3,LR,86.66666666666667,86.11111111111111,iris,0,3
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,3,NB,100.0,100.0,iris,0,3
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,3,DT,93.33333333333333,93.26599326599326,iris,0,3
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,3,LR,100.0,100.0,iris,0,3
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,3,NB,100.0,100.0,iris,0,3
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,3,DT,93.33333333333333,93.26599326599326,iris,0,3
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,3,LR,100.0,100.0,iris,0,3
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,3,NB,100.0,100.0,iris,0,3
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,3,DT,100.0,100.0,iris,0,3
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,3,LR,100.0,100.0,iris,0,3
+committee consensus,committee,consensus,asymmetric,0.2,relabel,3,NB,100.0,100.0,iris,0,3
+committee consensus,committee,consensus,asymmetric,0.2,relabel,3,DT,93.33333333333333,93.26599326599326,iris,0,3
+committee consensus,committee,consensus,asymmetric,0.2,relabel,3,LR,100.0,100.0,iris,0,3
+none,,,asymmetric,0.2,relabel,4,NB,86.66666666666667,86.11111111111111,iris,0,4
+none,,,asymmetric,0.2,relabel,4,DT,60.0,57.14285714285715,iris,0,4
+none,,,asymmetric,0.2,relabel,4,LR,93.33333333333333,93.26599326599326,iris,0,4
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,4,NB,86.66666666666667,86.11111111111111,iris,0,4
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,4,DT,80.0,78.02197802197803,iris,0,4
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,4,LR,86.66666666666667,86.11111111111111,iris,0,4
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,4,NB,93.33333333333333,93.26599326599326,iris,0,4
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,4,DT,66.66666666666666,66.32996632996633,iris,0,4
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,4,LR,100.0,100.0,iris,0,4
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,4,NB,93.33333333333333,93.26599326599326,iris,0,4
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,4,DT,66.66666666666666,66.32996632996633,iris,0,4
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,4,LR,100.0,100.0,iris,0,4
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,4,NB,93.33333333333333,93.26599326599326,iris,0,4
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,4,DT,80.0,78.02197802197803,iris,0,4
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,4,LR,86.66666666666667,86.11111111111111,iris,0,4
+committee consensus,committee,consensus,asymmetric,0.2,relabel,4,NB,93.33333333333333,93.26599326599326,iris,0,4
+committee consensus,committee,consensus,asymmetric,0.2,relabel,4,DT,80.0,78.02197802197803,iris,0,4
+committee consensus,committee,consensus,asymmetric,0.2,relabel,4,LR,100.0,100.0,iris,0,4
+none,,,asymmetric,0.2,relabel,5,NB,93.33333333333333,93.26599326599326,iris,0,5
+none,,,asymmetric,0.2,relabel,5,DT,86.66666666666667,86.66666666666667,iris,0,5
+none,,,asymmetric,0.2,relabel,5,LR,100.0,100.0,iris,0,5
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,5,NB,93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,5,DT,100.0,100.0,iris,0,5
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,5,LR,100.0,100.0,iris,0,5
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,5,NB,93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,5,DT,86.66666666666667,86.5993265993266,iris,0,5
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,5,LR,100.0,100.0,iris,0,5
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,5,NB,93.33333333333333,93.26599326599326,iris,0,5
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,5,DT,86.66666666666667,86.5993265993266,iris,0,5
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,5,LR,100.0,100.0,iris,0,5
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,5,NB,93.33333333333333,93.26599326599326,iris,0,5
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,5,DT,93.33333333333333,93.26599326599326,iris,0,5
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,5,LR,100.0,100.0,iris,0,5
+committee consensus,committee,consensus,asymmetric,0.2,relabel,5,NB,93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,committee,consensus,asymmetric,0.2,relabel,5,DT,80.0,80.53872053872054,iris,0,5
+committee consensus,committee,consensus,asymmetric,0.2,relabel,5,LR,100.0,100.0,iris,0,5
+none,,,asymmetric,0.2,relabel,6,NB,100.0,100.0,iris,0,6
+none,,,asymmetric,0.2,relabel,6,DT,73.33333333333333,73.88888888888889,iris,0,6
+none,,,asymmetric,0.2,relabel,6,LR,86.66666666666667,86.11111111111111,iris,0,6
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,6,NB,100.0,100.0,iris,0,6
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,6,DT,73.33333333333333,73.33333333333334,iris,0,6
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,6,LR,100.0,100.0,iris,0,6
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,6,NB,86.66666666666667,86.11111111111111,iris,0,6
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,6,DT,86.66666666666667,86.66666666666667,iris,0,6
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,6,LR,86.66666666666667,86.11111111111111,iris,0,6
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,6,NB,86.66666666666667,86.11111111111111,iris,0,6
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,6,DT,86.66666666666667,86.66666666666667,iris,0,6
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,6,LR,86.66666666666667,86.11111111111111,iris,0,6
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,6,NB,93.33333333333333,93.26599326599326,iris,0,6
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,6,DT,93.33333333333333,93.26599326599326,iris,0,6
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,6,LR,93.33333333333333,93.26599326599326,iris,0,6
+committee consensus,committee,consensus,asymmetric,0.2,relabel,6,NB,93.33333333333333,93.26599326599326,iris,0,6
+committee consensus,committee,consensus,asymmetric,0.2,relabel,6,DT,80.0,80.53872053872054,iris,0,6
+committee consensus,committee,consensus,asymmetric,0.2,relabel,6,LR,86.66666666666667,86.11111111111111,iris,0,6
+none,,,asymmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+none,,,asymmetric,0.2,relabel,7,DT,93.33333333333333,93.26599326599326,iris,0,7
+none,,,asymmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,7,DT,100.0,100.0,iris,0,7
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,7,DT,93.33333333333333,93.26599326599326,iris,0,7
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,7,DT,93.33333333333333,93.26599326599326,iris,0,7
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,7,DT,93.33333333333333,93.26599326599326,iris,0,7
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+committee consensus,committee,consensus,asymmetric,0.2,relabel,7,NB,100.0,100.0,iris,0,7
+committee consensus,committee,consensus,asymmetric,0.2,relabel,7,DT,100.0,100.0,iris,0,7
+committee consensus,committee,consensus,asymmetric,0.2,relabel,7,LR,100.0,100.0,iris,0,7
+none,,,asymmetric,0.2,relabel,8,NB,93.33333333333333,93.26599326599326,iris,0,8
+none,,,asymmetric,0.2,relabel,8,DT,93.33333333333333,93.26599326599326,iris,0,8
+none,,,asymmetric,0.2,relabel,8,LR,100.0,100.0,iris,0,8
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,8,NB,93.33333333333333,93.26599326599326,iris,0,8
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,8,DT,93.33333333333333,93.26599326599326,iris,0,8
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,8,LR,93.33333333333333,93.26599326599326,iris,0,8
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,8,NB,86.66666666666667,86.11111111111111,iris,0,8
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,8,DT,93.33333333333333,93.26599326599326,iris,0,8
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,8,LR,93.33333333333333,93.26599326599326,iris,0,8
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,8,NB,86.66666666666667,86.11111111111111,iris,0,8
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,8,DT,93.33333333333333,93.26599326599326,iris,0,8
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,8,LR,93.33333333333333,93.26599326599326,iris,0,8
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,8,NB,86.66666666666667,86.11111111111111,iris,0,8
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,8,DT,93.33333333333333,93.26599326599326,iris,0,8
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,8,LR,93.33333333333333,93.26599326599326,iris,0,8
+committee consensus,committee,consensus,asymmetric,0.2,relabel,8,NB,86.66666666666667,86.11111111111111,iris,0,8
+committee consensus,committee,consensus,asymmetric,0.2,relabel,8,DT,80.0,80.27065527065527,iris,0,8
+committee consensus,committee,consensus,asymmetric,0.2,relabel,8,LR,93.33333333333333,93.26599326599326,iris,0,8
+none,,,asymmetric,0.2,relabel,9,NB,86.66666666666667,86.11111111111111,iris,0,9
+none,,,asymmetric,0.2,relabel,9,DT,73.33333333333333,73.87205387205388,iris,0,9
+none,,,asymmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,9,NB,93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,9,DT,93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,NB,hard_vote,asymmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,9,NB,93.33333333333333,93.26599326599326,iris,0,9
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,9,DT,93.33333333333333,93.26599326599326,iris,0,9
+DT hard_vote,DT,hard_vote,asymmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,9,NB,93.33333333333333,93.26599326599326,iris,0,9
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,9,DT,93.33333333333333,93.26599326599326,iris,0,9
+DT confident_joint,DT,confident_joint,asymmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,9,NB,100.0,100.0,iris,0,9
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,9,DT,80.0,79.79797979797979,iris,0,9
+NB confident_joint,NB,confident_joint,asymmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9
+committee consensus,committee,consensus,asymmetric,0.2,relabel,9,NB,100.0,100.0,iris,0,9
+committee consensus,committee,consensus,asymmetric,0.2,relabel,9,DT,86.66666666666667,86.11111111111111,iris,0,9
+committee consensus,committee,consensus,asymmetric,0.2,relabel,9,LR,93.33333333333333,93.26599326599326,iris,0,9

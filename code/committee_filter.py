@@ -24,8 +24,9 @@ So a row is "noise" here only when BOTH the decision tree AND Naive Bayes,
 trained without that row, misclassify it - in every repeat.
 
 NB stays in the committee rather than being thrown out: Johnson & Khoshgoftaar
-(2022, ACM Computing Surveys) report NB as the most stable learner under label
-noise - a good committee member, a bad sole judge.
+(2022) report NB as the most stable learner under label noise - a good committee
+member, a bad sole judge. Journal of Data and Information Quality 14(1),
+DOI 10.1145/3492546.
 """
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
