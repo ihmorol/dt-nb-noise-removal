@@ -1,0 +1,68 @@
+{
+  "python": "3.13.2",
+  "packages": {
+    "numpy": "2.2.4",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2",
+    "scipy": "1.16.2",
+    "matplotlib": "3.10.1",
+    "pytest": "9.0.2"
+  },
+  "java": "java version \"17.0.7\" 2023-04-18 LTS\nJava(TM) SE Runtime Environment (build 17.0.7+8-LTS-224)\nJava HotSpot(TM) 64-Bit Server VM (build 17.0.7+8-LTS-224, mixed mode, sharing)\n",
+  "head": "54b23e153fec76474309c310121d6289ac12732f",
+  "code_sha256": {
+    "code\\algorithm1.py": "fb79aef1687271615ed1bea38776bbf67469e74ed04b53c61571acd860811f0b",
+    "code\\algorithm2.py": "c82e83a21342f1a6c504fccf09078935749083120e4e4425c282bb9eaeba1c57",
+    "code\\check_pipeline.py": "7b58370df15bf9430a6fd547a0dbf9a2376d88aecde25d502f1393b4080eee19",
+    "code\\data.py": "b64738e53ba5bf69016c0634ab66588d6b5434c6fbd39bc2d0a20e5c7200722f",
+    "code\\e5_strategy.py": "37da270b1a87fb34f13efaa9b70d678a1fe72cf59acb7d7f74ce0a00ca17d1bf",
+    "code\\e9_farid.py": "28d638955a5d633a3a59c62df22cc244c0d64962a6611424b17aa3212513487d",
+    "code\\faithful_nb.py": "052c99e93268bec219ac7fd65a9511830ab4bf06c9beb2e502082cea2bd04f9b",
+    "code\\figures.py": "b00d4790097ca3ce805d8f495d8fe6b2f9a2ea6195be9f699f16080a7313a025",
+    "code\\leakage_check.py": "df18c28b97e45d12722f6900dfdc476606e023a8ba808281c8452fd4f2595a69",
+    "code\\main.py": "af190b9c8db4c8359e4aa4f54634a63753a9e4879396086e0b4992fcd2d3a4b8",
+    "code\\nb.py": "c88f63731f7c408e9865f79ffbfdeabf8b5b76d9a54926f5d85fadb644529fbe",
+    "code\\pipeline.py": "a0f105218c6888b81fa7280e31bfd54775a1059acac5a739fd80a8cddecf095a",
+    "code\\replicate_farid.py": "0d87b8bec3a459494eb502f03c2f1f41f303b050d031b9b7dae661976c48eed6",
+    "code\\tables.py": "894a5730e3afed3094804f3266deff70f79c4afa4ff7e098d3ac36c5ab33d107",
+    "code\\verify_faithful.py": "da6e4f4c30c71fd9a73733931b1c8e260ccbb2daa81e9c7ca47e2b991183fa16",
+    "code\\versions.py": "7eb8c0d091183e42ed79cbb282d3d750857c1193b38c5502a44250ff0a534d15",
+    "code\\weka_utils.py": "3858dce3d7e02a82eae201a5bfdea81423089598cc81ef3596e665435d137a4e"
+  },
+  "data_sha256": {
+    "data\\raw\\breast-cancer\\breast-cancer.data": "633e0fbdec17eebf4b81ee304110e00de9d107642d55759ab57938ab924e68bf",
+    "data\\raw\\contact-lenses\\lenses.data": "ebd71c27d78c7bf2904afd042960a02b277337eb2c58f15b6afb6e6263a7f5de",
+    "data\\raw\\diabetes.csv": "c1e0f7d59d2e366cff1ab9fee1796e1e381ea5da64c6d96ef4baabf1eda5f238",
+    "data\\raw\\glass\\glass.data": "7d98bd532a6aba02aaf72bc18bf4af9f3ff67411f9b98d99a82792e5a8ce4b6f",
+    "data\\raw\\image-segmentation\\segmentation.data": "495eee93c42fdb33fbc739cfd8982112bddba7be45c1d64de87fee08b27ff51b",
+    "data\\raw\\image-segmentation\\segmentation.test": "0244ba897fe1033d77ecf01d9461cd2c41769c3bbe9b23cff87304c27024910d",
+    "data\\raw\\nsl-kdd-train20.txt": "9bb0837b9ec8f11f289b84ea7175304a3b835c48f3785454ff5e7e70b762dcb4",
+    "data\\raw\\soybean.csv": "102614aa68b95d3e5da860da64fed7d66930632bf3870359e0052b8fac2f7eca",
+    "data\\raw\\tic-tac-toe\\tic-tac-toe.data": "25337a71a6efdc6a1a96cea557ba6efec951003cb32283ae456d503bf63bdab5",
+    "data\\raw\\vote\\house-votes-84.data": "66644581ad53bfd429dc3d27bb615a7ac6f5fb85ab8954c074fb5425eebd4f14"
+  },
+  "weka_jar_sha256": {
+    "code\\lib\\bounce-0.18.jar": "bffff1505335c02256b7ab2ccffbe4aa4d3ac9fe14c17557809b7c9d99d666ca",
+    "code\\lib\\weka-stable-3.8.6.jar": "932ea2f342b58fe45736389e9c426d5b5955e610d1f5f6485117f532068915e9"
+  },
+  "audited_code_sha256": {
+    "code\\algorithm1.py": "fb79aef1687271615ed1bea38776bbf67469e74ed04b53c61571acd860811f0b",
+    "code\\algorithm2.py": "c82e83a21342f1a6c504fccf09078935749083120e4e4425c282bb9eaeba1c57",
+    "code\\check_pipeline.py": "7b58370df15bf9430a6fd547a0dbf9a2376d88aecde25d502f1393b4080eee19",
+    "code\\data.py": "b64738e53ba5bf69016c0634ab66588d6b5434c6fbd39bc2d0a20e5c7200722f",
+    "code\\e5_strategy.py": "37da270b1a87fb34f13efaa9b70d678a1fe72cf59acb7d7f74ce0a00ca17d1bf",
+    "code\\e9_farid.py": "4eb611b5ea77cf8a1bd982b6ac7a9b09c08abcd68346bc335ed7fe0303016536",
+    "code\\faithful_nb.py": "1497bf7f69a73abb7714c23970d6e8455022c0583c0cf6555a363a3d8d6b2b2d",
+    "code\\figures.py": "b00d4790097ca3ce805d8f495d8fe6b2f9a2ea6195be9f699f16080a7313a025",
+    "code\\leakage_check.py": "df18c28b97e45d12722f6900dfdc476606e023a8ba808281c8452fd4f2595a69",
+    "code\\main.py": "af190b9c8db4c8359e4aa4f54634a63753a9e4879396086e0b4992fcd2d3a4b8",
+    "code\\nb.py": "c88f63731f7c408e9865f79ffbfdeabf8b5b76d9a54926f5d85fadb644529fbe",
+    "code\\pipeline.py": "a0f105218c6888b81fa7280e31bfd54775a1059acac5a739fd80a8cddecf095a",
+    "code\\replicate_farid.py": "0d87b8bec3a459494eb502f03c2f1f41f303b050d031b9b7dae661976c48eed6",
+    "code\\tables.py": "894a5730e3afed3094804f3266deff70f79c4afa4ff7e098d3ac36c5ab33d107",
+    "code\\test_audit_regressions.py": "1b49f86271cee1926df315e99704bb031d7468f489e844c91b85621ac41895c4",
+    "code\\verify_faithful.py": "da6e4f4c30c71fd9a73733931b1c8e260ccbb2daa81e9c7ca47e2b991183fa16",
+    "code\\versions.py": "7eb8c0d091183e42ed79cbb282d3d750857c1193b38c5502a44250ff0a534d15",
+    "code\\weka_utils.py": "3858dce3d7e02a82eae201a5bfdea81423089598cc81ef3596e665435d137a4e"
+  }
+}

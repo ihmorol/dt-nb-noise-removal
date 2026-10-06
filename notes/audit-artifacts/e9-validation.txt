@@ -1,0 +1,5 @@
+Dataset [rows, attributes, classes, smallest class]: {'breast-cancer': [286, 9, 2, 85], 'contact-lenses': [24, 4, 3, 4], 'diabetes': [768, 8, 2, 268], 'glass': [214, 9, 6, 9], 'iris': [150, 4, 3, 50], 'soybean': [683, 35, 19, 8], 'vote': [435, 16, 2, 168], 'image-segmentation': [2310, 19, 7, 330], 'tic-tac-toe': [958, 9, 2, 332], 'nsl-kdd': [25192, 41, 22, 1]}
+iris seed 0 fold 0: all 12 arms reproduce stored scores
+contact-lenses seed 0 fold 0: all 12 arms reproduce stored scores
+glass seed 0 fold 0: all 12 arms reproduce stored scores
+PASS: all A/B summaries match raw folds; no recorded safeguards; result hashes unchanged

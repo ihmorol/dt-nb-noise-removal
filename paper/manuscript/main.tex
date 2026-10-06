@@ -32,8 +32,8 @@ accuracy is 81.21\% and 80.89\% for the two combined tree methods, compared
 with 86.33\% for uncleaned C4.5. The combined NB methods reach 75.63\% and
 76.35\%, compared with 75.93\% for plain NB and 77.35\% for attribute
 weighting alone. Neither order shows a clear accuracy advantage in paired
-dataset-level tests. Fitting the instance filter before cross-validation
-raises its apparent accuracy by 13.50 percentage points, but also removes
+dataset-level tests. Cleaning before cross-validation raises Algorithm~1's mean tree accuracy
+by 13.50 percentage points, but also removes
 cases from the evaluation sample. Class-specific removal records show
 that the filter can discard a much larger share of one class. On these
 datasets, combining the steps does not establish an improvement over the
@@ -250,8 +250,9 @@ handles the small sample, including zero differences. Holm adjustment
 controls the family of eight comparisons at 0.05. This analysis was added
 during manuscript revision using the saved results; it is not a
 prospectively registered test family. Mean differences are reported in
-percentage points (pp). A nonsignificant test does not establish
-equivalence.
+percentage points (pp). Comparisons with the single-step methods are
+descriptive mean comparisons; the tests cover baselines and order.
+A nonsignificant test does not establish equivalence.
 
 For each filtering step, we also record the fraction removed within each
 class, using that class's training-row count as the denominator. This
@@ -259,7 +260,7 @@ measure shows how deletion changes class representation without assuming
 that the discarded labels were incorrect.
 
 \section{Results and discussion}
-\subsection{Combining the steps gives no clear advantage}
+\subsection{Combined methods have lower mean tree accuracy}
 Table~\ref{tab:results} gives the benchmark averages, and
 Table~\ref{tab:results-datasets} shows the individual datasets. Uncleaned
 C4.5 reaches 86.33\% accuracy and 81.92\% macro-F1. The two combined tree

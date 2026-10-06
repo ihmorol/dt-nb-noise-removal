@@ -1,0 +1,19 @@
+V1  FaithfulNB == GaussianNB on iris: PASS
+V2  FaithfulNB vs Weka NaiveBayes, predicting the training file itself:
+    dataset                  rows  disagree  ours wrong  weka wrong
+    breast-cancer             286         2          73          75  
+    contact-lenses             24         0           1           1  PASS
+    diabetes                  768         4         182         182  
+    glass                     214         5          96          95  
+    iris                      150         2           6           6  
+    soybean                   683         0          63          63  PASS
+    vote                      435         0          42          42  PASS
+    image-segmentation       2310        27         461         452  
+    tic-tac-toe               958         0         289         289  PASS
+    nsl-kdd                 25192      7998        8509       11755  
+    all-nominal datasets agree exactly: PASS
+V3  J48 iris tree depths {'petal_width': 1, 'petal_length': 3}: PASS
+V4  Play-Tennis judge deletes 1/14 rows [6]: PASS
+    J48 Play-Tennis tree depths: {'outlook': 1, 'wind': 2, 'humidity': 2}
+
+overall: ALL PASS

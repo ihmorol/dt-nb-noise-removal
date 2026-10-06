@@ -28,7 +28,7 @@ class FaithfulNB:
         self.weights_ = np.ones(X.shape[1]) if self.weights is None else np.asarray(self.weights)
 
         numeric = ~self.nominal
-        epsilon = 1e-9 * np.var(X[:, numeric], axis=0).max() if numeric.any() else 0.0
+        epsilon = max(1e-9 * np.var(X[:, numeric], axis=0).max(), 1e-12) if numeric.any() else 0.0
 
         self.priors_, self.means_, self.variances_, self.log_tables_ = [], [], [], []
         for c in self.classes_:
@@ -75,6 +75,8 @@ class FaithfulNB:
                     log_p = -0.5 * (np.log(2 * np.pi * variance) + (X[:, j] - mean) ** 2 / variance)
                 total += self.weights_[j] * log_p
             scores[:, k] = total
+        if not np.isfinite(scores).all():
+            raise ValueError("NB produced nonfinite class scores")
         return scores
 
     def predict(self, X):
