@@ -1,0 +1,103 @@
+FFFFF                                                                    [100%]
+================================== FAILURES ===================================
+_______________ test_constant_numeric_scores_are_finite[False] ________________
+
+weighted = False
+
+    @pytest.mark.parametrize('weighted', [False, True])
+    def test_constant_numeric_scores_are_finite(weighted):
+        X = np.ones((6, 1))
+        y = np.array(['a', 'a', 'a', 'a', 'b', 'b'])
+        sample_weight = np.ones(6) if weighted else None
+        model = FaithfulNB([False], [None]).fit(X, y, sample_weight)
+>       assert np.isfinite(model.class_scores(X)).all()
+E       AssertionError: assert np.False_
+E        +  where np.False_ = <built-in method all of numpy.ndarray object at 0x000001D482047E70>()
+E        +    where <built-in method all of numpy.ndarray object at 0x000001D482047E70> = array([[False, False],\n       [False, False],\n       [False, False],\n       [False, False],\n       [False, False],\n       [False, False]]).all
+E        +      where array([[False, False],\n       [False, False],\n       [False, False],\n       [False, False],\n       [False, False],\n       [False, False]]) = <ufunc 'isfinite'>(array([[nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan]]))
+E        +        where <ufunc 'isfinite'> = np.isfinite
+E        +        and   array([[nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan]]) = class_scores(array([[1.],\n       [1.],\n       [1.],\n       [1.],\n       [1.],\n       [1.]]))
+E        +          where class_scores = <faithful_nb.FaithfulNB object at 0x000001D4820AC050>.class_scores
+
+code\test_audit_regressions.py:18: AssertionError
+________________ test_constant_numeric_scores_are_finite[True] ________________
+
+weighted = True
+
+    @pytest.mark.parametrize('weighted', [False, True])
+    def test_constant_numeric_scores_are_finite(weighted):
+        X = np.ones((6, 1))
+        y = np.array(['a', 'a', 'a', 'a', 'b', 'b'])
+        sample_weight = np.ones(6) if weighted else None
+        model = FaithfulNB([False], [None]).fit(X, y, sample_weight)
+>       assert np.isfinite(model.class_scores(X)).all()
+E       AssertionError: assert np.False_
+E        +  where np.False_ = <built-in method all of numpy.ndarray object at 0x000001D4820B12F0>()
+E        +    where <built-in method all of numpy.ndarray object at 0x000001D4820B12F0> = array([[False, False],\n       [False, False],\n       [False, False],\n       [False, False],\n       [False, False],\n       [False, False]]).all
+E        +      where array([[False, False],\n       [False, False],\n       [False, False],\n       [False, False],\n       [False, False],\n       [False, False]]) = <ufunc 'isfinite'>(array([[nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan]]))
+E        +        where <ufunc 'isfinite'> = np.isfinite
+E        +        and   array([[nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan],\n       [nan, nan]]) = class_scores(array([[1.],\n       [1.],\n       [1.],\n       [1.],\n       [1.],\n       [1.]]))
+E        +          where class_scores = <faithful_nb.FaithfulNB object at 0x000001D48200E490>.class_scores
+
+code\test_audit_regressions.py:18: AssertionError
+__________________ test_leaf_tree_standalone_nb_uses_priors ___________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001D48209C9D0>
+tmp_path = WindowsPath('C:/Users/User/AppData/Local/Temp/pytest-of-User/pytest-388/test_leaf_tree_standalone_nb_u0')
+
+    def test_leaf_tree_standalone_nb_uses_priors(monkeypatch, tmp_path):
+        X = np.array([[0], [0], [0], [0], [1], [1]], dtype=float)
+        y = np.array(['a', 'a', 'a', 'a', 'b', 'b'])
+        meta = {'names': ['feature'], 'nominal': [True], 'levels': [['zero', 'one']]}
+        monkeypatch.setattr(e9, '_j48', lambda *args: ((100.0, 100.0), {}))
+        rows = np.arange(6)
+        scores, _ = e9.run_fold(tmp_path, X, y, meta, ['a', 'b'], rows, rows)
+        assert scores['baseline->NB'][0] == 100.0
+>       assert scores['Alg2->NB'][0] == pytest.approx(100 * 4 / 6)
+E       assert np.float64(100.0) == 66.66666666666667 ± 6.7e-05
+E         
+E         comparison failed
+E         Obtained: 100.0
+E         Expected: 66.66666666666667 ± 6.7e-05
+
+code\test_audit_regressions.py:30: AssertionError
+_______________ test_matrix_integrity_survives_optimized_python _______________
+
+    def test_matrix_integrity_survives_optimized_python():
+        code = 'from e9_farid import checked_scores; checked_scores(99, [[1,0],[0,1]])'
+        p = subprocess.run([sys.executable, '-O', '-c', code], cwd=Path(__file__).parent,
+                           capture_output=True, text=True)
+>       assert p.returncode != 0
+E       AssertionError: assert 0 != 0
+E        +  where 0 = CompletedProcess(args=['C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', '-O', '-c', 'from e9_farid import checked_scores; checked_scores(99, [[1,0],[0,1]])'], returncode=0, stdout='', stderr='').returncode
+
+code\test_audit_regressions.py:37: AssertionError
+_______________ test_pilot_does_not_overwrite_canonical_results _______________
+
+    def test_pilot_does_not_overwrite_canonical_results():
+        p = subprocess.run([sys.executable, str(Path(e9.__file__)), 'iris', '--seeds', '1'],
+                           capture_output=True, text=True)
+>       assert p.returncode != 0
+E       AssertionError: assert 0 != 0
+E        +  where 0 = CompletedProcess(args=['C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python313\\python.exe', 'C:\\Users\\User\\....96.48\n\n[saved] C:\\Users\\User\\.codex\\worktrees\\7502\\dt-nb-project-big-data\\results\\EXP-E9_farid\n', stderr='').returncode
+
+code\test_audit_regressions.py:44: AssertionError
+============================== warnings summary ===============================
+code/test_audit_regressions.py::test_constant_numeric_scores_are_finite[False]
+code/test_audit_regressions.py::test_constant_numeric_scores_are_finite[True]
+  C:\Users\User\.codex\worktrees\7502\dt-nb-project-big-data\code\faithful_nb.py:75: RuntimeWarning: divide by zero encountered in log
+    log_p = -0.5 * (np.log(2 * np.pi * variance) + (X[:, j] - mean) ** 2 / variance)
+
+code/test_audit_regressions.py::test_constant_numeric_scores_are_finite[False]
+code/test_audit_regressions.py::test_constant_numeric_scores_are_finite[True]
+  C:\Users\User\.codex\worktrees\7502\dt-nb-project-big-data\code\faithful_nb.py:75: RuntimeWarning: invalid value encountered in divide
+    log_p = -0.5 * (np.log(2 * np.pi * variance) + (X[:, j] - mean) ** 2 / variance)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED code/test_audit_regressions.py::test_constant_numeric_scores_are_finite[False]
+FAILED code/test_audit_regressions.py::test_constant_numeric_scores_are_finite[True]
+FAILED code/test_audit_regressions.py::test_leaf_tree_standalone_nb_uses_priors
+FAILED code/test_audit_regressions.py::test_matrix_integrity_survives_optimized_python
+FAILED code/test_audit_regressions.py::test_pilot_does_not_overwrite_canonical_results
+5 failed, 4 warnings in 57.38s

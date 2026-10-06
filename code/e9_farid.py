@@ -109,8 +109,8 @@ def checked_scores(accuracy, matrix):
     """Matrix-derived scores, guarded against parsing drift: Weka's own summary
     (four decimals) and the matrix must agree on the accuracy."""
     scores = scores_from_matrix(matrix)
-    assert abs(scores[0] - accuracy) <= 0.001, \
-        f"confusion matrix disagrees with Weka's summary: {scores[0]} vs {accuracy}"
+    if not np.isfinite(accuracy) or not np.isfinite(scores).all() or abs(scores[0] - accuracy) > 0.001:
+        raise ValueError(f"confusion matrix disagrees with Weka's summary: {scores[0]} vs {accuracy}")
     return scores
 
 
@@ -201,7 +201,9 @@ def run_fold(folder, X, y, meta, classes, train, test):
     records.append(dict(attribute_record(all_columns, cols_all, empty_all),
                         stage="A on the raw fold"))
     scores["baseline->NB"] = nb_scores(train, all_columns, None)
-    scores["Alg2->NB"] = nb_scores(train, cols_all, w_all)
+    standalone_cols, standalone_weights, _ = select_attributes(
+        depths_all, all_columns, meta, chained=False)
+    scores["Alg2->NB"] = nb_scores(train, standalone_cols, standalone_weights)
     scores["Alg2->DT"], _ = _j48(folder, "b5", X, y, meta, classes, train, test, cols_all)
     rows_an, rec_an = filter_step(X, y, train, cols_all, w_all, meta)
     records.append(dict(rec_an, stage="N weighted (after A)"))
@@ -361,11 +363,19 @@ def removal_rows(name, protocol, seed, fold, records):
 
 
 def main():
+    global RESULTS
     parser = argparse.ArgumentParser(description="E9 in the J48/FaithfulNB world")
     parser.add_argument("datasets", nargs="*", help="default: every dataset on disk")
     parser.add_argument("--seeds", type=int, default=10,
                         help="CV repeats (default 10, the paper's protocol)")
+    parser.add_argument("--out-dir", type=Path, help="new empty result directory for this run")
     args = parser.parse_args()
+    if args.seeds < 1:
+        parser.error("--seeds must be positive")
+    if args.out_dir is not None:
+        RESULTS = args.out_dir.resolve()
+    if RESULTS.exists() and any(RESULTS.iterdir()):
+        parser.error("refusing to overwrite existing results; use --out-dir with a new empty directory")
     seeds = list(range(args.seeds))
 
     RESULTS.mkdir(parents=True, exist_ok=True)

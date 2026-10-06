@@ -1,34 +1,42 @@
-# Research Workspace — Mutual DT–NB Hybrid (leakage-safe, confidence-aware)
+# DT–NB hybrid research
 
-**Working title:** *A Leakage-Safe, Confidence-Aware Mutual Hybridization of Decision Trees and Naïve Bayes Classifiers*
+The conference study compares NB instance filtering and tree-based attribute selection/weighting, separately and in both orders. Its main evaluation refits all supervised steps within each training fold and scores every held-out row.
 
-## Pitch (3 sentences)
+## Current evidence
 
-Farid et al. (2014) proposed two *separate* DT–NB hybrids: NB deletes misclassified training instances before tree induction (Alg. 1), and a tree depth-weights attributes for NB (Alg. 2). No published work combines them into one mutually-reinforcing system, none addresses the cross-validation leakage created by filtering/selection before CV, and none replaces hard deletion with confidence-aware handling. This project delivers all three, evaluated on the seed paper's own 10 UCI datasets plus a leakage-safe protocol.
+The authoritative conference experiment is `results/EXP-E9_farid/`: Weka J48 3.8.6, textbook `FaithfulNB`, original attribute columns, seeds 0–9, and stratified 10-fold cross-validation. The files contain twelve arms; the conference paper reports ten, excluding the later parallel comparison.
 
-## Contributions (the publishable unit)
+Plain C4.5 averages 86.33% accuracy. Instances-first and attributes-first tree methods average 81.21% and 80.89%. Neither combined NB method beats attribute weighting alone on mean accuracy. None of the eight post hoc accuracy comparisons is significant after Holm adjustment. These results support a controlled comparison and protocol-sensitivity study, without establishing improved classification or detection of actual label errors.
 
-- **C1 — Replication + leakage audit.** Faithful reimplementation of both hybrids; quantify how much of the reported +4.8/+9.4 point gains comes from filtering/selection done before 10-fold CV (leakage) vs. genuinely.
-- **C2 — Mutual hybrid.** One system: NB filters instances → tree grows on cleaned data → tree returns depth-based weights → weighted NB uses the same tree's structure. Show it beats each one-directional hybrid.
-- **C3 — Confidence-aware instance handling.** Replace hard deletion with (a) committee/thresholded filters, (b) soft instance reweighting; report what is removed and the class distribution of removals (nobody reports this).
-- **C4 — Honest evaluation.** Nested CV, repeated seeds, CIs, significance tests; Hall (2007) and WANBIA as weighting baselines; Wong et al. (2020) as the filtering baseline.
+Cleaning before CV changes both label access and, for filtering arms, the evaluated sample. Its score increase cannot isolate a causal leakage effect or establish which procedure the original study used.
 
-## Existing assets (do not duplicate — link)
+## Read for the supervisor meeting
 
-- Seed-paper study notes: `../paper-study-notes/01-hybrid-DT-NB.md`
-- Verified literature review: `../reference/literature-review-dt-nb-hybrid.md`
-- Three-paper analysis + gaps: `../reference/source-paper-analysis.md`
-- Prior related-work notes: `../reference/related-work-notes.md`
-- All 410 citing papers: `../tmp/farid2014_citations.json`
+- `paper/manuscript/main.tex`: current conference source.
+- `paper/manuscript/conference_final.pdf`: rebuilt supervisor review PDF.
+- `notes/project-audit-2026-10-05.md`: findings, evidence, remaining limits, and branch map.
+- `notes/supervisor-code-guide.md`: code walkthrough, equations, examples, and questions.
+- `notes/audit-artifacts/e9-validation.json`: fresh validation and result hashes.
 
-## Status snapshot
+The original README's proposed confidence-aware contribution and nested-CV/baseline promises are research plans, not completed claims of this conference study. See `ROADMAP.md` and `DECISIONS.md` for historical plans; the audit supersedes stale status summaries.
 
-| Phase | Status |
-|---|---|
-| 0 — Setup (env, data) | not started |
-| 1 — Replication + leakage audit | not started |
-| 2 — Mutual hybrid + confidence-aware filter | not started |
-| 3 — Robustness (repeats, CIs, baselines) | not started |
-| 4 — Writing + submission | not started |
+## Other research tracks
 
-Rule: update the status table and `trackers/experiments.md` at the end of every session.
+- `code/main.py`: historical sklearn CART/one-hot pipeline, distinct from the conference comparison.
+- `code/replicate_farid.py`: original-column J48/NB replication checks; exact reproduction of the original scores remains unresolved.
+- `code/e5_strategy.py`: later committee/soft-weight/correction treatments, outside the conference scope.
+- Branch `dev/e12-research-takeover`: newer training-label-noise correction study, absent from this checkout. Its reported primary result is +2.5205 macro-F1 points with p=0.083984375, which does not establish overall superiority at 0.05. Consult that branch's locked protocol and audit before using its findings.
+
+## Verification
+
+From the repository root:
+
+```bash
+python code/check_pipeline.py
+python code/verify_faithful.py
+python notes/audit-artifacts/verify_e9.py
+python paper/manuscript/scripts/make_results_table.py
+python paper/manuscript/scripts/make_conference_evidence.py
+```
+
+Python dependencies are in `requirements.txt`; Java is required for Weka. The experiment scripts write to their result directories. The E9f runner refuses to overwrite a nonempty output directory. Use `python code/e9_farid.py iris --seeds 1 --out-dir results/audit-pilot-iris` with a new directory. Other historical runners still require an isolated copy. The audit validator calls `run_fold` in a temporary directory. Full-data cleaned CSVs are inspection artifacts, not valid inputs for the main evaluation.
