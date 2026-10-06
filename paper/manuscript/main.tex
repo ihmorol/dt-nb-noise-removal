@@ -1,310 +1,732 @@
 \documentclass[conference]{IEEEtran}
-
 \usepackage{cite}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
 \usepackage{booktabs}
-\usepackage{float}
-\usepackage{algorithm}
 \usepackage{algpseudocode}
 
 \begin{document}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{4pt}
-
-\title{Removing Noisy Instances and Weak Attributes using hybrid Decision Tree and Na\"ive Bayes}
-
+\title{Evaluation Protocol and Filtering Order in Decision Tree--Na\"ive Bayes Hybrids}
 \author{
 \IEEEauthorblockN{Ikramul Hasan Moral}
 \IEEEauthorblockA{Department of Computer Science and Engineering\\
-United International University\\
-Dhaka, Bangladesh\\
+United International University\\Dhaka, Bangladesh\\
 imoral223489@bscse.uiu.ac.bd}
 \and
 \IEEEauthorblockN{Dewan Md. Farid}
-\IEEEauthorblockA{Professor, Department of Computer Science and Engineering\\
-United International University\\
-Dhaka, Bangladesh\\
+\IEEEauthorblockA{Department of Computer Science and Engineering\\
+United International University\\Dhaka, Bangladesh\\
 dewanfarid@cse.uiu.ac.bd}}
-
 \maketitle
 
 \begin{abstract}
-A Na\"ive Bayes (NB) filter removes misclassified training instances before
-a decision tree (DT) is trained. A tree selects and weights attributes for
-NB. This study combines those steps in both orders and compares their
-accuracy with the individual algorithms and the base classifiers. Cleaning
-is evaluated under two protocols: once on the full dataset before
-cross-validation, and separately within each training fold. The comparison
-uses C4.5 and NB on ten datasets, records accuracy and macro-F1, and tracks
-the training instances removed from each class. The fold-specific protocol
-estimates performance without using test cases to clean the training data.
+We evaluate how supervised filtering order and the placement of cleaning
+relative to cross-validation affect decision tree--Na\"ive Bayes hybrids.
+The studied steps remove training observations misclassified by a
+Na\"ive Bayes judge and select attributes using a decision tree, with
+inverse-square-root depth weights for Na\"ive Bayes. We compose these steps
+in both orders and compare them with uncleaned classifiers, single-step
+methods, and an independent parallel composition. The evaluation uses
+Weka C4.5 and a mixed nominal/numeric Na\"ive Bayes implementation on ten
+benchmark datasets, with ten repetitions of stratified 10-fold
+cross-validation. Under training-fold-specific cleaning, the two combined
+tree methods average 81.21\% and 80.89\% accuracy, compared with 86.33\% for
+uncleaned C4.5. The combined Na\"ive Bayes methods average 75.63\% and
+76.35\%, compared with 75.93\% without cleaning. Cleaning the complete
+dataset before cross-validation raises the combined tree scores to
+94.72\% and 96.32\%, but also changes the population being evaluated.
+These differences therefore do not isolate leakage bias. Exploratory
+dataset-level tests provide no significant comparison after correction
+across 24 hypotheses. Removal records reveal class-dependent deletion and
+changes in tree-selected attributes after instance filtering. The findings
+support explicit evaluation and removal diagnostics for these hybrids;
+they do not establish improved classification or verified noise detection.
 \end{abstract}
 
 \begin{IEEEkeywords}
-decision tree, Na\"ive Bayes, hybrid classifier, noise filtering,
-attribute weighting, cross-validation
+decision tree, Na\"ive Bayes, instance filtering, attribute weighting,
+cross-validation, evaluation protocol
 \end{IEEEkeywords}
 
 \section{Introduction}
+Supervised cleaning can change both the observations available to a
+classifier and the attributes it uses. Farid et al.~\cite{farid2014hybrid}
+introduced two independent decision tree (DT)--Na\"ive Bayes (NB) hybrids:
+an NB judge removes training observations before a tree is grown, and a
+tree selects and weights attributes before NB is fitted. These steps offer
+a direct setting in which to examine whether composing two cleaners adds
+value beyond their individual use.
 
-Decision trees and Na\"ive Bayes (NB) handle classification in different
-ways. A tree can split on details that do not hold in new data. NB assumes
-that attributes act independently within each class. Attributes that add
-little information can weaken it. Farid and colleagues described two
-algorithms for these problems in 2014~\cite{farid2014hybrid}.
-One uses NB to remove training instances before growing a tree. The other
-uses a tree to choose and weight attributes for NB.
+The order of the steps changes their inputs. After instance removal, a
+tree selects attributes from a different training sample. After attribute
+selection, NB judges observations through a different representation.
+However, neither composition nor a smaller training set guarantees a
+better classifier. Earlier work on joint instance and feature selection
+already examined ordering~\cite{tsai2013genetic}, while research on
+misclassification-based filters identified the risk of rejecting valid
+exceptions~\cite{brodley1999identifying,john1995robust}.
 
-The two steps can be applied to the same training set. Their order matters
-because the first step changes the data seen by the second. If NB removes
-instances first, the tree chooses attributes from fewer rows. If the tree
-chooses attributes first, NB judges instances using fewer attributes. Either
-order can end in a tree or an NB classifier.
+Evaluation introduces a separate issue. A supervised cleaner fitted before
+cross-validation can use information from future held-out observations.
+This is related to established concerns about feature-selection leakage
+and performance evaluation~\cite{demircioglu2021measuring,cawley2010overfitting,
+kapoor2023leakage}. Instance removal also changes the evaluation population
+if rejected rows disappear before folds are created. A higher score on
+those surviving rows answers a different question from a score on every
+held-out observation.
 
-How we test the methods also matters. A cleaner fitted on the full dataset
-uses information from cases that later appear in the test folds. Instance
-removal is especially direct: cases rejected by the cleaner can disappear
-from the test set itself~\cite{cawley2010overfitting}. We compare that procedure with one in
-which every cleaning step is fitted again inside each training fold. The
-second procedure keeps test rows out of the cleaning decision.
+We investigate three questions. Does either composition improve on its
+matched uncleaned classifier or single-step alternatives? Does changing
+order alter classification and removal behavior? How do scores change
+when cleaning is performed before, rather than within, cross-validation?
+The last comparison is a protocol sensitivity analysis; it does not
+identify which implementation was used in the original study.
 
-The study compares the two orders with the original single-step algorithms
-and with uncleaned NB and tree baselines. Accuracy and macro-F1 measure
-classification. We also record the number and class of removed instances,
-because a higher score alone does not show what the cleaner discarded.
+We implement the two steps on the original attribute columns with Weka
+J48 and a mixed-likelihood NB model. All main comparisons share training
+and test splits. Single-step and parallel reference methods help separate
+composition from the effects already present in individual steps. The
+main protocol refits supervised cleaning inside each training fold and
+scores every test row.
 
-\section{Problem Setting}
+The study contributes an implementation-explicit comparison of the two
+orders, a descriptive contrast between two evaluation protocols, and
+fold-level removal diagnostics. Its contribution is empirical analysis
+of these particular hybrids, rather than a new tree-weighting rule or a
+claim that filtering generally fails. The tested combined methods do not
+show a consistent advantage over their uncleaned counterparts.
 
-An instance that NB misclassifies is not necessarily noisy~\cite{brodley1999identifying}. Its label may be
-correct even if the model has trouble predicting it. The filter still
-removes that instance. We record how many rows it deletes and which classes
-they belong to. Deletion can change the balance of the training set.
+\section{Related Work}
+\subsection{Combining instance and attribute operations}
+Farid et al.~\cite{farid2014hybrid} used NB filtering for a tree and
+tree-derived weights for NB as separate algorithms. Hall~\cite{hall2007decision}
+also derived NB attribute weights from minimum tree depth, but stabilized
+them through bagged unpruned trees. Thus the weighting principle is prior
+work; our implementation uses one pruned tree, following the studied
+single-tree design. Tsai et al.~\cite{tsai2013genetic} investigated feature
+and instance selection priorities using genetic algorithms with other
+classifiers. Their study motivates an ordering comparison, but does not
+supply results for the specific NB/tree steps tested here. We make no
+claim to be the first study of preprocessing order.
 
-The attribute step makes a different decision. It builds a tree and keeps
-the attributes tested by that tree. An attribute used near the root gets a
-higher weight than one first used deeper in the tree. An attribute never
-tested is dropped. This rule is tied to the fitted tree. If the rows change,
-the tree and its choice of attributes may change too.
+\subsection{Disagreement is not a verified label error}
+Brodley and Friedl~\cite{brodley1999identifying} used classifier-based
+filtering and examined the tradeoff between rejecting mislabeled and
+correctly labeled observations. Their filters obtained predictions through
+internal cross-validation, whereas our studied judge uses its training
+predictions. John~\cite{john1995robust} iteratively removed errors of a
+pruned tree and discussed potential losses on valid, underrepresented
+patterns. These findings motivate a distinction between classifier
+disagreement and known corruption. More recent work on confident
+learning~\cite{northcutt2021confident} and the comparison of correction
+with filtering~\cite{jiang2024correction} addresses label uncertainty
+through different procedures. Those methods are context, not evaluated
+competitors in this study.
 
-An instances-first
-path asks which attributes the tree selects after NB has removed rows. An
-attributes-first path asks which rows NB removes after the tree has selected
-attributes. Both orders use the same evaluation settings and base
-classifiers.
+\subsection{Evaluation and statistical comparison}
+Cawley and Talbot~\cite{cawley2010overfitting} analyzed selection bias in
+performance evaluation, while Demircio\u{g}lu~\cite{demircioglu2021measuring}
+examined feature selection before versus within cross-validation.
+Kapoor and Narayanan~\cite{kapoor2023leakage} situated leakage within
+broader reproducibility problems. We apply their methodological concern
+to supervised DT--NB cleaning, while explicitly recognizing that row
+filtering changes the cases subsequently scored. For statistical
+comparisons, we use dataset-level summaries following
+Dem\v{s}ar~\cite{demsar2006statistical}; repetitions of overlapping folds
+are not treated as additional independent datasets.
 
-\section{The Three Algorithms}
+\section{Methods}
+\subsection{Base classifiers and notation}
+Let $D$ contain labeled training observations and let $S$ denote the
+selected attributes. DT is Weka 3.8.6 J48 (C4.5), with pruning enabled,
+confidence factor 0.25 and minimum leaf size 2~\cite{witten2016weka}.
+NB uses empirical class priors, add-one smoothing for nominal attributes,
+and a class-conditional Gaussian likelihood for numeric attributes.
+Numeric population variances receive $10^{-9}$ times the largest numeric
+attribute variance in the current training sample. The implementation
+scores a class $c$ by
+\begin{equation}
+\log P(c)+\sum_{j\in S}w_j\log P(x_j\mid c),
+\label{eq:nb}
+\end{equation}
+and predicts the class with the greatest score. Plain NB sets $w_j=1$.
+A class absent from NB's training sample cannot be predicted by that fit.
 
-\subsection{Algorithm 1: NB removes noisy instances}
-NB is trained on the training set and then classifies every training
-instance. Each instance it gets wrong is removed, and a C4.5 tree is grown
-on those that remain. The judge is fitted only on the training data supplied
-to this step. If deletion would leave fewer than two classes, the original
-training rows are kept so the final classifier can still be fitted.
+\subsection{Algorithm 1: instance filtering (N)}
+The NB judge is fitted to its supplied training sample and predicts those
+same rows. Rows whose predictions disagree with their labels are removed.
+This is in-sample disagreement filtering, not out-of-fold label-error
+estimation. If removal would leave fewer than two classes, the operation
+is skipped and all supplied rows are retained. The safeguard does not
+preserve every original class in a multiclass dataset. We call discarded
+rows \emph{removed observations}, since no independent corruption labels
+are available.
 
-\subsection{Algorithm 2: a tree weights attributes for NB}
-A C4.5 tree is grown on the training set. An attribute receives a larger
-weight when the tree tests it closer to the root. An attribute the tree never
-tests receives zero weight and is removed. NB uses the remaining weights when
-it predicts a class. Selection is fitted again whenever the training rows
-change; weights from a different fold are not reused.
+The original single-step arrangement ends with DT and is denoted N--DT.
+N--NB is a reference using the same removal decision with NB as the final
+classifier. Neither method filters held-out rows under the main protocol.
 
-\subsection{Algorithm 3: the combined hybrid}
-Algorithm~3 applies both steps to the same training set
-(Algorithm~\ref{alg:three}). With instances first, plain NB removes the
-instances it misclassifies; the tree then chooses and weights attributes on
-the remaining rows. With attributes first, the tree chooses and weights the
-attributes before weighted NB judges the instances. In that path, the
-weights from the tree are passed to the NB judge as well as the final NB
-classifier. The final classifier in either path is weighted NB or a C4.5
-tree.
+\subsection{Algorithm 2: attribute selection and weighting (A)}
+A tree is grown on the supplied training rows. Attribute $j$ receives
+$w_j=1/\sqrt{d_j}$, where $d_j$ is the smallest depth at which that tree
+tests it and root depth is one. Attributes not tested are omitted.
+A--NB uses these weights in Eq.~\ref{eq:nb}; A--DT refits a tree on the
+retained attributes without using NB weights. Selection is based on
+original attributes, not separate one-hot indicators.
 
-The cleaner returns the selected attributes and the training rows that
-remain after filtering. The final classifier is fitted on those rows. A test
-fold is prepared with the same selected attributes, but none of its rows are
-removed. Cleaning can change the training sample, but every held-out case
-still has to be scored.
+An empty-selection safeguard matters for reproducibility. In the main
+fold-specific implementation, an empty tree selection retains all
+attributes at unit weights, including for A--NB. In the before-CV
+implementation, standalone A--NB instead uses a priors-only model when
+selection is empty; composed paths retain all attributes. No empty-selection
+or class-collapse safeguard was triggered in the saved main-protocol
+records, so the empty-tree difference was not exercised there.
 
-\begin{algorithm}[H]
-\caption{Combined hybrid (Algorithm 3)}
-\label{alg:three}
+\subsection{Algorithm 3: ordered and parallel compositions}
+NA applies N using plain NB and then fits A on the surviving rows. AN
+fits A first and passes its selected attributes and weights to the NB
+judge in N. The latter weights also enter the final NB. Either order
+ends with NB or DT, giving four combined methods (Fig.~\ref{fig:algorithm}).
+
+A parallel reference, P, fits plain-NB filtering and tree attribute
+selection independently on the same original training fold. The final
+classifier uses the intersection of retained rows and retained attributes;
+final NB uses the tree's weights. Comparing P with NA or AN measures the
+consequence of sequential dependence under these implementation choices.
+It does not isolate ordering from judge weighting: AN also changes the
+representation and weights used by its judge.
+
+\begin{figure}[t]
+\centering
+\begin{minipage}{0.98\columnwidth}
 \begin{algorithmic}[1]
-\Require training set $D$; order $\in$ \{instances-first, attributes-first\};
-final classifier $\in$ \{NB, DT\}
-\Ensure a trained classifier $M$ and the chosen attributes $S$
-\State $S \gets$ all attributes; $W_j \gets 1$ for all $j$
-\If{order = attributes-first}
-  \State grow a tree on $D$; set $S$ and $W$ as in Algorithm 2
-  \State keep only the attributes in $S$
-  \State remove from $D$ every instance that NB with weights $W$ misclassifies
+\Require Training data $D$; order $o$; final classifier $f$
+\Ensure Fitted model $M$ and selected attributes $S$
+\State $S\gets$ all attributes; $W\gets$ unit weights
+\If{$o=\mathrm{AN}$}
+  \State Fit A on $D$; obtain $S,W$
+  \State If $S$ is empty, keep all attributes at unit weights
+  \State Fit weighted NB on $D[:,S]$; identify disagreements
+  \State Remove disagreements if at least two classes remain
 \Else
-  \State remove from $D$ every instance that plain NB misclassifies
-  \State grow a tree on $D$; set $S$ and $W$ as in Algorithm 2
-  \State keep only the attributes in $S$
+  \State Fit plain NB on $D$; identify disagreements
+  \State Remove disagreements if at least two classes remain
+  \State Fit A on surviving $D$; obtain $S,W$
+  \State If $S$ is empty, keep all attributes at unit weights
 \EndIf
-\If{final classifier = NB}
-  \State train NB on $D$ with weights $W$
+\If{$f=\mathrm{NB}$}
+  \State Fit NB on surviving $D[:,S]$ with $W$
 \Else
-  \State grow a C4.5 tree on $D$
+  \State Fit J48 on surviving $D[:,S]$
 \EndIf
-\State \Return $M$, $S$
+\State \Return $M,S$
 \end{algorithmic}
-\end{algorithm}
+\end{minipage}
+\caption{Algorithm 3: the combined hybrid fitted to one training fold.
+NA means instances first; AN means attributes first. Both safeguards are
+implementation choices. At prediction time, select $S$ on every held-out
+row and apply $M$; do not remove held-out rows.}
+\label{fig:algorithm}
+\end{figure}
 
-\section{Experimental Method}
+\section{Experimental Setup}
+\subsection{Datasets and preprocessing}
+We use the ten dataset names considered by Farid et al., with the locally
+available files summarized in Table~\ref{tab:data}. Iris is loaded through
+scikit-learn; NSL-KDD uses its 20\% training subset~\cite{tavallaee2009detailed}.
+Image segmentation combines the two available UCI files. Consequently its
+2,310 rows differ from the 1,500 reported in the original study. Glass has
+six observed classes rather than seven; NSL-KDD has 22 rather than 23.
+These are implementation-specific benchmark experiments, not an exact
+reproduction of the original unpublished implementation.
 
-\subsection{Datasets and tools}
-The evaluation uses the ten datasets of the 2014 study (Table~\ref{tab:data}).
-Nine come from the UCI repository and one is NSL-KDD~\cite{tavallaee2009detailed}.
-C4.5 is Weka's J48~\cite{witten2016weka} with its default settings. NB
-follows the textbook model described in the original paper: nominal
-attributes use counts with add-one smoothing, and numeric attributes use a
-normal distribution per class. All nominal attributes stay as they are, so
-that a tree splits each one into one branch per value, as C4.5 does.
+Original nominal attributes remain single columns. Row identifiers and
+NSL-KDD's difficulty field are excluded. Literal question-mark values are
+treated as nominal categories, without imputation. No numeric scaling is
+applied. Nominal vocabularies are constructed once from the complete files
+before splitting. They do not use labels, but influence NB smoothing
+denominators. Thus the main experiment is fold-local in supervised fitting,
+with a shared, label-free attribute schema; it is not a completely
+inductive preprocessing pipeline.
 
-The original attribute columns are used for this comparison. Keeping each
-nominal attribute as one column matters because the tree chooses and weights
-attributes, not individual encoded values. The base classifiers and cleaning
-paths start with the same columns. Their inputs differ only after a cleaning
-step removes rows or columns.
-
-\begin{table}[H]
-\caption{Datasets, as read from our copies of the files}
+\begin{table}[t]
+\caption{Dataset dimensions in the files used.}
 \label{tab:data}
 \centering
 \begin{tabular}{lrrr}
 \toprule
-Dataset & Instances & Attributes & Classes \\
+Dataset & Rows & Attributes & Classes\\
 \midrule
-Breast cancer & 286 & 9 & 2 \\
-Contact lenses & 24 & 4 & 3 \\
-Diabetes & 768 & 8 & 2 \\
-Glass & 214 & 9 & 6$^{a}$ \\
-Iris & 150 & 4 & 3 \\
-Soybean & 683 & 35 & 19 \\
-Vote & 435 & 16 & 2 \\
-Image segmentation & 2310$^{b}$ & 19 & 7 \\
-Tic-tac-toe & 958 & 9 & 2 \\
-NSL-KDD (20\% train) & 25192 & 41 & 22$^{a}$ \\
+Breast cancer & 286 & 9 & 2\\
+Contact lenses & 24 & 4 & 3\\
+Diabetes & 768 & 8 & 2\\
+Glass & 214 & 9 & 6\\
+Iris & 150 & 4 & 3\\
+Soybean & 683 & 35 & 19\\
+Vote & 435 & 16 & 2\\
+Image segmentation & 2310 & 19 & 7\\
+Tic-tac-toe & 958 & 9 & 2\\
+NSL-KDD & 25192 & 41 & 22\\
 \bottomrule
-\end{tabular}\\[2pt]
-\footnotesize{$^{a}$One listed class has no instances in the available file.
-$^{b}$Both available UCI files are combined.}
+\end{tabular}
 \end{table}
 
-\subsection{Evaluation protocols}
-The main evaluation uses ten repetitions of stratified 10-fold
-cross-validation, with a different random split for each repetition. Within
-each split, all methods begin with the same training and test rows. The
-cleaner and final classifier are fitted on the training rows. The test rows
-are never filtered; they only lose columns that the training-fold cleaner
-removed. This is the fold-specific protocol used to estimate performance on
-unseen cases.
+\subsection{Two evaluation protocols}
+Protocol B, the main evaluation, uses ten repetitions of shuffled,
+stratified 10-fold cross-validation with seeds 0--9. Within a split, all
+12 methods start with identical training and test rows. Every supervised
+cleaning step and final classifier is refitted using training rows only.
+A test fold loses the columns excluded by its training-fold selector but
+retains all its rows. Each method has 100 fold scores per dataset.
 
-A second protocol fits the cleaning steps once on the full dataset, then
-cross-validates only the final classifier on the cleaned data. The filter in
-this protocol can use labels from rows that later appear in a test fold. It
-can also remove those rows before they are scored. We report its accuracy
-only to show the effect of cleaning before the split. It does not estimate
-performance on unseen cases. Because filtering changes the sample, its folds
-are not treated as
-paired with the folds of the main evaluation.
+Protocol A fits the supervised cleaners once on the complete dataset,
+then cross-validates only the final classifier on the resulting rows and
+attributes using the same seed range. Filtering can use labels of future
+test cases and exclude those cases from evaluation altogether. Its
+accuracy therefore describes selected survivors, not held-out performance
+on the original population. Protocol-A folds are not paired with B folds.
+The A-minus-B difference combines information access, sample selection,
+and changes in fitted models; it is not an isolated causal estimate of
+leakage bias. We do not infer that the original study used A.
 
-The difference between settings matters most for methods that delete
-instances. When a method only removes attributes, every row remains in the
-test set, although the selected attributes may still reflect information
-from the full dataset. We examine the two effects separately.
+Ten folds are retained even when classes have fewer than ten observations.
+Contact lenses has class counts 4, 5, and 15, and NSL-KDD includes singleton
+classes. Some training folds therefore lack classes found in their test
+folds. This limitation is shared by the compared methods and must be
+considered when interpreting class-sensitive measures.
 
-\subsection{Methods compared}
-The uncleaned C4.5 and NB classifiers are the baselines for each final
-classifier. Algorithm~1 pairs instance removal with a tree, while
-Algorithm~2 pairs tree-selected attributes with NB. Algorithm~3 has four
-versions: two orders of cleaning, each ending in either NB or a tree.
+\subsection{Measures, aggregation, and exploratory inference}
+Accuracy and macro-F1 are calculated for each held-out fold. Macro-F1
+averages classes occurring in that fold's true labels or predictions,
+assigning zero F1 where necessary; classes absent from both are excluded.
+The contributing class set can therefore vary across folds. Dataset
+scores are arithmetic means of 100 fold percentages, rather than metrics
+computed from pooled predictions. Overall means weight the ten datasets
+equally. We report the sample standard deviation of the overall mean
+across the ten split seeds as descriptive split sensitivity, not as a
+standard error or confidence interval.
 
-Two further comparisons help explain any difference. Algorithm~1 ending in NB shows
-what instance removal does without switching to a tree. Algorithm~2 ending
-in a tree shows what attribute selection does without switching to NB. All
-methods use the same evaluation rules. We can then tell whether a score
-changed because of cleaning or because the final classifier changed.
+For each cleaning event we record rows and attributes before and after
+cleaning, plus the removal fraction within each class. Event totals are
+counted once per dataset, seed, fold, and stage; per-class records must not
+be counted as additional cleaning events.
 
-\subsection{Measures and statistical test}
-Accuracy is the share of test instances classified correctly. Macro-F1
-averages the F1 score of each class, so a large class cannot alone determine
-the summary. Both measures are reported for each dataset before any average
-across datasets is considered. The per-dataset scores show whether an average
-hides a large loss on one dataset.
-
-For methods that remove instances, the analysis records how many training
-rows are removed from each class. A removal rate is compared with that
-class's share of the original training fold. These records help distinguish
-a small, even reduction from a filter that mostly removes one class. The
-number of attributes removed by the tree is recorded separately. Test-row
-counts stay unchanged in the fold-specific protocol.
-
-Average accuracy over the repetitions is calculated for each dataset and
-method. Paired method comparisons then use those ten dataset-level averages
-in a Wilcoxon signed-rank test~\cite{demsar2006statistical} at the 0.05 level.
-We report the score difference alongside the test result. If the test is not
-significant, we report no clear difference; ten datasets may miss a small one.
+The statistical analysis was added after inspecting the saved results and
+is exploratory. Twelve contrasts cover the original single-step methods
+against their matched baselines, four combined methods against baselines,
+two order comparisons, and four combined-versus-parallel comparisons.
+Each is tested for accuracy and macro-F1, making a family of 24 hypotheses.
+Two-sided Wilcoxon signed-rank tests use ten paired dataset means, with
+zero differences excluded and exhaustive sign permutations to handle
+ties. Differences are rounded to ten decimal places before ranking.
+Holm correction is applied jointly across the 24 tests at level 0.05.
+Neither 100 overlapping folds nor ten repetitions increase the number of
+independent datasets~\cite{demsar2006statistical}. Protocol contrasts and
+removal diagnostics are descriptive and are not included in this family.
 
 \section{Results}
+\subsection{Classification under fold-specific cleaning}
+Table~\ref{tab:results} summarizes all 12 methods, and
+Tables~\ref{tab:dataset-acc} and \ref{tab:dataset-f1} retain their
+per-dataset results. N and A denote the instance and attribute steps;
+NA and AN denote the orders; P denotes independent parallel composition.
+N--DT and A--NB are the original single-step arrangements, while N--NB
+and A--DT are attribution references.
 
-\begin{table}[H]
-\caption{Fold-specific classification results (percent), averaged over the
-datasets. Per-dataset scores are in Table~\ref{tab:results-datasets}.}
+\begin{table}[t]
+\caption{Protocol-B equal-dataset means and split-seed standard deviations
+(in percentage points). Higher scores are better. Bold marks the highest
+mean, without implying a significant difference.}
 \label{tab:results}
-\centering
-\input{tables/table_results}
+\centering\small
+% BEGIN GENERATED table_results.tex
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds.
+\begin{tabular}{lrr}
+\toprule
+Method & Accuracy (\%) & Macro-F1 (\%) \\
+\midrule
+NB & 75.93 $\pm$ 0.32 & 69.80 $\pm$ 0.52 \\
+C4.5 & \textbf{86.33 $\pm$ 0.33} & \textbf{81.92 $\pm$ 0.44} \\
+N--NB & 75.42 $\pm$ 0.46 & 69.08 $\pm$ 0.46 \\
+N--DT & 81.03 $\pm$ 0.37 & 75.70 $\pm$ 0.63 \\
+A--NB & 77.35 $\pm$ 0.41 & 71.73 $\pm$ 0.63 \\
+A--DT & 86.19 $\pm$ 0.33 & 81.84 $\pm$ 0.42 \\
+NA--NB & 75.63 $\pm$ 0.45 & 69.60 $\pm$ 0.72 \\
+NA--DT & 81.21 $\pm$ 0.29 & 75.76 $\pm$ 0.58 \\
+AN--NB & 76.35 $\pm$ 0.34 & 69.91 $\pm$ 0.60 \\
+AN--DT & 80.89 $\pm$ 0.45 & 73.93 $\pm$ 0.80 \\
+P--NB & 76.39 $\pm$ 0.37 & 70.47 $\pm$ 0.68 \\
+P--DT & 81.05 $\pm$ 0.34 & 75.58 $\pm$ 0.58 \\
+\bottomrule
+\end{tabular}
+% END GENERATED table_results.tex
 \end{table}
 
 \begin{table*}[t]
-\caption{Accuracy per dataset under the fold-specific protocol (percent).
-Alg.~1 NB final and Alg.~2 DT final are the reference arms of
-Section~IV-C.}
-\label{tab:results-datasets}
-\centering
-\resizebox{\textwidth}{!}{\input{tables/table_results_datasets}}
+\caption{Protocol-B accuracy (\%) per dataset. NB-final methods are in the
+upper panel; DT-final methods are in the lower panel.}
+\label{tab:dataset-acc}
+\centering\small
+% BEGIN GENERATED table_results_datasets.tex
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds.
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds.
+\begin{tabular}{lrrrrrr}
+\toprule
+Dataset & NB & N--NB & A--NB & NA--NB & AN--NB & P--NB \\
+\midrule
+breast-cancer & 72.12 & 72.68 & 72.43 & 71.28 & 72.53 & 72.46 \\
+contact-lenses & 73.00 & 73.00 & 80.67 & 83.00 & 79.33 & 83.00 \\
+diabetes & 75.52 & 74.41 & 76.73 & 75.58 & 75.67 & 75.81 \\
+glass & 45.95 & 37.00 & 47.84 & 30.93 & 37.28 & 32.29 \\
+image-segmentation & 79.76 & 74.92 & 82.30 & 74.53 & 77.32 & 76.57 \\
+iris & 95.53 & 95.33 & 95.40 & 95.33 & 95.87 & 95.60 \\
+nsl-kdd & 67.42 & 75.79 & 62.80 & 74.53 & 75.23 & 76.16 \\
+soybean & 90.09 & 89.00 & 89.40 & 85.67 & 86.66 & 86.95 \\
+tic-tac-toe & 69.83 & 71.89 & 70.68 & 70.03 & 68.07 & 69.72 \\
+vote & 90.06 & 90.13 & 95.24 & 95.45 & 95.49 & 95.36 \\
+\bottomrule
+\end{tabular}
+
+\par\medskip
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds.
+\begin{tabular}{lrrrrrr}
+\toprule
+Dataset & C4.5 & N--DT & A--DT & NA--DT & AN--DT & P--DT \\
+\midrule
+breast-cancer & 74.84 & 71.77 & 73.91 & 71.77 & 72.08 & 71.20 \\
+contact-lenses & 84.67 & 84.67 & 84.67 & 84.67 & 80.67 & 84.67 \\
+diabetes & 74.12 & 75.12 & 74.18 & 75.23 & 75.57 & 74.86 \\
+glass & 66.58 & 48.83 & 66.58 & 48.97 & 49.15 & 48.65 \\
+image-segmentation & 96.81 & 89.24 & 96.83 & 89.26 & 90.88 & 89.79 \\
+iris & 94.27 & 94.93 & 94.27 & 94.93 & 93.80 & 94.93 \\
+nsl-kdd & 99.47 & 87.43 & 99.47 & 89.68 & 87.07 & 88.37 \\
+soybean & 92.71 & 88.71 & 92.26 & 87.89 & 90.98 & 88.24 \\
+tic-tac-toe & 84.74 & 74.43 & 84.74 & 74.55 & 73.17 & 74.43 \\
+vote & 95.08 & 95.13 & 95.03 & 95.13 & 95.54 & 95.38 \\
+\bottomrule
+\end{tabular}
+
+% END GENERATED table_results_datasets.tex
 \end{table*}
 
-\begin{table}[H]
-\caption{Cleaning before cross-validation versus inside each training fold
-(accuracy, percent, averaged over the datasets). The before-CV protocol can
-delete future test rows, so its scores do not estimate performance on unseen
-cases.}
-\label{tab:results-protocol-a}
-\centering
-\input{tables/table_results_A}
+\begin{table*}[t]
+\caption{Protocol-B macro-F1 (\%) per dataset, with the same method panels
+as Table~\ref{tab:dataset-acc}. Fold class sets follow Section~IV-C.}
+\label{tab:dataset-f1}
+\centering\small
+% BEGIN GENERATED table_f1_datasets.tex
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds.
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds.
+\begin{tabular}{lrrrrrr}
+\toprule
+Dataset & NB & N--NB & A--NB & NA--NB & AN--NB & P--NB \\
+\midrule
+breast-cancer & 64.42 & 64.22 & 62.57 & 61.33 & 61.57 & 62.94 \\
+contact-lenses & 62.31 & 62.31 & 72.27 & 76.47 & 69.87 & 76.47 \\
+diabetes & 72.32 & 71.43 & 72.76 & 71.96 & 71.05 & 72.03 \\
+glass & 44.98 & 40.72 & 44.71 & 36.78 & 40.42 & 37.99 \\
+image-segmentation & 77.78 & 74.52 & 81.42 & 73.40 & 77.06 & 75.82 \\
+iris & 95.48 & 95.28 & 95.35 & 95.29 & 95.82 & 95.56 \\
+nsl-kdd & 34.06 & 35.87 & 37.58 & 35.36 & 38.18 & 36.46 \\
+soybean & 93.13 & 92.59 & 91.33 & 87.27 & 88.40 & 89.95 \\
+tic-tac-toe & 63.83 & 64.08 & 64.26 & 62.93 & 61.45 & 62.30 \\
+vote & 89.66 & 89.80 & 95.02 & 95.25 & 95.29 & 95.15 \\
+\bottomrule
+\end{tabular}
+
+\par\medskip
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds.
+\begin{tabular}{lrrrrrr}
+\toprule
+Dataset & C4.5 & N--DT & A--DT & NA--DT & AN--DT & P--DT \\
+\midrule
+breast-cancer & 61.81 & 62.68 & 60.52 & 62.65 & 61.37 & 61.82 \\
+contact-lenses & 79.47 & 79.47 & 79.47 & 79.47 & 72.27 & 79.47 \\
+diabetes & 70.71 & 71.45 & 70.79 & 71.56 & 71.19 & 70.97 \\
+glass & 62.00 & 45.29 & 62.00 & 45.45 & 43.35 & 45.03 \\
+image-segmentation & 96.81 & 88.96 & 96.83 & 88.98 & 90.79 & 89.53 \\
+iris & 94.18 & 94.88 & 94.18 & 94.88 & 93.72 & 94.88 \\
+nsl-kdd & 82.25 & 60.33 & 82.92 & 62.05 & 53.18 & 60.82 \\
+soybean & 94.26 & 92.08 & 94.10 & 90.47 & 92.08 & 91.21 \\
+tic-tac-toe & 82.82 & 66.94 & 82.82 & 67.18 & 66.02 & 66.94 \\
+vote & 94.86 & 94.90 & 94.81 & 94.90 & 95.34 & 95.17 \\
+\bottomrule
+\end{tabular}
+
+% END GENERATED table_f1_datasets.tex
+\end{table*}
+
+Uncleaned C4.5 achieved 86.33\% mean accuracy and 81.92\% macro-F1.
+NA--DT and AN--DT achieved 81.21\% and 80.89\% accuracy, respectively:
+differences of $-5.12$ and $-5.44$ percentage points (pp). Their macro-F1
+scores were lower by 6.16 and 7.99 pp. A--DT remained close to its baseline
+at 86.19\% accuracy, whereas N--DT averaged 81.03\%. Thus adding attribute
+selection alone changed the tree mean little; methods involving instance
+removal had lower means on this suite.
+
+For NB, A--NB averaged 77.35\% accuracy and 71.73\% macro-F1, compared
+with 75.93\% and 69.80\% without cleaning. The combined NA--NB and AN--NB
+accuracies were 75.63\% and 76.35\%; their baseline differences were
+$-0.30$ and $+0.42$ pp. AN--NB had higher accuracy than NA--NB on eight
+of ten datasets, but its mean advantage was only 0.71 pp. The tree order
+comparison went in the opposite direction on the overall mean:
+AN--DT was 0.32 pp below NA--DT. There is no common winning order across
+final classifiers and metrics.
+
+Dataset results expose substantial heterogeneity. On glass, C4.5 scored
+66.58\% accuracy, compared with 48.97\% for NA--DT and 49.15\% for AN--DT.
+On vote, the corresponding scores were 95.08\%, 95.13\%, and 95.54\%.
+For NB on glass, the baseline scored 45.95\%, whereas the combined
+methods scored 30.93\% and 37.28\%. These contrasts show why an overall
+mean alone is insufficient to characterize the cleaners.
+
+\subsection{Sequential dependence and statistical uncertainty}
+P--NB averaged 76.39\% accuracy and 70.47\% macro-F1; P--DT averaged
+81.05\% and 75.58\%. The sequential methods did not show a consistent
+mean advantage over this independent reference. Table~\ref{tab:tests}
+reports both raw and Holm-adjusted $p$-values for the full contrast family.
+None met the corrected 0.05 threshold. AN--DT versus C4.5 had raw
+accuracy $p=0.014$, but adjusted $p=0.328$. The NB order comparison had
+raw $p=0.275$, and the DT order comparison had raw $p=0.922$.
+These tests do not establish equality or practical equivalence. With ten
+heterogeneous datasets, a nonsignificant result can coexist with meaningful
+losses on particular tasks.
+
+\begin{table*}[t]
+\caption{Exploratory two-sided dataset-level signed-rank comparisons.
+Deltas are first method minus second in pp; $p_H$ is Holm-adjusted across
+all 24 accuracy/F1 tests. F1 denotes macro-F1. All tests use ten datasets.}
+\label{tab:tests}
+\centering\small
+% BEGIN GENERATED table_tests.tex
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds.
+\begin{tabular}{lrrrrrr}
+\toprule
+Comparison & $\Delta$Acc & $p$ & $p_{H}$ & $\Delta$F1 & $p$ & $p_{H}$ \\
+\midrule
+N--DT vs DT & -5.30 & 0.055 & 1.000 & -6.22 & 0.164 & 1.000 \\
+A--NB vs NB & +1.42 & 0.131 & 1.000 & +1.93 & 0.193 & 1.000 \\
+NA--NB vs NB & -0.30 & 1.000 & 1.000 & -0.19 & 0.557 & 1.000 \\
+AN--NB vs NB & +0.42 & 0.846 & 1.000 & +0.11 & 0.922 & 1.000 \\
+NA--DT vs DT & -5.12 & 0.055 & 1.000 & -6.16 & 0.164 & 1.000 \\
+AN--DT vs DT & -5.44 & 0.014 & 0.328 & -7.99 & 0.037 & 0.854 \\
+AN--NB vs NA--NB & +0.71 & 0.275 & 1.000 & +0.31 & 0.492 & 1.000 \\
+AN--DT vs NA--DT & -0.32 & 0.922 & 1.000 & -1.83 & 0.232 & 1.000 \\
+NA--NB vs P--NB & -0.76 & 0.039 & 0.859 & -0.86 & 0.055 & 1.000 \\
+AN--NB vs P--NB & -0.05 & 0.770 & 1.000 & -0.56 & 0.846 & 1.000 \\
+NA--DT vs P--DT & +0.16 & 0.461 & 1.000 & +0.18 & 0.461 & 1.000 \\
+AN--DT vs P--DT & -0.16 & 0.770 & 1.000 & -1.65 & 0.193 & 1.000 \\
+\bottomrule
+\end{tabular}
+% END GENERATED table_tests.tex
+\end{table*}
+
+\subsection{Before-CV cleaning changes the apparent result}
+The protocol contrast in Table~\ref{tab:protocols} was much larger for
+methods involving instance removal than for attribute selection alone.
+NA--DT increased from 81.21\% in B to 94.72\% in A, and AN--DT from
+80.89\% to 96.32\%, differences of 13.51 and 15.43 pp.
+N--DT differed by 13.50 pp. In contrast, A--NB differed by 0.72 pp and
+A--DT by 0.33 pp. These are observed score differences under different
+procedures and, for row-filtering methods, different evaluation samples.
+They are not estimates of deployable improvement.
+
+\begin{table}[t]
+\caption{Mean accuracy under B (training-fold cleaning) and A (full-data
+cleaning before CV). Differences are descriptive protocol contrasts;
+A may exclude future test rows.}
+\label{tab:protocols}
+\centering\small
+% BEGIN GENERATED table_results_A.tex
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds.
+\begin{tabular}{lrrr}
+\toprule
+Method & B (\%) & A (\%) & A$-$B (pp) \\
+\midrule
+N--NB & 75.42 & 91.93 & +16.51 \\
+N--DT & 81.03 & 94.52 & +13.50 \\
+A--NB & 77.35 & 78.07 & +0.72 \\
+A--DT & 86.19 & 86.52 & +0.33 \\
+NA--NB & 75.63 & 90.11 & +14.48 \\
+NA--DT & 81.21 & 94.72 & +13.51 \\
+AN--NB & 76.35 & 91.08 & +14.74 \\
+AN--DT & 80.89 & 96.32 & +15.43 \\
+P--NB & 76.39 & 91.10 & +14.71 \\
+P--DT & 81.05 & 94.67 & +13.62 \\
+\bottomrule
+\end{tabular}
+% END GENERATED table_results_A.tex
 \end{table}
 
-\section{Limitations}
+\subsection{What the filters removed}
+Table~\ref{tab:removal} summarizes 100 events per stage per dataset.
+Plain-NB removal ranged from 4.14\% of training rows on iris to 47.31\%
+on glass. The tree retained 97.00\% of glass attributes when fitted on
+the original training fold, but 61.00\% after plain-NB filtering. On vote,
+these fractions were 27.38\% and 7.62\%. These observations directly show
+that the first operation changes the fitted output of the second, even
+where classifier scores are close.
 
-The ten datasets allow a comparison with the original study, but they do not
-represent every kind of classification problem. The available files also
-differ from some class and row counts printed in that study, as noted in
-Table~\ref{tab:data}. We use the available files and report those differences.
+Breast-cancer recurrence cases made up 29.72\% of training rows on
+average. Plain NB removed 50.63\% of that class versus 14.51\% of
+non-recurrence cases. After attribute selection, weighted NB removed
+58.97\% and 11.72\%, respectively. In contact lenses, the weighted filter
+entirely removed class 1 from 12 of 100 training folds; in glass, it entirely
+removed class 3 from nine folds. The two-class safeguard did not prevent
+these losses because other classes remained. These are class-removal
+diagnostics, not evidence that the removed labels were wrong.
 
-The NB judge marks a row for removal when its own prediction is wrong. That
-does not prove the row's label is incorrect. A correctly labelled but hard
-case can be removed, and the method has no second judge to check it. The
-removal counts help interpret any accuracy change. They cannot tell which
-removed labels were truly noisy.
+\begin{table}[t]
+\caption{Mean removal/retention fractions (\%) under B. N del. is plain-NB
+row deletion; AN del. is weighted-NB deletion after A. A kept and NA kept
+are attribute retention before and after plain-NB filtering.}
+\label{tab:removal}
+\centering\small
+% BEGIN GENERATED table_removals.tex
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds.
+\begin{tabular}{lrrrr}
+\toprule
+Dataset & N del. & AN del. & A kept & NA kept \\
+\midrule
+breast-cancer & 25.24 & 25.76 & 41.56 & 34.67 \\
+contact-lenses & 4.28 & 11.03 & 66.50 & 64.00 \\
+diabetes & 23.67 & 22.99 & 84.88 & 83.12 \\
+glass & 47.31 & 46.88 & 97.00 & 61.00 \\
+image-segmentation & 19.88 & 17.35 & 65.79 & 40.16 \\
+iris & 4.14 & 4.41 & 50.75 & 37.75 \\
+nsl-kdd & 32.52 & 37.13 & 69.32 & 42.59 \\
+soybean & 9.18 & 9.06 & 52.40 & 41.89 \\
+tic-tac-toe & 29.32 & 28.63 & 100.00 & 76.67 \\
+vote & 9.33 & 4.46 & 27.38 & 7.62 \\
+\bottomrule
+\end{tabular}
+% END GENERATED table_removals.tex
+\end{table}
 
-The full-data-clean protocol shows how much the measured score changes when
-cleaning occurs before cross-validation. It cannot establish which protocol
-the 2014 study used. The fold-specific estimate remains the main result for
-comparing methods on held-out data.
+\section{Discussion}
+The reference methods narrow the interpretation of composition. Attribute
+selection followed by DT produced almost the baseline tree mean, while
+adding instance filtering did not recover an overall tree advantage.
+For NB, the attribute-only method had a higher mean than either combined
+order. Composition therefore cannot be justified from the premise that
+both component steps are beneficial independently. Their outputs interact,
+but an interaction in retained rows or attributes need not improve
+held-out prediction.
+
+The class-removal records are consistent with the concern raised by
+Brodley and Friedl~\cite{brodley1999identifying} and
+John~\cite{john1995robust}: a classifier can reject difficult but valid
+observations. Our results do not establish that mechanism as the cause of
+the losses, since we lack verified noise labels and a controlled corruption
+intervention. Nor do they contradict benefits reported for different
+label-cleaning approaches~\cite{northcutt2021confident,jiang2024correction}.
+The warranted conclusion concerns this in-sample NB disagreement rule and
+these benchmark conditions.
+
+Protocol A reveals how an apparently strong score can coexist with a
+weaker evaluation on all held-out cases. It combines access to future
+test information with selection of cases that survive a supervised judge.
+The distinction is especially consequential when filtering removes a
+whole class. Reporting only the survivor score would conceal that change
+in the prediction task. A useful follow-up would keep the original test
+population fixed while varying access to training information, separating
+selection effects from leakage more directly.
+
+\section{Limitations and Reproducibility}
+These ten legacy datasets were chosen for continuity with the seed study,
+not as a random sample of classification tasks. Dataset dimensions,
+question-mark handling, NB variance stabilization, and tree settings can
+differ from the original implementation. We did not reproduce its complete
+software or establish its cleaning placement. In particular, the original
+study's aggregate claims cannot be attributed to leakage from this audit.
+
+Rare classes and small folds limit macro-F1 interpretation. A variable
+fold class set is different from averaging a fixed dataset-wide class
+set, and NB cannot predict an absent training class. The shared full-file
+nominal vocabulary is another boundary on inductive evaluation. No
+controlled label-noise experiment, modern classifier comparison, external
+NSL-KDD test-set evaluation, or runtime benchmark is included. The
+exploratory tests account for multiple comparisons but do not turn this
+selected benchmark suite into a population-level sample.
+
+The reported results derive from saved metrics, per-fold scores, removal
+records, and configuration files. The table-generation script recomputes
+dataset means, checks them against the stored aggregates, verifies the
+expected fold coverage, and derives the statistical comparisons and removal
+tables. The numerical audit uses the saved experiments; it does not
+constitute a fresh rerun of every model. The analysis can be reproduced
+from the repository root by running
+\texttt{python paper/manuscript/scripts/}\allowbreak\texttt{make\_results\_table.py}.
 
 \section{Conclusion}
+Composing NB disagreement filtering with tree-based attribute selection
+changed removal behavior without producing a consistent classification
+advantage on the tested suite. The observed order preference depended on
+the final classifier, and no exploratory comparison remained significant
+after correction. Cleaning before cross-validation yielded much higher
+scores for row-filtering methods, while also changing which observations
+were evaluated. Together, these findings motivate reporting the cleaning
+protocol, matched baselines, and per-class removal records alongside
+accuracy. Future work should test the suspected hard-case mechanism with
+known corruption labels, preserve rare classes explicitly, and compare
+protocols on a fixed held-out population.
 
-The hybrid applies NB instance filtering and tree-based attribute selection
-in either order. The single-step and uncleaned methods show what each step
-adds. Fold-specific testing scores every held-out row, and the removal counts
-show which classes lose training rows. The measured results are needed to
-tell whether either order improves classification.
-
-\clearpage
-\bibliographystyle{IEEEtran}
-\bibliography{references}
-
+\begin{thebibliography}{13}
+\bibitem{farid2014hybrid}
+D. Md. Farid, L. Zhang, C. M. Rahman, M. A. Hossain, and R. Strachan,
+``Hybrid decision tree and na\"ive Bayes classifiers for multi-class
+classification tasks,'' \emph{Expert Systems with Applications},
+vol. 41, no. 4, pp. 1937--1946, 2014.
+\bibitem{tsai2013genetic}
+C.-F. Tsai, W. Eberle, and C.-Y. Chu, ``Genetic algorithms in feature and
+instance selection,'' \emph{Knowledge-Based Systems}, vol. 39,
+pp. 240--247, 2013.
+\bibitem{brodley1999identifying}
+C. E. Brodley and M. A. Friedl, ``Identifying mislabeled training data,''
+\emph{Journal of Artificial Intelligence Research}, vol. 11,
+pp. 131--167, 1999.
+\bibitem{john1995robust}
+G. H. John, ``Robust decision trees: Removing outliers from databases,''
+in \emph{Proc. 1st Int. Conf. Knowledge Discovery and Data Mining},
+1995, pp. 174--179.
+\bibitem{demircioglu2021measuring}
+A. Demircio\u{g}lu, ``Measuring the bias of incorrect application of feature
+selection when using cross-validation in radiomics,''
+\emph{Insights into Imaging}, vol. 12, art. 172, 2021.
+\bibitem{cawley2010overfitting}
+G. C. Cawley and N. L. C. Talbot, ``On over-fitting in model selection and
+subsequent selection bias in performance evaluation,''
+\emph{Journal of Machine Learning Research}, vol. 11,
+pp. 2079--2107, 2010.
+\bibitem{kapoor2023leakage}
+S. Kapoor and A. Narayanan, ``Leakage and the reproducibility crisis in
+machine-learning-based science,'' \emph{Patterns}, vol. 4, no. 9,
+art. 100804, 2023.
+\bibitem{hall2007decision}
+M. Hall, ``A decision tree-based attribute weighting filter for naive
+Bayes,'' \emph{Knowledge-Based Systems}, vol. 20, no. 2,
+pp. 120--126, 2007.
+\bibitem{northcutt2021confident}
+C. G. Northcutt, L. Jiang, and I. L. Chuang, ``Confident learning:
+Estimating uncertainty in dataset labels,''
+\emph{Journal of Artificial Intelligence Research}, vol. 70,
+pp. 1373--1411, 2021.
+\bibitem{jiang2024correction}
+G. Jiang, J. Zhang, X. Bai, W. Wang, and D. Meng, ``Which is more effective
+in label noise cleaning, correction or filtering?''
+in \emph{Proc. AAAI Conf. Artificial Intelligence}, vol. 38, no. 11,
+2024, pp. 12866--12873.
+\bibitem{demsar2006statistical}
+J. Dem\v{s}ar, ``Statistical comparisons of classifiers over multiple data
+sets,'' \emph{Journal of Machine Learning Research}, vol. 7,
+pp. 1--30, 2006.
+\bibitem{witten2016weka}
+I. H. Witten, E. Frank, M. A. Hall, and C. J. Pal,
+\emph{Data Mining: Practical Machine Learning Tools and Techniques},
+4th ed. Morgan Kaufmann, 2016.
+\bibitem{tavallaee2009detailed}
+M. Tavallaee, E. Bagheri, W. Lu, and A. A. Ghorbani,
+``A detailed analysis of the KDD CUP 99 data set,''
+in \emph{Proc. IEEE Symp. Computational Intelligence for Security and
+Defense Applications}, 2009, pp. 1--6.
+\end{thebibliography}
 \end{document}
