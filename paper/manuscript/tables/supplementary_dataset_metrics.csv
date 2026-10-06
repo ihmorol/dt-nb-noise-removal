@@ -1,0 +1,121 @@
+dataset,arm,protocol,accuracy,macro_f1,n_folds
+breast-cancer,baseline->NB,B refit-per-fold,72.11576354679802,64.42182199589179,100
+breast-cancer,baseline->DT,B refit-per-fold,74.84482758620689,61.811580663803824,100
+breast-cancer,Alg1->NB,B refit-per-fold,72.68226600985221,64.22280395100881,100
+breast-cancer,Alg1->DT,B refit-per-fold,71.76600985221674,62.67845633191082,100
+breast-cancer,Alg2->NB,B refit-per-fold,72.42857142857142,62.572778743069904,100
+breast-cancer,Alg2->DT,B refit-per-fold,73.90886699507388,60.523404060451774,100
+breast-cancer,C1 N->A->NB,B refit-per-fold,71.27709359605912,61.32944256007812,100
+breast-cancer,C1 N->A->DT,B refit-per-fold,71.76600985221674,62.64752984321737,100
+breast-cancer,C2 A->N->NB,B refit-per-fold,72.53325123152709,61.565303339095735,100
+breast-cancer,C2 A->N->DT,B refit-per-fold,72.07635467980295,61.36730044479222,100
+breast-cancer,parallel->NB,B refit-per-fold,72.46305418719211,62.94334690003413,100
+breast-cancer,parallel->DT,B refit-per-fold,71.20320197044335,61.81738235373816,100
+contact-lenses,baseline->NB,B refit-per-fold,73.0,62.3111111111111,100
+contact-lenses,baseline->DT,B refit-per-fold,84.66666666666666,79.46666666666667,100
+contact-lenses,Alg1->NB,B refit-per-fold,73.0,62.30555555555555,100
+contact-lenses,Alg1->DT,B refit-per-fold,84.66666666666666,79.46666666666667,100
+contact-lenses,Alg2->NB,B refit-per-fold,80.66666666666666,72.26666666666667,100
+contact-lenses,Alg2->DT,B refit-per-fold,84.66666666666666,79.46666666666667,100
+contact-lenses,C1 N->A->NB,B refit-per-fold,83.0,76.46666666666667,100
+contact-lenses,C1 N->A->DT,B refit-per-fold,84.66666666666666,79.46666666666667,100
+contact-lenses,C2 A->N->NB,B refit-per-fold,79.33333333333334,69.86666666666666,100
+contact-lenses,C2 A->N->DT,B refit-per-fold,80.66666666666666,72.26666666666667,100
+contact-lenses,parallel->NB,B refit-per-fold,83.0,76.46666666666667,100
+contact-lenses,parallel->DT,B refit-per-fold,84.66666666666666,79.46666666666667,100
+diabetes,baseline->NB,B refit-per-fold,75.52033492822967,72.31836592549867,100
+diabetes,baseline->DT,B refit-per-fold,74.12406015037595,70.71081563978147,100
+diabetes,Alg1->NB,B refit-per-fold,74.41404647983596,71.4347645078456,100
+diabetes,Alg1->DT,B refit-per-fold,75.1167122351333,71.45027761327735,100
+diabetes,Alg2->NB,B refit-per-fold,76.73051948051949,72.76104034902673,100
+diabetes,Alg2->DT,B refit-per-fold,74.1765208475735,70.79476156063828,100
+diabetes,C1 N->A->NB,B refit-per-fold,75.58407382091593,71.95918551955559,100
+diabetes,C1 N->A->DT,B refit-per-fold,75.2346206425154,71.56332101941162,100
+diabetes,C2 A->N->NB,B refit-per-fold,75.67412850307589,71.04796891438794,100
+diabetes,C2 A->N->DT,B refit-per-fold,75.57159945317841,71.18993877989992,100
+diabetes,parallel->NB,B refit-per-fold,75.80707450444292,72.03280624091259,100
+diabetes,parallel->DT,B refit-per-fold,74.85714285714288,70.9671080865465,100
+glass,baseline->NB,B refit-per-fold,45.95454545454545,44.97555919169697,100
+glass,baseline->DT,B refit-per-fold,66.58008658008659,61.99995562515687,100
+glass,Alg1->NB,B refit-per-fold,36.997835497835496,40.717845580918336,100
+glass,Alg1->DT,B refit-per-fold,48.83116883116883,45.28759316104048,100
+glass,Alg2->NB,B refit-per-fold,47.84199134199135,44.71497879475533,100
+glass,Alg2->DT,B refit-per-fold,66.58008658008659,62.00081212160159,100
+glass,C1 N->A->NB,B refit-per-fold,30.928571428571427,36.78075123706703,100
+glass,C1 N->A->DT,B refit-per-fold,48.97402597402597,45.452719578597225,100
+glass,C2 A->N->NB,B refit-per-fold,37.27922077922077,40.41923972627533,100
+glass,C2 A->N->DT,B refit-per-fold,49.15151515151516,43.34895576325579,100
+glass,parallel->NB,B refit-per-fold,32.28787878787878,37.99147840177252,100
+glass,parallel->DT,B refit-per-fold,48.64502164502164,45.02589725460773,100
+iris,baseline->NB,B refit-per-fold,95.53333333333336,95.47525252525254,100
+iris,baseline->DT,B refit-per-fold,94.26666666666668,94.18341843341842,100
+iris,Alg1->NB,B refit-per-fold,95.33333333333334,95.2774410774411,100
+iris,Alg1->DT,B refit-per-fold,94.93333333333337,94.88341843341844,100
+iris,Alg2->NB,B refit-per-fold,95.40000000000002,95.35437710437712,100
+iris,Alg2->DT,B refit-per-fold,94.26666666666668,94.18341843341842,100
+iris,C1 N->A->NB,B refit-per-fold,95.33333333333336,95.28703703703708,100
+iris,C1 N->A->DT,B refit-per-fold,94.93333333333337,94.88341843341844,100
+iris,C2 A->N->NB,B refit-per-fold,95.86666666666666,95.82037037037036,100
+iris,C2 A->N->DT,B refit-per-fold,93.8,93.71978206978208,100
+iris,parallel->NB,B refit-per-fold,95.6,95.5563973063973,100
+iris,parallel->DT,B refit-per-fold,94.93333333333337,94.88341843341844,100
+soybean,baseline->NB,B refit-per-fold,90.08653026427965,93.13374534157468,100
+soybean,baseline->DT,B refit-per-fold,92.7116368286445,94.25721390695776,100
+soybean,Alg1->NB,B refit-per-fold,89.0044757033248,92.5903755414087,100
+soybean,Alg1->DT,B refit-per-fold,88.70929241261722,92.0777599532389,100
+soybean,Alg2->NB,B refit-per-fold,89.39748508098891,91.32846553760577,100
+soybean,Alg2->DT,B refit-per-fold,92.25639386189258,94.10422960566255,100
+soybean,C1 N->A->NB,B refit-per-fold,85.66517476555839,87.27234076898328,100
+soybean,C1 N->A->DT,B refit-per-fold,87.8885336743393,90.4732553657506,100
+soybean,C2 A->N->NB,B refit-per-fold,86.66219096334186,88.4021635342216,100
+soybean,C2 A->N->DT,B refit-per-fold,90.98081841432226,92.08029707261142,100
+soybean,parallel->NB,B refit-per-fold,86.95460358056265,89.94783150111569,100
+soybean,parallel->DT,B refit-per-fold,88.24126172208014,91.21003211333442,100
+vote,baseline->NB,B refit-per-fold,90.06289640591966,89.66106349036455,100
+vote,baseline->DT,B refit-per-fold,95.08033826638476,94.85746769212716,100
+vote,Alg1->NB,B refit-per-fold,90.13424947145876,89.80277703450916,100
+vote,Alg1->DT,B refit-per-fold,95.12737843551795,94.89656796145977,100
+vote,Alg2->NB,B refit-per-fold,95.24154334038056,95.01877456926336,100
+vote,Alg2->DT,B refit-per-fold,95.03329809725156,94.81031531438198,100
+vote,C1 N->A->NB,B refit-per-fold,95.44873150105708,95.25084736636208,100
+vote,C1 N->A->DT,B refit-per-fold,95.12737843551795,94.89656796145977,100
+vote,C2 A->N->NB,B refit-per-fold,95.49418604651164,95.2896771957598,100
+vote,C2 A->N->DT,B refit-per-fold,95.5412262156448,95.34434484658046,100
+vote,parallel->NB,B refit-per-fold,95.35570824524312,95.14948389275791,100
+vote,parallel->DT,B refit-per-fold,95.37949260042282,95.1744658823928,100
+image-segmentation,baseline->NB,B refit-per-fold,79.75757575757576,77.7847292980289,100
+image-segmentation,baseline->DT,B refit-per-fold,96.8138528138528,96.81049278267432,100
+image-segmentation,Alg1->NB,B refit-per-fold,74.91774891774891,74.52057073780895,100
+image-segmentation,Alg1->DT,B refit-per-fold,89.24242424242422,88.96145981181327,100
+image-segmentation,Alg2->NB,B refit-per-fold,82.2987012987013,81.41736585831308,100
+image-segmentation,Alg2->DT,B refit-per-fold,96.83116883116884,96.82710625463004,100
+image-segmentation,C1 N->A->NB,B refit-per-fold,74.52813852813851,73.39614308547517,100
+image-segmentation,C1 N->A->DT,B refit-per-fold,89.25974025974024,88.98054723329828,100
+image-segmentation,C2 A->N->NB,B refit-per-fold,77.31601731601734,77.0618053411283,100
+image-segmentation,C2 A->N->DT,B refit-per-fold,90.88311688311688,90.79000394199528,100
+image-segmentation,parallel->NB,B refit-per-fold,76.56709956709956,75.820277448998,100
+image-segmentation,parallel->DT,B refit-per-fold,89.7878787878788,89.52609718014668,100
+tic-tac-toe,baseline->NB,B refit-per-fold,69.83366228070174,63.8269394360605,100
+tic-tac-toe,baseline->DT,B refit-per-fold,84.73914473684209,82.81787806641186,100
+tic-tac-toe,Alg1->NB,B refit-per-fold,71.8906798245614,64.07741036268455,100
+tic-tac-toe,Alg1->DT,B refit-per-fold,74.42631578947368,66.9391913444787,100
+tic-tac-toe,Alg2->NB,B refit-per-fold,70.6797149122807,64.26280829578745,100
+tic-tac-toe,Alg2->DT,B refit-per-fold,84.73914473684209,82.81787806641186,100
+tic-tac-toe,C1 N->A->NB,B refit-per-fold,70.03388157894736,62.92677298599402,100
+tic-tac-toe,C1 N->A->DT,B refit-per-fold,74.5514254385965,67.1819650651089,100
+tic-tac-toe,C2 A->N->NB,B refit-per-fold,68.06995614035088,61.44851379307794,100
+tic-tac-toe,C2 A->N->DT,B refit-per-fold,73.17478070175439,66.02012147179697,100
+tic-tac-toe,parallel->NB,B refit-per-fold,69.71984649122807,62.30270103285157,100
+tic-tac-toe,parallel->DT,B refit-per-fold,74.42631578947368,66.9391913444787,100
+nsl-kdd,baseline->NB,B refit-per-fold,67.41943499246992,34.06150907522224,100
+nsl-kdd,baseline->DT,B refit-per-fold,99.46688926066656,82.245548091823,100
+nsl-kdd,Alg1->NB,B refit-per-fold,75.7915045653037,35.872540115795644,100
+nsl-kdd,Alg1->DT,B refit-per-fold,87.43126587144057,60.33193777237993,100
+nsl-kdd,Alg2->NB,B refit-per-fold,62.80443014045634,37.577926678627385,100
+nsl-kdd,Alg2->DT,B refit-per-fold,99.46808099712028,82.92127334446178,100
+nsl-kdd,C1 N->A->NB,B refit-per-fold,74.52800194710674,35.355824216398815,100
+nsl-kdd,C1 N->A->DT,B refit-per-fold,89.67843264207893,62.049011092415846,100
+nsl-kdd,C2 A->N->NB,B refit-per-fold,75.23298061715093,38.182813554154336,100
+nsl-kdd,C2 A->N->DT,B refit-per-fold,87.07366758665883,53.181045717070695,100
+nsl-kdd,parallel->NB,B refit-per-fold,76.16462125938108,36.457053118026735,100
+nsl-kdd,parallel->DT,B refit-per-fold,88.37092289079186,60.8176727017847,100
