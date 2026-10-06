@@ -1,0 +1,489 @@
+{
+  "analysis_runtime": {
+    "python": "3.13.2",
+    "numpy": "2.2.4",
+    "pandas": "2.3.3",
+    "scipy": "1.16.2"
+  },
+  "source_sha256": {
+    "metrics.csv": "488a6e6fdada48a9f18b1125c3d6ad47fd6f2ee9557e48d474578092809a2a4c",
+    "per_fold.csv": "836b1b19d2452b28e860eb3223699a39dc0f186eab7d1d748c8b431e800f6ddb",
+    "removals.csv": "1f269f2c242b5cefe7d3749a480061baaeab37bbb94bdd0cb367c5c0d968c37d",
+    "config.json": "4012d76d4f47174c0401c2b96b738002eb2ff287d804d7f3a1b6d59d554499a6"
+  },
+  "coverage": {
+    "datasets": 10,
+    "B_fold_scores": 12000,
+    "A_fold_scores": 10000,
+    "B_cleaning_events": 4000
+  },
+  "means": {
+    "Alg1->DT": {
+      "accuracy": 81.02505676699926,
+      "macro_f1": 75.69733290496843
+    },
+    "Alg1->NB": {
+      "accuracy": 75.41661398032547,
+      "macro_f1": 69.08220844649765
+    },
+    "Alg2->DT": {
+      "accuracy": 86.19268942803426,
+      "macro_f1": 81.8449865428325
+    },
+    "Alg2->NB": {
+      "accuracy": 77.34896236905567,
+      "macro_f1": 71.72751825974927
+    },
+    "C1 N->A->DT": {
+      "accuracy": 81.20801669190311,
+      "macro_f1": 75.75950022593447
+    },
+    "C1 N->A->NB": {
+      "accuracy": 75.6327000499688,
+      "macro_f1": 69.60250114436178
+    },
+    "C2 A->N->DT": {
+      "accuracy": 80.89197457526603,
+      "macro_f1": 73.93084567744515
+    },
+    "C2 A->N->NB": {
+      "accuracy": 76.34619315971965,
+      "macro_f1": 69.91045224351379
+    },
+    "baseline->DT": {
+      "accuracy": 86.32941695563935,
+      "macro_f1": 81.91610375688214
+    },
+    "baseline->NB": {
+      "accuracy": 75.92840769638534,
+      "macro_f1": 69.7970097390702
+    },
+    "parallel->DT": {
+      "accuracy": 81.05112382632552,
+      "macro_f1": 75.58279320171148
+    },
+    "parallel->NB": {
+      "accuracy": 76.39198866230284,
+      "macro_f1": 70.46680425095332
+    }
+  },
+  "seed_sd": {
+    "Alg1->DT": {
+      "accuracy": 0.372906228076518,
+      "macro_f1": 0.6332231375217708
+    },
+    "Alg1->NB": {
+      "accuracy": 0.4560769211210444,
+      "macro_f1": 0.46410197262301567
+    },
+    "Alg2->DT": {
+      "accuracy": 0.33297541093144295,
+      "macro_f1": 0.4196863123861169
+    },
+    "Alg2->NB": {
+      "accuracy": 0.40763575278825914,
+      "macro_f1": 0.6259897394243713
+    },
+    "C1 N->A->DT": {
+      "accuracy": 0.28677211297070326,
+      "macro_f1": 0.5826126125984324
+    },
+    "C1 N->A->NB": {
+      "accuracy": 0.4453997667068374,
+      "macro_f1": 0.7247770642498765
+    },
+    "C2 A->N->DT": {
+      "accuracy": 0.4451306696353559,
+      "macro_f1": 0.8028616294068144
+    },
+    "C2 A->N->NB": {
+      "accuracy": 0.33934915536796656,
+      "macro_f1": 0.6009241894294297
+    },
+    "baseline->DT": {
+      "accuracy": 0.33274226360453435,
+      "macro_f1": 0.43922913418939574
+    },
+    "baseline->NB": {
+      "accuracy": 0.3170110489129905,
+      "macro_f1": 0.5184700471324543
+    },
+    "parallel->DT": {
+      "accuracy": 0.3389642871752439,
+      "macro_f1": 0.5802617161250012
+    },
+    "parallel->NB": {
+      "accuracy": 0.36607436573111624,
+      "macro_f1": 0.6817417670889567
+    }
+  },
+  "tests": [
+    {
+      "comparison": "N--DT vs DT",
+      "first": "Alg1->DT",
+      "second": "baseline->DT",
+      "metric": "accuracy",
+      "delta": -5.30436018863,
+      "p": 0.0546875,
+      "wins": 3,
+      "losses": 6,
+      "ties": 1,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "N--DT vs DT",
+      "first": "Alg1->DT",
+      "second": "baseline->DT",
+      "metric": "macro_f1",
+      "delta": -6.21877085191,
+      "p": 0.1640625,
+      "wins": 4,
+      "losses": 5,
+      "ties": 1,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "A--NB vs NB",
+      "first": "Alg2->NB",
+      "second": "baseline->NB",
+      "metric": "accuracy",
+      "delta": 1.42055467268,
+      "p": 0.130859375,
+      "wins": 7,
+      "losses": 3,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "A--NB vs NB",
+      "first": "Alg2->NB",
+      "second": "baseline->NB",
+      "metric": "macro_f1",
+      "delta": 1.9305085206800001,
+      "p": 0.193359375,
+      "wins": 6,
+      "losses": 4,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "NA--NB vs NB",
+      "first": "C1 N->A->NB",
+      "second": "baseline->NB",
+      "metric": "accuracy",
+      "delta": -0.2957076464199999,
+      "p": 1.0,
+      "wins": 5,
+      "losses": 5,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "NA--NB vs NB",
+      "first": "C1 N->A->NB",
+      "second": "baseline->NB",
+      "metric": "macro_f1",
+      "delta": -0.1945085947000001,
+      "p": 0.556640625,
+      "wins": 3,
+      "losses": 7,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "AN--NB vs NB",
+      "first": "C2 A->N->NB",
+      "second": "baseline->NB",
+      "metric": "accuracy",
+      "delta": 0.4177854633199999,
+      "p": 0.845703125,
+      "wins": 6,
+      "losses": 4,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "AN--NB vs NB",
+      "first": "C2 A->N->NB",
+      "second": "baseline->NB",
+      "metric": "macro_f1",
+      "delta": 0.11344250444000004,
+      "p": 0.921875,
+      "wins": 4,
+      "losses": 6,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "NA--DT vs DT",
+      "first": "C1 N->A->DT",
+      "second": "baseline->DT",
+      "metric": "accuracy",
+      "delta": -5.121400263740001,
+      "p": 0.0546875,
+      "wins": 3,
+      "losses": 6,
+      "ties": 1,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "NA--DT vs DT",
+      "first": "C1 N->A->DT",
+      "second": "baseline->DT",
+      "metric": "macro_f1",
+      "delta": -6.156603530959999,
+      "p": 0.1640625,
+      "wins": 4,
+      "losses": 5,
+      "ties": 1,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "AN--DT vs DT",
+      "first": "C2 A->N->DT",
+      "second": "baseline->DT",
+      "metric": "accuracy",
+      "delta": -5.437442380369999,
+      "p": 0.013671875,
+      "wins": 2,
+      "losses": 8,
+      "ties": 0,
+      "p_holm": 0.328125
+    },
+    {
+      "comparison": "AN--DT vs DT",
+      "first": "C2 A->N->DT",
+      "second": "baseline->DT",
+      "metric": "macro_f1",
+      "delta": -7.985258079430001,
+      "p": 0.037109375,
+      "wins": 2,
+      "losses": 8,
+      "ties": 0,
+      "p_holm": 0.853515625
+    },
+    {
+      "comparison": "AN--NB vs NA--NB",
+      "first": "C2 A->N->NB",
+      "second": "C1 N->A->NB",
+      "metric": "accuracy",
+      "delta": 0.7134931097500001,
+      "p": 0.275390625,
+      "wins": 8,
+      "losses": 2,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "AN--NB vs NA--NB",
+      "first": "C2 A->N->NB",
+      "second": "C1 N->A->NB",
+      "metric": "macro_f1",
+      "delta": 0.30795109914999996,
+      "p": 0.4921875,
+      "wins": 7,
+      "losses": 3,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "AN--DT vs NA--DT",
+      "first": "C2 A->N->DT",
+      "second": "C1 N->A->DT",
+      "metric": "accuracy",
+      "delta": -0.31604211662,
+      "p": 0.921875,
+      "wins": 6,
+      "losses": 4,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "AN--DT vs NA--DT",
+      "first": "C2 A->N->DT",
+      "second": "C1 N->A->DT",
+      "metric": "macro_f1",
+      "delta": -1.8286545484699999,
+      "p": 0.232421875,
+      "wins": 3,
+      "losses": 7,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "NA--NB vs P--NB",
+      "first": "C1 N->A->NB",
+      "second": "parallel->NB",
+      "metric": "accuracy",
+      "delta": -0.75928861234,
+      "p": 0.0390625,
+      "wins": 2,
+      "losses": 7,
+      "ties": 1,
+      "p_holm": 0.859375
+    },
+    {
+      "comparison": "NA--NB vs P--NB",
+      "first": "C1 N->A->NB",
+      "second": "parallel->NB",
+      "metric": "macro_f1",
+      "delta": -0.8643031066000001,
+      "p": 0.0546875,
+      "wins": 2,
+      "losses": 7,
+      "ties": 1,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "AN--NB vs P--NB",
+      "first": "C2 A->N->NB",
+      "second": "parallel->NB",
+      "metric": "accuracy",
+      "delta": -0.045795502589999995,
+      "p": 0.76953125,
+      "wins": 5,
+      "losses": 5,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "AN--NB vs P--NB",
+      "first": "C2 A->N->NB",
+      "second": "parallel->NB",
+      "metric": "macro_f1",
+      "delta": -0.5563520074399999,
+      "p": 0.845703125,
+      "wins": 5,
+      "losses": 5,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "NA--DT vs P--DT",
+      "first": "C1 N->A->DT",
+      "second": "parallel->DT",
+      "metric": "accuracy",
+      "delta": 0.15689286559,
+      "p": 0.4609375,
+      "wins": 5,
+      "losses": 3,
+      "ties": 2,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "NA--DT vs P--DT",
+      "first": "C1 N->A->DT",
+      "second": "parallel->DT",
+      "metric": "macro_f1",
+      "delta": 0.17670702422999995,
+      "p": 0.4609375,
+      "wins": 5,
+      "losses": 3,
+      "ties": 2,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "AN--DT vs P--DT",
+      "first": "C2 A->N->DT",
+      "second": "parallel->DT",
+      "metric": "accuracy",
+      "delta": -0.15914925105999997,
+      "p": 0.76953125,
+      "wins": 6,
+      "losses": 4,
+      "ties": 0,
+      "p_holm": 1.0
+    },
+    {
+      "comparison": "AN--DT vs P--DT",
+      "first": "C2 A->N->DT",
+      "second": "parallel->DT",
+      "metric": "macro_f1",
+      "delta": -1.6519475242600001,
+      "p": 0.193359375,
+      "wins": 4,
+      "losses": 6,
+      "ties": 0,
+      "p_holm": 1.0
+    }
+  ],
+  "test_family_size": 24,
+  "diagnostic_dataset_means": {
+    "A after plain N": {
+      "breast-cancer": 34.66666666666667,
+      "contact-lenses": 64.0,
+      "diabetes": 83.125,
+      "glass": 61.0,
+      "image-segmentation": 40.15789473684211,
+      "iris": 37.75,
+      "nsl-kdd": 42.585365853658544,
+      "soybean": 41.885714285714286,
+      "tic-tac-toe": 76.66666666666666,
+      "vote": 7.625
+    },
+    "A on the raw fold": {
+      "breast-cancer": 41.55555555555556,
+      "contact-lenses": 66.5,
+      "diabetes": 84.875,
+      "glass": 97.0,
+      "image-segmentation": 65.78947368421052,
+      "iris": 50.75,
+      "nsl-kdd": 69.3170731707317,
+      "soybean": 52.4,
+      "tic-tac-toe": 100.0,
+      "vote": 27.375
+    },
+    "N plain": {
+      "breast-cancer": 25.2406569541218,
+      "contact-lenses": 4.27922077922078,
+      "diabetes": 23.666086680106737,
+      "glass": 47.31042206390328,
+      "image-segmentation": 19.87878787878788,
+      "iris": 4.14074074074074,
+      "nsl-kdd": 32.524259953057246,
+      "soybean": 9.181758957654724,
+      "tic-tac-toe": 29.320297188085593,
+      "vote": 9.33340075160499
+    },
+    "N weighted (after A)": {
+      "breast-cancer": 25.761514795041172,
+      "contact-lenses": 11.030303030303033,
+      "diabetes": 22.98613678759944,
+      "glass": 46.87575561312608,
+      "image-segmentation": 17.353535353535353,
+      "iris": 4.407407407407406,
+      "nsl-kdd": 37.12884787432728,
+      "soybean": 9.059730939328938,
+      "tic-tac-toe": 28.625639529725532,
+      "vote": 4.464866381335143
+    }
+  },
+  "breast_class_rates": [
+    {
+      "stage": "N plain",
+      "label": "no-recurrence-events",
+      "class_share": 0.7027991433656079,
+      "class_removal_rate": 0.14505371393492936
+    },
+    {
+      "stage": "N plain",
+      "label": "recurrence-events",
+      "class_share": 0.297200856634392,
+      "class_removal_rate": 0.5062884483937116
+    },
+    {
+      "stage": "N weighted (after A)",
+      "label": "no-recurrence-events",
+      "class_share": 0.7027991433656079,
+      "class_removal_rate": 0.11719490484960093
+    },
+    {
+      "stage": "N weighted (after A)",
+      "label": "recurrence-events",
+      "class_share": 0.297200856634392,
+      "class_removal_rate": 0.5896719070403281
+    }
+  ],
+  "complete_class_deletion_records": 871,
+  "skipped_B_events": 0
+}
