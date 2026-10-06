@@ -8,3 +8,30 @@ notes/diagrams/*.log
 # (old = raw data + class; new = old minus removed_rows.csv, scaled by attribute_weights.csv)
 results/EXP-E11_lr-mlp-hybrid-data/versions/nsl-kdd/old.csv
 results/EXP-E11_lr-mlp-hybrid-data/versions/nsl-kdd/new.csv
+
+# Scratch from literature-fetching runs that dumped API responses and PDFs into
+# the repo root (~200 MB, 2026-10-02). The two papers worth keeping were moved to
+# reference/papers/; everything else is regenerable and should never be committed.
+/*.json
+/*.xml
+/*.html
+/*.pdf
+/*.pkl
+/*.npy
+/*.bin
+/*.ps
+/*.txt
+!/.gitignore
+/bf_pages/
+/_e12_run.log
+/_e12_run.err
+/_e12_pid.txt
+# one-off scratch scripts from those same fetch attempts
+/dl.py
+/dumpfonts.py
+/fonts.py
+/insp*.py
+/ocr*.py
+/r[2-5].py
+/render.py
+/wrap.ps1

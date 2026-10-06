@@ -34,3 +34,15 @@ Rules:
 
 E0 → E1 → E2 (unit tests green), then the two-part goal: **E9 (combination sweep) → E10 (weighting upgrade)** — full design in `../notes/goal-parts-1-2.md`. E3a/E3b reuse E9's machinery.
 The refactored pipeline (`code/main.py`) now covers the E9 core cells plus reference arms; E9p's write-up (`../notes/e9-pipeline-results.md`) says what to fix before the full 10-seed E9 run: the mixed NB likelihood is mandatory for nominal data, and E3a should measure how much of Farid's Alg-1/Alg-2 gain is protocol.
+
+## E12 takeover � completed 2026-10-03
+
+| Run | Scope | Outcome | Artifacts |
+|---|---|---|---|
+| E12v2 main | 10 datasets, 3 seeds � 10 folds, 0/10/20/40% added noise, symmetric/pairflip, NB/DT/LR | Primary dual correction +2.520 macro-F1 at 20%; Wilcoxon p=.0839844, not established overall. DT descriptive +5.642; glass/tic-tac-toe harm. | `results/EXP-E12v2_main/` |
+| Deletion sensitivity | all 10, 1 seed, 0/20%, NB/DT/LR | Dual deletion +2.829 macro-F1 at20%, descriptive, harms on 2 datasets. | `results/EXP-E12v2_delete/` |
+| MLP transfer | iris/diabetes/vote, 1 seed, 0/20% | +1.434 macro-F1 at20%, -0.162 at0%; diabetes loses. Exploratory. | `results/EXP-E12v2_mlp/` |
+
+Inherited E12 pilot excluded due to correction and AUROC bugs. Prospective
+protocol followed pilot exposure; no novelty or natural-noise superiority
+claim. See `notes/e12v2-protocol.md` and `findings.md`.

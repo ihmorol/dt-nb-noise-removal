@@ -1,0 +1,97 @@
+dataset,kind,rate,handling,arm,classifier,seed,accuracy,macro_f1
+iris,pairflip,0.0,relabel,DT hard_vote,DT,0,96.0,96.0
+iris,pairflip,0.0,relabel,DT hard_vote,LR,0,96.0,96.0
+iris,pairflip,0.0,relabel,DT hard_vote,NB,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,DT threshold,DT,0,96.0,96.0
+iris,pairflip,0.0,relabel,DT threshold,LR,0,96.0,96.0
+iris,pairflip,0.0,relabel,DT threshold,NB,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,NB hard_vote,DT,0,94.66666666666667,94.66666666666667
+iris,pairflip,0.0,relabel,NB hard_vote,LR,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,NB hard_vote,NB,0,94.66666666666667,94.66666666666667
+iris,pairflip,0.0,relabel,NB threshold,DT,0,93.33333333333333,93.33333333333333
+iris,pairflip,0.0,relabel,NB threshold,LR,0,96.0,95.99839935974389
+iris,pairflip,0.0,relabel,NB threshold,NB,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,committee consensus,DT,0,96.66666666666667,96.66633329999667
+iris,pairflip,0.0,relabel,committee consensus,LR,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,committee consensus,NB,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,dual agreement,DT,0,94.0,93.99939993999399
+iris,pairflip,0.0,relabel,dual agreement,LR,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,dual agreement,NB,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,none,DT,0,94.0,93.99459513562206
+iris,pairflip,0.0,relabel,none,LR,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,none,NB,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,reference labels,DT,0,94.0,93.99459513562206
+iris,pairflip,0.0,relabel,reference labels,LR,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.0,relabel,reference labels,NB,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.2,relabel,DT hard_vote,DT,0,78.0,77.99892465577295
+iris,pairflip,0.2,relabel,DT hard_vote,LR,0,89.33333333333333,89.23104118080708
+iris,pairflip,0.2,relabel,DT hard_vote,NB,0,88.66666666666667,88.40579710144928
+iris,pairflip,0.2,relabel,DT threshold,DT,0,79.33333333333333,79.32358390056032
+iris,pairflip,0.2,relabel,DT threshold,LR,0,89.33333333333333,89.23104118080708
+iris,pairflip,0.2,relabel,DT threshold,NB,0,88.66666666666667,88.40579710144928
+iris,pairflip,0.2,relabel,NB hard_vote,DT,0,88.0,87.82467532467533
+iris,pairflip,0.2,relabel,NB hard_vote,LR,0,86.0,85.680879108871
+iris,pairflip,0.2,relabel,NB hard_vote,NB,0,90.66666666666667,90.53030303030303
+iris,pairflip,0.2,relabel,NB threshold,DT,0,94.0,93.98496240601504
+iris,pairflip,0.2,relabel,NB threshold,LR,0,91.33333333333333,91.31161236424394
+iris,pairflip,0.2,relabel,NB threshold,NB,0,92.0,91.98717948717949
+iris,pairflip,0.2,relabel,committee consensus,DT,0,93.33333333333333,93.32316627739652
+iris,pairflip,0.2,relabel,committee consensus,LR,0,94.0,94.00641359404247
+iris,pairflip,0.2,relabel,committee consensus,NB,0,93.33333333333333,93.32264957264957
+iris,pairflip,0.2,relabel,dual agreement,DT,0,92.0,91.99564497761446
+iris,pairflip,0.2,relabel,dual agreement,LR,0,93.33333333333333,93.35966930026336
+iris,pairflip,0.2,relabel,dual agreement,NB,0,93.33333333333333,93.32264957264957
+iris,pairflip,0.2,relabel,none,DT,0,80.0,80.04675409682773
+iris,pairflip,0.2,relabel,none,LR,0,92.66666666666667,92.5161477698277
+iris,pairflip,0.2,relabel,none,NB,0,89.33333333333333,89.12008703930368
+iris,pairflip,0.2,relabel,reference labels,DT,0,94.0,93.99459513562206
+iris,pairflip,0.2,relabel,reference labels,LR,0,95.33333333333333,95.33286661999533
+iris,pairflip,0.2,relabel,reference labels,NB,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,DT hard_vote,DT,0,96.0,96.0
+iris,symmetric,0.0,relabel,DT hard_vote,LR,0,96.0,96.0
+iris,symmetric,0.0,relabel,DT hard_vote,NB,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,DT threshold,DT,0,96.0,96.0
+iris,symmetric,0.0,relabel,DT threshold,LR,0,96.0,96.0
+iris,symmetric,0.0,relabel,DT threshold,NB,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,NB hard_vote,DT,0,94.66666666666667,94.66666666666667
+iris,symmetric,0.0,relabel,NB hard_vote,LR,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,NB hard_vote,NB,0,94.66666666666667,94.66666666666667
+iris,symmetric,0.0,relabel,NB threshold,DT,0,93.33333333333333,93.33333333333333
+iris,symmetric,0.0,relabel,NB threshold,LR,0,96.0,95.99839935974389
+iris,symmetric,0.0,relabel,NB threshold,NB,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,committee consensus,DT,0,96.66666666666667,96.66633329999667
+iris,symmetric,0.0,relabel,committee consensus,LR,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,committee consensus,NB,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,dual agreement,DT,0,94.0,93.99939993999399
+iris,symmetric,0.0,relabel,dual agreement,LR,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,dual agreement,NB,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,none,DT,0,94.0,93.99459513562206
+iris,symmetric,0.0,relabel,none,LR,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,none,NB,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,reference labels,DT,0,94.0,93.99459513562206
+iris,symmetric,0.0,relabel,reference labels,LR,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.0,relabel,reference labels,NB,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.2,relabel,DT hard_vote,DT,0,80.0,80.14102564102565
+iris,symmetric,0.2,relabel,DT hard_vote,LR,0,82.66666666666667,82.57560449922542
+iris,symmetric,0.2,relabel,DT hard_vote,NB,0,90.66666666666667,90.66666666666666
+iris,symmetric,0.2,relabel,DT threshold,DT,0,80.0,80.14102564102565
+iris,symmetric,0.2,relabel,DT threshold,LR,0,82.66666666666667,82.57560449922542
+iris,symmetric,0.2,relabel,DT threshold,NB,0,90.66666666666667,90.66666666666666
+iris,symmetric,0.2,relabel,NB hard_vote,DT,0,89.33333333333333,89.33333333333331
+iris,symmetric,0.2,relabel,NB hard_vote,LR,0,88.0,88.05273860719404
+iris,symmetric,0.2,relabel,NB hard_vote,NB,0,91.33333333333333,91.33246657999132
+iris,symmetric,0.2,relabel,NB threshold,DT,0,91.33333333333333,91.2486882405645
+iris,symmetric,0.2,relabel,NB threshold,LR,0,93.33333333333333,93.33333333333333
+iris,symmetric,0.2,relabel,NB threshold,NB,0,94.0,93.99939993999399
+iris,symmetric,0.2,relabel,committee consensus,DT,0,93.33333333333333,93.33066559957317
+iris,symmetric,0.2,relabel,committee consensus,LR,0,92.0,91.9967987194878
+iris,symmetric,0.2,relabel,committee consensus,NB,0,92.0,91.9967987194878
+iris,symmetric,0.2,relabel,dual agreement,DT,0,92.0,91.94504468454049
+iris,symmetric,0.2,relabel,dual agreement,LR,0,93.33333333333333,93.33066559957317
+iris,symmetric,0.2,relabel,dual agreement,NB,0,93.33333333333333,93.33066559957317
+iris,symmetric,0.2,relabel,none,DT,0,82.0,82.06986287658893
+iris,symmetric,0.2,relabel,none,LR,0,87.33333333333333,87.3015873015873
+iris,symmetric,0.2,relabel,none,NB,0,93.33333333333333,93.33066559957317
+iris,symmetric,0.2,relabel,reference labels,DT,0,94.0,93.99459513562206
+iris,symmetric,0.2,relabel,reference labels,LR,0,95.33333333333333,95.33286661999533
+iris,symmetric,0.2,relabel,reference labels,NB,0,95.33333333333333,95.33286661999533

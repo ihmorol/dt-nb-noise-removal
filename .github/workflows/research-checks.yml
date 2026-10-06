@@ -1,0 +1,26 @@
+name: Research regression checks
+
+on:
+  push:
+    branches: ['dev/**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+      - name: Install research dependencies
+        run: python -m pip install -r requirements.txt numpy==2.2.4 pandas==2.3.3 scikit-learn==1.7.2
+      - name: Check leakage and treatment invariants
+        run: |
+          python code/check_pipeline.py
+          python code/check_e12.py
+          python -m compileall -q code figures

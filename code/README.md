@@ -1,50 +1,70 @@
-# Code
+# Research code
 
-## Files
+## Core implementations
 
-```
-code/
-├── data.py             load the ten datasets (original columns or one-hot)
-├── nb.py               the pipeline's Naive Bayes (plain or weighted, Eq. 14)
-├── algorithm1.py       Farid Algorithm 1: NB deletes the training rows it gets wrong
-├── algorithm2.py       Farid Algorithm 2: a tree picks and weights the attributes
-├── pipeline.py         run the algorithms in order, then cross-validate NB or DT
-├── versions.py         save the data before/after each path and what was removed
-├── tables.py           printed tables and CSV writing
-├── main.py             E9: run every arm on every dataset
-├── leakage_check.py    E3a: honest vs paper-style vs fully leaky protocol
-├── faithful_nb.py      R1: textbook NB on the original (nominal) columns
-├── weka_utils.py       R1+E9f: write ARFF, run Weka J48 and NaiveBayes,
-│                       parse the tree, the accuracy and the confusion matrix
-├── replicate_farid.py  R1: replicate Farid's Tables 8-11 with J48
-├── e9_farid.py         E9f: the manuscript's Table II — both orders of the two
-│                       algorithms in this same J48/FaithfulNB world, protocols
-│                       A+B, accuracy + macro-F1 + per-class removals
-├── e5_strategy.py      E5: graded noise handling — soft posterior weighting,
-│                       committee correction/deletion vs Farid's hard deletion
-├── check_pipeline.py   checks the leakage rules of pipeline.py (no Java)
-├── verify_faithful.py  R1: checks to run before replicate_farid.py
-├── figures.py          the paper's Figures 2 and 3 with our hybrid added
-├── committee_filter.py E11: the reliable noise filter - cross-validated DT+NB committee
-├── deep_mlp.py         E11: the fundamental deep model - a small PyTorch MLP
-├── e11_lr_mlp_hybrid.py E11: old vs clean vs weighted vs new data, LR + MLP
-└── lib/                Weka 3.8.6 jars (R1 needs Java)
+- `data.py`: the ten datasets, original columns or one-hot view.
+- `nb.py`: plain/attribute-weighted mixed or Gaussian NB.
+- `algorithm1.py`, `algorithm2.py`, `pipeline.py`: Farid stages and fold-safe paths.
+- `faithful_nb.py`, `weka_utils.py`: original-column NB/J48 replication.
+- `main.py`, `leakage_check.py`: sklearn path and leakage audit.
+- `replicate_farid.py`, `e9_farid.py`, `e5_strategy.py`: replication, combined
+  orders and graded handling in the J48 world.
+- `committee_filter.py`, `e11_lr_mlp_hybrid.py`, `deep_mlp.py`: inherited E11.
+- `noise_inject.py`, `confident_filter.py`, `e12_noise_removal.py`: E12v2.
+
+The sklearn/CART and Weka/J48 experiments use different implementations and
+attribute spaces. Do not mix their scores or claim exact replication.
+
+## Checks
+
+Run from this directory:
+
+```sh
+python data.py
+python check_pipeline.py
+python check_e12.py
+python verify_faithful.py
 ```
 
-## How to run
+The first three need no Java. Weka checks/runs need Java and the jars in `lib/`.
+Python dependencies are in `../requirements.txt`; pandas must stay below 3.
+Optional MLP runs use the already-used PyTorch runtime.
 
-Run from inside `code/` (first: `python -m venv .venv && .venv/bin/pip install -r ../requirements.txt`; `pandas<3` is load-bearing, see the file):
+## E12v2
 
+Choose a fresh output directory; existing outputs are never overwritten.
+
+```sh
+python e12_noise_removal.py --out ../results/EXP-E12v2_new
+python e12_noise_removal.py --seeds 1 --rates 0 .2 --handling delete --out ../results/EXP-E12v2_delete_new
+python e12_noise_removal.py --datasets iris diabetes vote --seeds 1 --rates 0 .2 --classifiers MLP --out ../results/EXP-E12v2_mlp_new
 ```
-python data.py                     dataset shapes vs Farid's Table 5
-python check_pipeline.py           pipeline leakage rules (all must PASS)
-python main.py                     E9, all datasets, final settings (5 seeds, alpha 0, mixed NB)
-python main.py iris glass --seeds 3
-python main.py --alpha 0.01 --nb gaussian --out metrics_alpha0.01.csv
-python leakage_check.py            E3a
-python verify_faithful.py          R1 checks (all must PASS)
-python replicate_farid.py          R1, pruned J48, 3 seeds
-python replicate_farid.py --unpruned
-python e11_lr_mlp_hybrid.py        E11, all datasets, 5 seeds (LR + MLP)
-python e11_lr_mlp_hybrid.py --datasets iris glass --seeds 3   smoke run
-python e11_lr_mlp_hybrid.py --rule majority                   looser voting
+
+Defaults: three seeds, ten outer folds, symmetric/pairflip corruption at
+0/.1/.2/.4, correction, NB/DT/LR finals. NB and DT judges use out-of-fold
+probabilities. Dual correction requires the same confident alternative from
+both, protects small classes and retains every row. No corruption mask or
+reference training label reaches a judge.
+
+The completed main run took 146 minutes on this host. Original labels are
+unverified references. The threshold arm is a heuristic, not full calibrated
+Confident Learning. Inherited E12 pilot results are excluded due to bugs.
+
+Outputs include per-fold metrics/confusion matrices, pooled dataset-seed
+metrics, summaries, source/data fingerprints and configuration. The locked
+protocol is `../notes/e12v2-protocol.md`. To validate the committed runs and
+regenerate the report, run `python ../figures/gen_fig_e12.py`.
+
+## Earlier runs
+
+```sh
+python main.py
+python leakage_check.py
+python replicate_farid.py
+python e9_farid.py
+python e5_strategy.py
+python e11_lr_mlp_hybrid.py --help
+```
+
+Everything used for honest evaluation is fitted inside training folds. Saved
+full-data cleaned versions are inspection artifacts, not evaluation data.

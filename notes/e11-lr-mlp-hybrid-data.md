@@ -1,10 +1,16 @@
+> HISTORICAL E11 NOTE: retained with its original results. Statements below calling the filter safe/reliable, diagnosing native label noise, or declaring the noise-removal target achieved are not established by this experiment and are withdrawn. Labels were not independently verified, rare classes were wiped out, and MLP losses occurred. Non-significant tests do not prove equivalence. Treat mechanistic explanations as hypotheses; use `findings.md` for the current bounded interpretation.
+
 # E11 — reliable (committee) noise removal + attribute weighting for LR and a deep MLP
 
 *2026-10-02. Branch `feat/committee-filter-lr-mlp`. Question: does reliable DT+NB noise removal plus Alg 2 attribute selection/weighting improve Logistic Regression and a fundamental deep model (MLP) over the same models on the raw data? One run, 10 datasets, 10-fold x 5 seeds, refit per fold, 37 min. Artifacts: `../results/EXP-E11_lr-mlp-hybrid-data/`.*
 
 ## The configuration (pre-registered in DECISIONS.md 2026-10-02)
 
-- **Reliable noise filter** (`committee_filter.py`) replaces Farid's single-NB judge: 3 repeats x 3-fold cross-validated voting by an entropy tree and the mixed NB; **a row is deleted only with 6/6 votes against** (both judges misclassify it in every repeat, and no judge ever scores a row it trained on). Literature basis: Brodley & Friedl 1999 (single-algorithm filters are the weakest; consensus committee), Khoshgoftaar & Rebours 2007 (IPF: repeat the vote), Johnson & Khoshgoftaar 2022 (NB stable under noise = committee member, not sole judge). See `notes/committee-filter-literature.md`.
+- **Reliable noise filter** (`committee_filter.py`) replaces Farid's single-NB judge: 3 repeats x 3-fold cross-validated voting by an entropy tree and the mixed NB; **a row is deleted only with 6/6 votes against** (both judges misclassify it in every repeat, and no judge ever scores a row it trained on). Literature basis: Brodley & Friedl 1999 (single-algorithm filters are the weakest; consensus committee), Khoshgoftaar & Rebours 2005 (*Intelligent Data Analysis* 9:487–508 — repeat the k-fold vote), Johnson & Khoshgoftaar 2022 (*Journal of Data and Information Quality* 14(1), DOI 10.1145/3492546 — NB is stable under noise, so a committee member not a sole judge). See `notes/committee-filter-literature.md`.
+
+> **Citation corrections (2026-10-02).** Two references in this note were wrong, now fixed in `committee-filter-literature.md`: Johnson & Khoshgoftaar (2022) is in **JDIQ 14(1)**, not *ACM Computing Surveys*; and the "IPF, JCST 22(3):387–396" attribution for Khoshgoftaar & Rebours could not be verified — Crossref returns their *Intelligent Data Analysis* 9:487–508 (2005) paper instead.
+
+> **Superseded by E12 on the noise-removal question.** E11 could not tell whether the committee removed mislabeled rows or merely hard ones, because these ten datasets carry no known label noise. `notes/e12-noise-removal.md` injects noise we control and grades each filter on precision/recall against ground truth.
 - **Copy A (clean)**: common data minus committee noise. **Copy B (weighted)**: Alg 2's selected attributes scaled by 1/sqrt(depth), fit on the common data. **New data = A x B**, as the user's design describes.
 - **Classifiers**: sklearn LogisticRegression, and a PyTorch MLP (1 hidden layer, 32 ReLU units, Adam, early stopping) — the most fundamental deep architecture, kept small so the comparison is about the data, not capacity. Everything standardized per training fold; test folds never lose rows.
 

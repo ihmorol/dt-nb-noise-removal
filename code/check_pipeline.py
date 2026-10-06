@@ -4,13 +4,20 @@
     P2  Algorithm 1 removes training rows only: every test row gets a prediction
     P3  Algorithm 2's column choice is applied to the test fold
     P4  an unknown step or final classifier raises ValueError
+    C1  a noise filter never sees a test label: scrambling them changes no deletion
+    C2  a noise filter is deterministic and returns a mask of the right length
+    C3  the per-class floor never lets a filter empty a class
+    C4  noise injection changes only the labels it was handed, and only some of them
+    C5  an unknown judge or filter method raises ValueError
 
 Usage: python check_pipeline.py      (a few seconds, no Java needed)
 """
 import numpy as np
 
 from algorithm2 import algorithm2
+from confident_filter import confident_filter
 from data import load_data
+from noise_inject import inject
 from pipeline import Settings, clean, make_classifier, make_folds, run_fold
 
 PATHS = [(), ("N",), ("A",), ("N", "A"), ("A", "N")]
@@ -65,6 +72,83 @@ def check_unknown_names(X, y, train):
     return passed
 
 
+# --- E12: the noise filters have their own honesty rules ---------------------
+#   C1  a filter never sees a test label: scrambling them changes no deletion
+#   C2  the filter is deterministic and shapes match its input
+#   C3  the per-class floor never lets a filter empty a class
+#   C4  noise injection leaves the rows it was not given alone
+#   C5  an unknown judge or method raises ValueError
+E12_ARMS = [("DT", "hard_vote"), ("NB", "hard_vote"),
+            ("DT", "confident_joint"), ("NB", "confident_joint")]
+
+
+def check_filter_ignores_test_labels(X, y, train, test):
+    """C1: the filter's keep-mask must not depend on the test labels."""
+    passed = True
+    poisoned = y.copy()
+    poisoned[test] = y[test][::-1]
+    for judge, method in E12_ARMS:
+        honest, _ = confident_filter(X[train], y[train], judge=judge,
+                                     method=method, seed=0)
+        changed, _ = confident_filter(X[train], poisoned[train], judge=judge,
+                                      method=method, seed=0)
+        passed = passed and np.array_equal(honest, changed)
+    return passed
+
+
+def check_filter_deterministic(X, y, train):
+    """C2: same input, same seed, same mask - and the mask fits its input."""
+    passed = True
+    for judge, method in E12_ARMS:
+        first, _ = confident_filter(X[train], y[train], judge=judge,
+                                    method=method, seed=0)
+        again, _ = confident_filter(X[train], y[train], judge=judge,
+                                    method=method, seed=0)
+        passed = passed and np.array_equal(first, again)
+        passed = passed and len(first) == len(y[train])
+    return passed
+
+
+def check_class_floor(X, y):
+    """C3: with a floor on, no class may be left empty."""
+    y_noisy, _ = inject(X, y, 0.30, kind="asymmetric", seed=0)
+    passed = True
+    for judge, method in E12_ARMS:
+        keep, _ = confident_filter(X, y_noisy, judge=judge, method=method,
+                                   min_per_class=5, seed=0)
+        for c in np.unique(y_noisy):
+            size = int((y_noisy == c).sum())
+            kept = int((y_noisy[keep] == c).sum())
+            if kept < min(5, size):
+                passed = False
+    return passed
+
+
+def check_injection_is_local(X, y, train, test):
+    """C4: inject() must change only the labels it was handed, and only some."""
+    original = y.copy()
+    labels = y[train]
+    noised, mask = inject(X[train], labels, 0.30, kind="asymmetric", seed=0)
+    unchanged = labels[~mask]
+    return (len(mask) == len(labels)
+            and np.array_equal(noised[~mask], unchanged)
+            and np.array_equal(y, original)
+            and not np.array_equal(noised, labels))
+
+
+def check_filter_bad_names(X, y):
+    """C5: unknown judge / method must raise, not silently misbehave."""
+    passed = True
+    for bad in (lambda: confident_filter(X, y, judge="SVM"),
+                lambda: confident_filter(X, y, method="magic")):
+        try:
+            bad()
+            passed = False
+        except ValueError:
+            pass
+    return passed
+
+
 def main():
     checks = []
     for name in ("glass", "tic-tac-toe"):           # numeric data, and one-hot data
@@ -75,6 +159,11 @@ def main():
             ("P2", name, check_test_rows_kept(X, y, train, test)),
             ("P3", name, check_test_columns(X, y, train, test)),
             ("P4", name, check_unknown_names(X, y, train)),
+            ("C1", name, check_filter_ignores_test_labels(X, y, train, test)),
+            ("C2", name, check_filter_deterministic(X, y, train)),
+            ("C3", name, check_class_floor(X, y)),
+            ("C4", name, check_injection_is_local(X, y, train, test)),
+            ("C5", name, check_filter_bad_names(X, y)),
         ]
     for check, name, passed in checks:
         print(f"{check}  {name:<12} {result(passed)}")

@@ -1,0 +1,18 @@
+status: complete
+branch: dev/e12-research-takeover
+scope: bounded E12v2 evaluation complete; broad improvement goal remains unsupported
+source: preserved Cline E11 branch and unfinished E12 snapshot
+protocol_commit: 2e9422a
+implementation_commit: 82919fe
+primary:
+  mean_macro_f1_delta: 2.5205
+  wilcoxon_p: 0.083984375
+  interpretation: overall improvement not established at 0.05
+runs:
+  main: complete, exit 0, 57600 accuracy rows, 16800 detection rows
+  deletion: complete, exit 0, descriptive one-seed sensitivity
+  mlp: complete, exit 0, exploratory three-dataset one-seed transfer
+verification: independent review, exact domains/counts/hashes, pooled metrics, regression checks, visual QA
+report: to_human/e12-report.html
+continuity: dt-nb-research-follow-up paused; no active experiments
+remaining_research: DT-specific benefit and safe handling of low-noise data need a separately locked study

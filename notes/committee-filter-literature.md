@@ -6,7 +6,9 @@
 
 1. **It grades rows it was trained on.** Algorithm 1 fits NB on the training data and then classifies that same data. A misclassification there can be model bias, a class overlap, or a genuinely hard region — not a wrong label. The judge conflates "I find this row hard" with "this row is wrong".
 2. **A single learner's errors are systematic.** Brodley & Friedl (1999, §1–2) make this the central point: one algorithm deletes the rows *it* finds difficult, so the "noise" it reports is partly just its own inductive bias. In their experiments single-algorithm filters were the weakest design; committees of different algorithms were markedly better.
-3. **NB specifically is too eager.** Its independence assumption makes it misclassify whole overlap regions, so Algorithm 1's deletion rate tracks the judge's error rate — our E9p pilot measured exactly that (glass: NB error ≈ 46 %, 47 % of rows deleted, tree accuracy 68 → 51). Johnson & Khoshgoftaar (2022) survey the label-noise-in-big-data literature and conclude NB is the most *stable* learner under noise — which makes it a good committee member, not a sole judge.
+3. **NB specifically is too eager.** Its independence assumption makes it misclassify whole overlap regions, so Algorithm 1's deletion rate tracks the judge's error rate — our E9p pilot measured exactly that (glass: NB error ≈ 46 %, 47 % of rows deleted, tree accuracy 68 → 51). Johnson & Khoshgoftaar (2022) survey the label-noise-in-big-data literature and conclude NB is the most *stable* learner under noise — which makes it a good committee member, not a sole judge. E12 later measured this directly against known injected noise: NB as a judge reaches precision 0.82 where hard voting manages 0.67.
+
+> **Citation correction (2026-10-02).** Johnson & Khoshgoftaar (2022) is *A Survey on Classifying Big Data with Label Noise*, **Journal of Data and Information Quality 14(1):1–43, DOI 10.1145/3492546** — verified via the Crossref API. It is **not** in *ACM Computing Surveys*; the earlier note in `committee_filter.py` and in `e11-lr-mlp-hybrid-data.md` had the venue wrong.
 
 ## What the literature says makes a filter reliable
 
@@ -14,9 +16,11 @@
 |---|---|---|
 | Cross-validated committee of *different* learners | Brodley & Friedl 1999 (JAIR 11:131–167, DOI 10.1613/jair.606) | No judge ever scores a row it trained on; heterogeneous learners cancel each other's biases |
 | Consensus vs majority voting | Brodley & Friedl 1999, §3 | Consensus (delete only when *every* judge disagrees) = most conservative, highest precision; majority = higher recall |
-| Iterate the partitioned voting | Khoshgoftaar & Rebours 2007 (JCST 22(3):387–396) — the Iterative-Partitioning Filter (IPF) | A single random partitioning can fluke a vote; repeating the k-fold vote and summing votes averages the luck out |
-| Ensembles of filters | Verbaeten & Van Assche 2003 (MCS) | Same direction: multiple filter views instead of one |
-| Framing survey | Frénay & Verleysen 2014 (IEEE TNNLS 25(5):845–869) | Label-noise robustness is a data problem; filter design is a separate axis from classifier choice |
+| Repeated k-fold voting | Khoshgoftaar & Rebours, *Evaluating noise elimination techniques for software quality estimation*, Intelligent Data Analysis 9:487–508 (2005), DOI 10.3233/IDA-2005-9506 — **the earlier "JCST 22(3):387–396" attribution in this table could not be verified via Crossref and is retracted pending a copy of the source** | A single random partitioning can fluke a vote; repeating the k-fold vote and summing votes averages the luck out |
+| **Per-class thresholds (confident joint)** | **Northcutt, Jiang & Chuang, *Confident Learning*, JAIR (2021), arXiv:1911.00068** | **Replaces global rules and vote counting with one threshold per class; also yields a per-class noise-rate estimate. This is what E12 adopted** |
+| Ensembles of filters | Verbaeten & Van Assche 2003, *Ensemble Methods for Noise Elimination in Classification Problems*, LNCS/MCS 317–325, DOI 10.1007/3-540-44938-8_32 | Same direction: multiple filter views instead of one |
+| Label bias in detection | Li, De-Arteaga & Saar-Tsechansky 2025, *Bias-Aware Mislabeling Detection via Decoupled Confident Learning*, arXiv:2507.07216 | Decouples the confident joint to handle label bias — aimed at exactly the minority-class failure E11 hit |
+| Framing survey | Frénay & Verleysen 2014 (IEEE TNNLS 25(5):845–869) — *not re-verified this session* | Label-noise robustness is a data problem; filter design is a separate axis from classifier choice |
 
 ## What we implemented (committee_filter.py)
 

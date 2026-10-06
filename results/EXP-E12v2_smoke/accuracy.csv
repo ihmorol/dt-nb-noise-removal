@@ -1,0 +1,961 @@
+arm,kind,rate,handling,fold_seed,classifier,confusion,accuracy,macro_f1,dataset,seed,fold
+none,symmetric,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+none,symmetric,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+none,symmetric,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB hard_vote,symmetric,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB hard_vote,symmetric,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB hard_vote,symmetric,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+DT hard_vote,symmetric,0.0,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT hard_vote,symmetric,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+DT hard_vote,symmetric,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB threshold,symmetric,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB threshold,symmetric,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB threshold,symmetric,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+DT threshold,symmetric,0.0,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT threshold,symmetric,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+DT threshold,symmetric,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+committee consensus,symmetric,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+committee consensus,symmetric,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+committee consensus,symmetric,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+dual agreement,symmetric,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+dual agreement,symmetric,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+dual agreement,symmetric,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,symmetric,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,symmetric,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,symmetric,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+none,symmetric,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+none,symmetric,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+none,symmetric,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB hard_vote,symmetric,0.0,relabel,1,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+NB hard_vote,symmetric,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB hard_vote,symmetric,0.0,relabel,1,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+DT hard_vote,symmetric,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT hard_vote,symmetric,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT hard_vote,symmetric,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB threshold,symmetric,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB threshold,symmetric,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB threshold,symmetric,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT threshold,symmetric,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT threshold,symmetric,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT threshold,symmetric,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,symmetric,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,symmetric,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,symmetric,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+dual agreement,symmetric,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+dual agreement,symmetric,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+dual agreement,symmetric,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,symmetric,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,symmetric,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,symmetric,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+none,symmetric,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+none,symmetric,0.0,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+none,symmetric,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB hard_vote,symmetric,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB hard_vote,symmetric,0.0,relabel,2,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,2
+NB hard_vote,symmetric,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT hard_vote,symmetric,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT hard_vote,symmetric,0.0,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT hard_vote,symmetric,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB threshold,symmetric,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB threshold,symmetric,0.0,relabel,2,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,2
+NB threshold,symmetric,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT threshold,symmetric,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT threshold,symmetric,0.0,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT threshold,symmetric,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,symmetric,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,symmetric,0.0,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,symmetric,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+dual agreement,symmetric,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+dual agreement,symmetric,0.0,relabel,2,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,2
+dual agreement,symmetric,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+reference labels,symmetric,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+reference labels,symmetric,0.0,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+reference labels,symmetric,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+none,symmetric,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+none,symmetric,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+none,symmetric,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB hard_vote,symmetric,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB hard_vote,symmetric,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB hard_vote,symmetric,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT hard_vote,symmetric,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT hard_vote,symmetric,0.0,relabel,3,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+DT hard_vote,symmetric,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB threshold,symmetric,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB threshold,symmetric,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB threshold,symmetric,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT threshold,symmetric,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT threshold,symmetric,0.0,relabel,3,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+DT threshold,symmetric,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+committee consensus,symmetric,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+committee consensus,symmetric,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+committee consensus,symmetric,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,symmetric,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,symmetric,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,symmetric,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,symmetric,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,symmetric,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,symmetric,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+none,symmetric,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+none,symmetric,0.0,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+none,symmetric,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+NB hard_vote,symmetric,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+NB hard_vote,symmetric,0.0,relabel,4,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+NB hard_vote,symmetric,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT hard_vote,symmetric,0.0,relabel,4,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT hard_vote,symmetric,0.0,relabel,4,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT hard_vote,symmetric,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+NB threshold,symmetric,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+NB threshold,symmetric,0.0,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+NB threshold,symmetric,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT threshold,symmetric,0.0,relabel,4,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT threshold,symmetric,0.0,relabel,4,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT threshold,symmetric,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+committee consensus,symmetric,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+committee consensus,symmetric,0.0,relabel,4,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+committee consensus,symmetric,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+dual agreement,symmetric,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+dual agreement,symmetric,0.0,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+dual agreement,symmetric,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+reference labels,symmetric,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+reference labels,symmetric,0.0,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+reference labels,symmetric,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+none,symmetric,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+none,symmetric,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+none,symmetric,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,symmetric,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,symmetric,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,symmetric,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,symmetric,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,symmetric,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,symmetric,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,symmetric,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,symmetric,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,symmetric,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT threshold,symmetric,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT threshold,symmetric,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT threshold,symmetric,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,symmetric,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,symmetric,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,symmetric,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,symmetric,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,symmetric,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,symmetric,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,symmetric,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,symmetric,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,symmetric,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+none,symmetric,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+none,symmetric,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+none,symmetric,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB hard_vote,symmetric,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB hard_vote,symmetric,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+NB hard_vote,symmetric,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT hard_vote,symmetric,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT hard_vote,symmetric,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT hard_vote,symmetric,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB threshold,symmetric,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB threshold,symmetric,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB threshold,symmetric,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT threshold,symmetric,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT threshold,symmetric,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT threshold,symmetric,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+committee consensus,symmetric,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+committee consensus,symmetric,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,6
+committee consensus,symmetric,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+dual agreement,symmetric,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+dual agreement,symmetric,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+dual agreement,symmetric,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,symmetric,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,symmetric,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,symmetric,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+none,symmetric,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+none,symmetric,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+none,symmetric,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,symmetric,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,symmetric,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,symmetric,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT hard_vote,symmetric,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT hard_vote,symmetric,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT hard_vote,symmetric,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB threshold,symmetric,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB threshold,symmetric,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB threshold,symmetric,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT threshold,symmetric,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT threshold,symmetric,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT threshold,symmetric,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,symmetric,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,symmetric,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,symmetric,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,symmetric,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,symmetric,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,symmetric,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,symmetric,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,symmetric,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,symmetric,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+none,symmetric,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+none,symmetric,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+none,symmetric,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB hard_vote,symmetric,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB hard_vote,symmetric,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+NB hard_vote,symmetric,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT hard_vote,symmetric,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT hard_vote,symmetric,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+DT hard_vote,symmetric,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+NB threshold,symmetric,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB threshold,symmetric,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB threshold,symmetric,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT threshold,symmetric,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT threshold,symmetric,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+DT threshold,symmetric,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+committee consensus,symmetric,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+committee consensus,symmetric,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+committee consensus,symmetric,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+dual agreement,symmetric,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+dual agreement,symmetric,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+dual agreement,symmetric,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+reference labels,symmetric,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+reference labels,symmetric,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+reference labels,symmetric,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+none,symmetric,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+none,symmetric,0.0,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+none,symmetric,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,symmetric,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+NB hard_vote,symmetric,0.0,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,symmetric,0.0,relabel,9,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT hard_vote,symmetric,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT hard_vote,symmetric,0.0,relabel,9,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT hard_vote,symmetric,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB threshold,symmetric,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+NB threshold,symmetric,0.0,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,9
+NB threshold,symmetric,0.0,relabel,9,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT threshold,symmetric,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT threshold,symmetric,0.0,relabel,9,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT threshold,symmetric,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+committee consensus,symmetric,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+committee consensus,symmetric,0.0,relabel,9,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+committee consensus,symmetric,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+dual agreement,symmetric,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+dual agreement,symmetric,0.0,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+dual agreement,symmetric,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+reference labels,symmetric,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+reference labels,symmetric,0.0,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+reference labels,symmetric,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+none,symmetric,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+none,symmetric,0.2,relabel,0,DT,"[[4, 1, 0], [0, 5, 0], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+none,symmetric,0.2,relabel,0,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+NB hard_vote,symmetric,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+NB hard_vote,symmetric,0.2,relabel,0,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+NB hard_vote,symmetric,0.2,relabel,0,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,0
+DT hard_vote,symmetric,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT hard_vote,symmetric,0.2,relabel,0,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT hard_vote,symmetric,0.2,relabel,0,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+NB threshold,symmetric,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+NB threshold,symmetric,0.2,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB threshold,symmetric,0.2,relabel,0,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT threshold,symmetric,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT threshold,symmetric,0.2,relabel,0,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT threshold,symmetric,0.2,relabel,0,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+committee consensus,symmetric,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+committee consensus,symmetric,0.2,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+committee consensus,symmetric,0.2,relabel,0,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+dual agreement,symmetric,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+dual agreement,symmetric,0.2,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+dual agreement,symmetric,0.2,relabel,0,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+reference labels,symmetric,0.2,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,symmetric,0.2,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,symmetric,0.2,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+none,symmetric,0.2,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+none,symmetric,0.2,relabel,1,DT,"[[3, 1, 1], [0, 5, 0], [0, 1, 4]]",80.0,79.44444444444446,iris,0,1
+none,symmetric,0.2,relabel,1,LR,"[[5, 0, 0], [0, 1, 4], [0, 1, 4]]",66.66666666666666,63.369963369963365,iris,0,1
+NB hard_vote,symmetric,0.2,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB hard_vote,symmetric,0.2,relabel,1,DT,"[[5, 0, 0], [0, 4, 1], [0, 2, 3]]",80.0,79.7979797979798,iris,0,1
+NB hard_vote,symmetric,0.2,relabel,1,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+DT hard_vote,symmetric,0.2,relabel,1,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+DT hard_vote,symmetric,0.2,relabel,1,DT,"[[4, 0, 1], [1, 3, 1], [0, 0, 5]]",80.0,79.44444444444444,iris,0,1
+DT hard_vote,symmetric,0.2,relabel,1,LR,"[[5, 0, 0], [0, 1, 4], [0, 1, 4]]",66.66666666666666,63.369963369963365,iris,0,1
+NB threshold,symmetric,0.2,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB threshold,symmetric,0.2,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB threshold,symmetric,0.2,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT threshold,symmetric,0.2,relabel,1,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+DT threshold,symmetric,0.2,relabel,1,DT,"[[4, 0, 1], [1, 3, 1], [0, 0, 5]]",80.0,79.44444444444444,iris,0,1
+DT threshold,symmetric,0.2,relabel,1,LR,"[[5, 0, 0], [0, 1, 4], [0, 1, 4]]",66.66666666666666,63.369963369963365,iris,0,1
+committee consensus,symmetric,0.2,relabel,1,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+committee consensus,symmetric,0.2,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,symmetric,0.2,relabel,1,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+dual agreement,symmetric,0.2,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+dual agreement,symmetric,0.2,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+dual agreement,symmetric,0.2,relabel,1,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+reference labels,symmetric,0.2,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,symmetric,0.2,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,symmetric,0.2,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+none,symmetric,0.2,relabel,2,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,2
+none,symmetric,0.2,relabel,2,DT,"[[4, 1, 0], [1, 3, 1], [1, 0, 4]]",73.33333333333333,73.13131313131315,iris,0,2
+none,symmetric,0.2,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,2
+NB hard_vote,symmetric,0.2,relabel,2,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,2
+NB hard_vote,symmetric,0.2,relabel,2,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,2
+NB hard_vote,symmetric,0.2,relabel,2,LR,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+DT hard_vote,symmetric,0.2,relabel,2,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,2
+DT hard_vote,symmetric,0.2,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT hard_vote,symmetric,0.2,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,2
+NB threshold,symmetric,0.2,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB threshold,symmetric,0.2,relabel,2,DT,"[[5, 0, 0], [2, 3, 0], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,2
+NB threshold,symmetric,0.2,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT threshold,symmetric,0.2,relabel,2,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,2
+DT threshold,symmetric,0.2,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT threshold,symmetric,0.2,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,2
+committee consensus,symmetric,0.2,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,symmetric,0.2,relabel,2,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,2
+committee consensus,symmetric,0.2,relabel,2,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,2
+dual agreement,symmetric,0.2,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+dual agreement,symmetric,0.2,relabel,2,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,2
+dual agreement,symmetric,0.2,relabel,2,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,2
+reference labels,symmetric,0.2,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+reference labels,symmetric,0.2,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+reference labels,symmetric,0.2,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+none,symmetric,0.2,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+none,symmetric,0.2,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,3
+none,symmetric,0.2,relabel,3,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+NB hard_vote,symmetric,0.2,relabel,3,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+NB hard_vote,symmetric,0.2,relabel,3,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+NB hard_vote,symmetric,0.2,relabel,3,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+DT hard_vote,symmetric,0.2,relabel,3,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+DT hard_vote,symmetric,0.2,relabel,3,DT,"[[5, 0, 0], [1, 4, 0], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+DT hard_vote,symmetric,0.2,relabel,3,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,3
+NB threshold,symmetric,0.2,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB threshold,symmetric,0.2,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB threshold,symmetric,0.2,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT threshold,symmetric,0.2,relabel,3,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+DT threshold,symmetric,0.2,relabel,3,DT,"[[5, 0, 0], [1, 4, 0], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+DT threshold,symmetric,0.2,relabel,3,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,3
+committee consensus,symmetric,0.2,relabel,3,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+committee consensus,symmetric,0.2,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+committee consensus,symmetric,0.2,relabel,3,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+dual agreement,symmetric,0.2,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,symmetric,0.2,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,symmetric,0.2,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,symmetric,0.2,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,symmetric,0.2,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,symmetric,0.2,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+none,symmetric,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,4
+none,symmetric,0.2,relabel,4,DT,"[[3, 1, 1], [0, 1, 4], [0, 0, 5]]",60.0,56.74603174603173,iris,0,4
+none,symmetric,0.2,relabel,4,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+NB hard_vote,symmetric,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,4
+NB hard_vote,symmetric,0.2,relabel,4,DT,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,4
+NB hard_vote,symmetric,0.2,relabel,4,LR,"[[4, 1, 0], [0, 4, 1], [0, 1, 4]]",80.0,80.53872053872054,iris,0,4
+DT hard_vote,symmetric,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,4
+DT hard_vote,symmetric,0.2,relabel,4,DT,"[[3, 1, 1], [0, 1, 4], [0, 2, 3]]",46.666666666666664,47.79202279202279,iris,0,4
+DT hard_vote,symmetric,0.2,relabel,4,LR,"[[5, 0, 0], [0, 3, 2], [0, 3, 2]]",66.66666666666666,66.32996632996633,iris,0,4
+NB threshold,symmetric,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+NB threshold,symmetric,0.2,relabel,4,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,4
+NB threshold,symmetric,0.2,relabel,4,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+DT threshold,symmetric,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,4
+DT threshold,symmetric,0.2,relabel,4,DT,"[[3, 1, 1], [0, 1, 4], [0, 2, 3]]",46.666666666666664,47.79202279202279,iris,0,4
+DT threshold,symmetric,0.2,relabel,4,LR,"[[5, 0, 0], [0, 3, 2], [0, 3, 2]]",66.66666666666666,66.32996632996633,iris,0,4
+committee consensus,symmetric,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+committee consensus,symmetric,0.2,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 2, 3]]",66.66666666666666,66.32996632996633,iris,0,4
+committee consensus,symmetric,0.2,relabel,4,LR,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,4
+dual agreement,symmetric,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,4
+dual agreement,symmetric,0.2,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 1, 4]]",73.33333333333333,72.22222222222221,iris,0,4
+dual agreement,symmetric,0.2,relabel,4,LR,"[[5, 0, 0], [0, 3, 2], [0, 1, 4]]",80.0,79.79797979797979,iris,0,4
+reference labels,symmetric,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+reference labels,symmetric,0.2,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+reference labels,symmetric,0.2,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+none,symmetric,0.2,relabel,5,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,5
+none,symmetric,0.2,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [1, 0, 4]]",86.66666666666667,86.59932659932662,iris,0,5
+none,symmetric,0.2,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,5
+NB hard_vote,symmetric,0.2,relabel,5,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,symmetric,0.2,relabel,5,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,symmetric,0.2,relabel,5,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,symmetric,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,symmetric,0.2,relabel,5,DT,"[[3, 1, 1], [1, 4, 0], [0, 0, 5]]",80.0,79.1919191919192,iris,0,5
+DT hard_vote,symmetric,0.2,relabel,5,LR,"[[5, 0, 0], [1, 3, 1], [0, 1, 4]]",80.0,79.1919191919192,iris,0,5
+NB threshold,symmetric,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,symmetric,0.2,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,symmetric,0.2,relabel,5,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,5
+DT threshold,symmetric,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT threshold,symmetric,0.2,relabel,5,DT,"[[3, 1, 1], [1, 4, 0], [0, 0, 5]]",80.0,79.1919191919192,iris,0,5
+DT threshold,symmetric,0.2,relabel,5,LR,"[[5, 0, 0], [1, 3, 1], [0, 1, 4]]",80.0,79.1919191919192,iris,0,5
+committee consensus,symmetric,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,symmetric,0.2,relabel,5,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,5
+committee consensus,symmetric,0.2,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,symmetric,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,symmetric,0.2,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,symmetric,0.2,relabel,5,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,5
+reference labels,symmetric,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,symmetric,0.2,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,symmetric,0.2,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+none,symmetric,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+none,symmetric,0.2,relabel,6,DT,"[[4, 0, 1], [1, 4, 0], [0, 2, 3]]",73.33333333333333,73.13131313131312,iris,0,6
+none,symmetric,0.2,relabel,6,LR,"[[5, 0, 0], [0, 3, 2], [0, 2, 3]]",73.33333333333333,73.33333333333334,iris,0,6
+NB hard_vote,symmetric,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+NB hard_vote,symmetric,0.2,relabel,6,DT,"[[5, 0, 0], [0, 4, 1], [0, 2, 3]]",80.0,79.7979797979798,iris,0,6
+NB hard_vote,symmetric,0.2,relabel,6,LR,"[[5, 0, 0], [0, 3, 2], [0, 2, 3]]",73.33333333333333,73.33333333333334,iris,0,6
+DT hard_vote,symmetric,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+DT hard_vote,symmetric,0.2,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [1, 2, 2]]",80.0,77.12842712842712,iris,0,6
+DT hard_vote,symmetric,0.2,relabel,6,LR,"[[5, 0, 0], [0, 4, 1], [0, 3, 2]]",73.33333333333333,72.22222222222221,iris,0,6
+NB threshold,symmetric,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+NB threshold,symmetric,0.2,relabel,6,DT,"[[5, 0, 0], [0, 3, 2], [0, 2, 3]]",73.33333333333333,73.33333333333334,iris,0,6
+NB threshold,symmetric,0.2,relabel,6,LR,"[[5, 0, 0], [0, 3, 2], [0, 2, 3]]",73.33333333333333,73.33333333333334,iris,0,6
+DT threshold,symmetric,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+DT threshold,symmetric,0.2,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [1, 2, 2]]",80.0,77.12842712842712,iris,0,6
+DT threshold,symmetric,0.2,relabel,6,LR,"[[5, 0, 0], [0, 4, 1], [0, 3, 2]]",73.33333333333333,72.22222222222221,iris,0,6
+committee consensus,symmetric,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+committee consensus,symmetric,0.2,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+committee consensus,symmetric,0.2,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+dual agreement,symmetric,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+dual agreement,symmetric,0.2,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [1, 1, 3]]",86.66666666666667,85.60606060606061,iris,0,6
+dual agreement,symmetric,0.2,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+reference labels,symmetric,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,symmetric,0.2,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,symmetric,0.2,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+none,symmetric,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+none,symmetric,0.2,relabel,7,DT,"[[4, 0, 1], [0, 5, 0], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,7
+none,symmetric,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,symmetric,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,symmetric,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,7
+NB hard_vote,symmetric,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT hard_vote,symmetric,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT hard_vote,symmetric,0.2,relabel,7,DT,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,7
+DT hard_vote,symmetric,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB threshold,symmetric,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB threshold,symmetric,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,7
+NB threshold,symmetric,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT threshold,symmetric,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT threshold,symmetric,0.2,relabel,7,DT,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,7
+DT threshold,symmetric,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,symmetric,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,symmetric,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,symmetric,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,symmetric,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,symmetric,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,symmetric,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,symmetric,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,symmetric,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,symmetric,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+none,symmetric,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+none,symmetric,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [1, 1, 3]]",86.66666666666667,85.60606060606061,iris,0,8
+none,symmetric,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB hard_vote,symmetric,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB hard_vote,symmetric,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+NB hard_vote,symmetric,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT hard_vote,symmetric,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT hard_vote,symmetric,0.2,relabel,8,DT,"[[4, 1, 0], [0, 5, 0], [0, 1, 4]]",86.66666666666667,87.03703703703704,iris,0,8
+DT hard_vote,symmetric,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB threshold,symmetric,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+NB threshold,symmetric,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+NB threshold,symmetric,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT threshold,symmetric,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT threshold,symmetric,0.2,relabel,8,DT,"[[4, 1, 0], [0, 5, 0], [0, 1, 4]]",86.66666666666667,87.03703703703704,iris,0,8
+DT threshold,symmetric,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+committee consensus,symmetric,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+committee consensus,symmetric,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+committee consensus,symmetric,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+dual agreement,symmetric,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+dual agreement,symmetric,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [1, 1, 3]]",86.66666666666667,85.60606060606061,iris,0,8
+dual agreement,symmetric,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+reference labels,symmetric,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+reference labels,symmetric,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+reference labels,symmetric,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+none,symmetric,0.2,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+none,symmetric,0.2,relabel,9,DT,"[[5, 0, 0], [0, 3, 2], [0, 1, 4]]",80.0,79.79797979797979,iris,0,9
+none,symmetric,0.2,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,symmetric,0.2,relabel,9,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,symmetric,0.2,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,symmetric,0.2,relabel,9,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT hard_vote,symmetric,0.2,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,9
+DT hard_vote,symmetric,0.2,relabel,9,DT,"[[3, 0, 2], [0, 4, 1], [0, 3, 2]]",60.0,60.55555555555555,iris,0,9
+DT hard_vote,symmetric,0.2,relabel,9,LR,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,9
+NB threshold,symmetric,0.2,relabel,9,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB threshold,symmetric,0.2,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB threshold,symmetric,0.2,relabel,9,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT threshold,symmetric,0.2,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,9
+DT threshold,symmetric,0.2,relabel,9,DT,"[[3, 0, 2], [0, 4, 1], [0, 3, 2]]",60.0,60.55555555555555,iris,0,9
+DT threshold,symmetric,0.2,relabel,9,LR,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,9
+committee consensus,symmetric,0.2,relabel,9,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+committee consensus,symmetric,0.2,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+committee consensus,symmetric,0.2,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+dual agreement,symmetric,0.2,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+dual agreement,symmetric,0.2,relabel,9,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,9
+dual agreement,symmetric,0.2,relabel,9,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+reference labels,symmetric,0.2,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+reference labels,symmetric,0.2,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+reference labels,symmetric,0.2,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+none,pairflip,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+none,pairflip,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+none,pairflip,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB hard_vote,pairflip,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB hard_vote,pairflip,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB hard_vote,pairflip,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+DT hard_vote,pairflip,0.0,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT hard_vote,pairflip,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+DT hard_vote,pairflip,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB threshold,pairflip,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB threshold,pairflip,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB threshold,pairflip,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+DT threshold,pairflip,0.0,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT threshold,pairflip,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+DT threshold,pairflip,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+committee consensus,pairflip,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+committee consensus,pairflip,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+committee consensus,pairflip,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+dual agreement,pairflip,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+dual agreement,pairflip,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+dual agreement,pairflip,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,pairflip,0.0,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,pairflip,0.0,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,pairflip,0.0,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+none,pairflip,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+none,pairflip,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+none,pairflip,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB hard_vote,pairflip,0.0,relabel,1,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+NB hard_vote,pairflip,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB hard_vote,pairflip,0.0,relabel,1,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+DT hard_vote,pairflip,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT hard_vote,pairflip,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT hard_vote,pairflip,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB threshold,pairflip,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB threshold,pairflip,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB threshold,pairflip,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT threshold,pairflip,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT threshold,pairflip,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+DT threshold,pairflip,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,pairflip,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,pairflip,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,pairflip,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+dual agreement,pairflip,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+dual agreement,pairflip,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+dual agreement,pairflip,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,pairflip,0.0,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,pairflip,0.0,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,pairflip,0.0,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+none,pairflip,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+none,pairflip,0.0,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+none,pairflip,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB hard_vote,pairflip,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB hard_vote,pairflip,0.0,relabel,2,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,2
+NB hard_vote,pairflip,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT hard_vote,pairflip,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT hard_vote,pairflip,0.0,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT hard_vote,pairflip,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB threshold,pairflip,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB threshold,pairflip,0.0,relabel,2,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,2
+NB threshold,pairflip,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT threshold,pairflip,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT threshold,pairflip,0.0,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+DT threshold,pairflip,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,pairflip,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,pairflip,0.0,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,pairflip,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+dual agreement,pairflip,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+dual agreement,pairflip,0.0,relabel,2,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,2
+dual agreement,pairflip,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+reference labels,pairflip,0.0,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+reference labels,pairflip,0.0,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+reference labels,pairflip,0.0,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+none,pairflip,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+none,pairflip,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+none,pairflip,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB hard_vote,pairflip,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB hard_vote,pairflip,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB hard_vote,pairflip,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT hard_vote,pairflip,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT hard_vote,pairflip,0.0,relabel,3,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+DT hard_vote,pairflip,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB threshold,pairflip,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB threshold,pairflip,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB threshold,pairflip,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT threshold,pairflip,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT threshold,pairflip,0.0,relabel,3,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+DT threshold,pairflip,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+committee consensus,pairflip,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+committee consensus,pairflip,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+committee consensus,pairflip,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,pairflip,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,pairflip,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,pairflip,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,pairflip,0.0,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,pairflip,0.0,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,pairflip,0.0,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+none,pairflip,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+none,pairflip,0.0,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+none,pairflip,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+NB hard_vote,pairflip,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+NB hard_vote,pairflip,0.0,relabel,4,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+NB hard_vote,pairflip,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT hard_vote,pairflip,0.0,relabel,4,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT hard_vote,pairflip,0.0,relabel,4,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT hard_vote,pairflip,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+NB threshold,pairflip,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+NB threshold,pairflip,0.0,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+NB threshold,pairflip,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT threshold,pairflip,0.0,relabel,4,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT threshold,pairflip,0.0,relabel,4,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT threshold,pairflip,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+committee consensus,pairflip,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+committee consensus,pairflip,0.0,relabel,4,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+committee consensus,pairflip,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+dual agreement,pairflip,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+dual agreement,pairflip,0.0,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+dual agreement,pairflip,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+reference labels,pairflip,0.0,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+reference labels,pairflip,0.0,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+reference labels,pairflip,0.0,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+none,pairflip,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+none,pairflip,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+none,pairflip,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,pairflip,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,pairflip,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,pairflip,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,pairflip,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,pairflip,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,pairflip,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,pairflip,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,pairflip,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,pairflip,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT threshold,pairflip,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT threshold,pairflip,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT threshold,pairflip,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,pairflip,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,pairflip,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,pairflip,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,pairflip,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,pairflip,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,pairflip,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,pairflip,0.0,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,pairflip,0.0,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,pairflip,0.0,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+none,pairflip,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+none,pairflip,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+none,pairflip,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB hard_vote,pairflip,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB hard_vote,pairflip,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+NB hard_vote,pairflip,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT hard_vote,pairflip,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT hard_vote,pairflip,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT hard_vote,pairflip,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB threshold,pairflip,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB threshold,pairflip,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB threshold,pairflip,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT threshold,pairflip,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT threshold,pairflip,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT threshold,pairflip,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+committee consensus,pairflip,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+committee consensus,pairflip,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,6
+committee consensus,pairflip,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+dual agreement,pairflip,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+dual agreement,pairflip,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+dual agreement,pairflip,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,pairflip,0.0,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,pairflip,0.0,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,pairflip,0.0,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+none,pairflip,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+none,pairflip,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+none,pairflip,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,pairflip,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,pairflip,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,pairflip,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT hard_vote,pairflip,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT hard_vote,pairflip,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT hard_vote,pairflip,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB threshold,pairflip,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB threshold,pairflip,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB threshold,pairflip,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT threshold,pairflip,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT threshold,pairflip,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT threshold,pairflip,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,pairflip,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,pairflip,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,pairflip,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,pairflip,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,pairflip,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,pairflip,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,pairflip,0.0,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,pairflip,0.0,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,pairflip,0.0,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+none,pairflip,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+none,pairflip,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+none,pairflip,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB hard_vote,pairflip,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB hard_vote,pairflip,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+NB hard_vote,pairflip,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT hard_vote,pairflip,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT hard_vote,pairflip,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+DT hard_vote,pairflip,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+NB threshold,pairflip,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB threshold,pairflip,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB threshold,pairflip,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT threshold,pairflip,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT threshold,pairflip,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+DT threshold,pairflip,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+committee consensus,pairflip,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+committee consensus,pairflip,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+committee consensus,pairflip,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+dual agreement,pairflip,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+dual agreement,pairflip,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+dual agreement,pairflip,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+reference labels,pairflip,0.0,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+reference labels,pairflip,0.0,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+reference labels,pairflip,0.0,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+none,pairflip,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+none,pairflip,0.0,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+none,pairflip,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,pairflip,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+NB hard_vote,pairflip,0.0,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,pairflip,0.0,relabel,9,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT hard_vote,pairflip,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT hard_vote,pairflip,0.0,relabel,9,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT hard_vote,pairflip,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB threshold,pairflip,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+NB threshold,pairflip,0.0,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,9
+NB threshold,pairflip,0.0,relabel,9,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT threshold,pairflip,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT threshold,pairflip,0.0,relabel,9,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+DT threshold,pairflip,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+committee consensus,pairflip,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+committee consensus,pairflip,0.0,relabel,9,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+committee consensus,pairflip,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+dual agreement,pairflip,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+dual agreement,pairflip,0.0,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+dual agreement,pairflip,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+reference labels,pairflip,0.0,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+reference labels,pairflip,0.0,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+reference labels,pairflip,0.0,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+none,pairflip,0.2,relabel,0,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,0
+none,pairflip,0.2,relabel,0,DT,"[[2, 3, 0], [0, 5, 0], [0, 0, 5]]",80.0,78.02197802197803,iris,0,0
+none,pairflip,0.2,relabel,0,LR,"[[5, 0, 0], [1, 4, 0], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+NB hard_vote,pairflip,0.2,relabel,0,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,0
+NB hard_vote,pairflip,0.2,relabel,0,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,0
+NB hard_vote,pairflip,0.2,relabel,0,LR,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,0
+DT hard_vote,pairflip,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT hard_vote,pairflip,0.2,relabel,0,DT,"[[5, 0, 0], [0, 4, 1], [1, 0, 4]]",86.66666666666667,86.59932659932662,iris,0,0
+DT hard_vote,pairflip,0.2,relabel,0,LR,"[[5, 0, 0], [1, 4, 0], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+NB threshold,pairflip,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+NB threshold,pairflip,0.2,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+NB threshold,pairflip,0.2,relabel,0,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT threshold,pairflip,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+DT threshold,pairflip,0.2,relabel,0,DT,"[[5, 0, 0], [0, 4, 1], [1, 0, 4]]",86.66666666666667,86.59932659932662,iris,0,0
+DT threshold,pairflip,0.2,relabel,0,LR,"[[5, 0, 0], [1, 4, 0], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+committee consensus,pairflip,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+committee consensus,pairflip,0.2,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+committee consensus,pairflip,0.2,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+dual agreement,pairflip,0.2,relabel,0,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,0
+dual agreement,pairflip,0.2,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+dual agreement,pairflip,0.2,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,pairflip,0.2,relabel,0,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,pairflip,0.2,relabel,0,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+reference labels,pairflip,0.2,relabel,0,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,0
+none,pairflip,0.2,relabel,1,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,1
+none,pairflip,0.2,relabel,1,DT,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+none,pairflip,0.2,relabel,1,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,1
+NB hard_vote,pairflip,0.2,relabel,1,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,1
+NB hard_vote,pairflip,0.2,relabel,1,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,1
+NB hard_vote,pairflip,0.2,relabel,1,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+DT hard_vote,pairflip,0.2,relabel,1,NB,"[[5, 0, 0], [0, 1, 4], [0, 0, 5]]",73.33333333333333,68.25396825396824,iris,0,1
+DT hard_vote,pairflip,0.2,relabel,1,DT,"[[3, 2, 0], [0, 5, 0], [2, 0, 3]]",73.33333333333333,72.77777777777779,iris,0,1
+DT hard_vote,pairflip,0.2,relabel,1,LR,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,1
+NB threshold,pairflip,0.2,relabel,1,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+NB threshold,pairflip,0.2,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+NB threshold,pairflip,0.2,relabel,1,LR,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+DT threshold,pairflip,0.2,relabel,1,NB,"[[5, 0, 0], [0, 1, 4], [0, 0, 5]]",73.33333333333333,68.25396825396824,iris,0,1
+DT threshold,pairflip,0.2,relabel,1,DT,"[[3, 2, 0], [0, 5, 0], [2, 0, 3]]",73.33333333333333,72.77777777777779,iris,0,1
+DT threshold,pairflip,0.2,relabel,1,LR,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,1
+committee consensus,pairflip,0.2,relabel,1,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+committee consensus,pairflip,0.2,relabel,1,DT,"[[4, 1, 0], [0, 5, 0], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,1
+committee consensus,pairflip,0.2,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,1
+dual agreement,pairflip,0.2,relabel,1,NB,"[[5, 0, 0], [0, 4, 1], [0, 1, 4]]",86.66666666666667,86.66666666666667,iris,0,1
+dual agreement,pairflip,0.2,relabel,1,DT,"[[4, 1, 0], [0, 5, 0], [0, 1, 4]]",86.66666666666667,87.03703703703704,iris,0,1
+dual agreement,pairflip,0.2,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,pairflip,0.2,relabel,1,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,pairflip,0.2,relabel,1,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+reference labels,pairflip,0.2,relabel,1,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,1
+none,pairflip,0.2,relabel,2,NB,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+none,pairflip,0.2,relabel,2,DT,"[[4, 1, 0], [0, 4, 1], [0, 0, 5]]",86.66666666666667,86.5993265993266,iris,0,2
+none,pairflip,0.2,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB hard_vote,pairflip,0.2,relabel,2,NB,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+NB hard_vote,pairflip,0.2,relabel,2,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+NB hard_vote,pairflip,0.2,relabel,2,LR,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+DT hard_vote,pairflip,0.2,relabel,2,NB,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+DT hard_vote,pairflip,0.2,relabel,2,DT,"[[5, 0, 0], [0, 3, 2], [1, 0, 4]]",80.0,79.54545454545455,iris,0,2
+DT hard_vote,pairflip,0.2,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+NB threshold,pairflip,0.2,relabel,2,NB,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+NB threshold,pairflip,0.2,relabel,2,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+NB threshold,pairflip,0.2,relabel,2,LR,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+DT threshold,pairflip,0.2,relabel,2,NB,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+DT threshold,pairflip,0.2,relabel,2,DT,"[[5, 0, 0], [0, 3, 2], [1, 0, 4]]",80.0,79.54545454545455,iris,0,2
+DT threshold,pairflip,0.2,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+committee consensus,pairflip,0.2,relabel,2,NB,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+committee consensus,pairflip,0.2,relabel,2,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,2
+committee consensus,pairflip,0.2,relabel,2,LR,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+dual agreement,pairflip,0.2,relabel,2,NB,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+dual agreement,pairflip,0.2,relabel,2,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,2
+dual agreement,pairflip,0.2,relabel,2,LR,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,2
+reference labels,pairflip,0.2,relabel,2,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+reference labels,pairflip,0.2,relabel,2,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+reference labels,pairflip,0.2,relabel,2,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,2
+none,pairflip,0.2,relabel,3,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+none,pairflip,0.2,relabel,3,DT,"[[4, 1, 0], [0, 4, 1], [1, 0, 4]]",80.0,80.00000000000001,iris,0,3
+none,pairflip,0.2,relabel,3,LR,"[[5, 0, 0], [1, 4, 0], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+NB hard_vote,pairflip,0.2,relabel,3,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+NB hard_vote,pairflip,0.2,relabel,3,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,3
+NB hard_vote,pairflip,0.2,relabel,3,LR,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,3
+DT hard_vote,pairflip,0.2,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT hard_vote,pairflip,0.2,relabel,3,DT,"[[3, 2, 0], [0, 4, 1], [1, 0, 4]]",73.33333333333333,73.13131313131315,iris,0,3
+DT hard_vote,pairflip,0.2,relabel,3,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+NB threshold,pairflip,0.2,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB threshold,pairflip,0.2,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+NB threshold,pairflip,0.2,relabel,3,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+DT threshold,pairflip,0.2,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+DT threshold,pairflip,0.2,relabel,3,DT,"[[3, 2, 0], [0, 4, 1], [1, 0, 4]]",73.33333333333333,73.13131313131315,iris,0,3
+DT threshold,pairflip,0.2,relabel,3,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,3
+committee consensus,pairflip,0.2,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+committee consensus,pairflip,0.2,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+committee consensus,pairflip,0.2,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,pairflip,0.2,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,pairflip,0.2,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+dual agreement,pairflip,0.2,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,pairflip,0.2,relabel,3,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,pairflip,0.2,relabel,3,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+reference labels,pairflip,0.2,relabel,3,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,3
+none,pairflip,0.2,relabel,4,NB,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+none,pairflip,0.2,relabel,4,DT,"[[3, 2, 0], [0, 3, 2], [2, 0, 3]]",60.0,60.0,iris,0,4
+none,pairflip,0.2,relabel,4,LR,"[[4, 1, 0], [0, 3, 2], [0, 0, 5]]",80.0,79.62962962962963,iris,0,4
+NB hard_vote,pairflip,0.2,relabel,4,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,4
+NB hard_vote,pairflip,0.2,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+NB hard_vote,pairflip,0.2,relabel,4,LR,"[[4, 1, 0], [0, 2, 3], [0, 0, 5]]",73.33333333333333,71.93732193732193,iris,0,4
+DT hard_vote,pairflip,0.2,relabel,4,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,4
+DT hard_vote,pairflip,0.2,relabel,4,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT hard_vote,pairflip,0.2,relabel,4,LR,"[[4, 1, 0], [0, 4, 1], [0, 0, 5]]",86.66666666666667,86.5993265993266,iris,0,4
+NB threshold,pairflip,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+NB threshold,pairflip,0.2,relabel,4,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,4
+NB threshold,pairflip,0.2,relabel,4,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+DT threshold,pairflip,0.2,relabel,4,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,4
+DT threshold,pairflip,0.2,relabel,4,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+DT threshold,pairflip,0.2,relabel,4,LR,"[[4, 1, 0], [0, 4, 1], [0, 0, 5]]",86.66666666666667,86.5993265993266,iris,0,4
+committee consensus,pairflip,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+committee consensus,pairflip,0.2,relabel,4,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,4
+committee consensus,pairflip,0.2,relabel,4,LR,"[[4, 1, 0], [0, 4, 1], [0, 0, 5]]",86.66666666666667,86.5993265993266,iris,0,4
+dual agreement,pairflip,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+dual agreement,pairflip,0.2,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+dual agreement,pairflip,0.2,relabel,4,LR,"[[4, 1, 0], [0, 4, 1], [0, 0, 5]]",86.66666666666667,86.5993265993266,iris,0,4
+reference labels,pairflip,0.2,relabel,4,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,4
+reference labels,pairflip,0.2,relabel,4,DT,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,4
+reference labels,pairflip,0.2,relabel,4,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,4
+none,pairflip,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+none,pairflip,0.2,relabel,5,DT,"[[5, 0, 0], [1, 4, 0], [2, 0, 3]]",80.0,80.27065527065527,iris,0,5
+none,pairflip,0.2,relabel,5,LR,"[[5, 0, 0], [2, 3, 0], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,5
+NB hard_vote,pairflip,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,pairflip,0.2,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB hard_vote,pairflip,0.2,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,pairflip,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT hard_vote,pairflip,0.2,relabel,5,DT,"[[5, 0, 0], [1, 4, 0], [2, 0, 3]]",80.0,80.27065527065527,iris,0,5
+DT hard_vote,pairflip,0.2,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,pairflip,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,pairflip,0.2,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+NB threshold,pairflip,0.2,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT threshold,pairflip,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+DT threshold,pairflip,0.2,relabel,5,DT,"[[5, 0, 0], [1, 4, 0], [2, 0, 3]]",80.0,80.27065527065527,iris,0,5
+DT threshold,pairflip,0.2,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,pairflip,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+committee consensus,pairflip,0.2,relabel,5,DT,"[[4, 1, 0], [1, 4, 0], [0, 0, 5]]",86.66666666666667,86.66666666666667,iris,0,5
+committee consensus,pairflip,0.2,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,pairflip,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+dual agreement,pairflip,0.2,relabel,5,DT,"[[4, 1, 0], [1, 4, 0], [0, 0, 5]]",86.66666666666667,86.66666666666667,iris,0,5
+dual agreement,pairflip,0.2,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,pairflip,0.2,relabel,5,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,pairflip,0.2,relabel,5,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+reference labels,pairflip,0.2,relabel,5,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,5
+none,pairflip,0.2,relabel,6,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,6
+none,pairflip,0.2,relabel,6,DT,"[[3, 2, 0], [0, 4, 1], [0, 2, 3]]",66.66666666666666,67.73504273504273,iris,0,6
+none,pairflip,0.2,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB hard_vote,pairflip,0.2,relabel,6,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,6
+NB hard_vote,pairflip,0.2,relabel,6,DT,"[[5, 0, 0], [0, 3, 2], [0, 1, 4]]",80.0,79.79797979797979,iris,0,6
+NB hard_vote,pairflip,0.2,relabel,6,LR,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,6
+DT hard_vote,pairflip,0.2,relabel,6,NB,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,6
+DT hard_vote,pairflip,0.2,relabel,6,DT,"[[4, 1, 0], [0, 4, 1], [0, 1, 4]]",80.0,80.53872053872054,iris,0,6
+DT hard_vote,pairflip,0.2,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB threshold,pairflip,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+NB threshold,pairflip,0.2,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,6
+NB threshold,pairflip,0.2,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+DT threshold,pairflip,0.2,relabel,6,NB,"[[5, 0, 0], [0, 2, 3], [0, 0, 5]]",80.0,78.02197802197803,iris,0,6
+DT threshold,pairflip,0.2,relabel,6,DT,"[[4, 1, 0], [0, 4, 1], [0, 1, 4]]",80.0,80.53872053872054,iris,0,6
+DT threshold,pairflip,0.2,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+committee consensus,pairflip,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,6
+committee consensus,pairflip,0.2,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,6
+committee consensus,pairflip,0.2,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,6
+dual agreement,pairflip,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,6
+dual agreement,pairflip,0.2,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+dual agreement,pairflip,0.2,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,pairflip,0.2,relabel,6,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,pairflip,0.2,relabel,6,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+reference labels,pairflip,0.2,relabel,6,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,6
+none,pairflip,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+none,pairflip,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [1, 0, 4]]",93.33333333333333,93.26599326599326,iris,0,7
+none,pairflip,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,pairflip,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,pairflip,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB hard_vote,pairflip,0.2,relabel,7,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,7
+DT hard_vote,pairflip,0.2,relabel,7,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,7
+DT hard_vote,pairflip,0.2,relabel,7,DT,"[[5, 0, 0], [0, 3, 2], [2, 0, 3]]",73.33333333333333,72.77777777777779,iris,0,7
+DT hard_vote,pairflip,0.2,relabel,7,LR,"[[5, 0, 0], [0, 3, 2], [1, 0, 4]]",80.0,79.54545454545455,iris,0,7
+NB threshold,pairflip,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB threshold,pairflip,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+NB threshold,pairflip,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+DT threshold,pairflip,0.2,relabel,7,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,7
+DT threshold,pairflip,0.2,relabel,7,DT,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,7
+DT threshold,pairflip,0.2,relabel,7,LR,"[[5, 0, 0], [0, 3, 2], [1, 0, 4]]",80.0,79.54545454545455,iris,0,7
+committee consensus,pairflip,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,pairflip,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+committee consensus,pairflip,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,pairflip,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,pairflip,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+dual agreement,pairflip,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,pairflip,0.2,relabel,7,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,pairflip,0.2,relabel,7,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+reference labels,pairflip,0.2,relabel,7,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,7
+none,pairflip,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+none,pairflip,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [1, 0, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+none,pairflip,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,8
+NB hard_vote,pairflip,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+NB hard_vote,pairflip,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB hard_vote,pairflip,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+DT hard_vote,pairflip,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+DT hard_vote,pairflip,0.2,relabel,8,DT,"[[4, 1, 0], [0, 5, 0], [2, 0, 3]]",80.0,79.54545454545455,iris,0,8
+DT hard_vote,pairflip,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB threshold,pairflip,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+NB threshold,pairflip,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+NB threshold,pairflip,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+DT threshold,pairflip,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+DT threshold,pairflip,0.2,relabel,8,DT,"[[4, 1, 0], [0, 5, 0], [2, 0, 3]]",80.0,79.54545454545455,iris,0,8
+DT threshold,pairflip,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+committee consensus,pairflip,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+committee consensus,pairflip,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,8
+committee consensus,pairflip,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+dual agreement,pairflip,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+dual agreement,pairflip,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+dual agreement,pairflip,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+reference labels,pairflip,0.2,relabel,8,NB,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+reference labels,pairflip,0.2,relabel,8,DT,"[[5, 0, 0], [0, 5, 0], [0, 1, 4]]",93.33333333333333,93.26599326599326,iris,0,8
+reference labels,pairflip,0.2,relabel,8,LR,"[[5, 0, 0], [0, 5, 0], [0, 2, 3]]",86.66666666666667,86.11111111111111,iris,0,8
+none,pairflip,0.2,relabel,9,NB,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,9
+none,pairflip,0.2,relabel,9,DT,"[[4, 1, 0], [0, 3, 2], [0, 1, 4]]",73.33333333333333,73.87205387205388,iris,0,9
+none,pairflip,0.2,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,pairflip,0.2,relabel,9,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,pairflip,0.2,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB hard_vote,pairflip,0.2,relabel,9,LR,"[[5, 0, 0], [0, 3, 2], [0, 0, 5]]",86.66666666666667,86.11111111111111,iris,0,9
+DT hard_vote,pairflip,0.2,relabel,9,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+DT hard_vote,pairflip,0.2,relabel,9,DT,"[[2, 3, 0], [2, 1, 2], [0, 0, 5]]",53.333333333333336,50.0,iris,0,9
+DT hard_vote,pairflip,0.2,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB threshold,pairflip,0.2,relabel,9,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB threshold,pairflip,0.2,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+NB threshold,pairflip,0.2,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+DT threshold,pairflip,0.2,relabel,9,NB,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+DT threshold,pairflip,0.2,relabel,9,DT,"[[2, 3, 0], [2, 1, 2], [0, 0, 5]]",53.333333333333336,50.0,iris,0,9
+DT threshold,pairflip,0.2,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+committee consensus,pairflip,0.2,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+committee consensus,pairflip,0.2,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+committee consensus,pairflip,0.2,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+dual agreement,pairflip,0.2,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+dual agreement,pairflip,0.2,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+dual agreement,pairflip,0.2,relabel,9,LR,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+reference labels,pairflip,0.2,relabel,9,NB,"[[5, 0, 0], [0, 5, 0], [0, 0, 5]]",100.0,100.0,iris,0,9
+reference labels,pairflip,0.2,relabel,9,DT,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
+reference labels,pairflip,0.2,relabel,9,LR,"[[5, 0, 0], [0, 4, 1], [0, 0, 5]]",93.33333333333333,93.26599326599326,iris,0,9
