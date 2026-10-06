@@ -25,6 +25,9 @@ code/
 ├── check_pipeline.py   checks the leakage rules of pipeline.py (no Java)
 ├── verify_faithful.py  R1: checks to run before replicate_farid.py
 ├── figures.py          the paper's Figures 2 and 3 with our hybrid added
+├── committee_filter.py E11: the reliable noise filter - cross-validated DT+NB committee
+├── deep_mlp.py         E11: the fundamental deep model - a small PyTorch MLP
+├── e11_lr_mlp_hybrid.py E11: old vs clean vs weighted vs new data, LR + MLP
 └── lib/                Weka 3.8.6 jars (R1 needs Java)
 ```
 
@@ -42,25 +45,6 @@ python leakage_check.py            E3a
 python verify_faithful.py          R1 checks (all must PASS)
 python replicate_farid.py          R1, pruned J48, 3 seeds
 python replicate_farid.py --unpruned
-python e9_farid.py                 E9f, all datasets, 10 seeds (the manuscript's Table II)
-python e9_farid.py iris --seeds 1  E9f pilot
-python e5_strategy.py              E5, all datasets, 10 seeds (graded noise handling)
-python e5_strategy.py iris --seeds 1
-python figures.py
-```
-
-`main.py` writes into `../results/EXP-E9_pipeline/`:
-
-| File | Contents |
-|---|---|
-| `metrics*.csv` | accuracy, macro-F1 and removal % per dataset, arm and classifier, plus the settings used |
-| `stages.csv` | per algorithm step: rows/attributes before and after, averaged over the folds |
-| `versions_removals.csv` | what the one pass over the whole dataset removed |
-| `versions/<dataset>/` | the data before and after each path, and `removals.txt` |
-
-## Rules
-
-1. Every experiment is one script run that writes into `../results/EXP-<id>_<name>/`.
-2. Seeds are fixed and written into the output files.
-3. Everything (filter, attribute selection, classifier) is fitted on the training fold only.
-4. Commit before and after every experiment run.
+python e11_lr_mlp_hybrid.py        E11, all datasets, 5 seeds (LR + MLP)
+python e11_lr_mlp_hybrid.py --datasets iris glass --seeds 3   smoke run
+python e11_lr_mlp_hybrid.py --rule majority                   looser voting
