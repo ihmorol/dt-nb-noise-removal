@@ -2,7 +2,7 @@ name: Research regression checks
 
 on:
   push:
-    branches: ['dev/**']
+    branches: ['main', 'dev/**']
   pull_request:
 
 permissions:
@@ -23,4 +23,5 @@ jobs:
         run: |
           python code/check_pipeline.py
           python code/check_e12.py
+          python -m pytest -q code/test_audit_regressions.py
           python -m compileall -q code figures
