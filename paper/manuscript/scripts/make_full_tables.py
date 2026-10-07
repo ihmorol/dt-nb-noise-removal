@@ -185,10 +185,10 @@ def main():
                   else 100*group.attributes_after/group.attributes_before)
         rates[stage] = values.groupby(group.dataset).mean()
     write_table('table_full_removals.tex', 'lrrrr',
-                'Dataset & \\makecell{Removed,\\\\plain filter} & '
-                '\\makecell{Removed,\\\\weighted filter} & '
-                '\\makecell{Kept, no\\\\prior removal} & '
-                '\\makecell{Kept, after\\\\removal}',
+                'Dataset & \\makecell{Deleted,\\\\plain filter} & '
+                '\\makecell{Deleted,\\\\weighted filter} & '
+                '\\makecell{Kept,\\\\raw fold} & '
+                '\\makecell{Kept,\\\\after deletion}',
                 [[ds] + [f'{rates[stage][ds]:.2f}' for stage in
                   ['N plain', 'N weighted (after A)', 'A on the raw fold', 'A after plain N']]
                  for ds in datasets], header)
