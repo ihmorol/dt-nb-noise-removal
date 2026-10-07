@@ -14,6 +14,7 @@ Cleaning before CV changes both label access and, for filtering arms, the evalua
 
 - `paper/manuscript/main.tex`: current conference source.
 - `paper/manuscript/conference_final.pdf`: rebuilt supervisor review PDF.
+- `paper/manuscript/main_full.tex` and `main_full.pdf`: plain-language full-results version (all twelve settings including the parallel design, every generated table plus the accuracy-change figure; regenerate with `python paper/manuscript/scripts/make_full_tables.py`).
 - `notes/project-audit-2026-10-05.md`: findings, evidence, remaining limits, and branch map.
 - `notes/supervisor-code-guide.md`: code walkthrough, equations, examples, and questions.
 - `notes/audit-artifacts/e9-validation.json`: fresh validation and result hashes.

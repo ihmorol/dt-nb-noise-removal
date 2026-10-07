@@ -1,0 +1,19 @@
+% Generated from EXP-E9_farid; 10 datasets, 10 seeds, 10 folds; plain-language labels.
+\begin{tabular}{lrr}
+\toprule
+Method & Accuracy (\%) & Macro-F1 (\%) \\
+\midrule
+Plain NB (no cleaning) & 75.93 $\pm$ 0.32 & 69.80 $\pm$ 0.52 \\
+Plain C4.5 (no cleaning) & \textbf{86.33 $\pm$ 0.33} & \textbf{81.92 $\pm$ 0.44} \\
+Remove instances only $\to$ NB & 75.42 $\pm$ 0.46 & 69.08 $\pm$ 0.46 \\
+Remove instances only $\to$ C4.5 & 81.03 $\pm$ 0.37 & 75.70 $\pm$ 0.63 \\
+Weight attributes only $\to$ NB & 77.35 $\pm$ 0.41 & 71.73 $\pm$ 0.63 \\
+Select attributes only $\to$ C4.5 & 86.19 $\pm$ 0.33 & 81.84 $\pm$ 0.42 \\
+Instances first, then attributes $\to$ NB & 75.63 $\pm$ 0.45 & 69.60 $\pm$ 0.72 \\
+Instances first, then attributes $\to$ C4.5 & 81.21 $\pm$ 0.29 & 75.76 $\pm$ 0.58 \\
+Attributes first, then instances $\to$ NB & 76.35 $\pm$ 0.34 & 69.91 $\pm$ 0.60 \\
+Attributes first, then instances $\to$ C4.5 & 80.89 $\pm$ 0.45 & 73.93 $\pm$ 0.80 \\
+Both steps separately, combined $\to$ NB & 76.39 $\pm$ 0.37 & 70.47 $\pm$ 0.68 \\
+Both steps separately, combined $\to$ C4.5 & 81.05 $\pm$ 0.34 & 75.58 $\pm$ 0.58 \\
+\bottomrule
+\end{tabular}
