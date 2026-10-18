@@ -1,0 +1,8 @@
+{
+  "paper\\manuscript\\main.tex": "eb2e7bb1e9164bd8e7387ddcabecfb8f6b6f9473804c0b676bb7900ea4d856fe",
+  "paper\\manuscript\\conference_final.pdf": "a64181fd15db6f80585dde956cfa825db9152e175b0cd0b0568ffaf5d7570a02",
+  "results\\EXP-E9_farid\\metrics.csv": "488a6e6fdada48a9f18b1125c3d6ad47fd6f2ee9557e48d474578092809a2a4c",
+  "results\\EXP-E9_farid\\per_fold.csv": "836b1b19d2452b28e860eb3223699a39dc0f186eab7d1d748c8b431e800f6ddb",
+  "results\\EXP-E9_farid\\removals.csv": "1f269f2c242b5cefe7d3749a480061baaeab37bbb94bdd0cb367c5c0d968c37d",
+  "results\\EXP-E9_farid\\config.json": "4012d76d4f47174c0401c2b96b738002eb2ff287d804d7f3a1b6d59d554499a6"
+}

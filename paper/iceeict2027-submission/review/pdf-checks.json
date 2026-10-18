@@ -1,0 +1,31 @@
+{
+  "pages": 6,
+  "bytes": 349515,
+  "sha256": "2b8cfb0877708125d29a04c13505f411382264429d7ca51360a0d159dfab12bb",
+  "paper": "A4",
+  "body_font_points": 10,
+  "font_embedding": "all embedded",
+  "type3_fonts": 0,
+  "author_metadata_empty": true,
+  "explicit_author_identifiers_found": false,
+  "minimum_figure_font_points": 8.169577598571777,
+  "unresolved_references": false,
+  "overfull_boxes": false,
+  "underfull_vbox_warning": "none after 19 October rebuild",
+  "original_manuscript_and_results_unchanged": true,
+  "model_fits": 0,
+  "pending": [
+    "author approval and rewrite",
+    "fresh similarity screening",
+    "CMT fields and upload",
+    "truthful compatibility with conference LLM-use restriction"
+  ],
+  "not_claimed": [
+    "acceptance",
+    "novel superior classifier",
+    "full scientific replication",
+    "verified natural label-error detection"
+  ],
+  "desktop_compiler": "success",
+  "rebuilt": "2026-10-19: six pages with Table IV (macro-F1), Table VII (deletion/retention), Fig. 2 (deletion vs tree change), Fig. 4 (2014 values vs protocols)"
+}

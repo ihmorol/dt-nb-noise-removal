@@ -1,0 +1,10 @@
+{
+  "iteration": 3,
+  "status": "minor_revision",
+  "surface": "final five-page render and independent visual review",
+  "observed": [
+    "Independent page-by-page review passes.",
+    "A4 column scaling reduces native8pt figure text to7.9703 PDF points."
+  ],
+  "next_action": "Increase native8pt figure labels to8.2pt and use directly inspectable NB implementation description; recompile."
+}

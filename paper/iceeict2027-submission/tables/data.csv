@@ -1,0 +1,11 @@
+,rows,attributes,classes,min_class
+breast-cancer,286,9,2,85
+contact-lenses,24,4,3,4
+diabetes,768,8,2,268
+glass,214,9,6,9
+image-segmentation,2310,19,7,330
+iris,150,4,3,50
+nsl-kdd,25192,41,22,1
+soybean,683,35,19,8
+tic-tac-toe,958,9,2,332
+vote,435,16,2,168

@@ -1,0 +1,11 @@
+{
+  "source_archive": "iceeict2027-submission-source.zip",
+  "bytes": 528367,
+  "sha256": "7ca22cf26fdb6bd7c2e6fdc2a21e5a35c7c7ee0635a9833a63f2edfe87cfa9aa",
+  "files": 34,
+  "zip_integrity": "pass",
+  "standalone_latex_build": "pass",
+  "rebuilt_pages": 5,
+  "rebuilt_text_matches_delivered_pdf": true,
+  "regeneration_inputs": "original repository required; generated tables/figures included for independent compilation"
+}

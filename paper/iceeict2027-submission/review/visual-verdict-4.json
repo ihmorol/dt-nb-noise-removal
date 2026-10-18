@@ -1,0 +1,10 @@
+{
+  "iteration": 4,
+  "status": "minor_revision",
+  "surface": "five-page PDF with placed figure labels>=8pt",
+  "observed": [
+    "All pages readable; final figures inspected again after font-size change.",
+    "Final source inspection found combined pseudocode caption numbered1, conflicting with inherited Algorithm1 terminology."
+  ],
+  "next_action": "Number combined pseudocode Algorithm3; rebuild without layout changes."
+}

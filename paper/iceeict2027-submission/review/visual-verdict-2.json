@@ -1,0 +1,11 @@
+{
+  "iteration": 2,
+  "status": "revise",
+  "surface": "six-page compiled PDF after DOI rendering and wording revision",
+  "observed": [
+    "Figures and all tables remain readable and within margins.",
+    "DOIs visible; author metadata empty.",
+    "Final page now contains only one28-word reference."
+  ],
+  "next_action": "Remove repeated limitation wording; preserve all evidence, equations and scoring conventions."
+}

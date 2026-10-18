@@ -1,0 +1,9 @@
+path,label_class,mean_within_class_removal_percent,folds
+N,no-recurrence-events,14.505371393492936,100
+N,recurrence-events,50.628844839371155,100
+NA,no-recurrence-events,14.505371393492936,100
+NA,recurrence-events,50.628844839371155,100
+AN,no-recurrence-events,11.719490484960094,100
+AN,recurrence-events,58.9671907040328,100
+P,no-recurrence-events,14.505371393492936,100
+P,recurrence-events,50.628844839371155,100

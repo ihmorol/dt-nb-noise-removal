@@ -1,0 +1,103 @@
+{
+  "dataset_shapes": {
+    "breast-cancer": [
+      286,
+      9,
+      2,
+      85
+    ],
+    "contact-lenses": [
+      24,
+      4,
+      3,
+      4
+    ],
+    "diabetes": [
+      768,
+      8,
+      2,
+      268
+    ],
+    "glass": [
+      214,
+      9,
+      6,
+      9
+    ],
+    "image-segmentation": [
+      2310,
+      19,
+      7,
+      330
+    ],
+    "iris": [
+      150,
+      4,
+      3,
+      50
+    ],
+    "nsl-kdd": [
+      25192,
+      41,
+      22,
+      1
+    ],
+    "soybean": [
+      683,
+      35,
+      19,
+      8
+    ],
+    "tic-tac-toe": [
+      958,
+      9,
+      2,
+      332
+    ],
+    "vote": [
+      435,
+      16,
+      2,
+      168
+    ]
+  },
+  "dataset_shape_crosscheck": true,
+  "source_sha256": {
+    "config.json": "4012d76d4f47174c0401c2b96b738002eb2ff287d804d7f3a1b6d59d554499a6",
+    "metrics.csv": "488a6e6fdada48a9f18b1125c3d6ad47fd6f2ee9557e48d474578092809a2a4c",
+    "per_fold.csv": "836b1b19d2452b28e860eb3223699a39dc0f186eab7d1d748c8b431e800f6ddb",
+    "removals.csv": "1f269f2c242b5cefe7d3749a480061baaeab37bbb94bdd0cb367c5c0d968c37d",
+    "EXP-R1_replication/replication.csv": "fa5eb5e469fa9758b3011b0f7b02f0aed64c5e6cc1c316aab0c50da095bf0bf7"
+  },
+  "model_fits": 0,
+  "metrics_rows": 220,
+  "fold_rows": 22000,
+  "all_saved_fold_means_match": true,
+  "statistical_family": "eight original exploratory accuracy comparisons",
+  "minimum_holm_p": 0.109375,
+  "source_invariance": true,
+  "summary_sd": "sample SD of ten seed-level equal-dataset means; descriptive, not a confidence interval",
+  "removal_denominator": "training rows in the same recorded class at each filtering step; mean over 100 folds",
+  "shared_masks": "N, NA and P share the raw-fold plain-NB mask; AN uses weighted NB after attributes",
+  "macro_f1": "mean of saved fold macro-F1; fold class sets may vary",
+  "figure_font": "Times New Roman, 8.2-10 pt at native 3.5-inch width; PDF fonttype 42",
+  "checks": "row counts, unique fold keys, fold summary equality, exact original test family, source hashes",
+  "figure_sizes_inches": {
+    "accuracy_change": [
+      3.5,
+      3.3
+    ],
+    "class_removal": [
+      3.5,
+      1.6
+    ],
+    "deletion_effect": [
+      3.5,
+      2.45
+    ],
+    "reported_protocols": [
+      3.5,
+      3.0
+    ]
+  }
+}

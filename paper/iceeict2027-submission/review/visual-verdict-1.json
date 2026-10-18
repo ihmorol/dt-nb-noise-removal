@@ -1,0 +1,16 @@
+{
+  "iteration": 1,
+  "surface": "compiled six-page A4 PDF and all page renders",
+  "status": "revise",
+  "observed": [
+    "All pages inspected at rendered size; no clipped text, figure overlap or overfull table observed.",
+    "Figures readable; minimum native text size8pt.",
+    "Last page contains only six bibliography entries and substantial unused space."
+  ],
+  "next_actions": [
+    "Correct paired-fold wording for attribute-only arms.",
+    "Ensure DOI values appear in rendered bibliography.",
+    "Consider bounded prose condensation following independent style review."
+  ],
+  "skill_availability": "visual-verdict skill not installed; manual page-by-page verdict used"
+}

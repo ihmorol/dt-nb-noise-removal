@@ -4,7 +4,7 @@ The conference study compares NB instance filtering and tree-based attribute sel
 
 ### Current evidence
 
-The authoritative conference experiment is `results/EXP-E9_farid/`: Weka J48 3.8.6, textbook `FaithfulNB`, original attribute columns, seeds 0–9, and stratified 10-fold cross-validation. The files contain twelve arms; the conference paper reports ten, excluding the later parallel comparison.
+The authoritative conference experiment is `results/EXP-E9_farid/`: Weka J48 3.8.6, textbook `FaithfulNB`, original attribute columns, seeds 0–9, and stratified 10-fold cross-validation. The files contain twelve arms; the short `paper/manuscript/` draft reports ten, and the anonymous ICEEICT 2027 submission in `paper/iceeict2027-submission/` reports all twelve, including the parallel comparison.
 
 Plain C4.5 averages 86.33% accuracy. Instances-first and attributes-first tree methods average 81.21% and 80.89%. Neither combined NB method beats attribute weighting alone on mean accuracy. None of the eight post hoc accuracy comparisons is significant after Holm adjustment. These results support a controlled comparison and protocol-sensitivity study, without establishing improved classification or detection of actual label errors.
 
