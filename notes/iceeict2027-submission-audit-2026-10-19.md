@@ -27,7 +27,7 @@ See `paper/iceeict2027-submission/review/changes.md`. Disclosed the image-segmen
 
 ## Six-page expansion (same day)
 
-The paper now uses all six pages: seven tables and four figures, all generated from saved results by `scripts/generate_evidence.py`, which asserts every new number quoted in the text. Added per-dataset macro-F1 (Table IV), deletion and retention for all datasets (Table VII), deletion share vs tree accuracy change (Fig. 2), and 2014 values beside both protocols (Fig. 4). The old pilot figures and the E11 research-pipeline diagram were not reused: they come from other runs, and the diagram labels the before-CV gap as "pure leakage", which the paper deliberately does not claim. Details in `paper/iceeict2027-submission/review/changes.md`.
+The paper now uses all six pages. Page 6 is filled with three per-dataset line charts in the style and dataset order of the 2014 paper's Figs. 3 and 4, each with a short explanation: single steps against their base classifiers (Fig. 1), the three combined designs (Fig. 3), and both protocols beside the 2014 values (Fig. 5). All figures are generated from saved results by `scripts/generate_evidence.py`, which asserts every per-dataset number quoted in the text. A first expansion with extra tables, a scatter plot and a dot plot (commit 5dd7394) was withdrawn at the authors' request. Details in `paper/iceeict2027-submission/review/changes.md`.
 
 ## Are more runs required?
 

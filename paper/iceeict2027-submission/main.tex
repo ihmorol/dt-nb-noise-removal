@@ -11,7 +11,7 @@
 \maketitle
 
 \begin{abstract}
-We evaluate two published cleaning steps for decision tree and Naive Bayes (NB) classifiers: an NB judge removes training rows that it misclassifies, and a tree selects and weights attributes for NB. We compare each step alone, both sequential orders, and a parallel design that derives rows and attributes independently. Twelve settings are evaluated on ten public datasets using ten repetitions of stratified 10-fold cross-validation. Every supervised step is fitted within the training fold, and every held-out row is scored. Plain C4.5 averages 86.33\% accuracy, compared with 81.21\% and 80.89\% for the two sequential tree methods. Attribute weighting alone gives the highest mean NB accuracy, 77.35\%, compared with 75.93\% for plain NB and 75.63\% and 76.35\% for the sequential methods. None of eight exploratory paired accuracy tests is significant after Holm adjustment. Cleaning before cross-validation raises filter-based scores by 13.50--16.51 percentage points, but changes both label access and the evaluated population. Tree losses are largest where the judge deletes the most training rows, and deletion falls unequally across classes. The results do not establish a benefit from combining these steps. They support evaluating supervised cleaning within folds and reporting which classes lose training rows.
+We evaluate two published cleaning steps for decision tree and Naive Bayes (NB) classifiers: an NB judge removes training rows that it misclassifies, and a tree selects and weights attributes for NB. We compare each step alone, both sequential orders, and a parallel design that derives rows and attributes independently. Twelve settings are evaluated on ten public datasets using ten repetitions of stratified 10-fold cross-validation. Every supervised step is fitted within the training fold, and every held-out row is scored. Plain C4.5 averages 86.33\% accuracy, compared with 81.21\% and 80.89\% for the two sequential tree methods. Attribute weighting alone gives the highest mean NB accuracy, 77.35\%, compared with 75.93\% for plain NB and 75.63\% and 76.35\% for the sequential methods. None of eight exploratory paired accuracy tests is significant after Holm adjustment. Cleaning before cross-validation raises filter-based scores by 13.50--16.51 percentage points, but changes both label access and the evaluated population. Class-specific records show unequal deletion. The results do not establish a benefit from combining these steps. They support evaluating supervised cleaning within folds and reporting which classes lose training rows.
 \end{abstract}
 \begin{IEEEkeywords}
 Naive Bayes, decision tree, instance filtering, attribute weighting, cross-validation
@@ -26,12 +26,10 @@ Evaluation placement also matters. A filter fitted before cross-validation (CV) 
 
 We ask whether combining the steps improves predictive performance, whether their order and independent composition change the results, and how evaluation placement and class-specific deletion affect interpretation. We compare twelve arms on ten datasets using shared splits and fixed learner settings.
 
-Our contributions are threefold: a within-fold comparison of the two published steps alone, in both orders, and in an independent parallel design, with NB or C4.5 as the final classifier; per-dataset and per-class deletion records that show where the judge removes rows and how this relates to tree losses; and a contrast of cleaning before and within CV, placed beside the values reported in 2014.
-
 \section{Related Work}
 Farid et al.~\cite{farid2014hybrid} provide the two hybrids that motivate our study. Hall~\cite{hall2007decision} studied tree-based attribute weighting for NB. We use a single pruned C4.5 tree to derive weights. Our comparison adds both sequential orders and an independent parallel reference, with either NB or C4.5 as the final classifier.
 
-Disagreement with a fitted classifier is not a verified label error. Brodley and Friedl~\cite{brodley1999identifying} studied mislabeled-data identification with classifier-based filters. Confident Learning~\cite{northcutt2021confident} estimates uncertainty in dataset labels through a different procedure. In this study, filtering means rejection by the specified NB judge, without assuming that the rejected label is wrong.
+Disagreement with a fitted classifier is not a verified label error. Brodley and Friedl~\cite{brodley1999identifying} studied mislabeled-data identification with classifier-based filters. Their work motivates examining how rejection rules interact with useful training examples. Confident Learning~\cite{northcutt2021confident} estimates uncertainty in dataset labels through a different procedure. In this study, filtering means rejection by the specified NB judge, without assuming that the rejected label is wrong.
 
 Evaluation bias from information shared across fitting and testing has been examined by Cawley and Talbot~\cite{cawley2010overfitting} and Kapoor and Narayanan~\cite{kapoor2023leakage}. Demircio\u{g}lu~\cite{demircioglu2021measuring} studied incorrect feature-selection placement during CV in radiomics. These works support separating supervised preprocessing from held-out evaluation. Our protocol comparison also changes the scored sample when rows are deleted, so it is a descriptive sensitivity analysis rather than an isolated estimate of leakage bias. For inference across classifiers, we follow the dataset-level comparison perspective of Dem\v{s}ar~\cite{demsar2006statistical}, with the limits of a ten-dataset benchmark stated explicitly.
 
@@ -54,7 +52,7 @@ s_c(x)=\log P(c)+\sum_{j\in S}w_j\log P(x_j\mid c).
 \end{equation}
 Here $P(c)$ is the training class prior and $P(x_j\mid c)$ is the class-conditional likelihood. The predicted class has the largest score. We use add-one counts for nominal attributes and Gaussian likelihoods for numeric attributes. The weights scale likelihood terms; they do not change the supplied labels.
 
-Algorithm 2 ends in weighted NB. Its C4.5 reference uses the selected columns, but the final tree does not use NB's likelihood weights. We use \emph{support} to mean passing Algorithm 2's weights to an NB judge or final NB.
+Algorithm 2 ends in weighted NB. Its C4.5 reference uses the selected columns, but the final tree does not use NB's likelihood weights. We use \emph{support} to mean passing Algorithm 2's weights to an NB judge or final NB. This distinguishes column selection from weighting an NB model on those columns.
 
 \subsection{Sequential Paths and Parallel Reference}
 Path 1, denoted NA, runs instance filtering first with a plain NB judge. It then derives attributes and weights from a tree fitted on the retained rows. Path 2, denoted AN, derives attributes and weights from the original training fold and then filters using weighted NB with support enabled. The same weights reach the Path 2 judge and its final NB. They are not re-estimated after deletion. Both paths end in either NB or C4.5, giving four sequential settings.
@@ -136,15 +134,14 @@ For NB, attribute weighting alone gives the highest mean accuracy, 77.35\%, comp
 
 The per-dataset results in Table~\ref{tab:datasets} show variation hidden by the means. On glass, NA--NB falls from the plain NB baseline of 45.95\% to 30.93\%; NA--DT falls from 66.58\% to 48.97\%. On contact lenses, NA--NB increases from 73.00\% to 83.00\%. That result comes from only 24 rows, reused by every repeated split, and has limited evidence for generalization. The dataset still receives the same benchmark weight as the other nine datasets.
 
-Table~\ref{tab:datasetsf1} gives the corresponding macro-F1 values. The largest tree loss moves from glass to NSL-KDD, where filtering lowers C4.5 macro-F1 by 21.91 pp, from 82.25\% to 60.33\%, against an accuracy loss of 12.04 pp; AN--DT falls further, to 53.18\%. On NSL-KDD the plain judge removes more than half of the training rows in eight of the 22 classes and under 1\% in nine others. Macro-F1 weights each class equally, so it is more sensitive than accuracy to such class-specific deletion. Conversely, N--DT on breast cancer loses 3.08 pp of accuracy but gains 0.87 pp of macro-F1.
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/single_steps.pdf}
+\caption{Protocol B accuracy of the base classifiers and the two published hybrids on each dataset, in the dataset order of the 2014 study. Lines join datasets only for readability.}
+\label{fig:single}
+\end{figure}
 
-\begin{table*}[t]
-\caption{Protocol B macro-F1 by dataset (\%), with the same layout as Table~\ref{tab:datasets}. Each value averages fold-level macro-F1 over the classes present in that fold.}
-\label{tab:datasetsf1}
-\centering\footnotesize
-\setlength{\tabcolsep}{4pt}
-\input{tables/table_datasets_f1}
-\end{table*}
+Figure~\ref{fig:single} draws the per-dataset comparison in the style and dataset order of the 2014 study. In the 2014 tables, Algorithm 1 exceeds C4.5 and Algorithm 2 exceeds NB on all ten datasets. Under Protocol B, Algorithm 1 lies below C4.5 on six datasets, by up to 17.75 pp on glass, matches it on contact lenses, and is higher only on diabetes, iris and vote, by less than 1 pp. Algorithm 2 lies above NB on seven datasets, most clearly on contact lenses (+7.67 pp) and vote (+5.18 pp). It falls below NB on iris, soybean and NSL-KDD, where it loses 4.62 pp.
 
 \begin{figure}[t]
 \centering
@@ -168,6 +165,15 @@ Moving from NA to AN raises NB mean accuracy by 0.71 pp and lowers C4.5 mean acc
 
 The parallel reference reaches 76.39\% accuracy with NB and 81.05\% with C4.5. NA differs from P by $-0.76$ pp for NB and $+0.16$ pp for C4.5. AN differs from P by $-0.05$ and $-0.16$ pp, respectively. These descriptive differences do not show a consistent benefit from chaining.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/combined_paths.pdf}
+\caption{Protocol B accuracy of the three combined designs and the uncleaned classifier on each dataset, with final NB (top) and final C4.5 (bottom). Lines join datasets only for readability.}
+\label{fig:combined}
+\end{figure}
+
+Figure~\ref{fig:combined} shows the combined designs dataset by dataset. With final C4.5, the three lines nearly coincide and stay below the plain tree on glass, image segmentation, tic-tac-toe and NSL-KDD, by 5.93 to 17.94 pp. On those four datasets, the designs differ from one another by at most 2.60 pp. With final NB, the combined designs gain 6.33 to 10.00 pp on contact lenses, 5.29 to 5.43 pp on vote and 7.11 to 8.75 pp on NSL-KDD, but lose 8.68 to 15.03 pp on glass. The dataset changes the outcome far more than the choice among NA, AN and P.
+
 \subsection{Cleaning Before Cross-Validation}
 Table~\ref{tab:protocols} contrasts the two protocols. N--DT reaches 94.52\% after full-data filtering, compared with 81.03\% under within-fold fitting, a difference of 13.50 pp calculated from unrounded means. NA--DT and AN--DT rise to 94.72\% and 96.32\%. Across filter-based settings, differences range from 13.50 to 16.51 pp. Attribute-only differences are smaller, 0.72 pp for NB and 0.33 pp for C4.5.
 
@@ -181,26 +187,7 @@ Table~\ref{tab:protocols} contrasts the two protocols. N--DT reaches 94.52\% aft
 
 Protocol B asks the classifier to predict all held-out rows. Protocol A uses a supervised judge to choose which rows can enter the subsequent evaluation. Removing difficult cases may contribute to the higher scores, but the experiment does not identify its separate contribution. For filtering arms, the labels available during cleaning, the sample, and the resulting folds change together. Attribute-only cleaning retains every row but still uses future test information for selection. Its smaller score change does not justify selecting attributes before CV.
 
-\subsection{What Filtering Removes}
-Table~\ref{tab:deletion} gives, for every dataset, the mean share of training rows that each judge removes and the share of attributes that the selection tree keeps. The plain judge deletes exactly the training rows it misclassifies, so its deletion share is its training-set error rate. The share ranges from 4.14\% on iris to 47.31\% on glass, where plain NB also has its lowest held-out accuracy, 45.95\%.
-
-\begin{table}[t]
-\caption{Mean Protocol B deletion and attribute retention. Plain: NB judge on all columns (N, NA, P). Supported: weighted judge after selection (AN). Raw fold: selection on the original training fold (A, AN, P). After N: selection after plain filtering (NA).}
-\label{tab:deletion}
-\centering\footnotesize
-\setlength{\tabcolsep}{3.5pt}
-\input{tables/table_deletion}
-\end{table}
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\columnwidth]{figures/deletion_effect.pdf}
-\caption{Share of training rows removed by the plain NB judge against the Protocol B change in C4.5 accuracy after filtering (N--DT minus plain DT), one point per dataset. The share equals the judge's training-set error rate. Descriptive; not tested.}
-\label{fig:deletion}
-\end{figure}
-
-Figure~\ref{fig:deletion} relates this share to the change in C4.5 accuracy after filtering. All four datasets that lose more than a quarter of their training rows also lose tree accuracy, by 3.08 to 17.75 pp. Diabetes, with 23.67\% removed, gains 0.99 pp. The four datasets with less than 10\% removed change by $-4.00$ to $+0.67$ pp. The Spearman rank correlation across the ten datasets is $-0.71$; we report it descriptively and do not test it. The pattern is consistent with a weak judge discarding rows that a stronger final learner could use, but the records cannot separate that from the removal of mislabeled rows.
-
+\subsection{Class Representation After Filtering}
 Figure~\ref{fig:removal} shows class-specific deletion for breast cancer. The plain judge removes an average of 50.63\% of recurrence-event training rows and 14.51\% of no-recurrence-event rows. After attribute selection, the supported judge removes 58.97\% and 11.72\%, respectively. Each rate uses that class's training-row count as its denominator, not the size of the entire dataset.
 
 \begin{figure}[t]
@@ -210,7 +197,7 @@ Figure~\ref{fig:removal} shows class-specific deletion for breast cancer. The pl
 \label{fig:removal}
 \end{figure}
 
-The minority class loses a larger fraction of its examples in both cases. The records cannot establish whether the rejected labels were wrong or the judge failed on valid cases. Selection also changes after deletion. On all ten datasets, the tree keeps fewer attributes after plain filtering than on the original training fold, from 97.00\% to 61.00\% on glass and from 27.38\% to 7.62\% on vote. The operations interact in their fitted outputs even though we have not established a predictive advantage for one order.
+The minority class loses a larger fraction of its examples in both cases. The records cannot establish whether the rejected labels were wrong or the judge failed on valid cases. Selection also changes after deletion. On glass, the tree retains 97.00\% of attributes on the original training fold and 61.00\% after plain filtering. On vote, retention falls from 27.38\% to 7.62\%. The operations interact in their fitted outputs even though we have not established a predictive advantage for one order.
 
 \section{Discussion and Limitations}
 Under the tested settings, combining filtering and weighting does not establish a predictive advantage. Neither sequential NB mean exceeds attribute weighting alone. Lower tree means and unequal class deletion indicate that retained class composition matters. We have no verified natural label-error annotations or matched comparison with modern label-cleaning methods.
@@ -220,18 +207,18 @@ Our benchmark uses an older dataset family with file and class-count differences
 \begin{figure}[t]
 \centering
 \includegraphics[width=\columnwidth]{figures/reported_protocols.pdf}
-\caption{Per-dataset accuracy of Algorithm 1 and Algorithm 2: the 2014 table value, our within-fold estimate (Protocol B) and cleaning before CV (Protocol A). Gray lines join our two protocols. Glass, image segmentation and NSL-KDD files differ from the 2014 study, so the comparison is descriptive.}
+\caption{Accuracy of Algorithm 1 (top) and Algorithm 2 (bottom) on each dataset under Protocols B and A, beside the 2014 table values for each algorithm and its base classifier. Glass, image segmentation and NSL-KDD files differ from the 2014 study, so the comparison is descriptive.}
 \label{fig:reported}
 \end{figure}
 
-Rare classes limit interpretation. Contact lenses contains classes with four and five rows. NSL-KDD has classes with fewer than ten examples, including a singleton. Some stratified folds consequently lack a class in training or testing, and repeating splits does not create new examples. These results cannot establish reliable rare-class performance.
+Rare classes limit interpretation. Contact lenses contains classes with four and five rows. NSL-KDD has classes with fewer than ten examples, including a singleton. Some stratified folds consequently lack a class in training or testing. Repeating splits does not create new examples, and macro-F1 may average different class sets across folds. These results cannot establish reliable rare-class performance.
 
 Full-file nominal vocabularies leave deployment with unseen categories untested. Ten datasets limit inference after multiplicity adjustment; more split seeds would not add independent datasets. The A/B contrast cannot establish the original study's evaluation procedure or isolate a causal leakage effect.
 
 A useful next study would hold the scored population fixed while varying access during cleaning. A separate matched judge ablation could distinguish ordering from support. For the present methods, we recommend fitting supervised cleaning within each training fold, scoring every held-out row, and reporting class-specific removal alongside predictive metrics.
 
 \section{Conclusion}
-We compared instance filtering and tree-based attribute weighting alone, in both sequential orders, and in an independent parallel design. On ten datasets with shared within-fold evaluation, combined tree methods have lower mean accuracy than plain C4.5, and combined NB methods trail attribute weighting alone. Eight exploratory paired accuracy tests establish no significant difference after Holm adjustment. Higher before-CV scores involve a changed evaluation population as well as different information access. Tree losses were largest where the judge deleted the most rows, and deletion fell unequally across classes. For these settings, the comparison supports keeping cleaning inside training folds and reporting the class composition of the retained data.
+We compared instance filtering and tree-based attribute weighting alone, in both sequential orders, and in an independent parallel design. On ten datasets with shared within-fold evaluation, combined tree methods have lower mean accuracy than plain C4.5, and combined NB methods trail attribute weighting alone. Eight exploratory paired accuracy tests establish no significant difference after Holm adjustment. Higher before-CV scores involve a changed evaluation population as well as different information access. The removal records show unequal class loss. For these settings, the comparison supports keeping cleaning inside training folds and reporting the class composition of the retained data.
 
 \section*{Acknowledgment}
 Large language models assisted with drafting, language revision, typesetting, and preparation of figures and tables from saved results. The authors are responsible for the manuscript content and accuracy.

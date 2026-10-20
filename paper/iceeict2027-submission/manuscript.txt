@@ -1,6 +1,6 @@
 Evaluating Instance Filtering and Attribute Weighting in Decision Tree­Naive Bayes Hybrids
 
-Abstract--We evaluate two published cleaning steps for decision tree and Naive Bayes (NB) classifiers: an NB judge removes training rows that it misclassifies, and a tree selects and weights attributes for NB. We compare each step alone, both sequential orders, and a parallel design that derives rows and attributes independently. Twelve settings are evaluated on ten public datasets using ten repetitions of stratified 10-fold crossvalidation. Every supervised step is fitted within the training fold, and every held-out row is scored. Plain C4.5 averages 86.33% accuracy, compared with 81.21% and 80.89% for the two sequential tree methods. Attribute weighting alone gives the highest mean NB accuracy, 77.35%, compared with 75.93% for plain NB and 75.63% and 76.35% for the sequential methods. None of eight exploratory paired accuracy tests is significant after Holm adjustment. Cleaning before cross-validation raises filterbased scores by 13.50­16.51 percentage points, but changes both label access and the evaluated population. Tree losses are largest where the judge deletes the most training rows, and deletion falls unequally across classes. The results do not establish a benefit from combining these steps. They support evaluating supervised cleaning within folds and reporting which classes lose training rows.
+Abstract--We evaluate two published cleaning steps for decision tree and Naive Bayes (NB) classifiers: an NB judge removes training rows that it misclassifies, and a tree selects and weights attributes for NB. We compare each step alone, both sequential orders, and a parallel design that derives rows and attributes independently. Twelve settings are evaluated on ten public datasets using ten repetitions of stratified 10-fold crossvalidation. Every supervised step is fitted within the training fold, and every held-out row is scored. Plain C4.5 averages 86.33% accuracy, compared with 81.21% and 80.89% for the two sequential tree methods. Attribute weighting alone gives the highest mean NB accuracy, 77.35%, compared with 75.93% for plain NB and 75.63% and 76.35% for the sequential methods. None of eight exploratory paired accuracy tests is significant after Holm adjustment. Cleaning before cross-validation raises filterbased scores by 13.50­16.51 percentage points, but changes both label access and the evaluated population. Class-specific records show unequal deletion. The results do not establish a benefit from combining these steps. They support evaluating supervised cleaning within folds and reporting which classes lose training rows.
 Index Terms--Naive Bayes, decision tree, instance filtering, attribute weighting, cross-validation
 I. INTRODUCTION
 Training data can be changed before a classifier is fitted. An instance filter decides which rows remain, while attribute selection decides which columns remain. Farid et al. [1] proposed two decision tree­Naive Bayes hybrids using these operations. Algorithm 1 fits Naive Bayes (NB), deletes training rows whose predictions disagree with their supplied labels, and fits a decision tree. Algorithm 2 fits a tree, keeps the attributes that it tests, and uses their tree depths to weight NB likelihoods. We study whether applying these two steps together helps, and whether their order matters.
@@ -8,25 +8,20 @@ The steps can affect each other. Removing rows first changes the examples availa
 Evaluation placement also matters. A filter fitted before cross-validation (CV) can use labels of future test cases and remove some of those cases from evaluation. A filter fitted inside a training fold has no such access, and the test fold retains all its rows. These procedures answer different questions. Their score difference cannot by itself separate information leakage from the change in the population being scored.
 
 We ask whether combining the steps improves predictive performance, whether their order and independent composition change the results, and how evaluation placement and classspecific deletion affect interpretation. We compare twelve arms on ten datasets using shared splits and fixed learner settings.
-Our contributions are threefold: a within-fold comparison of the two published steps alone, in both orders, and in an independent parallel design, with NB or C4.5 as the final classifier; per-dataset and per-class deletion records that show where the judge removes rows and how this relates to tree losses; and a contrast of cleaning before and within CV, placed beside the values reported in 2014.
 II. RELATED WORK
 Farid et al. [1] provide the two hybrids that motivate our study. Hall [2] studied tree-based attribute weighting for NB. We use a single pruned C4.5 tree to derive weights. Our comparison adds both sequential orders and an independent parallel reference, with either NB or C4.5 as the final classifier.
-Disagreement with a fitted classifier is not a verified label error. Brodley and Friedl [3] studied mislabeled-data identification with classifier-based filters. Confident Learning [4] estimates uncertainty in dataset labels through a different procedure. In this study, filtering means rejection by the specified NB judge, without assuming that the rejected label is wrong.
+Disagreement with a fitted classifier is not a verified label error. Brodley and Friedl [3] studied mislabeled-data identification with classifier-based filters. Their work motivates examining how rejection rules interact with useful training examples. Confident Learning [4] estimates uncertainty in dataset labels through a different procedure. In this study, filtering means rejection by the specified NB judge, without assuming that the rejected label is wrong.
 Evaluation bias from information shared across fitting and testing has been examined by Cawley and Talbot [5] and Kapoor and Narayanan [6]. Demircioglu [7] studied incorrect feature-selection placement during CV in radiomics. These works support separating supervised preprocessing from heldout evaluation. Our protocol comparison also changes the scored sample when rows are deleted, so it is a descriptive sensitivity analysis rather than an isolated estimate of leakage bias. For inference across classifiers, we follow the datasetlevel comparison perspective of Demsar [8], with the limits of a ten-dataset benchmark stated explicitly.
 III. METHODS
 A. Algorithm 1: Instance Filtering
-Let D denote the current training rows and their supplied labels. We fit an NB judge on D and predict those same rows. A row remains when the predicted label equals its supplied label. The final classifier is then fitted again on the retained data. Algorithm 1 ends in C4.5; we also use the same filtering step followed by NB as a reference arm. The judge's
+Let D denote the current training rows and their supplied labels. We fit an NB judge on D and predict those same rows. A row remains when the predicted label equals its supplied label. The final classifier is then fitted again on the retained data. Algorithm 1 ends in C4.5; we also use the same filtering step followed by NB as a reference arm. The judge's predictions are in-sample decisions, not out-of-fold estimates of label quality.
+A safeguard retains the original training rows if deletion would leave fewer than two classes. This prevents a one-class training set but does not preserve every class in a multiclass dataset. The safeguard was not triggered in the stored runs. Even without triggering it, a judge can remove every training
 
-predictions are in-sample decisions, not out-of-fold estimates of label quality.
-A safeguard retains the original training rows if deletion would leave fewer than two classes. This prevents a one-class training set but does not preserve every class in a multiclass dataset. The safeguard was not triggered in the stored runs. Even without triggering it, a judge can remove every training example of one rare class. We therefore record removal rates by class rather than relying only on total deletion.
+example of one rare class. We therefore record removal rates by class rather than relying only on total deletion.
 
 B. Algorithm 2: Attribute Selection and Weighting
 
-We fit a C4.5 tree on the current training data. Let dj be the smallest depth at which the tree tests attribute j, with its root
-
-at depth one. Let S be the set of tested attributes. We assign
-
-the weight
+We fit a C4.5 tree on the current training data. Let dj be the smallest depth at which the tree tests attribute j, with its root at depth one. Let S be the set of tested attributes. We assign the weight
 
 wj =
 
@@ -40,6 +35,10 @@ j  S, j / S.
 
 Untested attributes are dropped. Attributes used closer to the root have larger weights. For a class c and input x, NB uses the log score
 
+Algorithm 3 Training a combined method on one fold
+Require: Training data D, design o  {NA, AN, P}, final learner L
+1: if o = NA then 2: R  FILTER(D, plain NB) 3: (S, W )  SELECT(D[R, :], C4.5) 4: else if o = AN then 5: (S, W )  SELECT(D, C4.5) 6: R  FILTER(D[:, S], NB with W ) 7: else 8: R  FILTER(D, plain NB) 9: (S, W )  SELECT(D, C4.5) 10: end if 11: Fit L on D[R, S]; NB uses W 12: return fitted classifier and selected columns S
+
 sc(x) = log P (c) + wj log P (xj | c).
 
 (2)
@@ -47,16 +46,12 @@ sc(x) = log P (c) + wj log P (xj | c).
 jS
 
 Here P (c) is the training class prior and P (xj | c) is the class-conditional likelihood. The predicted class has the largest score. We use add-one counts for nominal attributes and Gaussian likelihoods for numeric attributes. The weights scale likelihood terms; they do not change the supplied labels.
-Algorithm 2 ends in weighted NB. Its C4.5 reference uses the selected columns, but the final tree does not use NB's likelihood weights. We use support to mean passing Algorithm 2's weights to an NB judge or final NB.
+Algorithm 2 ends in weighted NB. Its C4.5 reference uses the selected columns, but the final tree does not use NB's likelihood weights. We use support to mean passing Algorithm 2's weights to an NB judge or final NB. This distinguishes column selection from weighting an NB model on those columns.
 
 C. Sequential Paths and Parallel Reference
 Path 1, denoted NA, runs instance filtering first with a plain NB judge. It then derives attributes and weights from a tree fitted on the retained rows. Path 2, denoted AN, derives attributes and weights from the original training fold and then filters using weighted NB with support enabled. The same weights reach the Path 2 judge and its final NB. They are not re-estimated after deletion. Both paths end in either NB or C4.5, giving four sequential settings.
 The parallel design, P, derives the retained rows and selected attributes independently from the original training fold. Its plain NB judge sees all original columns. Its selection tree sees all original training rows. We then take the retained rows restricted to the selected columns, and fit the final classifier on that intersection. The final NB receives the tree's weights. This provides a reference for combining both operations without letting either operation change the input used to fit the other.
-Algorithm 3 uses the filtering safeguard above. If a selection tree tests no attribute, a combined design keeps all current columns with unit weights. The standalone Algorithm 2­NB implementation instead uses zero attribute weights and predicts from the priors. No empty-selection event occurred in the
-
-Algorithm 3 Training a combined method on one fold
-Require: Training data D, design o  {NA, AN, P}, final learner L
-1: if o = NA then 2: R  FILTER(D, plain NB) 3: (S, W )  SELECT(D[R, :], C4.5) 4: else if o = AN then 5: (S, W )  SELECT(D, C4.5) 6: R  FILTER(D[:, S], NB with W ) 7: else 8: R  FILTER(D, plain NB) 9: (S, W )  SELECT(D, C4.5) 10: end if 11: Fit L on D[R, S]; NB uses W 12: return fitted classifier and selected columns S
+Algorithm 3 uses the filtering safeguard above. If a selection tree tests no attribute, a combined design keeps all current columns with unit weights. The standalone Algorithm 2­NB implementation instead uses zero attribute weights and predicts from the priors. No empty-selection event occurred in the stored runs. At prediction time, the held-out rows lose the same columns as the training data. They never lose rows.
 
 TABLE I FILES USED IN THIS STUDY. ATTRIBUTES ARE ORIGINAL COLUMNS; THE
 FINAL COLUMN IS THE SMALLEST CLASS SIZE.
@@ -99,14 +94,13 @@ Vote
 
 2 85 34 2 268 69 7 330 3 50 22 1 19 8 2 332 2 168
 
-stored runs. At prediction time, the held-out rows lose the same columns as the training data. They never lose rows.
 IV. EXPERIMENTAL METHOD
 A. Datasets and Learners
 We use the ten dataset names from the 2014 study: breast cancer, contact lenses, diabetes, glass, iris, soybean, vote, image segmentation, tic-tac-toe, and NSL-KDD. Table I gives their row, attribute and class counts. Their sizes range from 24 rows for contact lenses to 25,192 for NSL-KDD. Image segmentation combines two UCI files into 2,310 rows, whereas the earlier study lists 1,500, and NSL-KDD uses the 20% training file [9]. Glass and NSL-KDD each have one fewer class in our files than the earlier study lists. These copies permit matched comparisons within this study, but do not establish an exact reproduction of the original data preparation.
 C4.5 is Weka [10] J48 3.8.6 with pruning and options -C 0.25 -M 2. NB is the implementation named FaithfulNB, using add-one nominal counts and variance-smoothed Gaussian likelihoods. We retain original attribute columns, including nominal columns, rather than expanding them into one-hot indicators. Tree depths therefore refer to original attributes.
-Nominal vocabularies are obtained from the complete files and fixed across folds. Missing nominal tokens form a sep-
+Nominal vocabularies are obtained from the complete files and fixed across folds. Missing nominal tokens form a separate category. Priors, nominal counts, numeric distributions, selection trees, and judges are fitted on training rows in the main protocol. Full-file vocabularies remain a limitation of
 
-arate category. Priors, nominal counts, numeric distributions, selection trees, and judges are fitted on training rows in the main protocol. Full-file vocabularies remain a limitation of the evaluation, even though supervised fitting stays within the training fold. We use fixed settings without hyperparameter search or nested tuning.
+the evaluation, even though supervised fitting stays within the training fold. We use fixed settings without hyperparameter search or nested tuning.
 B. Protocols and Arms
 Protocol B is the main evaluation. We use stratified 10fold CV with seeds 0­9, producing 100 folds per dataset and method. Every arm shares the same split for a given dataset and seed. The judge, selection tree, and final classifier are fitted within the training fold. Every held-out case is scored. The twelve arms are the two plain classifiers and five cleaning designs, N, A, NA, AN, and P, each followed by NB or C4.5. N and A denote the individual filtering and attribute steps.
 Protocol A first fits cleaning on the whole dataset, then cross-validates the final classifier on the cleaned data. Its supervised steps see future test labels, and filtering changes which rows enter CV. For filtering arms, the evaluated row pool and resulting folds can differ between protocols. Attribute-only arms retain the shared folds. We report these protocol contrasts descriptively. Protocol A is a diagnostic procedure and is not used for headline performance estimates.
@@ -116,7 +110,7 @@ Macro-F1 averages class F1 over the union of classes present in a fold's true la
 We retain eight two-sided Wilcoxon signed-rank accuracy tests on the ten paired dataset averages. They compare Algorithm 1­DT and Algorithm 2­NB with their respective baselines, the four sequential methods with their respective baselines, and AN with NA for each final classifier. Exact permutation enumeration is used, with Holm adjustment across all eight tests at 0.05. Zero differences are dropped, so the N­DT and NA­DT contrasts use nine datasets. This family was added during revision after observing the saved results, so the tests are exploratory. Parallel and single-step-versuscombined comparisons are descriptive additions, not extra tests selected for significance. Nonsignificance does not establish equivalence. All differences below are in percentage points (pp).
 V. RESULTS
 A. Predictive Performance
-Table II reports all twelve Protocol B settings. Plain C4.5 has the highest benchmark means, 86.33% accuracy and
+Table II reports all twelve Protocol B settings. Plain C4.5 has the highest benchmark means, 86.33% accuracy and 81.92% macro-F1. NA­DT reaches 81.21% accuracy and AN­ DT reaches 80.89%, giving descriptive losses of 5.12 and 5.44
 
 TABLE II PROTOCOL B SCORES (%). MEANS GIVE DATASETS EQUAL WEIGHT; SD
 DESCRIBES TEN SEED-LEVEL BENCHMARK AVERAGES. F1 DENOTES MACRO-F1. BASE IS UNCLEANED; N, A, NA, AN, AND P ARE DEFINED IN
@@ -128,13 +122,45 @@ Acc. SD F1 SD
 
 Base­NB 75.93 0.32 69.80 0.52 N­NB 75.42 0.46 69.08 0.46 A­NB 77.35 0.41 71.73 0.63 NA­NB 75.63 0.45 69.60 0.72 AN­NB 76.35 0.34 69.91 0.60 P­NB 76.39 0.37 70.47 0.68 Base­DT 86.33 0.33 81.92 0.44 N­DT 81.03 0.37 75.70 0.63 A­DT 86.19 0.33 81.84 0.42 NA­DT 81.21 0.29 75.76 0.58 AN­DT 80.89 0.45 73.93 0.80 P­DT 81.05 0.34 75.58 0.58
 
-81.92% macro-F1. NA­DT reaches 81.21% accuracy and AN­ DT reaches 80.89%, giving descriptive losses of 5.12 and 5.44 pp. Their macro-F1 means are also lower, 75.76% and 73.93%. Filtering alone reaches 81.03% accuracy, so adding selection after filtering recovers 0.18 pp on average under these settings.
+Accuracy (%)
+
+100
+
+90
+
+80
+
+70
+
+60
+
+50
+
+40
+
+30
+
+C4.5
+
+Algorithm 1 (N­DT)
+
+20
+
+Breast cCanocnetarct lensesDiabetes
+
+Glass
+
+IrisSoybean
+
+NB Algorithm 2 (A­NB)
+VoItme age seTgi.c-tac-tNoeSL-KDD
+
+Fig. 1. Protocol B accuracy of the base classifiers and the two published hybrids on each dataset, in the dataset order of the 2014 study. Lines join datasets only for readability.
+
+pp. Their macro-F1 means are also lower, 75.76% and 73.93%. Filtering alone reaches 81.03% accuracy, so adding selection after filtering recovers 0.18 pp on average under these settings.
 For NB, attribute weighting alone gives the highest mean accuracy, 77.35%, compared with 75.93% for plain NB. NA­ NB and AN­NB reach 75.63% and 76.35%. Their changes from plain NB are -0.30 and +0.42 pp, and both trail attribute weighting alone. Selecting attributes before C4.5 leaves its mean almost unchanged at 86.19%.
 The per-dataset results in Table III show variation hidden by the means. On glass, NA­NB falls from the plain NB baseline of 45.95% to 30.93%; NA­DT falls from 66.58% to 48.97%. On contact lenses, NA­NB increases from 73.00% to 83.00%. That result comes from only 24 rows, reused by every repeated split, and has limited evidence for generalization. The dataset still receives the same benchmark weight as the other nine datasets.
-Table IV gives the corresponding macro-F1 values. The largest tree loss moves from glass to NSL-KDD, where filtering lowers C4.5 macro-F1 by 21.91 pp, from 82.25% to 60.33%, against an accuracy loss of 12.04 pp; AN­DT falls further, to 53.18%. On NSL-KDD the plain judge removes more than half of the training rows in eight of the 22 classes and under 1% in nine others. Macro-F1 weights each class equally, so it is more sensitive than accuracy to such classspecific deletion. Conversely, N­DT on breast cancer loses 3.08 pp of accuracy but gains 0.87 pp of macro-F1.
-B. Order and Independent Composition
-Figure 1 shows the mean baseline differences. Table V gives the retained paired tests. AN­DT has a raw p = 0.014 against plain C4.5, but its Holm-adjusted p = 0.109 exceeds 0.05. None of the eight comparisons is significant after adjustment.
-Moving from NA to AN raises NB mean accuracy by 0.71 pp and lowers C4.5 mean accuracy by 0.32 pp. Raw p values are 0.275 and 0.922. We find no statistically established order advantage under these settings. This comparison includes a
+Figure 1 draws the per-dataset comparison in the style and
 
 TABLE III PROTOCOL B ACCURACY BY DATASET (%). NB AND DT PANELS USE THE SAME SIX DESIGNS. P DERIVES RETAINED ROWS AND SELECTED COLUMNS
 INDEPENDENTLY FROM THE ORIGINAL TRAINING FOLD.
@@ -177,48 +203,77 @@ Breast cancer Contact lenses Diabetes Glass Segmentation Iris NSL-KDD Soybean Ti
 
 71.20 84.67 74.86 48.65 89.79 94.93 88.37 88.24 74.43 95.38
 
-TABLE IV PROTOCOL B MACRO-F1 BY DATASET (%), WITH THE SAME LAYOUT AS TABLE III. EACH VALUE AVERAGES FOLD-LEVEL MACRO-F1 OVER THE
-CLASSES PRESENT IN THAT FOLD.
-
 Final NB
 
-Final DT (J48)
+N
 
-Dataset
+-0.51
 
-Base N A NA AN
+A
 
-P Base N A NA AN
++1.42
+
+NA
+
+-0.30
+
+AN
+
++0.42
 
 P
 
-Breast cancer Contact lenses Diabetes Glass Segmentation Iris NSL-KDD Soybean Tic-tac-toe Vote
++0.46
 
-64.42 62.31 72.32 44.98 77.78 95.48 34.06 93.13 63.83 89.66
+-6
 
-64.22 62.31 71.43 40.72 74.52 95.28 35.87 92.59 64.08 89.80
+-4
 
-62.57 72.27 72.76 44.71 81.42 95.35 37.58 91.33 64.26 95.02
+-2
 
-61.33 76.47 71.96 36.78 73.40 95.29 35.36 87.27 62.93 95.25
+0
 
-61.57 69.87 71.05 40.42 77.06 95.82 38.18 88.40 61.45 95.29
+2
 
-62.94 76.47 72.03 37.99 75.82 95.56 36.46 89.95 62.30 95.15
+Accuracy change from baseline (pp)
 
-61.81 79.47 70.71 62.00 96.81 94.18 82.25 94.26 82.82 94.86
+Final DT (J48)
 
-62.68 79.47 71.45 45.29 88.96 94.88 60.33 92.08 66.94 94.90
+N
 
-60.52 79.47 70.79 62.00 96.83 94.18 82.92 94.10 82.82 94.81
+-5.30
 
-62.65 79.47 71.56 45.45 88.98 94.88 62.05 90.47 67.18 94.90
+A
 
-61.37 72.27 71.19 43.35 90.79 93.72 53.18 92.08 66.02 95.34
+NA
 
-61.82 79.47 70.97 45.03 89.53 94.88 60.82 91.21 66.94 95.17
+-5.12
 
-TABLE V EXPLORATORY PAIRED DATASET-LEVEL ACCURACY TESTS. DIFFERENCES
+AN -5.44
+
+P
+
+-5.28
+
+-0.14
+
+-6
+
+-4
+
+-2
+
+0
+
+2
+
+Accuracy change from baseline (pp)
+
+Fig. 2. Protocol B mean accuracy change from the corresponding uncleaned classifier. Each dataset receives equal weight. Bars describe numerical changes and do not indicate statistical significance.
+
+dataset order of the 2014 study. In the 2014 tables, Algorithm 1 exceeds C4.5 and Algorithm 2 exceeds NB on all ten datasets. Under Protocol B, Algorithm 1 lies below C4.5 on six datasets, by up to 17.75 pp on glass, matches it on contact lenses, and is higher only on diabetes, iris and vote, by less than 1 pp. Algorithm 2 lies above NB on seven datasets, most clearly on contact lenses (+7.67 pp) and vote (+5.18 pp). It falls below NB on iris, soybean and NSL-KDD, where it loses 4.62 pp.
+
+TABLE IV EXPLORATORY PAIRED DATASET-LEVEL ACCURACY TESTS. DIFFERENCES
 ARE FIRST METHOD MINUS SECOND. HOLM ADJUSTMENT COVERS THE EIGHT DISPLAYED TESTS.
 
 Contrast
@@ -255,12 +310,109 @@ AN­NB vs. NA­NB +0.71 0.275
 
 0.383 0.654 0.383 0.109 1.000 1.000 1.000 1.000
 
-change from a plain to a supported judge, so it does not isolate ordering while keeping judge inputs and weights fixed.
+Moving from NA to AN raises NB mean accuracy by 0.71 pp and lowers C4.5 mean accuracy by 0.32 pp. Raw p values are 0.275 and 0.922. We find no statistically established order advantage under these settings. This comparison includes a change from a plain to a supported judge, so it does not isolate ordering while keeping judge inputs and weights fixed.
 The parallel reference reaches 76.39% accuracy with NB and 81.05% with C4.5. NA differs from P by -0.76 pp for NB and +0.16 pp for C4.5. AN differs from P by -0.05 and -0.16 pp, respectively. These descriptive differences do not show a consistent benefit from chaining.
-C. Cleaning Before Cross-Validation
-Table VI contrasts the two protocols. N­DT reaches 94.52% after full-data filtering, compared with 81.03% under withinfold fitting, a difference of 13.50 pp calculated from unrounded means. NA­DT and AN­DT rise to 94.72% and 96.32%.
+Figure 3 shows the combined designs dataset by dataset. With final C4.5, the three lines nearly coincide and stay below the plain tree on glass, image segmentation, tic-tac-toe and NSL-KDD, by 5.93 to 17.94 pp. On those four datasets, the designs differ from one another by at most 2.60 pp. With final NB, the combined designs gain 6.33 to 10.00 pp on contact lenses, 5.29 to 5.43 pp on vote and 7.11 to 8.75 pp on NSLKDD, but lose 8.68 to 15.03 pp on glass. The dataset changes the outcome far more than the choice among NA, AN and P.
 
-TABLE VI MEAN ACCURACY (%) UNDER WITHIN-FOLD CLEANING (B) AND CLEANING BEFORE CV (A). A CHANGES LABEL ACCESS AND, FOR FILTERING ARMS, THE EVALUATED POPULATION. DIFFERENCES USE
+B. Order and Independent Composition
+Figure 2 shows the mean baseline differences. Table IV gives the retained paired tests. AN­DT has a raw p = 0.014 against plain C4.5, but its Holm-adjusted p = 0.109 exceeds 0.05. None of the eight comparisons is significant after adjustment.
+
+C. Cleaning Before Cross-Validation
+Table V contrasts the two protocols. N­DT reaches 94.52% after full-data filtering, compared with 81.03% under withinfold fitting, a difference of 13.50 pp calculated from unrounded means. NA­DT and AN­DT rise to 94.72% and 96.32%. Across filter-based settings, differences range from 13.50 to
+
+Accuracy (%)
+
+Final NB 100
+80
+
+No recurrence
+
+Recurrence
+
+14.5
+
+N
+
+50.6
+
+14.5
+
+60
+
+NA
+
+50.6
+
+11.7
+
+40
+
+AN
+
+NB
+
+AN­NB
+
+59.0
+
+NA­NB
+
+P­NB
+
+20
+Final DT (C4.5) 100
+
+14.5
+
+P
+
+50.6
+
+0
+
+10
+
+20
+
+30
+
+40
+
+50
+
+60
+
+70
+
+Within-class training rows removed (%) 80
+
+Fig. 4. Breast-cancer training-row deletion by class, averaged over Protocol
+
+B folds. N, NA and P share the plain-judge mask; AN uses a supported judge
+
+60
+
+after A. Rates describe rejection, not verified label errors.
+
+Accuracy (%)
+
+40
+
+20
+
+Breast cCanocnetarct lensesDiabetes
+
+Glass
+
+C4.5 NA­DT
+
+AN­DT P­DT
+
+IrisSoybean VoItme age seTgi.c-tac-tNoeSL-KDD
+
+Fig. 3. Protocol B accuracy of the three combined designs and the uncleaned classifier on each dataset, with final NB (top) and final C4.5 (bottom). Lines join datasets only for readability.
+
+TABLE V MEAN ACCURACY (%) UNDER WITHIN-FOLD CLEANING (B) AND CLEANING BEFORE CV (A). A CHANGES LABEL ACCESS AND, FOR FILTERING ARMS, THE EVALUATED POPULATION. DIFFERENCES USE
 UNROUNDED MEANS.
 
 Arm A (%) B (%) A-B (pp)
@@ -275,208 +427,70 @@ N­NB A­NB NA­NB AN­NB P­NB N­DT A­DT NA­DT AN­DT P­DT
 +14.48 +14.74 +14.71 +13.50
 +0.33 +13.51 +15.43 +13.62
 
-Across filter-based settings, differences range from 13.50 to 16.51 pp. Attribute-only differences are smaller, 0.72 pp for NB and 0.33 pp for C4.5.
-Protocol B asks the classifier to predict all held-out rows. Protocol A uses a supervised judge to choose which rows can enter the subsequent evaluation. Removing difficult cases may contribute to the higher scores, but the experiment does not identify its separate contribution. For filtering arms, the labels available during cleaning, the sample, and the resulting folds change together. Attribute-only cleaning retains every row but
+16.51 pp. Attribute-only differences are smaller, 0.72 pp for NB and 0.33 pp for C4.5.
+Protocol B asks the classifier to predict all held-out rows. Protocol A uses a supervised judge to choose which rows can enter the subsequent evaluation. Removing difficult cases may contribute to the higher scores, but the experiment does not identify its separate contribution. For filtering arms, the labels available during cleaning, the sample, and the resulting folds
 
-Final NB
+change together. Attribute-only cleaning retains every row but still uses future test information for selection. Its smaller score change does not justify selecting attributes before CV.
+D. Class Representation After Filtering
+Figure 4 shows class-specific deletion for breast cancer. The plain judge removes an average of 50.63% of recurrence-event training rows and 14.51% of no-recurrence-event rows. After attribute selection, the supported judge removes 58.97% and 11.72%, respectively. Each rate uses that class's training-row count as its denominator, not the size of the entire dataset.
+The minority class loses a larger fraction of its examples in both cases. The records cannot establish whether the rejected labels were wrong or the judge failed on valid cases. Selection also changes after deletion. On glass, the tree retains 97.00% of attributes on the original training fold and 61.00% after plain filtering. On vote, retention falls from 27.38% to 7.62%. The operations interact in their fitted outputs even though we have not established a predictive advantage for one order.
+VI. DISCUSSION AND LIMITATIONS
+Under the tested settings, combining filtering and weighting does not establish a predictive advantage. Neither sequential NB mean exceeds attribute weighting alone. Lower tree means and unequal class deletion indicate that retained class composition matters. We have no verified natural label-error annotations or matched comparison with modern label-cleaning methods.
+Our benchmark uses an older dataset family with file and class-count differences from the 2014 tables. The NSL-KDD C4.5 baseline remains an unresolved discrepancy: 99.47% here versus 71.11% previously reported. Over the ten datasets, the 2014 tables average 88.43% for Algorithm 1 and 83.42% for Algorithm 2, against 83.52% for C4.5 and 77.33% for NB. Under Protocol B, Algorithm 1 is 5.30 pp below C4.5
 
-N
+Algorithm 1 (final DT) 100
 
--0.51
+80
 
-A
+Accuracy (%)
 
-+1.42
-
-NA
-
--0.30
-
-AN
-
-+0.42
-
-P
-
-+0.46
-
--6
-
--4
-
--2
-
-0
-
-2
-
-Accuracy change from baseline (pp)
-
-Final DT (J48)
-
-N­DT minus DT (pp)
-
-Iris
-
-0
-
-Vote
-
-Contact lenses
-
--5
-
-Soybean
-
-Diabetes Breast cancer
-
-Segmentation
-
--10
-
-Tic-tac-toe
-
-NSL-KDD
-
--15 Glass
-
-N
-
--5.30
-
-A
-
-NA
-
--5.12
-
--0.14
-
-0
-
-10
-
-20
-
-30
+60
 
 40
 
-50
-
-Training rows removed by the plain judge (%)
-
-AN -5.44
-
-P
-
--5.28
-
--6
-
--4
-
--2
-
-0
-
-Accuracy change from baseline (pp)
-
-Fig. 2. Share of training rows removed by the plain NB judge against the
-
-Protocol B change in C4.5 accuracy after filtering (N­DT minus plain DT),
-
-one point per dataset. The share equals the judge's training-set error rate.
-
-2
-
-Descriptive; not tested.
-
-Fig. 1. Protocol B mean accuracy change from the corresponding uncleaned classifier. Each dataset receives equal weight. Bars describe numerical changes and do not indicate statistical significance.
-
-TABLE VII MEAN PROTOCOL B DELETION AND ATTRIBUTE RETENTION. PLAIN: NB
-JUDGE ON ALL COLUMNS (N, NA, P). SUPPORTED: WEIGHTED JUDGE AFTER SELECTION (AN). RAW FOLD: SELECTION ON THE ORIGINAL
-TRAINING FOLD (A, AN, P). AFTER N: SELECTION AFTER PLAIN FILTERING (NA).
-
-Rows removed (%) Attributes kept (%)
-
-Dataset
-
-Plain Supported Raw fold After N
-
-Breast cancer Contact lenses Diabetes Glass Segmentation Iris NSL-KDD Soybean Tic-tac-toe Vote
-
-25.24 4.28 23.67 47.31 19.88 4.14 32.52 9.18 29.32 9.33
-
-25.76 11.03 22.99 46.88 17.35 4.41 37.13 9.06 28.63 4.46
-
-41.56 66.50 84.88 97.00 65.79 50.75 69.32 52.40 100.00 27.38
-
-34.67 64.00 83.12 61.00 40.16 37.75 42.59 41.89 76.67 7.62
-
-still uses future test information for selection. Its smaller score change does not justify selecting attributes before CV.
-D. What Filtering Removes
-Table VII gives, for every dataset, the mean share of training rows that each judge removes and the share of attributes that the selection tree keeps. The plain judge deletes exactly the training rows it misclassifies, so its deletion share is its training-set error rate. The share ranges from 4.14% on iris to 47.31% on glass, where plain NB also has its lowest held-out accuracy, 45.95%.
-Figure 2 relates this share to the change in C4.5 accuracy after filtering. All four datasets that lose more than a quarter of their training rows also lose tree accuracy, by 3.08 to
-
-Plain judge (N, NA, P)
-
-No recurrence 14.5
-
-Recurrence 50.6
-
-Supported judge (AN)
-0
-
-11.7 59.0
-10 20 30 40 50 60 70 Within-class training rows removed (%)
-
-Fig. 3. Breast-cancer training-row deletion by class, averaged over Protocol B folds. N, NA and P share the plain-judge mask; AN uses a supported judge after A. Rates describe rejection, not verified label errors.
-
-17.75 pp. Diabetes, with 23.67% removed, gains 0.99 pp. The four datasets with less than 10% removed change by -4.00 to +0.67 pp. The Spearman rank correlation across the ten datasets is -0.71; we report it descriptively and do not test it. The pattern is consistent with a weak judge discarding rows that a stronger final learner could use, but the records cannot separate that from the removal of mislabeled rows.
-Figure 3 shows class-specific deletion for breast cancer. The plain judge removes an average of 50.63% of recurrence-event training rows and 14.51% of no-recurrence-event rows. After attribute selection, the supported judge removes 58.97% and 11.72%, respectively. Each rate uses that class's training-row count as its denominator, not the size of the entire dataset.
-The minority class loses a larger fraction of its examples in both cases. The records cannot establish whether the rejected labels were wrong or the judge failed on valid cases. Selection also changes after deletion. On all ten datasets, the tree keeps fewer attributes after plain filtering than on the original training fold, from 97.00% to 61.00% on glass and from 27.38% to 7.62% on vote. The operations interact in their fitted outputs even though we have not established a predictive advantage
-
-Protocol B
-
-Protocol A
+Protocol B
 
 2014 table
 
-Algorithm 1 (final DT) Algorithm 2 (final NB)
+Protocol A
 
-Breast cancer Contact lenses
+C4.5, 2014 table
 
-Diabetes
+20
+
+Algorithm 2 (final NB) 100
+
+80
+
+Accuracy (%)
+
+60
+
+40 Protocol B
+
+Protocol A
+
+20
+
+Breast cCanocnetarct lensesDiabetes
 
 Glass
 
-Segmentation Iris
+IrisSoybean
 
-NSL-KDD
+2014 table NB, 2014 table
+VoItme age seTgi.c-tac-tNoeSL-KDD
 
-Soybean Tic-tac-toe
-Vote
+Fig. 5. Accuracy of Algorithm 1 (top) and Algorithm 2 (bottom) on each dataset under Protocols B and A, beside the 2014 table values for each algorithm and its base classifier. Glass, image segmentation and NSL-KDD files differ from the 2014 study, so the comparison is descriptive.
 
-40 60 80 100 40 60 80 100
+rather than above it, and Algorithm 2 exceeds NB by 1.42 pp rather than 6.09 pp. Figure 5 shows the per-dataset values. The reported Algorithm 1 accuracy lies between our two protocols on seven datasets, and the reported Algorithm 2 accuracy exceeds both on eight. File differences prevent attributing these gaps to a single cause, so this is not an exact replication. The evidence concerns our shared files, implementation, and splits.
+Rare classes limit interpretation. Contact lenses contains classes with four and five rows. NSL-KDD has classes with fewer than ten examples, including a singleton. Some stratified folds consequently lack a class in training or testing. Repeating splits does not create new examples, and macro-F1 may average different class sets across folds. These results cannot establish reliable rare-class performance.
+Full-file nominal vocabularies leave deployment with unseen categories untested. Ten datasets limit inference after multiplicity adjustment; more split seeds would not add independent datasets. The A/B contrast cannot establish the original study's evaluation procedure or isolate a causal leakage effect.
+A useful next study would hold the scored population fixed while varying access during cleaning. A separate matched
 
-Accuracy (%)
-
-Accuracy (%)
-
-Fig. 4. Per-dataset accuracy of Algorithm 1 and Algorithm 2: the 2014 table value, our within-fold estimate (Protocol B) and cleaning before CV (Protocol A). Gray lines join our two protocols. Glass, image segmentation and NSLKDD files differ from the 2014 study, so the comparison is descriptive.
-
-for one order.
-VI. DISCUSSION AND LIMITATIONS
-Under the tested settings, combining filtering and weighting does not establish a predictive advantage. Neither sequential NB mean exceeds attribute weighting alone. Lower tree means and unequal class deletion indicate that retained class composition matters. We have no verified natural label-error annotations or matched comparison with modern label-cleaning methods.
-Our benchmark uses an older dataset family with file and class-count differences from the 2014 tables. The NSL-KDD C4.5 baseline remains an unresolved discrepancy: 99.47% here versus 71.11% previously reported. Over the ten datasets, the 2014 tables average 88.43% for Algorithm 1 and 83.42% for Algorithm 2, against 83.52% for C4.5 and 77.33% for NB. Under Protocol B, Algorithm 1 is 5.30 pp below C4.5 rather than above it, and Algorithm 2 exceeds NB by 1.42 pp rather than 6.09 pp. Figure 4 shows the per-dataset values. The reported Algorithm 1 accuracy lies between our two protocols on seven datasets, and the reported Algorithm 2 accuracy exceeds both on eight. File differences prevent attributing these gaps to a single cause, so this is not an exact replication. The evidence concerns our shared files, implementation, and splits.
-Rare classes limit interpretation. Contact lenses contains classes with four and five rows. NSL-KDD has classes with fewer than ten examples, including a singleton. Some stratified folds consequently lack a class in training or testing, and repeating splits does not create new examples. These results cannot establish reliable rare-class performance.
-Full-file nominal vocabularies leave deployment with unseen categories untested. Ten datasets limit inference after
-
-multiplicity adjustment; more split seeds would not add independent datasets. The A/B contrast cannot establish the original study's evaluation procedure or isolate a causal leakage effect.
-A useful next study would hold the scored population fixed while varying access during cleaning. A separate matched judge ablation could distinguish ordering from support. For the present methods, we recommend fitting supervised cleaning within each training fold, scoring every held-out row, and reporting class-specific removal alongside predictive metrics.
+judge ablation could distinguish ordering from support. For the present methods, we recommend fitting supervised cleaning within each training fold, scoring every held-out row, and reporting class-specific removal alongside predictive metrics.
 VII. CONCLUSION
-We compared instance filtering and tree-based attribute weighting alone, in both sequential orders, and in an independent parallel design. On ten datasets with shared within-fold evaluation, combined tree methods have lower mean accuracy than plain C4.5, and combined NB methods trail attribute weighting alone. Eight exploratory paired accuracy tests establish no significant difference after Holm adjustment. Higher before-CV scores involve a changed evaluation population as well as different information access. Tree losses were largest where the judge deleted the most rows, and deletion fell unequally across classes. For these settings, the comparison supports keeping cleaning inside training folds and reporting the class composition of the retained data.
+We compared instance filtering and tree-based attribute weighting alone, in both sequential orders, and in an independent parallel design. On ten datasets with shared within-fold evaluation, combined tree methods have lower mean accuracy than plain C4.5, and combined NB methods trail attribute weighting alone. Eight exploratory paired accuracy tests establish no significant difference after Holm adjustment. Higher before-CV scores involve a changed evaluation population as well as different information access. The removal records show unequal class loss. For these settings, the comparison supports keeping cleaning inside training folds and reporting the class composition of the retained data.
 ACKNOWLEDGMENT
 Large language models assisted with drafting, language revision, typesetting, and preparation of figures and tables from saved results. The authors are responsible for the manuscript content and accuracy.
 REFERENCES

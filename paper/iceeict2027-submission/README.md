@@ -1,6 +1,6 @@
 # ICEEICT 2027 conference draft
 
-main.pdf is the anonymous paper: six A4 pages, at the six-page limit (seven tables, four vector figures). Edit main.tex and references.bib; manuscript.txt is extracted reading text for language revision. The original manuscripts and experiment outputs remain unchanged.
+main.pdf is the anonymous paper: six A4 pages, at the six-page limit (five tables, five vector figures). Edit main.tex and references.bib; manuscript.txt is extracted reading text for language revision. The original manuscripts and experiment outputs remain unchanged.
 
 ## Compile
 

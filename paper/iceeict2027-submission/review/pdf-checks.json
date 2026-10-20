@@ -1,7 +1,7 @@
 {
   "pages": 6,
-  "bytes": 349515,
-  "sha256": "2b8cfb0877708125d29a04c13505f411382264429d7ca51360a0d159dfab12bb",
+  "bytes": 386928,
+  "sha256": "2f0fb13fc532c6387582e24487dac3b11a3061f800d0691d659e7d88510da39e",
   "paper": "A4",
   "body_font_points": 10,
   "font_embedding": "all embedded",
@@ -27,5 +27,5 @@
     "verified natural label-error detection"
   ],
   "desktop_compiler": "success",
-  "rebuilt": "2026-10-19: six pages with Table IV (macro-F1), Table VII (deletion/retention), Fig. 2 (deletion vs tree change), Fig. 4 (2014 values vs protocols)"
+  "rebuilt": "2026-10-19: six pages with three per-dataset line charts in the 2014 paper's style (Figs. 1, 3, 5)"
 }

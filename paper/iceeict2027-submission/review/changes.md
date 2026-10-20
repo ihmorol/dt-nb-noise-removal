@@ -27,14 +27,13 @@ Every number in the text, tables and figures was recomputed independently from `
 - Discussion: replaced the vague "similar aggregate means elsewhere" sentence with the 2014 table averages (Alg 1 88.43, Alg 2 83.42, C4.5 83.52, NB 77.33, from `results/EXP-R1_replication/replication.csv`) against our Protocol B means; Alg 1 is 5.30 pp below C4.5 instead of above it, Alg 2 is +1.42 pp over NB instead of +6.09 pp.
 - Softened "show why" to "indicate that"; removed three redundant sentences to keep five pages.
 
-## Six-page expansion, 19 October 2026
+## Six pages with per-dataset line charts, 19 October 2026
 
-The pilot-era figures (`paper/draft-with-pilot-results/figures/`) showed useful ideas but came from the sklearn pilot and 3-seed R1 runs, so their two ideas were rebuilt from E9 by `scripts/generate_evidence.py`. Still no model fitting; every new number is asserted in the generator.
+At the authors' request, page 6 is filled with per-dataset line charts in the style of the 2014 paper's Figs. 3 and 4, each followed by a short explanation. An earlier expansion (macro-F1 table, deletion table, scatter and dot plot; commit 5dd7394) was withdrawn. All figures come from `scripts/generate_evidence.py`, use the 2014 dataset order, fit no models, and every quoted per-dataset number is asserted in the generator.
 
-- Table IV: per-dataset macro-F1 (same layout as Table III). Text: NSL-KDD tree macro-F1 falls 21.91 pp after filtering vs 12.04 pp accuracy; the plain judge removes over half of the rows in 8 of 22 NSL-KDD classes and under 1% in 9 (`tables/nsl_class_removal.csv`).
-- Table VII and Fig. 2: deletion share and attribute retention for all ten datasets; deletion share vs N--DT accuracy change. All four datasets with over 25% deleted lose tree accuracy; Spearman -0.71, descriptive and untested.
-- Fig. 3: breast-cancer class removal compacted to the two distinct judges (N, NA and P share one mask; asserted).
-- Fig. 4: per-dataset 2014 table values beside Protocols B and A for Algorithms 1 and 2 (reported Alg 1 lies between our protocols on 7 datasets; reported Alg 2 exceeds both on 8). Palette blue/orange/green validated for colour-vision deficiency, plus distinct marker shapes.
-- Introduction: one contributions paragraph. Abstract and Conclusion: one sentence each on deletion share. Removed four redundant sentences to stay at six pages.
+- Fig. 1: C4.5, Algorithm 1, NB and Algorithm 2 per dataset (Protocol B). The 2014 tables show both hybrids above their base classifiers on all ten datasets; here Algorithm 1 is below C4.5 on six (up to -17.75 pp on glass) and Algorithm 2 is above NB on seven.
+- Fig. 3: the three combined designs against the uncleaned classifier, final NB and final C4.5 panels. On the four datasets with large tree losses (5.93 to 17.94 pp), the designs differ by at most 2.60 pp.
+- Fig. 5: Algorithms 1 and 2 under Protocols B and A beside the 2014 values. The reported Algorithm 1 value lies between our protocols on seven datasets; the reported Algorithm 2 value exceeds both on eight.
+- Colours: Okabe-Ito blue, vermillion, green, pink, with distinct markers and dash styles because two pairs sit in the colour-vision-deficiency floor band.
 
 This is a completed conference draft under the E9 scope. Author approval, screening, CMT checks and eligibility under the conference LLM restriction remain outstanding.

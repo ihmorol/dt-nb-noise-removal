@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 import matplotlib.font_manager as font_manager
 import numpy as np
 import pandas as pd
-from scipy.stats import PermutationMethod, spearmanr, wilcoxon
+from scipy.stats import PermutationMethod, wilcoxon
 
 HERE = Path(__file__).resolve().parents[1]
 RESULTS = HERE.parents[1] / "results" / "EXP-E9_farid"
@@ -106,9 +106,6 @@ def main():
                "Dataset & " + " & ".join([SHORT[p] for p in PATHS] * 2))
     table("table_datasets.tex", "l" + "r" * 12, chr(10).join(heading),
           [[names.get(ds, ds.capitalize())] + [f"{acc.loc[ds, arm]:.2f}" for arm in ARMS] for ds in acc.index])
-    f1 = b.pivot(index="dataset", columns="arm", values="macro_f1").loc[acc.index]
-    table("table_datasets_f1.tex", "l" + "r" * 12, chr(10).join(heading),
-          [[names.get(ds, ds.capitalize())] + [f"{f1.loc[ds, arm]:.2f}" for arm in ARMS] for ds in f1.index])
     tests = []
     for name, left, right in COMPARISONS:
         delta = acc[left] - acc[right]
@@ -183,17 +180,15 @@ def main():
                     ha="left" if v >= 0 else "right", fontsize=8.2)
     pd.DataFrame(changes).to_csv(FIGURES / "accuracy_change.csv", index=False)
     save_figure(fig, "accuracy_change")
-    # N, NA and P share one mask, so the figure shows the two distinct judges only.
-    assert np.allclose(rates.loc["N"], rates.loc["NA"]) and np.allclose(rates.loc["N"], rates.loc["P"])
-    fig, ax = plt.subplots(figsize=(3.5, 1.6), layout="constrained")
-    y = np.arange(2)
+    fig, ax = plt.subplots(figsize=(3.5, 2.65), layout="constrained")
+    y = np.arange(4)
     for offset, cls, title, color in [(-.18, "no-recurrence-events", "No recurrence", "#0072B2"),
                                       (.18, "recurrence-events", "Recurrence", "#D55E00")]:
-        v = rates.loc[["N", "AN"], cls].to_numpy()
+        v = rates.loc[["N", "NA", "AN", "P"], cls].to_numpy()
         ax.barh(y + offset, v, height=.32, label=title, color=color)
         for yy, value in zip(y + offset, v):
             ax.text(value + .8, yy, f"{value:.1f}", va="center", fontsize=8.2)
-    ax.set_yticks(y, ["Plain judge\n(N, NA, P)", "Supported\njudge (AN)"])
+    ax.set_yticks(y, ["N", "NA", "AN", "P"])
     ax.invert_yaxis()
     ax.set_xlim(0, 72)
     ax.set_xlabel("Within-class training rows removed (%)")
@@ -203,85 +198,70 @@ def main():
     removal_data.to_csv(FIGURES / "class_removal.csv", index=False)
     save_figure(fig, "class_removal")
 
-    # Deletion share and attribute retention for every dataset (one record per fold and stage).
-    rec = removals[removals.protocol == "B refit-per-fold"]
-    filt = rec[rec.method == "Alg1"].drop_duplicates(["dataset", "seed", "fold", "stage"])
-    attrs = rec[rec.method == "Alg2"]
-    assert filt.groupby(["dataset", "stage"]).size().eq(100).all()
-    assert attrs.groupby(["dataset", "stage"]).size().eq(100).all()
-    deleted = (100 * (1 - filt.rows_after.astype(float) / filt.rows_before.astype(float))
-               ).groupby([filt.dataset, filt.stage]).mean().unstack()
-    kept = (100 * attrs.attributes_after / attrs.attributes_before
-            ).groupby([attrs.dataset, attrs.stage]).mean().unstack()
-    effect = pd.DataFrame({"deleted_plain": deleted["N plain"],
-                           "deleted_supported": deleted["N weighted (after A)"],
-                           "kept_raw_fold": kept["A on the raw fold"],
-                           "kept_after_plain_n": kept["A after plain N"],
-                           "n_dt_minus_dt_pp": acc["Alg1->DT"] - acc["baseline->DT"]}).loc[acc.index]
-    effect.to_csv(TABLES / "deletion.csv")
-    nsl = rec[(rec.dataset == "nsl-kdd") & (rec.stage == "N plain")].groupby("class").class_removal_rate.mean()
-    nsl.mul(100).rename("mean_within_class_removal_percent").to_csv(TABLES / "nsl_class_removal.csv")
-    assert len(nsl) == 22 and (nsl > .5).sum() == 8 and (nsl < .01).sum() == 9  # counts quoted in the text
-    # Descriptive claims quoted in the text about Table VII and the deletion figure.
-    assert (effect.kept_after_plain_n < effect.kept_raw_fold).all()
-    heavy = effect[effect.deleted_plain > 25]
-    assert len(heavy) == 4 and (heavy.n_dt_minus_dt_pp < 0).all()
-    assert np.isclose(spearmanr(effect.deleted_plain, effect.n_dt_minus_dt_pp).statistic, -.709, atol=5e-4)
-    table("table_deletion.tex", "lrrrr",
-          chr(10).join((r" & \multicolumn{2}{c}{Rows removed (\%)} & \multicolumn{2}{c}{Attributes kept (\%)} \\",
-                        r"\cmidrule(lr){2-3}\cmidrule(lr){4-5}",
-                        r"Dataset & Plain & Supported & Raw fold & After N")),
-          [[names.get(ds, ds.capitalize())] + [f"{effect.loc[ds, c]:.2f}" for c in effect.columns[:4]]
-           for ds in effect.index])
-    fig, ax = plt.subplots(figsize=(3.5, 2.45), layout="constrained")
-    ax.axhline(0, color="black", linewidth=.7)
-    ax.scatter(effect.deleted_plain, effect.n_dt_minus_dt_pp, s=30, color="#D55E00", zorder=3,
-               edgecolors="white", linewidths=.8)
-    nudge = {"iris": (4, 5), "contact-lenses": (4, -9), "vote": (5, 3), "soybean": (5, -3),
-             "diabetes": (5, 2), "breast-cancer": (5, 0), "glass": (-5, 6)}
-    for ds, row in effect.iterrows():
-        dx, dy = nudge.get(ds, (5, 0))
-        ax.annotate(names.get(ds, ds.capitalize()), (row.deleted_plain, row.n_dt_minus_dt_pp),
-                    xytext=(dx, dy), textcoords="offset points", fontsize=8.2, va="center",
-                    ha="right" if dx < 0 else "left")
-    ax.set_xlim(0, 52)
-    ax.set_ylim(-19.5, 3)
-    ax.set_xlabel("Training rows removed by the plain judge (%)")
-    ax.set_ylabel("N--DT minus DT (pp)".replace("--", "–"))
-    ax.set_axisbelow(True)
-    ax.grid(alpha=.2)
-    save_figure(fig, "deletion_effect")
-
-    # The 2014 table values beside both protocols, per dataset (descriptive; files differ).
-    reported_raw = pd.read_csv(REPORTED)
-    reported = reported_raw.drop_duplicates(["dataset", "arm"]).pivot(index="dataset", columns="arm", values="paper")
-    assert set(reported.index) == set(acc.index)
+    # Per-dataset line charts in the 2014 paper's style and dataset order (its Figs. 3-4).
+    order = ["breast-cancer", "contact-lenses", "diabetes", "glass", "iris", "soybean", "vote",
+             "image-segmentation", "tic-tac-toe", "nsl-kdd"]
+    ticks = ["Breast cancer", "Contact lenses", "Diabetes", "Glass", "Iris", "Soybean", "Vote",
+             "Image seg.", "Tic-tac-toe", "NSL-KDD"]
+    # Okabe-Ito hues; markers and dashes carry identity too (two pairs sit in the CVD floor band).
+    style = [("#0072B2", "o", "-"), ("#D55E00", "s", "--"), ("#009E73", "^", "-."), ("#CC79A7", "D", ":")]
+    reported = pd.read_csv(REPORTED).drop_duplicates(["dataset", "arm"]).pivot(index="dataset", columns="arm", values="paper")
     a_acc = metrics[metrics.protocol == "A before-CV"].pivot(index="dataset", columns="arm", values="accuracy")
-    compare = pd.DataFrame({"alg1_reported": reported["Alg1"], "alg1_B": acc["Alg1->DT"], "alg1_A": a_acc["Alg1->DT"],
-                            "alg2_reported": reported["Alg2"], "alg2_B": acc["Alg2->NB"], "alg2_A": a_acc["Alg2->NB"]}).loc[acc.index]
-    compare.to_csv(FIGURES / "reported_protocols.csv")
-    between = (compare.alg1_reported > compare.alg1_B) & (compare.alg1_reported < compare.alg1_A)
-    above = (compare.alg2_reported > compare.alg2_B) & (compare.alg2_reported > compare.alg2_A)
-    assert between.sum() == 7 and above.sum() == 8  # counts quoted in the Discussion
-    fig, axes = plt.subplots(1, 2, figsize=(3.5, 3.0), sharey=True, layout="constrained")
-    y = np.arange(len(compare))
-    for ax, alg, title in zip(axes, ["alg1", "alg2"], ["Algorithm 1 (final DT)", "Algorithm 2 (final NB)"]):
-        ax.hlines(y, compare[f"{alg}_B"], compare[f"{alg}_A"], color="#BBBBBB", linewidth=1.2, zorder=1)
-        for col, color, marker, name in [("B", "#0072B2", "o", "Protocol B"), ("A", "#D55E00", "^", "Protocol A"),
-                                         ("reported", "#009E73", "D", "2014 table")]:
-            ax.scatter(compare[f"{alg}_{col}"], y, s=28, color=color, marker=marker, zorder=3,
-                       edgecolors="white", linewidths=.6, label=name)
-        ax.set_title(title, fontsize=9)
-        ax.set_xlim(40, 102)
-        ax.set_xticks([40, 60, 80, 100])
-        ax.set_xlabel("Accuracy (%)")
-        ax.set_axisbelow(True)
-        ax.grid(axis="x", alpha=.2)
-    axes[0].set_yticks(y, [names.get(ds, ds.capitalize()) for ds in compare.index])
-    axes[0].invert_yaxis()
-    fig.legend(*axes[0].get_legend_handles_labels(), loc="outside upper center", ncol=3, frameon=False,
-               handletextpad=.2, columnspacing=.9)
+    lines = pd.DataFrame({"C4.5": acc["baseline->DT"], "Algorithm 1": acc["Alg1->DT"],
+                          "NB": acc["baseline->NB"], "Algorithm 2": acc["Alg2->NB"],
+                          **{f"{SHORT[p]}--{l}": acc[f"{p}->{l}"] for l in ["NB", "DT"] for p in PATHS[3:]},
+                          "Alg1 2014": reported["Alg1"], "Alg1 A": a_acc["Alg1->DT"],
+                          "Alg2 2014": reported["Alg2"], "Alg2 A": a_acc["Alg2->NB"],
+                          "C4.5 2014": reported["C4.5"], "NB 2014": reported["NB"]}).loc[order]
+    lines.to_csv(FIGURES / "dataset_lines.csv")
+
+    def panel(ax, columns, labels, title=None):
+        x = np.arange(len(order))
+        for column, label, (color, marker, dash) in zip(columns, labels, style):
+            ax.plot(x, lines[column], color=color, marker=marker, linestyle=dash, linewidth=1.3,
+                    markersize=4.2, label=label)
+        ax.set_ylim(20, 100)
+        ax.set_ylabel("Accuracy (%)")
+        ax.set_xticks(x, ticks, rotation=40, ha="right", rotation_mode="anchor")
+        ax.grid(axis="y", alpha=.3)
+        ax.legend(loc="lower right", ncol=2, frameon=False, handlelength=2.6, columnspacing=1)
+        if title:
+            ax.set_title(title, fontsize=9)
+
+    fig, ax = plt.subplots(figsize=(3.5, 2.75), layout="constrained")
+    panel(ax, ["C4.5", "Algorithm 1", "NB", "Algorithm 2"],
+          ["C4.5", "Algorithm 1 (N--DT)".replace("--", "–"), "NB", "Algorithm 2 (A--NB)".replace("--", "–")])
+    save_figure(fig, "single_steps")
+    fig, axes = plt.subplots(2, 1, figsize=(3.5, 4.6), sharex=True, layout="constrained")
+    for ax, learner, base in zip(axes, ["NB", "DT"], ["NB", "C4.5"]):
+        cols = [base] + [f"{SHORT[p]}--{learner}" for p in PATHS[3:]]
+        panel(ax, cols, [c.replace("--", "–") for c in cols], "Final " + ("NB" if learner == "NB" else "DT (C4.5)"))
+    save_figure(fig, "combined_paths")
+    fig, axes = plt.subplots(2, 1, figsize=(3.5, 4.6), sharex=True, layout="constrained")
+    for ax, alg, base, title in [(axes[0], "Alg1", "C4.5", "Algorithm 1 (final DT)"), (axes[1], "Alg2", "NB", "Algorithm 2 (final NB)")]:
+        own = "Algorithm 1" if alg == "Alg1" else "Algorithm 2"
+        panel(ax, [own, f"{alg} A", f"{alg} 2014", f"{base} 2014"],
+              ["Protocol B", "Protocol A", "2014 table", f"{base}, 2014 table"], title)
     save_figure(fig, "reported_protocols")
+
+    # Every per-dataset statement in the figure explanations, checked against the data.
+    assert (lines["Alg1 2014"] > lines["C4.5 2014"]).all() and (lines["Alg2 2014"] > lines["NB 2014"]).all()
+    d1, d2 = lines["Algorithm 1"] - lines["C4.5"], lines["Algorithm 2"] - lines["NB"]
+    assert (d1 < 0).sum() == 6 and set(d1[d1 > 0].index) == {"diabetes", "iris", "vote"} and d1.max() < 1
+    assert (d2 > 0).sum() == 7 and set(d2[d2 < 0].index) == {"iris", "soybean", "nsl-kdd"}
+    heavy = ["glass", "image-segmentation", "tic-tac-toe", "nsl-kdd"]
+    dt = lines.loc[heavy, [f"{SHORT[p]}--DT" for p in PATHS[3:]]]
+    assert (dt.max(axis=1) - dt.min(axis=1)).max() < 2.61
+    assert np.isclose(dt.sub(lines.loc[heavy, "C4.5"], axis=0).max().max(), -5.93, atol=.006)
+    rounded = lambda s: tuple(np.round([s.min(), s.max()], 2))
+    assert (rounded(d1), d2.round(2)[["contact-lenses", "vote", "nsl-kdd"]].tolist()) == ((-17.75, .99), [7.67, 5.18, -4.62])
+    assert rounded(dt.sub(lines.loc[heavy, "C4.5"], axis=0).stack()) == (-17.94, -5.93)
+    nb = lines[[f"{SHORT[p]}--NB" for p in PATHS[3:]]].sub(lines["NB"], axis=0)
+    assert [rounded(nb.loc[ds]) for ds in ["vote", "nsl-kdd", "glass", "contact-lenses"]] == \
+        [(5.29, 5.43), (7.11, 8.75), (-15.03, -8.68), (6.33, 10.0)]
+    between = (lines["Alg1 2014"] > lines["Algorithm 1"]) & (lines["Alg1 2014"] < lines["Alg1 A"])
+    above = (lines["Alg2 2014"] > lines["Algorithm 2"]) & (lines["Alg2 2014"] > lines["Alg2 A"])
+    assert between.sum() == 7 and above.sum() == 8
     assert hashes() == before, "Source experiment files changed during generation"
     before["EXP-R1_replication/replication.csv"] = hashlib.sha256(REPORTED.read_bytes()).hexdigest()
     report = dict(dataset_shapes=dataset_shapes, dataset_shape_crosscheck=True, source_sha256=before, model_fits=0, metrics_rows=len(metrics), fold_rows=len(folds),
@@ -293,7 +273,8 @@ def main():
                   macro_f1="mean of saved fold macro-F1; fold class sets may vary",
                   figure_font="Times New Roman, 8.2-10 pt at native 3.5-inch width; PDF fonttype 42",
                   checks="row counts, unique fold keys, fold summary equality, exact original test family, source hashes",
-                  figure_sizes_inches={"accuracy_change": [3.5, 3.3], "class_removal": [3.5, 1.6], "deletion_effect": [3.5, 2.45], "reported_protocols": [3.5, 3.0]})
+                  figure_sizes_inches={"accuracy_change": [3.5, 3.3], "class_removal": [3.5, 2.65], "single_steps": [3.5, 2.75],
+                                       "combined_paths": [3.5, 4.6], "reported_protocols": [3.5, 4.6]})
     (TABLES / "evidence-check.json").write_text(json.dumps(report, indent=2) + chr(10), encoding="utf-8")
     print(json.dumps(report, indent=2))
 
