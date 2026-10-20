@@ -178,12 +178,13 @@ def _nb(meta, columns, weights):
 
 
 # --------------------------------------------------------- protocol B ----
-def run_fold(folder, X, y, meta, classes, train, test):
+def run_fold(folder, X, y, meta, classes, train, test, filter_fn=filter_step):
     """All ten arms on one training fold.
 
     Returns ({arm: (accuracy, macro-F1)}, [removal records]). Each record is
     one cleaning event, named by its stage; the arm-to-stage mapping is in the
-    module docstring.
+    module docstring. filter_fn replaces Algorithm 1's judge (E13 passes E5's
+    committee); it takes filter_step's arguments and returns what it returns.
     """
     all_columns = list(range(X.shape[1]))
 
@@ -205,14 +206,14 @@ def run_fold(folder, X, y, meta, classes, train, test):
         depths_all, all_columns, meta, chained=False)
     scores["Alg2->NB"] = nb_scores(train, standalone_cols, standalone_weights)
     scores["Alg2->DT"], _ = _j48(folder, "b5", X, y, meta, classes, train, test, cols_all)
-    rows_an, rec_an = filter_step(X, y, train, cols_all, w_all, meta)
+    rows_an, rec_an = filter_fn(X, y, train, cols_all, w_all, meta)
     records.append(dict(rec_an, stage="N weighted (after A)"))
     scores["C2 A->N->NB"] = nb_scores(rows_an, cols_all, w_all)
     scores["C2 A->N->DT"], _ = _j48(folder, "b4", X, y, meta, classes, rows_an, test,
                                     cols_all)
 
     # one tree on the plain-NB-filtered fold: the Alg1 score, C1's second step
-    rows_na, rec_na = filter_step(X, y, train, all_columns, None, meta)
+    rows_na, rec_na = filter_fn(X, y, train, all_columns, None, meta)
     records.append(dict(rec_na, stage="N plain"))
     scores["Alg1->NB"] = nb_scores(rows_na, all_columns, None)
     if np.array_equal(rows_na, train):      # nothing was deleted: same tree as b1
