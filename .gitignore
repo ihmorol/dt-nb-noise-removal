@@ -35,3 +35,6 @@ results/EXP-E11_lr-mlp-hybrid-data/versions/nsl-kdd/new.csv
 /r[2-5].py
 /render.py
 /wrap.ps1
+
+# local agent-tool state, not project content
+.omx/
