@@ -1,0 +1,7 @@
+arm,protocol,accuracy,paper,delta
+Alg1,A before-CV,93.705,88.42999999999999,5.275
+Alg1,B refit-per-fold,80.066,88.42999999999999,-8.364
+Alg2,A before-CV,77.911,83.423,-5.512
+Alg2,B refit-per-fold,77.022,83.423,-6.400999999999999
+C4.5,B refit-per-fold,84.714,83.522,1.1919999999999997
+NB,B refit-per-fold,76.05,77.328,-1.278

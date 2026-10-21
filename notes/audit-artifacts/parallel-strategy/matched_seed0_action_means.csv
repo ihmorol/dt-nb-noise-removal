@@ -1,0 +1,97 @@
+action,rate,arm,classifier,delta_macro_f1
+delete,0.0,DT hard_vote,DT,0.5395963193633975
+delete,0.0,DT hard_vote,LR,1.5673980781221282
+delete,0.0,DT hard_vote,NB,1.399870769844354
+delete,0.0,DT threshold,DT,0.5821318058252366
+delete,0.0,DT threshold,LR,1.4468133695839527
+delete,0.0,DT threshold,NB,1.4650671146463352
+delete,0.0,NB hard_vote,DT,-4.9138053874579075
+delete,0.0,NB hard_vote,LR,-3.596028689900796
+delete,0.0,NB hard_vote,NB,1.0724373975760622
+delete,0.0,NB threshold,DT,-1.6986813957333524
+delete,0.0,NB threshold,LR,-2.1695021686222375
+delete,0.0,NB threshold,NB,0.7450971216715082
+delete,0.0,committee consensus,DT,1.2024995216322352
+delete,0.0,committee consensus,LR,1.712796208670745
+delete,0.0,committee consensus,NB,1.3147457744183086
+delete,0.0,dual agreement,DT,0.7020145775729703
+delete,0.0,dual agreement,LR,1.4284511313441712
+delete,0.0,dual agreement,NB,0.6860018947249443
+delete,0.0,none,DT,0.0
+delete,0.0,none,LR,0.0
+delete,0.0,none,NB,0.0
+delete,0.0,reference labels,DT,0.0
+delete,0.0,reference labels,LR,0.0
+delete,0.0,reference labels,NB,0.0
+delete,0.2,DT hard_vote,DT,6.909914720680523
+delete,0.2,DT hard_vote,LR,0.7118428291198076
+delete,0.2,DT hard_vote,NB,2.266165925948573
+delete,0.2,DT threshold,DT,6.990540431290626
+delete,0.2,DT threshold,LR,0.6668294347823377
+delete,0.2,DT threshold,NB,2.4537852843727563
+delete,0.2,NB hard_vote,DT,5.539181536010594
+delete,0.2,NB hard_vote,LR,-4.930406840152955
+delete,0.2,NB hard_vote,NB,1.7075165619965198
+delete,0.2,NB threshold,DT,6.598775354856339
+delete,0.2,NB threshold,LR,-2.522483056203787
+delete,0.2,NB threshold,NB,1.717844576792059
+delete,0.2,committee consensus,DT,8.961470012266872
+delete,0.2,committee consensus,LR,1.6431219248868267
+delete,0.2,committee consensus,NB,2.2636662296550094
+delete,0.2,dual agreement,DT,6.257083070204126
+delete,0.2,dual agreement,LR,1.0122318933611656
+delete,0.2,dual agreement,NB,1.2165351064076086
+delete,0.2,none,DT,0.0
+delete,0.2,none,LR,0.0
+delete,0.2,none,NB,0.0
+delete,0.2,reference labels,DT,16.000538727689907
+delete,0.2,reference labels,LR,4.11628586611153
+delete,0.2,reference labels,NB,5.741393533836297
+relabel,0.0,DT hard_vote,DT,-2.8749275270926504
+relabel,0.0,DT hard_vote,LR,0.09175790569445255
+relabel,0.0,DT hard_vote,NB,-1.1546373494415199
+relabel,0.0,DT threshold,DT,-3.141040379828752
+relabel,0.0,DT threshold,LR,0.14232849406035655
+relabel,0.0,DT threshold,NB,-1.239319894737259
+relabel,0.0,NB hard_vote,DT,-8.79717240478263
+relabel,0.0,NB hard_vote,LR,-6.304222450788647
+relabel,0.0,NB hard_vote,NB,-2.110860824611156
+relabel,0.0,NB threshold,DT,-6.736956467642338
+relabel,0.0,NB threshold,LR,-5.638348884422293
+relabel,0.0,NB threshold,NB,-1.5807071682020113
+relabel,0.0,committee consensus,DT,0.546325350994816
+relabel,0.0,committee consensus,LR,1.4432729475453143
+relabel,0.0,committee consensus,NB,-0.4406797550764779
+relabel,0.0,dual agreement,DT,0.27870732957323696
+relabel,0.0,dual agreement,LR,1.3257251396195464
+relabel,0.0,dual agreement,NB,0.48430554146546
+relabel,0.0,none,DT,0.0
+relabel,0.0,none,LR,0.0
+relabel,0.0,none,NB,0.0
+relabel,0.0,reference labels,DT,0.0
+relabel,0.0,reference labels,LR,0.0
+relabel,0.0,reference labels,NB,0.0
+relabel,0.2,DT hard_vote,DT,-3.8617169807193337
+relabel,0.2,DT hard_vote,LR,-5.281469957482855
+relabel,0.2,DT hard_vote,NB,-2.261017237961606
+relabel,0.2,DT threshold,DT,-3.6340175710451326
+relabel,0.2,DT threshold,LR,-5.382864353920928
+relabel,0.2,DT threshold,NB,-2.272180418004674
+relabel,0.2,NB hard_vote,DT,-0.49987511425213677
+relabel,0.2,NB hard_vote,LR,-11.041596560612234
+relabel,0.2,NB hard_vote,NB,-2.277159688555192
+relabel,0.2,NB threshold,DT,1.3527247761360184
+relabel,0.2,NB threshold,LR,-8.803391267508477
+relabel,0.2,NB threshold,NB,-1.335368534984338
+relabel,0.2,committee consensus,DT,6.611685810529221
+relabel,0.2,committee consensus,LR,-0.5671161280795399
+relabel,0.2,committee consensus,NB,0.018556509969770298
+relabel,0.2,dual agreement,DT,6.199692684430177
+relabel,0.2,dual agreement,LR,0.08575395866693931
+relabel,0.2,dual agreement,NB,0.4069407581322631
+relabel,0.2,none,DT,0.0
+relabel,0.2,none,LR,0.0
+relabel,0.2,none,NB,0.0
+relabel,0.2,reference labels,DT,16.000538727689907
+relabel,0.2,reference labels,LR,4.11628586611153
+relabel,0.2,reference labels,NB,5.741393533836297

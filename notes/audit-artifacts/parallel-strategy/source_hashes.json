@@ -1,0 +1,22 @@
+{
+  "results/EXP-E9_farid/metrics.csv": "488a6e6fdada48a9f18b1125c3d6ad47fd6f2ee9557e48d474578092809a2a4c",
+  "results/EXP-E5_strategy/metrics.csv": "0c29290378af0de78cba489c924e2f33b7acb08419ae898c5f0d6798a6a35d6b",
+  "results/EXP-E11_lr-mlp-hybrid-data/metrics.csv": "075a0c4146c09f45aedafd20ce84c009a34c9d13fa92eac362cbe3b922a5a251",
+  "results/EXP-E9_pipeline/metrics_alpha0.01.csv": "3fae4298c6fe949b660eec905037756282b8a8d05538268e0748d3dc5788e596",
+  "results/EXP-E9_pipeline/metrics_final_alpha0_mixed.csv": "0ecf052888bf4c4e951913660d8c63392934ed8dbac74cc267d067f75ddcb984",
+  "results/EXP-E9_pipeline/sweep_a0.005_mixed_on.csv": "20c3f8370354de3e176ae3343ef88cad503c8d2ba28df44e6bdc4369f4e5d3ac",
+  "results/EXP-E9_pipeline/sweep_a0.01_gaussian_on.csv": "0130a48cc8e99ae7d5ae2e698eeebfd7d4eb2886cce01d6a4232bfe6156d6a3c",
+  "results/EXP-E9_pipeline/sweep_a0.01_mixed_off.csv": "b8103e97bf5549972e4ca0e6e517d470231dcb7612cdd1f00e9e2a59c11f2a0e",
+  "results/EXP-E9_pipeline/sweep_a0.01_mixed_on.csv": "2837516d085d5ce581d10866972380d6b0c3c9c8dbeff48f6dc3e62899f0f9f7",
+  "results/EXP-E9_pipeline/sweep_a0.02_mixed_on.csv": "64d4e19d4e5a6d802345c02c2bb7027b20c3a838dc20481abd1bed2f1907d95e",
+  "results/EXP-E9_pipeline/sweep_a0.0_mixed_on.csv": "1625b3a7c8a2dd07058ccc258204f54ce2023484a1d0d8df0908604c496825cc",
+  "results/EXP-E3a_leakage_check/leakage.csv": "addfec743d5a58658b2412114689531a7df825539c91aff092fcbc02e37707f5",
+  "results/EXP-R1_replication/replication.csv": "fa5eb5e469fa9758b3011b0f7b02f0aed64c5e6cc1c316aab0c50da095bf0bf7",
+  "results/EXP-R1_replication/replication_unpruned.csv": "6d212e9b9db126897efbe3d2d9af19247bb8efdfc7a7e17ac0e224559258efac",
+  "results/EXP-E12v2_main/accuracy.csv": "ab87c27ca4206a80ec2ac2b9ab78e80f16d8d944d11c9cec8a65db9ffea6044d",
+  "results/EXP-E12v2_main/accuracy_by_dataset.csv": "5ee5d6d245df11fc3d7f6243b930288d37496baa9517237860e03376e2f16f8a",
+  "results/EXP-E12v2_main/detection_by_dataset.csv": "c2414e8bbb6e4471f4ebd5dec7c3d5152d8d4c71bcbeeb1d9f47d9b04ea7330f",
+  "results/EXP-E12v2_delete/accuracy.csv": "da559b8ccae34dbf7bd5f46b1432359443fbe050fdb3000c72f70189517b4e39",
+  "results/EXP-E12v2_delete/accuracy_by_dataset.csv": "36c970436253c5b8d1b204dd4ec42a7bdeb2bbea8a724b7363c6a1e04badc9c4",
+  "results/EXP-E12v2_delete/detection_by_dataset.csv": "7a053b9b6cef2450a58541596911c2b741adcc73376f2aaaed8bdde88ec18497"
+}
